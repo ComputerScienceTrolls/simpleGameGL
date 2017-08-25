@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
+	
 	glewExperimental = GL_TRUE;
 	glewInit();
 	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.

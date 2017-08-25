@@ -1,12 +1,4 @@
-﻿  Texture.cpp
-  Shader.cpp
-  ResourceManager.cpp
-  main.cpp
-c:\users\anthony\documents\visual studio 2017\projects\gameengine\gameengine\main.cpp(63): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-  Game.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-glew32mxs.lib(glew.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'glew32mxs.lib(glew.obj)' or at 'C:\Users\Anthony\Documents\Visual Studio 2017\Projects\gameEngine\x64\Debug\vc100.pdb'; linking object as if no debug info
-  gameEngine.vcxproj -> C:\Users\Anthony\Documents\Visual Studio 2017\Projects\gameEngine\x64\Debug\gameEngine.exe
-  gameEngine.vcxproj -> C:\Users\Anthony\Documents\Visual Studio 2017\Projects\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)
+﻿  main.cpp
+c:\users\anthony\documents\visual studio 2017\projects\gameengine\gameengine\main.cpp(64): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+  gameEngine.vcxproj -> C:\Users\Anthony\documents\visual studio 2017\Projects\gameEngine\x64\Debug\gameEngine.exe
+  gameEngine.vcxproj -> C:\Users\Anthony\documents\visual studio 2017\Projects\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)
