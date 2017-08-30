@@ -9,12 +9,12 @@
 #include "game.h"
 #include "ResourceManager.h"
 #include "sprite_renderer.h"
-#include "GameObject.h"
+#include "Sprite.h"
 
 
 // Game-related State data
 SpriteRenderer  *Renderer;
-GameObject      *Player;
+Sprite      *Player;
 
 
 Game::Game(GLuint width, GLuint height)
@@ -57,7 +57,7 @@ void Game::Init()
 	this->Level = 0;
 	// Configure game objects
 	glm::vec2 playerPos = glm::vec2(this->Width / 2 - PLAYER_SIZE.x / 2, this->Height - PLAYER_SIZE.y);
-	Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
+	Player = new Sprite(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
 }
 
 void Game::Update(GLfloat dt)

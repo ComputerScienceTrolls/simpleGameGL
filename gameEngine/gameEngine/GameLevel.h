@@ -13,7 +13,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "GameObject.h"
+#include "Sprite.h"
 #include "sprite_renderer.h"
 #include "ResourceManager.h"
 
@@ -24,7 +24,7 @@ class GameLevel
 {
 public:
 	// Level state
-	std::vector<GameObject> Bricks;
+	std::vector<Sprite> Bricks;
 	// Constructor
 	GameLevel() { }
 	// Loads level from file
