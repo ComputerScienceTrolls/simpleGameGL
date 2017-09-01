@@ -142,6 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="boxCollider.cpp" />
+    <ClCompile Include="circleCollider.cpp" />
+    <ClCompile Include="collider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="main.cpp" />
@@ -152,6 +155,9 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="boxCollider.h" />
+    <ClInclude Include="circleCollider.h" />
+    <ClInclude Include="collider.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="ResourceManager.h" />
