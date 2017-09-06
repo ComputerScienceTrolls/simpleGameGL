@@ -1,5 +1,6 @@
 #pragma once
 #include "collider.h"
+#include <iostream>
 
 class boxCollider : public collider
 {
@@ -12,6 +13,7 @@ public:
 	virtual int getHeight();
 	virtual int getPosX();
 	virtual int getPosY();
+	std::string getType();
 	~boxCollider();
 
 private:
@@ -19,5 +21,6 @@ private:
 	int offsetW;
 	int posXOffset;
 	int posYOffset;
+	std::string type;
 };
 

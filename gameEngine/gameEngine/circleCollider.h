@@ -6,7 +6,18 @@ class circleCollider : public collider
 
 public:
 	circleCollider();
-	virtual bool collide(Sprite *sprite);
+	circleCollider(float r);
+	circleCollider(float r, int posX, int posY);
+	virtual float getRadius();
+	virtual int getPosX();
+	virtual int getPosY();
+	std::string getType();
 	~circleCollider();
+
+private:
+	int radius;
+	int posXOffset;
+	int posYOffset;
+	std::string type;
 };
 

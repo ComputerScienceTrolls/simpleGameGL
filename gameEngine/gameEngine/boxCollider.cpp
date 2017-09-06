@@ -2,13 +2,13 @@
 
 
 boxCollider::boxCollider(int w, int h) :
-	offsetW(w), offsetH(h), posXOffset(0), posYOffset(0)
+	offsetW(w), offsetH(h), posXOffset(0), posYOffset(0), type("box")
 {
 
 }
 
 boxCollider::boxCollider(int w, int h, int posX, int posY) :
-	offsetW(w), offsetH(h), posXOffset(posX), posYOffset(posY)
+	offsetW(w), offsetH(h), posXOffset(posX), posYOffset(posY), type("box")
 {
 
 }
@@ -36,6 +36,11 @@ int boxCollider::getPosX()
 int boxCollider::getPosY()
 {
 	return posYOffset;
+}
+
+std::string boxCollider::getType()
+{
+	return type;
 }
 
 boxCollider::~boxCollider()
