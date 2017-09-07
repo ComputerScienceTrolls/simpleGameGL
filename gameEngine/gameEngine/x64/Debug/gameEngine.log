@@ -1,30 +1,7 @@
-﻿  Texture.cpp
-  sprite_renderer.cpp
-  Sprite.cpp
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Shader.cpp
-  ResourceManager.cpp
-  main.cpp
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\main.cpp(64): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-  GameLevel.cpp
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\gamelevel.cpp(65): warning C4267: 'initializing': conversion from 'size_t' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\gamelevel.cpp(66): warning C4267: 'initializing': conversion from 'size_t' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\gamelevel.cpp(67): warning C4244: 'initializing': conversion from 'GLuint' to 'GLfloat', possible loss of data
-  Game.cpp
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(49): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(50): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(51): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(52): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-  collider.cpp
-  circleCollider.cpp
-  boxCollider.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-glew32mxs.lib(glew.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'glew32mxs.lib(glew.obj)' or at 'C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\vc100.pdb'; linking object as if no debug info
-soil2-debug.lib(etc1_utils.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(etc1_utils.obj)' or at 'C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\soil2-debug.pdb'; linking object as if no debug info
-soil2-debug.lib(image_DXT.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(image_DXT.obj)' or at 'C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\soil2-debug.pdb'; linking object as if no debug info
-soil2-debug.lib(image_helper.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(image_helper.obj)' or at 'C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\soil2-debug.pdb'; linking object as if no debug info
-soil2-debug.lib(SOIL2.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(SOIL2.obj)' or at 'C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\soil2-debug.pdb'; linking object as if no debug info
+﻿  Game.cpp
+c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(55): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
+c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(56): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
+c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(57): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
+c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(58): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
   gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
   gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)

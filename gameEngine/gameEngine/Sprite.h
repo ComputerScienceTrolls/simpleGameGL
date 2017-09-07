@@ -27,10 +27,17 @@ public:
 	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
 	bool collide(Sprite * otherSprite);
+	void setVelocity(GLfloat dt);
+	void update();
+	void setDX(float newDx);
+	void setDY(float newDy);
 	~Sprite();
 
 private:
 	collider *collider_;
 	std::vector<collider*> colliders_;
+	float		dx;
+	float		dy;
+
 };
 

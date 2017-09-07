@@ -15,7 +15,13 @@
 // Game-related State data
 SpriteRenderer  *Renderer;
 Sprite      *Player;
+Sprite		*Ball;
 
+
+// Initial velocity of the Ball
+const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
+// Radius of the ball object
+const GLfloat BALL_RADIUS = 12.5f;
 
 Game::Game(GLuint width, GLuint height)
 	: State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -39,7 +45,7 @@ void Game::Init()
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 	// Load textures
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
-	ResourceManager::LoadTexture("textures/awesomeface.png", GL_TRUE, "face");
+	ResourceManager::LoadTexture("textures/face.png", GL_TRUE, "face");
 	ResourceManager::LoadTexture("textures/block.png", GL_FALSE, "block");
 	ResourceManager::LoadTexture("textures/block_solid.png", GL_FALSE, "block_solid");
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
@@ -58,11 +64,15 @@ void Game::Init()
 	// Configure game objects
 	glm::vec2 playerPos = glm::vec2(this->Width / 2 - PLAYER_SIZE.x / 2, this->Height - PLAYER_SIZE.y);
 	Player = new Sprite(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
+
+	glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
+	Ball = new Sprite(ballPos, glm::vec2(25,25), ResourceManager::GetTexture("face"));
+	Ball->setDY(.5);
 }
 
 void Game::Update(GLfloat dt)
 {
-
+	Ball->update();
 }
 
 
@@ -95,5 +105,6 @@ void Game::Render()
 		this->Levels[this->Level].Draw(*Renderer);
 		// Draw player
 		Player->Draw(*Renderer);
+		Ball->Draw(*Renderer);
 	}
 }

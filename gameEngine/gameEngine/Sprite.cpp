@@ -1,7 +1,7 @@
 #include "Sprite.h"
 
 Sprite::Sprite()
-	: Position(0, 0), Size(1, 1), Velocity(0.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false)
+	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0)
 {
 	//give default box collider
 	boxCollider *temp = new boxCollider(1, 1);
@@ -90,6 +90,39 @@ bool Sprite::collide(Sprite* otherSprite)
 	}
 	//if we get here, no collision detected, return false
 	return false;
+}
+
+void Sprite::setVelocity(GLfloat dt)
+{
+	this->Position += this->Velocity * dt;
+	std::cout << "Posx: " << this->Position.x;
+	std::cout << "Posy: " << this->Position.y;
+	std::cout << "Velx: " << this->Velocity.x;
+	std::cout << "Vely: " << this->Velocity.y;
+	std::cout << "dt: " << dt;
+	std::cout << this->Position.x << "\n";
+	// Check if outside window bounds; if so, reverse velocity and restore at correct position
+	if (this->Position.x <= 0.0f)
+	{
+		this->Velocity.x = -this->Velocity.x;
+		this->Position.x = 0.0f;
+	}
+}
+
+void Sprite::setDX(float newDx)
+{
+	this->dx = newDx;
+}
+
+void Sprite::setDY(float newDy)
+{
+	this->dy = newDy;
+}
+
+void Sprite::update()
+{
+	this->Position.x += this->dx;
+	this->Position.y -= this->dy;
 }
 
 Sprite::~Sprite()
