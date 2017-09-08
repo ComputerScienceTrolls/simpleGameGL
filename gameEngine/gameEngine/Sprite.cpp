@@ -33,7 +33,7 @@ bool Sprite::collide(Sprite* otherSprite)
 		{
 			for (int j = 0; j < otherSprite->colliders_.size(); j++)
 			{
-				if (colliders_.at(j)->getType() == "box")
+				if (otherSprite->colliders_.at(j)->getType() == "box")
 				{
 					// Collision x-axis?
 					bool collisionX = ((this->Position.x + this->colliders_.at(i)->getPosX()) + (this->colliders_.at(i)->getWidth())) >= otherSprite->Position.x &&
