@@ -67,12 +67,20 @@ void Game::Init()
 
 	glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
 	Ball = new Sprite(ballPos, glm::vec2(25,25), ResourceManager::GetTexture("face"));
-	Ball->setDY(.5);
+	Ball->setSpeed(1);
+	Ball->setMoveAngle(90);
+	Ball->setState("Stuck", true);
+	Ball->setBoundAction("BOUNCE");
 }
 
 void Game::Update(GLfloat dt)
 {
-	Ball->update();
+	if (!Ball->getState("Stuck"))
+	{	
+		Ball->checkBounds(this->Width, this->Height);
+		Ball->update();
+	}
+
 }
 
 
@@ -92,6 +100,8 @@ void Game::ProcessInput(GLfloat dt)
 			if (Player->Position.x <= this->Width - Player->Size.x)
 				Player->Position.x += velocity;
 		}
+		if (this->Keys[GLFW_KEY_SPACE])
+			Ball->setState("Stuck", false);
 	}
 }
 

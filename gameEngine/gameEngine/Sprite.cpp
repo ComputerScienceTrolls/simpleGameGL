@@ -1,7 +1,9 @@
 #include "Sprite.h"
 
+const double PI = 3.141592653589793238463;
+
 Sprite::Sprite()
-	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0)
+	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0), speed(10), moveAngle(0), imgAngle(0)
 {
 	//give default box collider
 	boxCollider *temp = new boxCollider(1, 1);
@@ -14,6 +16,7 @@ Sprite::Sprite(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color,
 {
 	boxCollider *temp = new boxCollider(size.x, size.y);
 	collider_ = temp;
+	this->setBoundAction("DIE");
 }
 
 void Sprite::Draw(SpriteRenderer &renderer)
@@ -119,10 +122,156 @@ void Sprite::setDY(float newDy)
 	this->dy = newDy;
 }
 
+void Sprite::addForce(float angle, float thrust)
+{
+	//input angle is in degrees - convert to radians    
+	angle = angle * PI / 180;
+
+	//calculate dx and dy
+	double newDX = thrust * std::cos(angle);
+	double newDY = thrust * std::sin(angle);
+	this->dx += newDX;
+	this->dy += newDY;
+
+	//ensure speed and angle are updated
+	this->calcSpeedAngle();
+}
+
+void Sprite::calcSpeedAngle()
+{
+	//opposite of calcVector:
+	//sets speed and moveAngle based on dx, dy
+	this->speed = std::sqrt((this->dx * this->dx) + (this->dy * this->dy));
+	this->moveAngle = std::atan2(this->dy, this->dx);
+}
+
+void Sprite::calcVector()
+{
+	//used throughout speed / angle calculations to 
+	//recalculate dx and dy based on speed and angle
+	this->dx = this->speed * std::cos(this->moveAngle);
+	this->dy = this->speed * std::sin(this->moveAngle);
+}
+
+void Sprite::setSpeed(float newSpeed)
+{
+	this->speed = newSpeed;
+	this->calcVector();
+}
+
+void Sprite::setImgAngle(float newAngle)
+{
+	this->imgAngle = newAngle;
+	//this->calcVector();
+}
+
+void Sprite::setMoveAngle(float newAngle)
+{
+	this->moveAngle = newAngle;
+	this->calcVector();
+}
+
 void Sprite::update()
 {
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
+}
+
+void Sprite::setState(std::string key, bool state)
+{
+	states.insert_or_assign(key, state);
+}
+
+bool Sprite::getState(std::string key)
+{
+	return states[key];
+}
+
+void Sprite::setBoundAction(std::string newAction)
+{
+	this->boundAction = newAction;
+}
+
+void Sprite::checkBounds(double screenWidth, double screenHeight)
+{
+	double rightBorder = screenWidth;
+	double leftBorder = 0;
+	double topBorder = 0;
+	double bottomBorder = screenHeight;
+
+	bool offRight = false;
+	bool offLeft = false;
+	bool offTop = false;
+	bool offBottom = false;
+
+	if (this->Position.x > rightBorder) {
+		offRight = true;
+	}
+
+	if (this->Position.x < leftBorder) {
+		offLeft = true;
+	}
+
+	if (this->Position.y > bottomBorder) {
+		offBottom = true;
+	}
+
+	if (this->Position.y < 0) {
+		offTop = true;
+	}
+
+	if (this->boundAction == "WRAP") {
+		if (offRight) {
+			this->Position.x = leftBorder;
+		} // end if
+
+		if (offBottom) {
+			this->Position.y = topBorder;
+		} // end if
+
+		if (offLeft) {
+			this->Position.x = rightBorder;
+		} // end if
+
+		if (offTop) {
+			this->Position.y = bottomBorder;
+		}
+	}
+	else if (this->boundAction == "BOUNCE") {
+		if (offTop || offBottom) {
+			this->dy *= -1;
+			this->calcSpeedAngle();
+			this->imgAngle = this->moveAngle;
+		}
+
+		if (offLeft || offRight) {
+			this->dx *= -1;
+			this->calcSpeedAngle();
+			this->imgAngle = this->moveAngle;
+		}
+
+	}
+	else if (this->boundAction == "STOP") {
+		if (offLeft || offRight || offTop || offBottom) {
+			this->setSpeed(0);
+		}
+	}
+	else if (this->boundAction == "DIE") {
+		if (offLeft || offRight || offTop || offBottom) {
+			this->hide();
+			this->setSpeed(0);
+		}
+
+	}
+	else {
+		//keep on going forever
+	}
+}
+
+void Sprite::hide()
+{
+	this->Position.x = 10000;
+	this->Position.y = 10000;
 }
 
 Sprite::~Sprite()
