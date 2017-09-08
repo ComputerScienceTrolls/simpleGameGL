@@ -49,7 +49,7 @@ bool Sprite::collide(Sprite* otherSprite)
 					}
 				}
 
-				else if (colliders_.at(j)->getType() == "circle")
+				else if (otherSprite->colliders_.at(j)->getType() == "circle")
 				{
 					// Get center point circle first 
 					glm::vec2 center(this->Position + glm::vec2(this->colliders_.at(i)->getPosX(), this->colliders_.at(i)->getPosY()) + this->colliders_.at(i)->getRadius());
