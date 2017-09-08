@@ -80,7 +80,28 @@ void Game::Update(GLfloat dt)
 		Ball->checkBounds(this->Width, this->Height);
 		Ball->update();
 	}
+	CheckCollisions();
 
+}
+
+void Game::CheckCollisions()
+{
+	//checkcollisions for each block in the level
+	for (int i = 0; i < this->Levels[this->Level].Bricks.size(); i++)
+	{
+		Sprite *currentBrick = &this->Levels[this->Level].Bricks[i];
+		if (!currentBrick->Destroyed)
+		{
+			if (Ball->collide(currentBrick))
+			{
+				std::cout << "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
+				currentBrick->hide();
+				currentBrick->setSpeed(.01);
+				//if (!currentBrick.IsSolid)
+					//currentBrick.Destroyed = GL_TRUE;
+			}
+		}
+	}
 }
 
 

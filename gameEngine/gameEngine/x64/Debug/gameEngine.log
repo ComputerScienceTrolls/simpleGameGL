@@ -1,17 +1,8 @@
-﻿  Sprite.cpp
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(17): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(128): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(133): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(134): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(225): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(229): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(233): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(237): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Game.cpp
+﻿  Game.cpp
 c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(55): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
 c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(56): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
 c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(57): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
 c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(58): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-  Generating Code...
+c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(99): warning C4305: 'argument': truncation from 'double' to 'float'
   gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
   gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)

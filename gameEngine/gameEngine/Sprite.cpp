@@ -7,6 +7,7 @@ Sprite::Sprite()
 {
 	//give default box collider
 	boxCollider *temp = new boxCollider(1, 1);
+	colliders_.push_back(temp);
 
 }
 
@@ -15,7 +16,7 @@ Sprite::Sprite(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color,
 	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), Texture(sprite), IsSolid(false), Destroyed(false)
 {
 	boxCollider *temp = new boxCollider(size.x, size.y);
-	collider_ = temp;
+	colliders_.push_back(temp);
 	this->setBoundAction("DIE");
 }
 
@@ -42,7 +43,10 @@ bool Sprite::collide(Sprite* otherSprite)
 						otherSprite->Position.y + otherSprite->colliders_.at(j)->getPosY() + otherSprite->Size.y + otherSprite->colliders_.at(j)->getHeight() >= this->Position.y;
 					// Collision only if on both axes
 					if (collisionX && collisionY)
+					{
+						std::cout << "test4";
 						return collisionX && collisionY;
+					}
 				}
 
 				else if (colliders_.at(j)->getType() == "circle")

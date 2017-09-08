@@ -47,6 +47,7 @@ public:
 	// GameLoop
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
+	void CheckCollisions();
 	void Render();
 };
 
