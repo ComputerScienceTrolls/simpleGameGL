@@ -1,5 +1,6 @@
+#include "Scene.h"
 #include "Sprite.h"
-
+//#include "Scene.h"
 //pie constant for math
 const double PI = 3.141592653589793238463;
 
@@ -17,7 +18,7 @@ Sprite::Sprite()
 }
 
 
-Sprite::Sprite(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color, glm::vec2 velocity)
+Sprite::Sprite(Scene *scene, glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color, glm::vec2 velocity)
 	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), Texture(sprite), IsSolid(false), Destroyed(false), collideDebug(false)
 {
 	boxCollider *temp = new boxCollider(size.x, size.y);
