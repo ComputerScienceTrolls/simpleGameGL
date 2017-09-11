@@ -3,6 +3,7 @@
 
 #include "texture.h"
 #include "sprite_renderer.h"
+#include "ResourceManager.h"
 #include <math.h>
 
 #include <iostream>
@@ -36,6 +37,7 @@ public:
 	void setBoundAction(std::string newAction);
 	void checkBounds(double screenWidth, double screenHeight);
 	void hide();
+	void setCollideDebug(bool state);
 	void setDX(float newDx);
 	void setDY(float newDy);
 	void addForce(float angle, float mag);
@@ -54,8 +56,10 @@ private:
 	float speed;
 	float moveAngle;
 	float imgAngle;
+	bool collideDebug;
 	std::map<std::string , bool> states;
 	std::string boundAction;
+	
 
 };
 

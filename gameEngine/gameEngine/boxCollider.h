@@ -4,7 +4,8 @@
 
 class boxCollider : public collider
 {
-	class Sprite;
+	class SpriteRender;
+
 public:
 	boxCollider (int w, int h);
 	boxCollider(int w, int h, int posX, int posY);
@@ -22,5 +23,6 @@ private:
 	int posXOffset;
 	int posYOffset;
 	std::string type;
+	SpriteRender *renderer;
 };
 

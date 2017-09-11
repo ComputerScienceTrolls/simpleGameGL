@@ -1,8 +1,2 @@
-﻿  Game.cpp
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(55): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(56): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(57): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(58): warning C4244: 'argument': conversion from 'double' to 'GLuint', possible loss of data
-c:\users\best\documents\github\simplegamegl\gameengine\gameengine\game.cpp(99): warning C4305: 'argument': truncation from 'double' to 'float'
-  gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
+﻿  gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
   gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)

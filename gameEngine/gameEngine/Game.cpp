@@ -71,6 +71,8 @@ void Game::Init()
 	Ball->setMoveAngle(90);
 	Ball->setState("Stuck", true);
 	Ball->setBoundAction("BOUNCE");
+	Player->setBoundAction("STOP");
+	Ball->setCollideDebug(true);
 }
 
 void Game::Update(GLfloat dt)
@@ -80,6 +82,8 @@ void Game::Update(GLfloat dt)
 		Ball->checkBounds(this->Width, this->Height);
 		Ball->update();
 	}
+	Player->checkBounds(this->Width, this->Height);
+	Player->update();
 	CheckCollisions();
 
 }
@@ -94,9 +98,7 @@ void Game::CheckCollisions()
 		{
 			if (Ball->collide(currentBrick))
 			{
-				std::cout << "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
 				currentBrick->hide();
-				currentBrick->setSpeed(.01);
 				//if (!currentBrick.IsSolid)
 					//currentBrick.Destroyed = GL_TRUE;
 			}
@@ -109,17 +111,26 @@ void Game::ProcessInput(GLfloat dt)
 {
 	if (this->State == GAME_ACTIVE)
 	{
-		GLfloat velocity = PLAYER_VELOCITY * dt;
 		// Move playerboard
 		if (this->Keys[GLFW_KEY_A])
 		{
-			if (Player->Position.x >= 0)
-				Player->Position.x -= velocity;
+			Player->Position.x -= 1;
+			if (Ball->getState("Stuck"))
+				Ball->Position.x -= 1;
 		}
 		if (this->Keys[GLFW_KEY_D])
 		{
-			if (Player->Position.x <= this->Width - Player->Size.x)
-				Player->Position.x += velocity;
+			Player->Position.x += 1;
+			if (Ball->getState("Stuck"))
+				Ball->Position.x += 1;
+		}
+		if (this->Keys[GLFW_KEY_W])
+		{
+			Player->Position.y -= 1;
+		}
+		if (this->Keys[GLFW_KEY_S])
+		{
+			Player->Position.y += 1;
 		}
 		if (this->Keys[GLFW_KEY_SPACE])
 			Ball->setState("Stuck", false);

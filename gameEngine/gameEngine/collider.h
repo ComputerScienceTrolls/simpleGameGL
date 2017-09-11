@@ -4,10 +4,10 @@
 
 class collider
 {
-	class Sprite;
+	class SpriteRender;
 public:
 	collider();
-	virtual bool collide(Sprite *sprite) { return false; };
+	virtual bool collide() { return false; };
 	virtual std::string getType() = 0;
 	virtual int getWidth() = 0;
 	virtual int getHeight() = 0;
@@ -17,6 +17,9 @@ public:
 	//needed for circle collider
 	virtual float getRadius() {return 0;};
 	~collider();
+
+private:
+	SpriteRender *render;
 
 };
 
