@@ -26,6 +26,10 @@ Sprite::Sprite(Scene *scene, glm::vec2 pos, glm::vec2 size, Texture2D sprite, gl
 	this->setBoundAction("DIE");
 	//texture for collider debug
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+
+	parentScene = scene;
+	//add Sprite to Scene
+	scene->Sprites->push_back(this);
 }
 
 void Sprite::Draw(SpriteRenderer &renderer)

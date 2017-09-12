@@ -60,6 +60,7 @@ private:
 	bool collideDebug;
 	std::map<std::string , bool> states;
 	std::string boundAction;
+	Scene *parentScene;
 	
 
 };
