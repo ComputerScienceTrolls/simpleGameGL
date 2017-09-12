@@ -28,5 +28,8 @@ int main(int argc, char *argv[])
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	Sprite *Player = new Sprite(mainScene, glm::vec2(10,10), glm::vec2(10, 10), ResourceManager::GetTexture("paddle"));
+	
+	
+
 	return 0;
 }

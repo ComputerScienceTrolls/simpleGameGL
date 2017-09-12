@@ -18,7 +18,7 @@ Sprite::Sprite()
 }
 
 
-Sprite::Sprite(Scene *scene, glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color, glm::vec2 velocity)
+Sprite::Sprite(Scene& scene, glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color, glm::vec2 velocity)
 	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), Texture(sprite), IsSolid(false), Destroyed(false), collideDebug(false)
 {
 	boxCollider *temp = new boxCollider(size.x, size.y);
@@ -27,9 +27,12 @@ Sprite::Sprite(Scene *scene, glm::vec2 pos, glm::vec2 size, Texture2D sprite, gl
 	//texture for collider debug
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 
-	parentScene = scene;
+	parentScene = &scene;
+	
+	
 	//add Sprite to Scene
-	scene->Sprites->push_back(this);
+
+	
 }
 
 void Sprite::Draw(SpriteRenderer &renderer)
