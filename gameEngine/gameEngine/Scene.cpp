@@ -12,10 +12,24 @@ SpriteRenderer  *Renderer;
 
 void Scene::Init()
 {
-
+	/*
+	// Load shaders
+	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
+	// Configure shaders
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
+	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+	*/
 }
 
-Scene::Scene(GLuint width, GLuint height)
+Scene::Scene(GLuint width, GLuint height) :
+	Width(width), Height(height)
+{
+	
+}
+
+void Scene::Start()
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -23,7 +37,7 @@ Scene::Scene(GLuint width, GLuint height)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(width, height, "HelloWorld", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(Width, Height, "HelloWorld", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 
@@ -34,7 +48,7 @@ Scene::Scene(GLuint width, GLuint height)
 	glfwSetKeyCallback(window, key_callback);
 
 	// OpenGL configuration
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, Width, Height);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -45,6 +59,7 @@ Scene::Scene(GLuint width, GLuint height)
 
 	// Start Game within Menu State
 	this->State = GAME_ACTIVE;
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -68,7 +83,10 @@ Scene::Scene(GLuint width, GLuint height)
 
 		glfwSwapBuffers(window);
 	}
+}
 
+void Scene::Stop()
+{
 	// Delete all resources as loaded using the resource manager
 	ResourceManager::Clear();
 
@@ -77,6 +95,12 @@ Scene::Scene(GLuint width, GLuint height)
 
 void Scene::Update(GLfloat dt)
 {
+	//for each sprite in scene
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		std::cout << "I dance on the graves of my enemies";
+		Renderer->DrawSprite(Sprites.at(i)->Texture, Sprites.at(i)->Position, Sprites.at(i)->Size, Sprites.at(i)->Rotation, Sprites.at(i)->Color);
+	}
 
 }
 

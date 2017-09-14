@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractSprite.cpp" />
     <ClCompile Include="boxCollider.cpp" />
     <ClCompile Include="circleCollider.cpp" />
     <ClCompile Include="collider.cpp" />
@@ -151,10 +152,12 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteFactory.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractSprite.h" />
     <ClInclude Include="boxCollider.h" />
     <ClInclude Include="circleCollider.h" />
     <ClInclude Include="collider.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteFactory.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>

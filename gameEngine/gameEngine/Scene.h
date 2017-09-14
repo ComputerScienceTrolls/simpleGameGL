@@ -7,6 +7,7 @@
 
 #include "ResourceManager.h"
 #include "sprite_renderer.h"
+#include "AbstractSprite.h"
 
 #include <vector>
 
@@ -22,7 +23,6 @@ enum GameState {
 // easy access to each of the components and manageability.
 class Scene
 {
-	class Sprite;
 public:
 	// Game state
 	GameState	State;
@@ -30,6 +30,8 @@ public:
 	GLuint	Width, Height;
 	// Constructor/Destructor
 	Scene(GLuint width, GLuint height);
+	void Start();
+	void Stop();
 	~Scene();
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();
@@ -39,6 +41,6 @@ public:
 	//void CheckCollisions();
 	void Render();
 
-	std::vector<Sprite*> Sprites;
+	std::vector<AbstractSprite*> Sprites;
 };
 #endif

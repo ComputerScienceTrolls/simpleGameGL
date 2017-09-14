@@ -1,2 +1,2 @@
-﻿  main.cpp
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\main.cpp(30): error C2664: 'Sprite::Sprite(const Sprite &)': cannot convert argument 1 from 'Scene *' to 'Scene &'
+﻿  gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
+  gameEngine.vcxproj -> C:\Users\best\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)

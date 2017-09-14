@@ -10,11 +10,13 @@
 #include <vector>
 #include <map>
 
+#include "AbstractSprite.h"
 #include "boxCollider.h"
+#include "Scene.h"
 
 #pragma once
 class Scene;
-class Sprite
+class Sprite : AbstractSprite
 {
 public:
 	// Object state
