@@ -12,6 +12,22 @@ SpriteRenderer  *Renderer;
 
 void Scene::Init()
 {
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+	window = glfwCreateWindow(Width, Height, "HelloWorld", nullptr, nullptr);
+	glfwMakeContextCurrent(window);
+
+
+	glewExperimental = GL_TRUE;
+	glewInit();
+	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
+
+	glfwSetKeyCallback(window, key_callback);
+
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
 	// Configure shaders
@@ -37,21 +53,7 @@ Scene::Scene(GLuint width, GLuint height) :
 
 void Scene::Start()
 {
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-	GLFWwindow* window = glfwCreateWindow(Width, Height, "HelloWorld", nullptr, nullptr);
-	glfwMakeContextCurrent(window);
-
-
-	glewExperimental = GL_TRUE;
-	glewInit();
-	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
-
-	glfwSetKeyCallback(window, key_callback);
+	
 
 	// OpenGL configuration
 	glViewport(0, 0, Width, Height);

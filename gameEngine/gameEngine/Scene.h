@@ -42,5 +42,6 @@ public:
 	void Render();
 
 	std::vector<AbstractSprite*> Sprites;
+	GLFWwindow* window;
 };
 #endif
