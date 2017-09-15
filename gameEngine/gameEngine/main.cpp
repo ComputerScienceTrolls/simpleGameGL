@@ -23,17 +23,12 @@ const GLuint SCREEN_HEIGHT = 600;
 
 int main(int argc, char *argv[])
 {
-	Scene *mainScene = new Scene(800, 600);
-	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
-	// Configure shaders
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
-	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
-	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
-	Sprite *Player = new Sprite(*mainScene, glm::vec2(10,10), glm::vec2(10, 10), ResourceManager::GetTexture("paddle"));
+	Scene mainScene(800, 600);
+	mainScene.Init();
+	Sprite *Player = new Sprite(mainScene, glm::vec2(10,10), glm::vec2(10, 10), ResourceManager::GetTexture("paddle"));
 
-	mainScene->Start();
-	std::cout << mainScene->Sprites.at(0)->Position.x;
+	mainScene.Start();
+	std::cout << mainScene.Sprites.at(0)->Position.x;
 	
 	
 

@@ -12,6 +12,18 @@ SpriteRenderer  *Renderer;
 
 void Scene::Init()
 {
+	// Load shaders
+	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
+	// Configure shaders
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
+	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+}
+
+Scene::Scene(GLuint width, GLuint height) :
+	Width(width), Height(height)
+{
 	/*
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
@@ -21,12 +33,6 @@ void Scene::Init()
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 	*/
-}
-
-Scene::Scene(GLuint width, GLuint height) :
-	Width(width), Height(height)
-{
-	
 }
 
 void Scene::Start()
