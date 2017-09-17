@@ -13,9 +13,6 @@
 #include "Sprite.h"
 
 
-// GLFW function declerations
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
@@ -25,10 +22,11 @@ int main(int argc, char *argv[])
 {
 	Scene mainScene(800, 600);
 	mainScene.Init();
-	Sprite *Player = new Sprite(mainScene, glm::vec2(10,10), glm::vec2(10, 10), ResourceManager::GetTexture("paddle"));
 
+	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
+	Sprite *Player = new Sprite(mainScene, glm::vec2(10,10), glm::vec2(10, 10), ResourceManager::GetTexture("paddle"));
+	
 	mainScene.Start();
-	std::cout << mainScene.Sprites.at(0)->Position.x;
 	
 	
 

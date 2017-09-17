@@ -11,6 +11,7 @@ public:
 	GLfloat     Rotation;
 	GLboolean   IsSolid;
 	GLboolean   Destroyed;
+	bool collideDebug;
 	// Render state
 	Texture2D	Texture;
 	virtual void Draw(SpriteRenderer &renderer) {};

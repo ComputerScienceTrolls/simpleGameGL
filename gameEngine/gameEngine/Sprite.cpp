@@ -28,8 +28,24 @@ Sprite::Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, Texture2D sprite, gl
 	//parentScene = &scene;
 
 
+	int lastSprite = 0;
+	lastSprite = scene.Sprites.size();
+
 	//add Sprite to Scene
 	scene.Sprites.push_back(this);
+
+	scene.Sprites.at(lastSprite)->Position = this->Position;
+	scene.Sprites.at(lastSprite)->Size = this->Size;
+	scene.Sprites.at(lastSprite)->Velocity = this->Velocity;
+	scene.Sprites.at(lastSprite)->Color = this->Color;
+	scene.Sprites.at(lastSprite)->Rotation = this->Rotation;
+	scene.Sprites.at(lastSprite)->Texture = this->Texture;
+	scene.Sprites.at(lastSprite)->IsSolid = this->IsSolid;
+	scene.Sprites.at(lastSprite)->Destroyed = this->Destroyed;
+	scene.Sprites.at(lastSprite)->collideDebug = this->collideDebug;
+
+	std::cout << this->Texture.Width << "\n";
+	std::cout << "nope: "<< scene.Sprites.at(0)->Texture.Width;
 	
 }
 

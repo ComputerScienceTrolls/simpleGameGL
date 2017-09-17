@@ -10,6 +10,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 //const GLuint SCREEN_HEIGHT = 600;
 SpriteRenderer  *Renderer;
 
+struct KeyHandler
+{
+	GLboolean Keys[1024];
+	int test = 0;
+}; 
+
+KeyHandler keyHandler;
+
 void Scene::Init()
 {
 	glfwInit();
@@ -35,11 +43,14 @@ void Scene::Init()
 	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+
+	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
 }
 
 Scene::Scene(GLuint width, GLuint height) :
-	Width(width), Height(height)
+	Width(width), Height(height), Keys()
 {
+	KeyHandler keyHandler;
 	/*
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
@@ -106,7 +117,6 @@ void Scene::Update(GLfloat dt)
 	//for each sprite in scene
 	for (int i = 0; i < Sprites.size(); i++)
 	{
-		std::cout << "I dance on the graves of my enemies";
 		Renderer->DrawSprite(Sprites.at(i)->Texture, Sprites.at(i)->Position, Sprites.at(i)->Size, Sprites.at(i)->Rotation, Sprites.at(i)->Color);
 	}
 
@@ -116,6 +126,12 @@ void Scene::ProcessInput(GLfloat dt)
 {
 	if (this->State == GAME_ACTIVE)
 	{
+		// Move playerboard
+		if (keyHandler.Keys[GLFW_KEY_A])
+		{
+			std::cout << "test";
+		}
+		
 	}
 }
 
@@ -123,7 +139,12 @@ void Scene::Render()
 {
 	if (this->State == GAME_ACTIVE)
 	{
-
+		Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0), glm::vec2(this->Width, this->Height), 0.0f);
+		//for each sprite in scene
+		for (int i = 0; i < Sprites.size(); i++)
+		{
+			Renderer->DrawSprite(Sprites.at(i)->Texture, Sprites.at(i)->Position, Sprites.at(i)->Size, Sprites.at(i)->Rotation, Sprites.at(i)->Color);
+		}
 	}
 }
 
@@ -135,10 +156,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	if (key >= 0 && key < 1024)
 	{
-		//if (action == GLFW_PRESS)
-			//Breakout.Keys[key] = GL_TRUE;
-		//else if (action == GLFW_RELEASE)
-			//Breakout.Keys[key] = GL_FALSE;
+		if (action == GLFW_PRESS)
+			keyHandler.Keys[key] = GL_TRUE;
+		else if (action == GLFW_RELEASE)
+			keyHandler.Keys[key] = GL_FALSE;
 	}
 }
 
