@@ -29,7 +29,7 @@ public:
 	Texture2D	Texture;
 	// Constructor(s)
 	Sprite();
-	Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, Texture2D Texture, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
+	Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
 	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
 	bool collide(Sprite * otherSprite);
