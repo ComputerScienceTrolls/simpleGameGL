@@ -20,13 +20,11 @@ class Sprite : AbstractSprite
 {
 public:
 	// Object state
-	glm::vec2   Position, Size, Velocity;
-	glm::vec3   Color;
-	GLfloat     Rotation;
+	//glm::vec2   Position, Size, Velocity;
+	//glm::vec3   Color;
+	//GLfloat     Rotation;
 	GLboolean   IsSolid;
 	GLboolean   Destroyed;
-	// Render state
-	Texture2D	Texture;
 	// Constructor(s)
 	Sprite();
 	Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
@@ -49,6 +47,18 @@ public:
 	void setSpeed(float newSpeed);
 	void setImgAngle(float newAngle);
 	void setMoveAngle(float newAngle);
+	virtual glm::vec2 getPosition();
+	virtual glm::vec2 getSize();
+	virtual Texture2D getTexture();
+	virtual glm::vec2 getVelocity();
+	virtual glm::vec3 getColor();
+	virtual GLfloat getRotation();
+	virtual void setPosition(glm::vec2);
+	virtual void setSize(glm::vec2);
+	virtual void setTexture(Texture2D);
+	virtual void setVelocity(glm::vec2);
+	virtual void setColor(glm::vec3);
+	virtual void setRotation(GLfloat);
 	~Sprite();
 
 private:
@@ -60,6 +70,10 @@ private:
 	float moveAngle;
 	float imgAngle;
 	bool collideDebug;
+	glm::vec2   Position, Size, Velocity;
+	Texture2D	Texture;
+	glm::vec3   Color;
+	GLfloat     Rotation;
 	std::map<std::string , bool> states;
 	std::string boundAction;
 	Scene *parentScene;

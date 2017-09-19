@@ -117,7 +117,11 @@ void Scene::Update(GLfloat dt)
 	//for each sprite in scene
 	for (int i = 0; i < Sprites.size(); i++)
 	{
-		Renderer->DrawSprite(Sprites.at(i)->Texture, Sprites.at(i)->Position, Sprites.at(i)->Size, Sprites.at(i)->Rotation, Sprites.at(i)->Color);
+		if (Sprites.at(i)->getState("active"))
+		{
+			Sprites.at(i)->update();
+			Sprites.at(i)->checkBounds(Width, Height);
+		}
 	}
 
 }
@@ -143,7 +147,8 @@ void Scene::Render()
 		//for each sprite in scene
 		for (int i = 0; i < Sprites.size(); i++)
 		{
-			Renderer->DrawSprite(Sprites.at(i)->Texture, Sprites.at(i)->Position, Sprites.at(i)->Size, Sprites.at(i)->Rotation, Sprites.at(i)->Color);
+			Renderer->DrawSprite(Sprites.at(i)->getTexture(), Sprites.at(i)->getPosition(), Sprites.at(i)->getSize(), Sprites.at(i)->getRotation(), Sprites.at(i)->getColor());
+			std::cout << "YYYYYYYYYYYYYYYY: " << Sprites.at(i)->getPosition().x << "\n";
 		}
 	}
 }

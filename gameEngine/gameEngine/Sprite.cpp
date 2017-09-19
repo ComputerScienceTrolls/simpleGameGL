@@ -39,18 +39,17 @@ Sprite::Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm
 	//add Sprite to Scene
 	scene.Sprites.push_back(this);
 
-	scene.Sprites.at(lastSprite)->Position = this->Position;
-	scene.Sprites.at(lastSprite)->Size = this->Size;
-	scene.Sprites.at(lastSprite)->Velocity = this->Velocity;
-	scene.Sprites.at(lastSprite)->Color = this->Color;
-	scene.Sprites.at(lastSprite)->Rotation = this->Rotation;
-	scene.Sprites.at(lastSprite)->Texture = this->Texture;
+	scene.Sprites.at(lastSprite)->setPosition(Position);
+	scene.Sprites.at(lastSprite)->setPosition(this->Size);
+	scene.Sprites.at(lastSprite)->setVelocity(this->Velocity);
+	scene.Sprites.at(lastSprite)->setColor(this->Color);
+	scene.Sprites.at(lastSprite)->setRotation(this->Rotation);
+	scene.Sprites.at(lastSprite)->setTexture(this->Texture);
 	scene.Sprites.at(lastSprite)->IsSolid = this->IsSolid;
 	scene.Sprites.at(lastSprite)->Destroyed = this->Destroyed;
 	scene.Sprites.at(lastSprite)->collideDebug = this->collideDebug;
-
-	std::cout << this->Texture.Width << "\n";
-	std::cout << "nope: "<< scene.Sprites.at(0)->Texture.Width;
+	
+	this->setState("active", true);
 	
 }
 
@@ -214,10 +213,72 @@ void Sprite::setMoveAngle(float newAngle)
 	this->calcVector();
 }
 
+glm::vec2 Sprite::getPosition()
+{
+	return this->Position;
+}
+
+glm::vec2 Sprite::getSize()
+{
+	return this->Size;
+}
+
+Texture2D Sprite::getTexture()
+{
+	return this->Texture;
+}
+
+glm::vec2 Sprite::getVelocity()
+{
+	return this->Velocity;
+}
+
+glm::vec3 Sprite::getColor()
+{
+	return this->Color;
+}
+
+GLfloat Sprite::getRotation()
+{
+	return this->Rotation;
+}
+
+void Sprite::setPosition(glm::vec2 newPosition)
+{
+	this->Position = newPosition;
+}
+
+void Sprite::setSize(glm::vec2 newSize)
+{
+	this->Size = newSize;
+}
+
+void Sprite::setTexture(Texture2D newTexture)
+{
+	this->Texture = newTexture;
+}
+
+void Sprite::setVelocity(glm::vec2 newVelocity)
+{
+	this->Velocity = newVelocity;
+}
+
+void Sprite::setColor(glm::vec3 newColor)
+{
+	this->Color = newColor;
+}
+
+void Sprite::setRotation(GLfloat newRotation)
+{
+	this->Rotation = newRotation;
+}
+
 void Sprite::update()
 {
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
+	std::cout << this->Position.x;
+	std::cout << this->Position.y;
 }
 
 void Sprite::setState(std::string key, bool state)
