@@ -64,8 +64,11 @@ Scene::Scene(GLuint width, GLuint height) :
 
 void Scene::Start()
 {
-	
-
+	//setup SpriteMap
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		spriteMap[Sprites.at(i)->getName()] = Sprites.at(i);
+	}
 	// OpenGL configuration
 	glViewport(0, 0, Width, Height);
 	glEnable(GL_CULL_FACE);
@@ -121,8 +124,14 @@ void Scene::Update(GLfloat dt)
 		{
 			Sprites.at(i)->update();
 			Sprites.at(i)->checkBounds(Width, Height);
+			//colliders
+			//Sprites.at(i)->Draw(*Renderer);
 		}
 	}
+
+	//check for collidition between ball and paddle
+	if (spriteMap["Ball"]->collide(spriteMap["Paddle"]))
+		spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 
 }
 
@@ -133,7 +142,19 @@ void Scene::ProcessInput(GLfloat dt)
 		// Move playerboard
 		if (keyHandler.Keys[GLFW_KEY_A])
 		{
-			std::cout << "test";
+			spriteMap["Paddle"]->addForce(180,.1);
+		}
+		if (keyHandler.Keys[GLFW_KEY_D])
+		{
+			spriteMap["Paddle"]->addForce(0,.1);
+		}
+		if (keyHandler.Keys[GLFW_KEY_W])
+		{
+			spriteMap["Paddle"]->addForce(90,.1);
+		}
+		if (keyHandler.Keys[GLFW_KEY_S])
+		{
+			spriteMap["Paddle"]->addForce(270,.1);
 		}
 		
 	}
@@ -147,8 +168,8 @@ void Scene::Render()
 		//for each sprite in scene
 		for (int i = 0; i < Sprites.size(); i++)
 		{
-			Renderer->DrawSprite(Sprites.at(i)->getTexture(), Sprites.at(i)->getPosition(), Sprites.at(i)->getSize(), Sprites.at(i)->getRotation(), Sprites.at(i)->getColor());
-			std::cout << "YYYYYYYYYYYYYYYY: " << Sprites.at(i)->getPosition().x << "\n";
+			Sprites.at(i)->Draw(*Renderer);
+			//Renderer->DrawSprite(Sprites.at(i)->getTexture(), Sprites.at(i)->getPosition(), Sprites.at(i)->getSize(), Sprites.at(i)->getRotation(), Sprites.at(i)->getColor());
 		}
 	}
 }

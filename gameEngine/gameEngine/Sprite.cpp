@@ -16,13 +16,14 @@ Sprite::Sprite()
 }
 
 
-Sprite::Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
+Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
 	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
 	boxCollider *temp = new boxCollider(size.x, size.y);
 	colliders_.push_back(temp);
 	this->setBoundAction("DIE");
-	
+
+	this->name = name;
 	//load texture
 	ResourceManager::LoadTexture(texture,true,texture);
 	this->Texture = ResourceManager::GetTexture(texture);
@@ -55,18 +56,20 @@ Sprite::Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm
 
 void Sprite::Draw(SpriteRenderer &renderer)
 {
+	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor());
 	//check if collideDebug is true, if so draw all colliders
 	if (collideDebug)
 	{
-		for (int i = 0; i < colliders_.size(); i++)
+		for (int i = 0; i < getColliders().size(); i++)
 		{
-			renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(colliders_.at(i)->getPosX() + this->Position.x, colliders_.at(i)->getPosY() + this->Position.y),glm::vec2(colliders_.at(i)->getWidth(), colliders_.at(i)->getHeight()),0,glm::vec3(0,0,0));
+			std::cout << "test";
+			renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y),glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()),0,glm::vec3(0,0,0));
 		}
 	}
-	renderer.DrawSprite(this->Texture, this->Position, this->Size, this->Rotation, this->Color);
+	//renderer.DrawSprite(this->Texture, this->Position, this->Size, this->Rotation, this->Color);
 }
 
-bool Sprite::collide(Sprite* otherSprite)
+bool Sprite::collide(AbstractSprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
@@ -77,16 +80,16 @@ bool Sprite::collide(Sprite* otherSprite)
 		}
 		if (colliders_.at(i)->getType() == "box")
 		{
-			for (int j = 0; j < otherSprite->colliders_.size(); j++)
+			for (int j = 0; j < otherSprite->getColliders().size(); j++)
 			{
-				if (otherSprite->colliders_.at(j)->getType() == "box")
+				if (otherSprite->getColliders().at(j)->getType() == "box")
 				{
 					// Collision x-axis?
-					bool collisionX = ((this->Position.x + this->colliders_.at(i)->getPosX()) + (this->colliders_.at(i)->getWidth())) >= otherSprite->Position.x &&
-						otherSprite->Position.x + otherSprite->colliders_.at(j)->getPosX() + otherSprite->colliders_.at(j)->getWidth() >= this->Position.x;
+					bool collisionX = ((this->getPosition().x + this->getColliders().at(i)->getPosX()) + (this->getColliders().at(i)->getWidth())) >= otherSprite->getPosition().x &&
+						otherSprite->getPosition().x + otherSprite->getColliders().at(j)->getPosX() + otherSprite->getColliders().at(j)->getWidth() >= this->getPosition().x;
 					// Collision y-axis?
-					bool collisionY = (this->Position.y + this->colliders_.at(i)->getPosY()) + (this->Size.y + this->colliders_.at(i)->getHeight()) >= otherSprite->Position.y &&
-						otherSprite->Position.y + otherSprite->colliders_.at(j)->getPosY() + otherSprite->Size.y + otherSprite->colliders_.at(j)->getHeight() >= this->Position.y;
+					bool collisionY = (this->Position.y + this->colliders_.at(i)->getPosY()) + (this->Size.y + this->colliders_.at(i)->getHeight()) >= otherSprite->getPosition().y &&
+						otherSprite->getPosition().y + otherSprite->getColliders().at(j)->getPosY() + otherSprite->getSize().y + otherSprite->getColliders().at(j)->getHeight() >= this->getPosition().y;
 					// Collision only if on both axes
 					if (collisionX && collisionY)
 					{
@@ -94,15 +97,15 @@ bool Sprite::collide(Sprite* otherSprite)
 					}
 				}
 
-				else if (otherSprite->colliders_.at(j)->getType() == "circle")
+				else if (otherSprite->getColliders().at(j)->getType() == "circle")
 				{
 					// Get center point circle first 
-					glm::vec2 center(this->Position + glm::vec2(this->colliders_.at(i)->getPosX(), this->colliders_.at(i)->getPosY()) + this->colliders_.at(i)->getRadius());
+					glm::vec2 center(this->getPosition() + glm::vec2(this->getColliders().at(i)->getPosX(), this->getColliders().at(i)->getPosY()) + this->getColliders().at(i)->getRadius());
 					// Calculate AABB info (center, half-extents)
-					glm::vec2 aabb_half_extents(otherSprite->Size.x / 2, otherSprite->Size.y / 2);
+					glm::vec2 aabb_half_extents(otherSprite->getSize().x / 2, otherSprite->getSize().y / 2);
 					glm::vec2 aabb_center(
-						otherSprite->Position.x + otherSprite->colliders_.at(j)->getPosX() + aabb_half_extents.x,
-						otherSprite->Position.y + otherSprite->colliders_.at(j)->getPosY() + aabb_half_extents.y
+						otherSprite->getPosition().x + otherSprite->getColliders().at(j)->getPosX() + aabb_half_extents.x,
+						otherSprite->getPosition().y + otherSprite->getColliders().at(j)->getPosY() + aabb_half_extents.y
 					);
 					// Get difference vector between both centers
 					glm::vec2 difference = center - aabb_center;
@@ -111,7 +114,7 @@ bool Sprite::collide(Sprite* otherSprite)
 					glm::vec2 closest = aabb_center + clamped;
 					// Retrieve vector between center circle and closest point AABB and check if length <= radius
 					difference = closest - center;
-					if (glm::length(difference) < this->colliders_.at(i)->getRadius())
+					if (glm::length(difference) < this->getColliders().at(i)->getRadius())
 						return true;
 				}
 
@@ -123,10 +126,10 @@ bool Sprite::collide(Sprite* otherSprite)
 			// Get center point circle first 
 			glm::vec2 center(this->Position + glm::vec2(this->colliders_.at(i)->getPosX(), this->colliders_.at(i)->getPosY()) + this->colliders_.at(i)->getRadius());
 			// Calculate AABB info (center, half-extents)
-			glm::vec2 aabb_half_extents(otherSprite->Size.x / 2, otherSprite->Size.y / 2);
+			glm::vec2 aabb_half_extents(otherSprite->getSize().x / 2, otherSprite->getSize().y / 2);
 			glm::vec2 aabb_center(
-				otherSprite->Position.x + aabb_half_extents.x,
-				otherSprite->Position.y + aabb_half_extents.y
+				otherSprite->getPosition().x + aabb_half_extents.x,
+				otherSprite->getPosition().y + aabb_half_extents.y
 			);
 			// Get difference vector between both centers
 			glm::vec2 difference = center - aabb_center;
@@ -203,7 +206,7 @@ void Sprite::setSpeed(float newSpeed)
 
 void Sprite::setImgAngle(float newAngle)
 {
-	this->imgAngle = newAngle;
+	this->Rotation = newAngle;
 	//this->calcVector();
 }
 
@@ -243,6 +246,21 @@ GLfloat Sprite::getRotation()
 	return this->Rotation;
 }
 
+std::vector<collider*> Sprite::getColliders()
+{
+	return this->colliders_;
+}
+
+std::string Sprite::getName()
+{
+	return this->name;
+}
+
+GLfloat Sprite::getDX()
+{
+	return this->dx;
+}
+
 void Sprite::setPosition(glm::vec2 newPosition)
 {
 	this->Position = newPosition;
@@ -273,12 +291,19 @@ void Sprite::setRotation(GLfloat newRotation)
 	this->Rotation = newRotation;
 }
 
+void Sprite::setColliders(std::vector<collider*> newColliders)
+{
+	this->colliders_ = newColliders;
+}
+
+void Sprite::setName(std::string)
+{
+}
+
 void Sprite::update()
 {
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
-	std::cout << this->Position.x;
-	std::cout << this->Position.y;
 }
 
 void Sprite::setState(std::string key, bool state)
@@ -367,10 +392,8 @@ void Sprite::checkBounds(double screenWidth, double screenHeight)
 		}
 		//check if it reaches a bound with no dt, if so prevent it from leaving the screen
 		//bascially treat it as STOP
-		std::cout << this->dx;
 		if (this->dx == 0 && this->dy == 0)
 		{
-			std::cout << "bounce stop";
 			if (offLeft || offRight || offTop || offBottom) {
 				this->setSpeed(0);
 

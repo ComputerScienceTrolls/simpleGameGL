@@ -27,10 +27,10 @@ public:
 	GLboolean   Destroyed;
 	// Constructor(s)
 	Sprite();
-	Sprite(Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
+	Sprite(std::string name, Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
 	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
-	bool collide(Sprite * otherSprite);
+	bool collide(AbstractSprite * otherSprite);
 	void setVelocity(GLfloat dt);
 	void update();
 	void setState(std::string key, bool state);
@@ -53,12 +53,17 @@ public:
 	virtual glm::vec2 getVelocity();
 	virtual glm::vec3 getColor();
 	virtual GLfloat getRotation();
+	virtual std::vector<collider*> getColliders();
+	virtual std::string getName();
+	virtual GLfloat getDX();
 	virtual void setPosition(glm::vec2);
 	virtual void setSize(glm::vec2);
 	virtual void setTexture(Texture2D);
 	virtual void setVelocity(glm::vec2);
 	virtual void setColor(glm::vec3);
 	virtual void setRotation(GLfloat);
+	virtual void setColliders(std::vector<collider*>);
+	virtual void setName(std::string);
 	~Sprite();
 
 private:
@@ -77,6 +82,7 @@ private:
 	std::map<std::string , bool> states;
 	std::string boundAction;
 	Scene *parentScene;
+	std::string name;
 	
 
 };

@@ -1,4 +1,2 @@
-﻿  Scene.cpp
-c:\users\link\documents\github\simplegamegl\gameengine\gameengine\scene.cpp(86): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-  gameEngine.vcxproj -> C:\Users\Link\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
+﻿  gameEngine.vcxproj -> C:\Users\Link\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
   gameEngine.vcxproj -> C:\Users\Link\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)

@@ -43,5 +43,8 @@ public:
 
 	std::vector<AbstractSprite*> Sprites;
 	GLFWwindow* window;
+
+private:
+	std::map<std::string, AbstractSprite*> spriteMap;
 };
 #endif
