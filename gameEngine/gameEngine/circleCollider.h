@@ -1,6 +1,6 @@
 #pragma once
 #include "collider.h"
-class circleCollider : public collider
+class circleCollider //: public collider
 {
 	class Sprite;
 

@@ -9,7 +9,7 @@ Sprite::Sprite()
 	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0), speed(10), moveAngle(0), imgAngle(0), collideDebug(false)
 {
 	//give default box collider
-	boxCollider *temp = new boxCollider(1, 1);
+	boxCollider *temp = new boxCollider(*this, 1, 1);
 	colliders_.push_back(temp);
 	//texture for collider debug
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
@@ -19,7 +19,7 @@ Sprite::Sprite()
 Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
 	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
-	boxCollider *temp = new boxCollider(size.x, size.y);
+	boxCollider *temp = new boxCollider(*this, size.x, size.y);
 	colliders_.push_back(temp);
 	this->setBoundAction("DIE");
 
@@ -73,74 +73,7 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
-		//draw colliders if debug mode is set on
-		if (collideDebug)
-		{
-
-		}
-		if (colliders_.at(i)->getType() == "box")
-		{
-			for (int j = 0; j < otherSprite->getColliders().size(); j++)
-			{
-				if (otherSprite->getColliders().at(j)->getType() == "box")
-				{
-					// Collision x-axis?
-					bool collisionX = ((this->getPosition().x + this->getColliders().at(i)->getPosX()) + (this->getColliders().at(i)->getWidth())) >= otherSprite->getPosition().x &&
-						otherSprite->getPosition().x + otherSprite->getColliders().at(j)->getPosX() + otherSprite->getColliders().at(j)->getWidth() >= this->getPosition().x;
-					// Collision y-axis?
-					bool collisionY = (this->Position.y + this->colliders_.at(i)->getPosY()) + (this->Size.y + this->colliders_.at(i)->getHeight()) >= otherSprite->getPosition().y &&
-						otherSprite->getPosition().y + otherSprite->getColliders().at(j)->getPosY() + otherSprite->getSize().y + otherSprite->getColliders().at(j)->getHeight() >= this->getPosition().y;
-					// Collision only if on both axes
-					if (collisionX && collisionY)
-					{
-						return collisionX && collisionY;
-					}
-				}
-
-				else if (otherSprite->getColliders().at(j)->getType() == "circle")
-				{
-					// Get center point circle first 
-					glm::vec2 center(this->getPosition() + glm::vec2(this->getColliders().at(i)->getPosX(), this->getColliders().at(i)->getPosY()) + this->getColliders().at(i)->getRadius());
-					// Calculate AABB info (center, half-extents)
-					glm::vec2 aabb_half_extents(otherSprite->getSize().x / 2, otherSprite->getSize().y / 2);
-					glm::vec2 aabb_center(
-						otherSprite->getPosition().x + otherSprite->getColliders().at(j)->getPosX() + aabb_half_extents.x,
-						otherSprite->getPosition().y + otherSprite->getColliders().at(j)->getPosY() + aabb_half_extents.y
-					);
-					// Get difference vector between both centers
-					glm::vec2 difference = center - aabb_center;
-					glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
-					// Add clamped value to AABB_center and we get the value of box closest to circle
-					glm::vec2 closest = aabb_center + clamped;
-					// Retrieve vector between center circle and closest point AABB and check if length <= radius
-					difference = closest - center;
-					if (glm::length(difference) < this->getColliders().at(i)->getRadius())
-						return true;
-				}
-
-			}
-			
-		}
-		else if (colliders_.at(i)->getType() == "circle")
-		{
-			// Get center point circle first 
-			glm::vec2 center(this->Position + glm::vec2(this->colliders_.at(i)->getPosX(), this->colliders_.at(i)->getPosY()) + this->colliders_.at(i)->getRadius());
-			// Calculate AABB info (center, half-extents)
-			glm::vec2 aabb_half_extents(otherSprite->getSize().x / 2, otherSprite->getSize().y / 2);
-			glm::vec2 aabb_center(
-				otherSprite->getPosition().x + aabb_half_extents.x,
-				otherSprite->getPosition().y + aabb_half_extents.y
-			);
-			// Get difference vector between both centers
-			glm::vec2 difference = center - aabb_center;
-			glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
-			// Add clamped value to AABB_center and we get the value of box closest to circle
-			glm::vec2 closest = aabb_center + clamped;
-			// Retrieve vector between center circle and closest point AABB and check if length <= radius
-			difference = closest - center;
-			if (glm::length(difference) < this->colliders_.at(i)->getRadius())
-				return true;
-		}
+		this->colliders_.at(i)->collide(otherSprite->getColliders());
 	}
 	//if we get here, no collision detected, return false
 	return false;
