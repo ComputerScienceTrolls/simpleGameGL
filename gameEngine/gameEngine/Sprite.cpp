@@ -62,18 +62,22 @@ void Sprite::Draw(SpriteRenderer &renderer)
 	{
 		for (int i = 0; i < getColliders().size(); i++)
 		{
-			std::cout << "test";
 			renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y),glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()),0,glm::vec3(0,0,0));
 		}
 	}
 	//renderer.DrawSprite(this->Texture, this->Position, this->Size, this->Rotation, this->Color);
 }
 
+//iterate through all this sprite's colliders, and have it check if it's colliding with another specified sprite's colliders
 bool Sprite::collide(AbstractSprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
-		this->colliders_.at(i)->collide(otherSprite->getColliders());
+		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
+		{
+			std::cout << "is this why?";
+			return true;
+		}
 	}
 	//if we get here, no collision detected, return false
 	return false;
