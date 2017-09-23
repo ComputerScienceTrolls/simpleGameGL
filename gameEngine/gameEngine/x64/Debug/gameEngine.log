@@ -1,4 +1,5 @@
-﻿  boxCollider.cpp
-c:\users\link\documents\github\simplegamegl\gameengine\gameengine\boxcollider.cpp(95): warning C4715: 'boxCollider::collide': not all control paths return a value
-  gameEngine.vcxproj -> C:\Users\Link\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
-  gameEngine.vcxproj -> C:\Users\Link\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)
+﻿  main.cpp
+  boxCollider.cpp
+  Generating Code...
+  gameEngine.vcxproj -> C:\Users\Anthony\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
+  gameEngine.vcxproj -> C:\Users\Anthony\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)

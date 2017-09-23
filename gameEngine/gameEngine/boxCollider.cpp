@@ -38,12 +38,16 @@ bool boxCollider::collide(std::vector<collider*> otherColliders)
 			std::cout << "X: " << getSpritePos().x;
 			bool collisionY = (this->getSpritePos().y + this->getPosY()) + (this->getSpriteSize().y + this->getHeight()) >= otherColliders.at(i)->getSpritePos().y &&
 				otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY() + otherColliders.at(i)->getSpriteSize().y + otherColliders.at(i)->getHeight() >= this->getSpritePos().y;
+
+
 			// Collision only if on both axes
 			//std::cout << "Y: " << collisionY;
 			if (collisionX && collisionY)
 			{
 				return collisionX && collisionY;
 			}
+
+			
 		}
 		/*
 		else if (otherColliders.at(j)->getType() == "circle")
@@ -69,6 +73,8 @@ bool boxCollider::collide(std::vector<collider*> otherColliders)
 		*/
 
 	}
+
+	return false;
 
 	/*
 	else if (colliders_.at(i)->getType() == "circle")

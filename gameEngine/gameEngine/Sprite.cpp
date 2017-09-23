@@ -75,7 +75,7 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 	{
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
 		{
-			std::cout << "is this why?";
+			//std::cout << "is this why?";
 			return true;
 		}
 	}

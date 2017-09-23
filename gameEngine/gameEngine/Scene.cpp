@@ -131,7 +131,11 @@ void Scene::Update(GLfloat dt)
 
 	//check for collidition between ball and paddle
 	if (spriteMap["Ball"]->collide(spriteMap["Paddle"]))
+	{
+		std::cout << "I DID IT";
 		spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
+	}
+
 
 }
 
