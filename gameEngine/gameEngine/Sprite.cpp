@@ -198,6 +198,11 @@ GLfloat Sprite::getDX()
 	return this->dx;
 }
 
+GLfloat Sprite::getDY()
+{
+	return this->dy;
+}
+
 void Sprite::setPosition(glm::vec2 newPosition)
 {
 	this->Position = newPosition;

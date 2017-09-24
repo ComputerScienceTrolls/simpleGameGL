@@ -24,6 +24,7 @@ enum GameState {
 class Scene
 {
 public:
+
 	// Game state
 	GameState	State;
 	GLboolean	Keys[1024];

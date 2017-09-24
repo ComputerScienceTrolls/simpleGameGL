@@ -56,6 +56,7 @@ public:
 	virtual std::vector<collider*> getColliders();
 	virtual std::string getName();
 	virtual GLfloat getDX();
+	virtual GLfloat getDY();
 	virtual void setPosition(glm::vec2);
 	virtual void setSize(glm::vec2);
 	virtual void setTexture(Texture2D);

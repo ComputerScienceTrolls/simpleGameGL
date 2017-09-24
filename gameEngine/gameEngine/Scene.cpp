@@ -1,5 +1,8 @@
 #include "Scene.h"
 #include "Sprite.h"
+#include <iostream>
+
+using namespace std;
 
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -132,7 +135,6 @@ void Scene::Update(GLfloat dt)
 	//check for collidition between ball and paddle
 	if (spriteMap["Ball"]->collide(spriteMap["Paddle"]))
 	{
-		std::cout << "I DID IT";
 		spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 	}
 

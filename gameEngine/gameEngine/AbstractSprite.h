@@ -36,6 +36,7 @@ public:
 	virtual std::vector<collider*> getColliders() = 0;
 	virtual std::string getName() = 0;
 	virtual GLfloat getDX() = 0;
+	virtual GLfloat getDY() = 0;
 	virtual bool getState(std::string) = 0;
 	virtual void setPosition(glm::vec2) {};
 	virtual void setTexture(Texture2D test) {};
