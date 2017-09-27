@@ -56,13 +56,30 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 
 void Sprite::Draw(SpriteRenderer &renderer)
 {
-	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor());
+
+	GLfloat t = 1;
+
+
+
+	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(),t);
 	//check if collideDebug is true, if so draw all colliders
+
+
+
 	if (collideDebug)
 	{
+
 		for (int i = 0; i < getColliders().size(); i++)
 		{
-			renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y),glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()),0,glm::vec3(0,0,0));
+			if (this->getName() == "Ball")
+			{
+				t = .15;
+			}
+			else
+			{
+				t = 1;
+			}
+			renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y),glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()),0,glm::vec3(0,255,0), t);
 		}
 	}
 	//renderer.DrawSprite(this->Texture, this->Position, this->Size, this->Rotation, this->Color);
