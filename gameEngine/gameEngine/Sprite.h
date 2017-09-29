@@ -65,6 +65,10 @@ public:
 	virtual void setRotation(GLfloat);
 	virtual void setColliders(std::vector<collider*>);
 	virtual void setName(std::string);
+	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
+	virtual void setColliderPredictive(std::string name, bool predictive);
+	virtual void addBoxCollider(std::string name, int w, int h);
+	virtual void addCircleCollider(std::string name);
 	~Sprite();
 
 private:

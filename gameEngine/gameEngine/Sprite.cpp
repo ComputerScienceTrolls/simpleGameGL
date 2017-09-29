@@ -56,19 +56,12 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 
 void Sprite::Draw(SpriteRenderer &renderer)
 {
-
 	GLfloat t = 1;
-
-
-
 	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(),t);
 	//check if collideDebug is true, if so draw all colliders
 
-
-
 	if (collideDebug)
 	{
-
 		for (int i = 0; i < getColliders().size(); i++)
 		{
 			if (this->getName() == "Ball")
@@ -92,7 +85,7 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 	{
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
 		{
-			//std::cout << "is this why?";
+			std::cout << "wut";
 			return true;
 		}
 	}
@@ -255,7 +248,29 @@ void Sprite::setColliders(std::vector<collider*> newColliders)
 	this->colliders_ = newColliders;
 }
 
-void Sprite::setName(std::string)
+void Sprite::setName(std::string newName)
+{
+	this->name = newName;
+}
+
+void Sprite::addBoxCollider(std::string name, int w, int h, int posX, int posY)
+{
+	boxCollider *temp = new boxCollider(*this, w, h, posX, posY);
+	this->colliders_.push_back(temp);
+}
+
+void Sprite::setColliderPredictive(std::string name, bool predictive)
+{
+
+}
+
+void Sprite::addBoxCollider(std::string name, int w, int h)
+{
+	boxCollider *temp = new boxCollider(*this, w, h);
+	this->colliders_.push_back(temp);
+}
+
+void Sprite::addCircleCollider(std::string name)
 {
 }
 

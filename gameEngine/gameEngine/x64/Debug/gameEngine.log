@@ -1,35 +1,3 @@
-﻿  Sprite.cpp
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(38): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(76): warning C4305: '=': truncation from 'double' to 'GLfloat'
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(127): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(132): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(133): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(325): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(329): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(333): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(337): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(362): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(367): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(371): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(376): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(381): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(385): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(390): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(395): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(400): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(405): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(406): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(419): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(424): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(428): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(433): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(438): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(442): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(447): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(452): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(457): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(462): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\anthony\documents\github\simplegamegl\gameengine\gameengine\sprite.cpp(463): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  gameEngine.vcxproj -> C:\Users\Anthony\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
-  gameEngine.vcxproj -> C:\Users\Anthony\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)
+﻿  main.cpp
+  gameEngine.vcxproj -> C:\Users\Link\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.exe
+  gameEngine.vcxproj -> C:\Users\Link\Documents\GitHub\simpleGameGL\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)

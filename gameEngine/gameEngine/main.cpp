@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 	Ball->setBoundAction("BOUNCE");
 	Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
+	Ball->addBoxCollider("test", 100, 100, 0, 0);
 
 	
 	mainScene.Start();
