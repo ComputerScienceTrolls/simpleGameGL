@@ -35,7 +35,6 @@ gameEngine/gameEngine/x64/Debug/Texture.obj
 gameEngine/gameEngine/x64/Debug/vc141.idb
 gameEngine/gameEngine/x64/Debug/vc141.pdb
 gameEngine/.vs/gameEngine/v15/.suo
-gameEngine/.vs/gameEngine/v15/.suo
 *.VC
 *.ipch
 *.filters
@@ -43,3 +42,5 @@ gameEngine/.vs/gameEngine/v15/.suo
 *.pdb
 *.tlog
 *.lastbuildstate
+gameEngine/.vs/gameEngine/v15/Browse.VC.db
+gameEngine/.vs/gameEngine/v15/Browse.VC.db
