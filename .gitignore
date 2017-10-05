@@ -20,3 +20,10 @@ gameEngine/.vs/gameEngine/v15/.suo
 *.ilk
 gameEngine/x64/Debug/gameEngine.pdb
 *.vs
+*.VC
+*.ipch
+*.filters
+*.idb
+*.pdb
+*.tlog
+*.lastbuildstate
