@@ -52,6 +52,7 @@ bool boxCollider::collide(std::vector<collider*> otherColliders)
 		}
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
+			std::cout << "check one";
 			// Get center point circle first 
 			glm::vec2 center(this->getSpritePos() + glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
 			// Calculate AABB info (center, half-extents)

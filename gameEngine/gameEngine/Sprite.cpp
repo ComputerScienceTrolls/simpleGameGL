@@ -293,8 +293,10 @@ void Sprite::removeCollider(std::string name)
 	}
 }
 
-void Sprite::addCircleCollider(std::string name)
+void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 {
+	circleCollider *temp = new circleCollider(name, *this, r, posX, posY);
+	this->colliders_.push_back(temp);
 }
 
 void Sprite::update()

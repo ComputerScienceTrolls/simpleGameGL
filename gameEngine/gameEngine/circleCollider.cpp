@@ -1,11 +1,11 @@
 #include "circleCollider.h"
 
-circleCollider::circleCollider(AbstractSprite &parent, float r):
+circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r):
 	type("circle"), spriteParent(&parent), radius(r)
 {
 }
 
-circleCollider::circleCollider(AbstractSprite &parent, float r, int posX, int posY):
+circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY):
 	posXOffset(posX), posYOffset(posY), type("circle"), spriteParent(&parent), radius(r)
 {
 }

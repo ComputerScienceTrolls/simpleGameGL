@@ -8,8 +8,8 @@ class circleCollider : public collider
 {
 
 public:
-	circleCollider(AbstractSprite &parent, float r);
-	circleCollider(AbstractSprite &parent, float r, int posX, int posY);
+	circleCollider(std::string name, AbstractSprite &parent, float r);
+	circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY);
 	virtual bool collide(std::vector<collider*> otherColliders);
 	virtual float getRadius();
 	virtual int getPosX();

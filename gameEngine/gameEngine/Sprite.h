@@ -12,6 +12,7 @@
 
 #include "AbstractSprite.h"
 #include "boxCollider.h"
+#include "circleCollider.h"
 #include "Scene.h"
 
 #pragma once
@@ -68,7 +69,7 @@ public:
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void setColliderPredictive(std::string name, bool predictive);
 	virtual void addBoxCollider(std::string name, int w, int h);
-	virtual void addCircleCollider(std::string name);
+	virtual void addCircleCollider(std::string name, double r, int posX, int posY);
 	virtual void removeCollider(std::string name);
 	~Sprite();
 
