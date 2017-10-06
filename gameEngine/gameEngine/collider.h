@@ -19,6 +19,7 @@ public:
 	virtual int getPosY() = 0;
 	virtual glm::vec2 getSpritePos() = 0; //{ return glm::vec2(); };
 	virtual glm::vec2 getSpriteSize() = 0; //{ return glm::vec2(); };
+	virtual std::string getName() = 0;
 
 	//needed for circle collider
 	virtual float getRadius() {return 0;};

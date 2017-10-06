@@ -1,14 +1,14 @@
 #include "boxCollider.h"
 
 
-boxCollider::boxCollider(AbstractSprite &parent, int w, int h) :
-	offsetW(w), offsetH(h), posXOffset(0), posYOffset(0), type("box"), spriteParent(&parent)
+boxCollider::boxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
+	name(newName), offsetW(w), offsetH(h), posXOffset(0), posYOffset(0), type("box"), spriteParent(&parent)
 {
 
 }
 
-boxCollider::boxCollider(AbstractSprite &parent,int w, int h, int posX, int posY) :
-	offsetW(w), offsetH(h), posXOffset(posX), posYOffset(posY), type("box"), spriteParent(&parent)
+boxCollider::boxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY) :
+	name(newName), offsetW(w), offsetH(h), posXOffset(posX), posYOffset(posY), type("box"), spriteParent(&parent)
 {
 
 }
@@ -21,6 +21,11 @@ glm::vec2 boxCollider::getSpritePos()
 glm::vec2 boxCollider::getSpriteSize()
 {
 	return spriteParent->getSize();
+}
+
+std::string boxCollider::getName()
+{
+	return this->name;
 }
 
 bool boxCollider::collide(std::vector<collider*> otherColliders)

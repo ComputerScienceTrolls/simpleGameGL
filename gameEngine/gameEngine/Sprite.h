@@ -69,6 +69,7 @@ public:
 	virtual void setColliderPredictive(std::string name, bool predictive);
 	virtual void addBoxCollider(std::string name, int w, int h);
 	virtual void addCircleCollider(std::string name);
+	virtual void removeCollider(std::string name);
 	~Sprite();
 
 private:
