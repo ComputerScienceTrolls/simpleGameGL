@@ -1,3 +1,0 @@
-﻿LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  gameEngine.vcxproj -> C:\Users\Anthony\Source\Repos\GameEngine\gameEngine\x64\Debug\gameEngine.exe
-  gameEngine.vcxproj -> C:\Users\Anthony\Source\Repos\GameEngine\gameEngine\x64\Debug\gameEngine.pdb (Partial PDB)
