@@ -9,7 +9,7 @@ Sprite::Sprite()
 	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0), speed(10), moveAngle(0), imgAngle(0), collideDebug(false)
 {
 	//give default box collider
-	boxCollider *temp = new boxCollider(*this, 1, 1);
+	boxCollider *temp = new boxCollider("default",*this, 1, 1);
 	colliders_.push_back(temp);
 	//texture for collider debug
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
@@ -19,7 +19,7 @@ Sprite::Sprite()
 Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
 	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
-	boxCollider *temp = new boxCollider(*this, size.x, size.y);
+	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
 	this->setBoundAction("DIE");
 
@@ -85,7 +85,6 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 	{
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
 		{
-			std::cout << "wut";
 			return true;
 		}
 	}
@@ -139,7 +138,7 @@ void Sprite::calcSpeedAngle()
 
 void Sprite::calcVector()
 {
-	//used throughout speed / angle calculations to 
+	//used throughout speed angle calculations to 
 	//recalculate dx and dy based on speed and angle
 	this->dx = this->speed * std::cos(this->moveAngle);
 	this->dy = this->speed * std::sin(this->moveAngle);
@@ -255,7 +254,7 @@ void Sprite::setName(std::string newName)
 
 void Sprite::addBoxCollider(std::string name, int w, int h, int posX, int posY)
 {
-	boxCollider *temp = new boxCollider(*this, w, h, posX, posY);
+	boxCollider *temp = new boxCollider(name, *this, w, h, posX, posY);
 	this->colliders_.push_back(temp);
 }
 
@@ -266,12 +265,38 @@ void Sprite::setColliderPredictive(std::string name, bool predictive)
 
 void Sprite::addBoxCollider(std::string name, int w, int h)
 {
-	boxCollider *temp = new boxCollider(*this, w, h);
+	boxCollider *temp = new boxCollider(name, *this, w, h);
 	this->colliders_.push_back(temp);
 }
 
-void Sprite::addCircleCollider(std::string name)
+void Sprite::removeCollider(std::string name)
 {
+	//get index of collider
+	int index = -1;
+	for (int i = 0; i < this->colliders_.size(); i++)
+	{
+		if (this->colliders_[i]->getName() == name)
+		{
+			index = i;
+		}
+	}
+
+	//if found remove it from the vector
+	if (index != -1)
+	{
+		std::cout << "deleting " << colliders_.at(index)->getName();
+		this->colliders_.erase(colliders_.begin() + index);
+	}
+	else
+	{
+		std::cout << "collider with the name of " << name << " not found";
+	}
+}
+
+void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
+{
+	circleCollider *temp = new circleCollider(name, *this, r, posX, posY);
+	this->colliders_.push_back(temp);
 }
 
 void Sprite::update()

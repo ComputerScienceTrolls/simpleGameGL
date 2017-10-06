@@ -7,11 +7,10 @@
 
 class boxCollider : public collider
 {
-	class SpriteRender;
 
 public:
-	boxCollider (AbstractSprite &parent, int w, int h);
-	boxCollider(AbstractSprite &parent, int w, int h, int posX, int posY);
+	boxCollider (std::string name, AbstractSprite &parent, int w, int h);
+	boxCollider(std::string name, AbstractSprite &parent, int w, int h, int posX, int posY);
 	virtual bool collide(std::vector<collider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
@@ -19,6 +18,7 @@ public:
 	virtual int getPosY();
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
+	virtual std::string getName();
 	std::string getType();
 	~boxCollider();
 
@@ -28,7 +28,7 @@ private:
 	int posXOffset;
 	int posYOffset;
 	std::string type;
-	SpriteRender *renderer;
+	std::string name;
 	AbstractSprite *spriteParent;
 };
 
