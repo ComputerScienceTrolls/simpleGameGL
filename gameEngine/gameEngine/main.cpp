@@ -25,17 +25,17 @@ int main(int argc, char *argv[])
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
-	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(400,300), glm::vec2(50, 10), "textures/paddle.png");
-	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,250), glm::vec2(100,100), "textures/face.png");
+	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(600,300), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(350,300), glm::vec2(50,50), "textures/face.png");
 
-	Ball->setSpeed(.1);
+	//Ball->setSpeed(.1);
 	Ball->setMoveAngle(90);
-	Ball->setState("Stuck", true);
+	//Ball->setState("Stuck", true);
 	Ball->setBoundAction("BOUNCE");
 	Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
 	Ball->removeCollider("default");
-	Ball->addCircleCollider("test", 100,0,0);
+	Ball->addCircleCollider("test", 50,0,0);
 
 	
 	mainScene.Start();

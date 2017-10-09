@@ -21,7 +21,7 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 {
 	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
-	this->setBoundAction("DIE");
+	//this->setBoundAction("DIE");
 
 	this->name = name;
 	//load texture
@@ -40,8 +40,8 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 	//add Sprite to Scene
 	scene.Sprites.push_back(this);
 
-	scene.Sprites.at(lastSprite)->setPosition(Position);
-	scene.Sprites.at(lastSprite)->setPosition(this->Size);
+	scene.Sprites.at(lastSprite)->setPosition(this->Position);
+	scene.Sprites.at(lastSprite)->setSize(this->Size);
 	scene.Sprites.at(lastSprite)->setVelocity(this->Velocity);
 	scene.Sprites.at(lastSprite)->setColor(this->Color);
 	scene.Sprites.at(lastSprite)->setRotation(this->Rotation);
