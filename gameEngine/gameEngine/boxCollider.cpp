@@ -36,16 +36,25 @@ bool boxCollider::collide(std::vector<collider*> otherColliders)
 		{
 			// Collision x-axis?
 			bool collisionX = ((this->getSpritePos().x + this->getPosX()) + (this->getWidth())) >= otherColliders.at(i)->getSpritePos().x &&
-				otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX() + otherColliders.at(i)->getWidth() >= this->getSpritePos().x;
+				otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX() + otherColliders.at(i)->getWidth() >= this->getSpritePos().x + this->getPosX();
 			// Collision y-axis?
-			bool collisionY = (this->getSpritePos().y + this->getPosY()) + (this->getHeight()) >= otherColliders.at(i)->getSpritePos().y &&
-				otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY() + otherColliders.at(i)->getHeight() >= this->getSpritePos().y;
+			bool collisionY = ((this->getSpritePos().y + this->getPosY()) + (this->getHeight())) >= otherColliders.at(i)->getSpritePos().y &&
+				otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY() + otherColliders.at(i)->getHeight() >= this->getSpritePos().y + this->getPosY();
 
+			std::cout << "\nMy Y: " << this->getSpritePos().y + this->getPosY() + this->getHeight();
+			std::cout << "\n Their Y: " << otherColliders.at(i)->getSpritePos().y;
+			std::cout << "\n 1: " << (this->getSpritePos().y + this->getPosY() + (this->getHeight()) >= otherColliders.at(i)->getSpritePos().y);
+			std::cout << "\n 2: " << (otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY() + otherColliders.at(i)->getHeight() >= this->getSpritePos().y + this->getPosY());
 
 			// Collision only if on both axes
 			if (collisionX && collisionY)
 			{
 				return collisionX && collisionY;
+			}
+			else
+			{
+				//std::cout << "\n X: " << collisionX;
+				//std::cout << "\n Y: " << collisionY;
 			}
 
 			
