@@ -16,6 +16,29 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 	{
 		if (otherColliders.at(i)->getType() == "box")
 		{
+			
+			
+			// Get center point circle first 
+			glm::vec2 center(this->getSpritePos() + this->getRadius());
+
+			// Calculate AABB info (center, half-extents)
+			glm::vec2 aabb_half_extents(otherColliders.at(i)->getSpriteSize().x / 2, otherColliders.at(i)->getSpriteSize().y / 2);
+			glm::vec2 aabb_center(
+				otherColliders.at(i)->getSpritePos().x + aabb_half_extents.x,
+				otherColliders.at(i)->getSpritePos().y + aabb_half_extents.y
+			);
+			// Get difference vector between both centers
+			glm::vec2 difference = center - aabb_center;
+			glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
+			// Add clamped value to AABB_center and we get the value of box closest to circle
+			glm::vec2 closest = aabb_center + clamped;
+			
+			// Retrieve vector between center circle and closest point AABB and check if length <= radius
+			difference = closest - center;
+			if (glm::length(difference) < this->getRadius())
+				return true;
+
+			/*
 			int rectX = otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX();
 			int rectY = otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY();
 			int cDistanceX = std::abs(this->getSpritePos().x - otherColliders.at(i)->getSpritePos().x);
@@ -33,7 +56,7 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 
 			int cornerDistance = std::pow(cDistanceX - rectX / 2, 2) + std::pow(cDistanceY - rectY / 2, 2);
 			return (cornerDistance <= (std::pow(this->getRadius(), 2)));
-
+			*/
 			/*
 			// Get center point circle first 
 			glm::vec2 center(this->getSpritePos() + glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
