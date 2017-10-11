@@ -67,11 +67,13 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 		}
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
-			int diffX = this->getPosX() - otherColliders.at(i)->getSpritePos().x;
-			int diffY = this->getPosY() - otherColliders.at(i)->getSpritePos().y;
+			int diffX = (this->getSpritePos().x + this->getPosX()) - (otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX());
+			int diffY = (this->getSpritePos().y + this->getPosY()) - (otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY());
 			int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
 
-			if (dist >= this->getRadius())
+			std::cout << "\n" << dist;
+			std::cout << "\n" << this->getRadius();
+			if (dist <= this->getRadius())
 				return true;
 			else
 				return false;
@@ -115,6 +117,16 @@ std::string circleCollider::getName()
 glm::vec2 circleCollider::getSpritePos()
 {
 	return spriteParent->getPosition();
+}
+
+int circleCollider::getWidth()
+{
+	return this->radius;
+}
+
+int circleCollider::getHeight()
+{
+	return this->radius;
 }
 
 circleCollider::~circleCollider()

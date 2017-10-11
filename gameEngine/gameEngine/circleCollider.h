@@ -11,6 +11,8 @@ public:
 	circleCollider(std::string name, AbstractSprite &parent, float r);
 	circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY);
 	virtual bool collide(std::vector<collider*> otherColliders);
+	virtual int getWidth();
+	virtual int getHeight();
 	virtual float getRadius();
 	virtual int getPosX();
 	virtual int getPosY();

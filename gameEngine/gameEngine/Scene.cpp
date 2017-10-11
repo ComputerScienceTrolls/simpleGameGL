@@ -127,8 +127,6 @@ void Scene::Update(GLfloat dt)
 		{
 			Sprites.at(i)->update();
 			Sprites.at(i)->checkBounds(Width, Height);
-			//colliders
-			//Sprites.at(i)->Draw(*Renderer);
 		}
 	}
 
@@ -136,7 +134,7 @@ void Scene::Update(GLfloat dt)
 	if (spriteMap["Ball"]->collide(spriteMap["Paddle"]))
 	{
 		std::cout << "collision\n";
-		spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
+		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 	}
 
 

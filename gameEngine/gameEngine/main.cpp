@@ -28,6 +28,10 @@ int main(int argc, char *argv[])
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(600,300), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(350,300), glm::vec2(50,50), "textures/face.png");
 
+	Player->setCollideDebug(true);
+	Player->removeCollider("default");
+	Player->addCircleCollider("t", 50, 0, 0);
+
 	//Ball->setSpeed(.1);
 	Ball->setMoveAngle(90);
 	//Ball->setState("Stuck", true);
@@ -35,8 +39,9 @@ int main(int argc, char *argv[])
 	Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
 	Ball->removeCollider("default");
-	Ball->addBoxCollider("test",50,50,50,100);
-	Ball->addBoxCollider("test", 50, 50, -50, -100);
+	//Ball->addBoxCollider("test",50,50,50,100);
+	//Ball->addBoxCollider("test", 50, 50, -50, -100);
+	Ball->addCircleCollider("f", 60, 0, 0);
 
 	
 	mainScene.Start();
