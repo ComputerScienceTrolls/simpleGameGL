@@ -65,14 +65,8 @@ void Sprite::Draw(SpriteRenderer &renderer)
 	{
 		for (int i = 0; i < getColliders().size(); i++)
 		{
-			if (this->getName() == "Ball")
-			{
-				t = .15;
-			}
-			else
-			{
-				t = 1;
-			}
+			t = .15;
+
 			if (getColliders().at(i)->getType() == "box")
 				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			else

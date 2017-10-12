@@ -144,12 +144,12 @@ glm::vec2 circleCollider::getSpritePos()
 
 int circleCollider::getWidth()
 {
-	return this->radius;
+	return this->radius*2;
 }
 
 int circleCollider::getHeight()
 {
-	return this->radius;
+	return this->radius*2;
 }
 
 circleCollider::~circleCollider()
