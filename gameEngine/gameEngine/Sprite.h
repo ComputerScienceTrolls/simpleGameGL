@@ -32,6 +32,7 @@ public:
 	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
 	bool collide(AbstractSprite * otherSprite);
+	bool collide(Sprite * otherSprite);
 	void setVelocity(GLfloat dt);
 	void update();
 	void setState(std::string key, bool state);

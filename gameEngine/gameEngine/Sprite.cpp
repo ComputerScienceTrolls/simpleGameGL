@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "observerhandler.h"
 //#include "Scene.h"
 //pie constant for math
 const double PI = 3.141592653589793238463;
@@ -80,6 +81,19 @@ void Sprite::Draw(SpriteRenderer &renderer)
 
 //iterate through all this sprite's colliders, and have it check if it's colliding with another specified sprite's colliders
 bool Sprite::collide(AbstractSprite* otherSprite)
+{
+	for (int i = 0; i < this->colliders_.size(); i++)
+	{
+		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
+		{
+			return true;
+		}
+	}
+	//if we get here, no collision detected, return false
+	return false;
+}
+
+bool Sprite::collide(Sprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
@@ -303,6 +317,9 @@ void Sprite::update()
 {
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
+
+	//run Observers
+	ObserverHandler::getInstance()->NotifyObservers();
 }
 
 void Sprite::setState(std::string key, bool state)

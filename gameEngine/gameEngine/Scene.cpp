@@ -129,15 +129,6 @@ void Scene::Update(GLfloat dt)
 			Sprites.at(i)->checkBounds(Width, Height);
 		}
 	}
-
-	//check for collidition between ball and paddle
-	if (spriteMap["Ball"]->collide(spriteMap["Paddle"]))
-	{
-		std::cout << "collision\n";
-		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-	}
-
-
 }
 
 void Scene::ProcessInput(GLfloat dt)

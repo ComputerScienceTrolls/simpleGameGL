@@ -15,9 +15,7 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
 		if (otherColliders.at(i)->getType() == "box")
-		{
-			
-			
+		{	
 			// Get center point circle first 
 			glm::vec2 center(this->getSpritePos() + this->getRadius());
 

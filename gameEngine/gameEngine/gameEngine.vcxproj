@@ -148,6 +148,8 @@
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="observer.cpp" />
+    <ClCompile Include="observerhandler.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -156,11 +158,14 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="abstractobserver.h" />
     <ClInclude Include="AbstractSprite.h" />
     <ClInclude Include="boxCollider.h" />
     <ClInclude Include="circleCollider.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="GameLevel.h" />
+    <ClInclude Include="observer.h" />
+    <ClInclude Include="observerhandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
