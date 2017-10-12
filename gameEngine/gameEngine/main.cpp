@@ -13,17 +13,31 @@
 #include "Sprite.h"
 
 #include "observerhandler.h"
-#include "observer.h"
+#include "ColliderObserver.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
+/*
 Sprite *Ball;
 Sprite *Player;
 
 void ballColl()
+{
+	std::cout << "uh";
+	//check for collidition between ball and paddle
+	if (Ball->collide(Player))
+	{
+		std::cout << "collision\n";
+		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
+	}
+}
+
+*/
+
+void ballColl2(Sprite *Ball, Sprite *Player)
 {
 	std::cout << "uh";
 	//check for collidition between ball and paddle
@@ -41,8 +55,8 @@ int main(int argc, char *argv[])
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
-	Player = new Sprite("Paddle",mainScene, glm::vec2(600,300), glm::vec2(50, 10), "textures/paddle.png");
-	Ball = new Sprite("Ball",mainScene, glm::vec2(350,300), glm::vec2(50,50), "textures/face.png");
+	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(600,300), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(350,300), glm::vec2(50,50), "textures/face.png");
 
 	Player->setCollideDebug(true);
 	//Player->removeCollider("default");
@@ -60,7 +74,7 @@ int main(int argc, char *argv[])
 	Ball->addCircleCollider("f", 60, 0, 0);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
-	Observer *colTest = new Observer(ballColl);
+	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	test->addObserver(*colTest);
 	
 	mainScene.Start();

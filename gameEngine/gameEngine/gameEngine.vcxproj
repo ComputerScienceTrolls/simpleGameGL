@@ -146,6 +146,7 @@
     <ClCompile Include="boxCollider.cpp" />
     <ClCompile Include="circleCollider.cpp" />
     <ClCompile Include="collider.cpp" />
+    <ClCompile Include="ColliderObserver.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="observer.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="boxCollider.h" />
     <ClInclude Include="circleCollider.h" />
     <ClInclude Include="collider.h" />
+    <ClInclude Include="ColliderObserver.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="observer.h" />
     <ClInclude Include="observerhandler.h" />
