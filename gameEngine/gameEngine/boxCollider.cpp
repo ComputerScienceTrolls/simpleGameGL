@@ -96,6 +96,11 @@ int boxCollider::getPosY()
 	return posYOffset;
 }
 
+glm::vec2 boxCollider::getSpriteCenterPos()
+{
+	return spriteParent->getRenderPosition();
+}
+
 std::string boxCollider::getType()
 {
 	return type;

@@ -50,6 +50,7 @@ public:
 	void setImgAngle(float newAngle);
 	void setMoveAngle(float newAngle);
 	virtual glm::vec2 getPosition();
+	virtual glm::vec2 getRenderPosition();
 	virtual glm::vec2 getSize();
 	virtual Texture2D getTexture();
 	virtual glm::vec2 getVelocity();
@@ -83,7 +84,7 @@ private:
 	float moveAngle;
 	float imgAngle;
 	bool collideDebug;
-	glm::vec2   Position, Size, Velocity;
+	glm::vec2   Position, Size, Velocity, RenderPosition;
 	Texture2D	Texture;
 	glm::vec3   Color;
 	GLfloat     Rotation;

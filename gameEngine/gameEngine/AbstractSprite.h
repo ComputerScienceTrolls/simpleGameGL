@@ -28,6 +28,7 @@ public:
 	virtual void setMoveAngle(float newAngle) {};
 	virtual bool collide(AbstractSprite*) { return false; };
 	virtual glm::vec2 getPosition() = 0; //{ return glm::vec2(); };
+	virtual glm::vec2 getRenderPosition() = 0;
 	virtual glm::vec2 getSize() { return glm::vec2(); };
 	virtual glm::vec2 getVelocity() { return glm::vec2(); };
 	virtual glm::vec3 getColor() { return glm::vec3(); };

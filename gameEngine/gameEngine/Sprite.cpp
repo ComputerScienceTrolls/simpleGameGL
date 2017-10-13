@@ -20,11 +20,20 @@ Sprite::Sprite()
 Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
 	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
+	//std::cout << "\n" << this->Size.x/2;
+	//center the postion based on the height and width of the sprite
+	this->RenderPosition.x = this->Position.x - this->Size.x/2;
+	this->RenderPosition.y = this->Position.y - this->Size.y/2;
+	std::cout << "\n posx " << this->Position.x;
+	std::cout << "\n posy " << this->Position.y;
+	std::cout << "\n renderposx " << this->RenderPosition.x;
+	std::cout << "\n renderposy " << this->RenderPosition.y;
+
 	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
-	//this->setBoundAction("DIE");
 
 	this->name = name;
+
 	//load texture
 	ResourceManager::LoadTexture(texture,true,texture);
 	this->Texture = ResourceManager::GetTexture(texture);
@@ -33,24 +42,18 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
-	//parentScene = &scene;
-
-
-	int lastSprite = 0;
-	lastSprite = scene.Sprites.size();
-
 	//add Sprite to Scene
 	scene.Sprites.push_back(this);
 
-	scene.Sprites.at(lastSprite)->setPosition(this->Position);
-	scene.Sprites.at(lastSprite)->setSize(this->Size);
-	scene.Sprites.at(lastSprite)->setVelocity(this->Velocity);
-	scene.Sprites.at(lastSprite)->setColor(this->Color);
-	scene.Sprites.at(lastSprite)->setRotation(this->Rotation);
-	scene.Sprites.at(lastSprite)->setTexture(this->Texture);
-	scene.Sprites.at(lastSprite)->IsSolid = this->IsSolid;
-	scene.Sprites.at(lastSprite)->Destroyed = this->Destroyed;
-	scene.Sprites.at(lastSprite)->collideDebug = this->collideDebug;
+	scene.Sprites.back()->setPosition(this->Position);
+	scene.Sprites.back()->setSize(this->Size);
+	scene.Sprites.back()->setVelocity(this->Velocity);
+	scene.Sprites.back()->setColor(this->Color);
+	scene.Sprites.back()->setRotation(this->Rotation);
+	scene.Sprites.back()->setTexture(this->Texture);
+	scene.Sprites.back()->IsSolid = this->IsSolid;
+	scene.Sprites.back()->Destroyed = this->Destroyed;
+	scene.Sprites.back()->collideDebug = this->collideDebug;
 	
 	this->setState("active", true);
 	
@@ -59,20 +62,22 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 void Sprite::Draw(SpriteRenderer &renderer)
 {
 	GLfloat t = 1;
-	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(),t);
-	//check if collideDebug is true, if so draw all colliders
 
+	renderer.DrawSprite(this->getTexture(), this->RenderPosition, this->getSize(), this->getRotation(), this->getColor(),t);
+	//check if collideDebug is true, if so draw all colliders
+	
 	if (collideDebug)
 	{
 		for (int i = 0; i < getColliders().size(); i++)
 		{
+			std::cout << "width: " << getColliders().at(i)->getWidth();
 			t = .15;
 
 			if (getColliders().at(i)->getType() == "box")
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getRenderPosition().x, getColliders().at(i)->getPosY() + this->getRenderPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			else
 			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getRenderPosition().x, getColliders().at(i)->getPosY() + this->getRenderPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			}
 		}
 	}
@@ -179,6 +184,11 @@ void Sprite::setMoveAngle(float newAngle)
 glm::vec2 Sprite::getPosition()
 {
 	return this->Position;
+}
+
+glm::vec2 Sprite::getRenderPosition()
+{
+	return this->RenderPosition;
 }
 
 glm::vec2 Sprite::getSize()
@@ -309,7 +319,17 @@ void Sprite::removeCollider(std::string name)
 
 void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 {
-	circleCollider *temp = new circleCollider(name, *this, r, posX, posY);
+	double r2 = r * 2;
+	//if doesn't fit to sprite, we need to recenter the circle
+	int diffY = 0;
+	int diffX = 0;
+	if (r2 != this->getSize().x || r2 != this->getSize().y)
+	{
+		//get x and y offset
+		diffX = r - this->getSize().x/2;
+		diffY = r - this->getSize().y/2;
+	}
+	circleCollider *temp = new circleCollider(name, *this, r, posX - diffX, posY - diffY);
 	this->colliders_.push_back(temp);
 }
 
@@ -317,6 +337,10 @@ void Sprite::update()
 {
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
+
+	//update RenderPosition
+	this->RenderPosition.x += this->dx;
+	this->RenderPosition.y -= this->dy;
 
 	//run Observers
 	ObserverHandler::getInstance()->NotifyObservers();

@@ -16,7 +16,6 @@ SpriteRenderer  *Renderer;
 struct KeyHandler
 {
 	GLboolean Keys[1024];
-	int test = 0;
 }; 
 
 KeyHandler keyHandler;

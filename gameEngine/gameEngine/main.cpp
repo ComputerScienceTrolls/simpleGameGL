@@ -43,35 +43,35 @@ int main(int argc, char *argv[])
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
-	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(600,300), glm::vec2(50, 10), "textures/paddle.png");
-	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(350,300), glm::vec2(50,50), "textures/face.png");
+	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(300,500), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
 
 	Player->setCollideDebug(true);
-	//Player->removeCollider("default");
-	//Player->addCircleCollider("t", 50, 0, 0);
+	Player->removeCollider("default");
+	Player->addCircleCollider("t", 50, 0, 0);
 
 	//Ball->setSpeed(.1);
 	Ball->setMoveAngle(90);
 	//Ball->setState("Stuck", true);
-	Ball->setBoundAction("BOUNCE");
+	//Ball->setBoundAction("BOUNCE");
 	Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
 	Ball->removeCollider("default");
 	//Ball->addBoxCollider("test",50,50,50,100);
 	//Ball->addBoxCollider("test", 50, 50, -50, -100);
-	Ball->addCircleCollider("f", 60, 0, 0);
+	Ball->addCircleCollider("f", 80, 0, 0);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
 	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 
 	for (int i = 0; i < 20; i++)
 	{
-		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*10), 300 + (i*10)), glm::vec2(i, i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
-		ColliderObserver *temp = new ColliderObserver(ballColl2, temp2, Player);
-		CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
-		temp2->addForce((i * 1), i);
-		temp2->setBoundAction("BOUNCE");
-		test->addObserver(*temp);
+		//Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*10), 300 + (i*10)), glm::vec2(i, i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
+		//ColliderObserver *temp = new ColliderObserver(ballColl2, temp2, Player);
+		//CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
+		//temp2->addForce((i * 1), i);
+		//temp2->setBoundAction("BOUNCE");
+		//test->addObserver(*temp);
 	}
 	test->addObserver(*colTest);
 	

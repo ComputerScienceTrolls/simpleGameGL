@@ -18,6 +18,7 @@ public:
 	virtual int getPosY();
 	std::string getType();
 	virtual glm::vec2 getSpritePos();
+	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
 	~circleCollider();

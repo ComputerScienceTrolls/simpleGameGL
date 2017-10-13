@@ -16,6 +16,7 @@ public:
 	virtual int getHeight();
 	virtual int getPosX();
 	virtual int getPosY();
+	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
