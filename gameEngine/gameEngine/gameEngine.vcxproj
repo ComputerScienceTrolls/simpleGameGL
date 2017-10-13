@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractSprite.cpp" />
     <ClCompile Include="boxCollider.cpp" />
+    <ClCompile Include="CheckBoundsObserver.cpp" />
     <ClCompile Include="circleCollider.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="ColliderObserver.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="abstractobserver.h" />
     <ClInclude Include="AbstractSprite.h" />
     <ClInclude Include="boxCollider.h" />
+    <ClInclude Include="CheckBoundsObserver.h" />
     <ClInclude Include="circleCollider.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="ColliderObserver.h" />

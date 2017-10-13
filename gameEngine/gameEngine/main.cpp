@@ -14,19 +14,15 @@
 
 #include "observerhandler.h"
 #include "ColliderObserver.h"
+#include "CheckBoundsObserver.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-/*
-Sprite *Ball;
-Sprite *Player;
-
-void ballColl()
+void ballColl2(Sprite *Ball, Sprite *Player)
 {
-	std::cout << "uh";
 	//check for collidition between ball and paddle
 	if (Ball->collide(Player))
 	{
@@ -35,17 +31,9 @@ void ballColl()
 	}
 }
 
-*/
-
-void ballColl2(Sprite *Ball, Sprite *Player)
+void checkCols(Sprite *s, int w, int h)
 {
-	std::cout << "uh";
-	//check for collidition between ball and paddle
-	if (Ball->collide(Player))
-	{
-		std::cout << "collision\n";
-		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-	}
+	s->checkBounds(w, h);
 }
 
 int main(int argc, char *argv[])
@@ -75,6 +63,16 @@ int main(int argc, char *argv[])
 
 	ObserverHandler *test = ObserverHandler::getInstance();
 	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+
+	for (int i = 0; i < 20; i++)
+	{
+		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*10), 300 + (i*10)), glm::vec2(i, i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
+		ColliderObserver *temp = new ColliderObserver(ballColl2, temp2, Player);
+		CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
+		temp2->addForce((i * 1), i);
+		temp2->setBoundAction("BOUNCE");
+		test->addObserver(*temp);
+	}
 	test->addObserver(*colTest);
 	
 	mainScene.Start();
