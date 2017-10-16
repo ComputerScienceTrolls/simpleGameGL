@@ -16,6 +16,8 @@ public:
 	virtual int getHeight();
 	virtual int getPosX();
 	virtual int getPosY();
+	virtual bool getStaticState();
+	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
@@ -29,6 +31,7 @@ private:
 	int posYOffset;
 	std::string type;
 	std::string name;
+	bool staticState;
 	AbstractSprite *spriteParent;
 };
 

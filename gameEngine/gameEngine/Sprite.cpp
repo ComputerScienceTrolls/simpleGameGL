@@ -1,9 +1,9 @@
 #include "Sprite.h"
-//#include "Scene.h"
+#include "observerhandler.h"
+
 //pie constant for math
 const double PI = 3.141592653589793238463;
 
-//Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
 Sprite::Sprite()
 	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0), speed(10), moveAngle(0), imgAngle(0), collideDebug(false)
@@ -17,38 +17,43 @@ Sprite::Sprite()
 
 
 Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
-	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
+	: Center(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
+	//std::cout << "\n" << this->Size.x/2;
+	//center the postion based on the height and width of the sprite
+	this->Position.x = this->Center.x - this->Size.x/2;
+	this->Position.y = this->Center.y - this->Size.y/2;
+	//std::cout << "\n posx " << this->Position.x;
+	//std::cout << "\n posy " << this->Position.y;
+	//std::cout << "\n renderposx " << this->RenderPosition.x;
+	//std::cout << "\n renderposy " << this->RenderPosition.y;
+
 	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
-	this->setBoundAction("DIE");
 
 	this->name = name;
+
 	//load texture
 	ResourceManager::LoadTexture(texture,true,texture);
 	this->Texture = ResourceManager::GetTexture(texture);
 	
 	//texture for collider debug
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
-
-	//parentScene = &scene;
-
-
-	int lastSprite = 0;
-	lastSprite = scene.Sprites.size();
+	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
 	//add Sprite to Scene
 	scene.Sprites.push_back(this);
 
-	scene.Sprites.at(lastSprite)->setPosition(Position);
-	scene.Sprites.at(lastSprite)->setPosition(this->Size);
-	scene.Sprites.at(lastSprite)->setVelocity(this->Velocity);
-	scene.Sprites.at(lastSprite)->setColor(this->Color);
-	scene.Sprites.at(lastSprite)->setRotation(this->Rotation);
-	scene.Sprites.at(lastSprite)->setTexture(this->Texture);
-	scene.Sprites.at(lastSprite)->IsSolid = this->IsSolid;
-	scene.Sprites.at(lastSprite)->Destroyed = this->Destroyed;
-	scene.Sprites.at(lastSprite)->collideDebug = this->collideDebug;
+	scene.Sprites.back()->setPosition(this->Position);
+	scene.Sprites.back()->setCenter(this->Center);
+	scene.Sprites.back()->setSize(this->Size);
+	scene.Sprites.back()->setVelocity(this->Velocity);
+	scene.Sprites.back()->setColor(this->Color);
+	scene.Sprites.back()->setRotation(this->Rotation);
+	scene.Sprites.back()->setTexture(this->Texture);
+	scene.Sprites.back()->IsSolid = this->IsSolid;
+	scene.Sprites.back()->Destroyed = this->Destroyed;
+	scene.Sprites.back()->collideDebug = this->collideDebug;
 	
 	this->setState("active", true);
 	
@@ -57,22 +62,34 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 void Sprite::Draw(SpriteRenderer &renderer)
 {
 	GLfloat t = 1;
+
 	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(),t);
 	//check if collideDebug is true, if so draw all colliders
-
+	
 	if (collideDebug)
 	{
 		for (int i = 0; i < getColliders().size(); i++)
 		{
-			if (this->getName() == "Ball")
+			//std::cout << "width: " << getColliders().at(i)->getWidth();
+			t = .15;
+
+			//see which texture to use, if circle or box, if collider is static we need to exclude the position of the sprite
+			if (getColliders().at(i)->getType() == "box")
 			{
-				t = .15;
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			}
-			else
+			else if (getColliders().at(i)->getType() == "staticBox")
 			{
-				t = 1;
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			}
-			renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y),glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()),0,glm::vec3(0,255,0), t);
+			else if (getColliders().at(i)->getType() == "circle")
+			{
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+			}
+			else if (getColliders().at(i)->getType() == "staticCircle")
+			{
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+			}
 		}
 	}
 	//renderer.DrawSprite(this->Texture, this->Position, this->Size, this->Rotation, this->Color);
@@ -80,6 +97,19 @@ void Sprite::Draw(SpriteRenderer &renderer)
 
 //iterate through all this sprite's colliders, and have it check if it's colliding with another specified sprite's colliders
 bool Sprite::collide(AbstractSprite* otherSprite)
+{
+	for (int i = 0; i < this->colliders_.size(); i++)
+	{
+		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
+		{
+			return true;
+		}
+	}
+	//if we get here, no collision detected, return false
+	return false;
+}
+
+bool Sprite::collide(Sprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
@@ -167,6 +197,11 @@ glm::vec2 Sprite::getPosition()
 	return this->Position;
 }
 
+glm::vec2 Sprite::getCenter()
+{
+	return this->Center;
+}
+
 glm::vec2 Sprite::getSize()
 {
 	return this->Size;
@@ -215,6 +250,11 @@ GLfloat Sprite::getDY()
 void Sprite::setPosition(glm::vec2 newPosition)
 {
 	this->Position = newPosition;
+}
+
+void Sprite::setCenter(glm::vec2 newCenter)
+{
+	this->Center = newCenter;
 }
 
 void Sprite::setSize(glm::vec2 newSize)
@@ -269,6 +309,12 @@ void Sprite::addBoxCollider(std::string name, int w, int h)
 	this->colliders_.push_back(temp);
 }
 
+void Sprite::addStaticBoxCollider(std::string name, int w, int h, int posX, int posY)
+{
+	staticBoxCollider *temp = new staticBoxCollider(name, w, h, posX, posY);
+	this->colliders_.push_back(temp);
+}
+
 void Sprite::removeCollider(std::string name)
 {
 	//get index of collider
@@ -295,7 +341,33 @@ void Sprite::removeCollider(std::string name)
 
 void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 {
-	circleCollider *temp = new circleCollider(name, *this, r, posX, posY);
+	double r2 = r * 2;
+	//if doesn't fit to sprite, we need to recenter the circle
+	int diffY = 0;
+	int diffX = 0;
+	if (r2 != this->getSize().x || r2 != this->getSize().y)
+	{
+		//get x and y offset
+		diffX = r - this->getSize().x/2;
+		diffY = r - this->getSize().y/2;
+	}
+	circleCollider *temp = new circleCollider(name, *this, r, posX - diffX, posY - diffY);
+	this->colliders_.push_back(temp);
+}
+
+void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int posY)
+{
+	double r2 = r * 2;
+	//if doesn't fit to sprite, we need to recenter the circle
+	int diffY = 0;
+	int diffX = 0;
+	if (r2 != this->getSize().x || r2 != this->getSize().y)
+	{
+		//get x and y offset
+		diffX = r - this->getSize().x / 2;
+		diffY = r - this->getSize().y / 2;
+	}
+	staticCircleCollider *temp = new staticCircleCollider(name, r, posX - diffX, posY - diffY);
 	this->colliders_.push_back(temp);
 }
 
@@ -303,6 +375,13 @@ void Sprite::update()
 {
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
+
+	//update Center
+	this->Center.x += this->dx;
+	this->Center.y -= this->dy;
+
+	//run Observers
+	ObserverHandler::getInstance()->NotifyObservers();
 }
 
 void Sprite::setState(std::string key, bool state)
@@ -529,4 +608,9 @@ void Sprite::setCollideDebug(bool state)
 
 Sprite::~Sprite()
 {
+	//delete colliders
+	for (int i = 0; i < colliders_.size(); i++)
+	{
+		delete colliders_.at(i);
+	}
 }

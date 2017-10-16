@@ -13,6 +13,8 @@
 #include "AbstractSprite.h"
 #include "boxCollider.h"
 #include "circleCollider.h"
+#include "staticBoxCollider.h"
+#include "staticCircleCollider.h"
 #include "Scene.h"
 
 #pragma once
@@ -32,6 +34,7 @@ public:
 	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
 	bool collide(AbstractSprite * otherSprite);
+	bool collide(Sprite * otherSprite);
 	void setVelocity(GLfloat dt);
 	void update();
 	void setState(std::string key, bool state);
@@ -49,6 +52,7 @@ public:
 	void setImgAngle(float newAngle);
 	void setMoveAngle(float newAngle);
 	virtual glm::vec2 getPosition();
+	virtual glm::vec2 getCenter();
 	virtual glm::vec2 getSize();
 	virtual Texture2D getTexture();
 	virtual glm::vec2 getVelocity();
@@ -59,6 +63,7 @@ public:
 	virtual GLfloat getDX();
 	virtual GLfloat getDY();
 	virtual void setPosition(glm::vec2);
+	virtual void setCenter(glm::vec2);
 	virtual void setSize(glm::vec2);
 	virtual void setTexture(Texture2D);
 	virtual void setVelocity(glm::vec2);
@@ -69,7 +74,9 @@ public:
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void setColliderPredictive(std::string name, bool predictive);
 	virtual void addBoxCollider(std::string name, int w, int h);
+	virtual void addStaticBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void addCircleCollider(std::string name, double r, int posX, int posY);
+	virtual void addStaticCircleCollider(std::string name, double r, int posX, int posY);
 	virtual void removeCollider(std::string name);
 	~Sprite();
 
@@ -82,7 +89,7 @@ private:
 	float moveAngle;
 	float imgAngle;
 	bool collideDebug;
-	glm::vec2   Position, Size, Velocity;
+	glm::vec2   Position, Size, Velocity, Center;
 	Texture2D	Texture;
 	glm::vec3   Color;
 	GLfloat     Rotation;

@@ -16,7 +16,6 @@ SpriteRenderer  *Renderer;
 struct KeyHandler
 {
 	GLboolean Keys[1024];
-	int test = 0;
 }; 
 
 KeyHandler keyHandler;
@@ -127,18 +126,8 @@ void Scene::Update(GLfloat dt)
 		{
 			Sprites.at(i)->update();
 			Sprites.at(i)->checkBounds(Width, Height);
-			//colliders
-			//Sprites.at(i)->Draw(*Renderer);
 		}
 	}
-
-	//check for collidition between ball and paddle
-	if (spriteMap["Ball"]->collide(spriteMap["Paddle"]))
-	{
-		spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-	}
-
-
 }
 
 void Scene::ProcessInput(GLfloat dt)
@@ -148,19 +137,19 @@ void Scene::ProcessInput(GLfloat dt)
 		// Move playerboard
 		if (keyHandler.Keys[GLFW_KEY_A])
 		{
-			spriteMap["Paddle"]->addForce(180,.1);
+			spriteMap["Paddle"]->addForce(180,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_D])
 		{
-			spriteMap["Paddle"]->addForce(0,.1);
+			spriteMap["Paddle"]->addForce(0,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_W])
 		{
-			spriteMap["Paddle"]->addForce(90,.1);
+			spriteMap["Paddle"]->addForce(90,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_S])
 		{
-			spriteMap["Paddle"]->addForce(270,.1);
+			spriteMap["Paddle"]->addForce(270,.1f);
 		}
 		
 	}
