@@ -1,10 +1,9 @@
 #include "Sprite.h"
 #include "observerhandler.h"
-//#include "Scene.h"
+
 //pie constant for math
 const double PI = 3.141592653589793238463;
 
-//Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
 Sprite::Sprite()
 	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0), speed(10), moveAngle(0), imgAngle(0), collideDebug(false)
@@ -74,11 +73,22 @@ void Sprite::Draw(SpriteRenderer &renderer)
 			//std::cout << "width: " << getColliders().at(i)->getWidth();
 			t = .15;
 
+			//see which texture to use, if circle or box, if collider is static we need to exclude the position of the sprite
 			if (getColliders().at(i)->getType() == "box")
+			{
 				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
-			else
+			}
+			else if (getColliders().at(i)->getType() == "staticBox")
+			{
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+			}
+			else if (getColliders().at(i)->getType() == "circle")
 			{
 				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+			}
+			else if (getColliders().at(i)->getType() == "staticCircle")
+			{
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			}
 		}
 	}
@@ -299,6 +309,12 @@ void Sprite::addBoxCollider(std::string name, int w, int h)
 	this->colliders_.push_back(temp);
 }
 
+void Sprite::addStaticBoxCollider(std::string name, int w, int h, int posX, int posY)
+{
+	staticBoxCollider *temp = new staticBoxCollider(name, w, h, posX, posY);
+	this->colliders_.push_back(temp);
+}
+
 void Sprite::removeCollider(std::string name)
 {
 	//get index of collider
@@ -336,6 +352,22 @@ void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 		diffY = r - this->getSize().y/2;
 	}
 	circleCollider *temp = new circleCollider(name, *this, r, posX - diffX, posY - diffY);
+	this->colliders_.push_back(temp);
+}
+
+void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int posY)
+{
+	double r2 = r * 2;
+	//if doesn't fit to sprite, we need to recenter the circle
+	int diffY = 0;
+	int diffX = 0;
+	if (r2 != this->getSize().x || r2 != this->getSize().y)
+	{
+		//get x and y offset
+		diffX = r - this->getSize().x / 2;
+		diffY = r - this->getSize().y / 2;
+	}
+	staticCircleCollider *temp = new staticCircleCollider(name, r, posX - diffX, posY - diffY);
 	this->colliders_.push_back(temp);
 }
 
@@ -576,4 +608,9 @@ void Sprite::setCollideDebug(bool state)
 
 Sprite::~Sprite()
 {
+	//delete colliders
+	for (int i = 0; i < colliders_.size(); i++)
+	{
+		delete colliders_.at(i);
+	}
 }

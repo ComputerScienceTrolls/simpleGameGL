@@ -15,6 +15,7 @@
 #include "observerhandler.h"
 #include "ColliderObserver.h"
 #include "CheckBoundsObserver.h"
+#include "main.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -49,8 +50,10 @@ int main(int argc, char *argv[])
 	//std::cout << Player->getPosition().x;
 	//std::cout << "\n" << Player->getCenter().x;
 	Player->setCollideDebug(true);
-	//Player->removeCollider("default");
-	Player->addCircleCollider("t", 50, 50, 100);
+	Player->removeCollider("default");
+	Player->addCircleCollider("test", 50, 0, 0);
+	//Ball->addStaticCircleCollider("t", 50, 50, 100);
+	Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
 
 	//Ball->setSpeed(.1);
 	Ball->setMoveAngle(90);
@@ -59,9 +62,9 @@ int main(int argc, char *argv[])
 	//Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
 	//Ball->removeCollider("default");
-	Ball->addBoxCollider("test",50,50,50,100);
-	Ball->addBoxCollider("test", 50, 50, -50, -100);
-	Ball->addCircleCollider("f", 80, 300, 10);
+	//Ball->addBoxCollider("test",50,50,50,100);
+	//Ball->addBoxCollider("test", 50, 50, -50, -100);
+	//Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
 	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);

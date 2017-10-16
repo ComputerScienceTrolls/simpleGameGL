@@ -137,19 +137,19 @@ void Scene::ProcessInput(GLfloat dt)
 		// Move playerboard
 		if (keyHandler.Keys[GLFW_KEY_A])
 		{
-			spriteMap["Paddle"]->addForce(180,.1);
+			spriteMap["Paddle"]->addForce(180,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_D])
 		{
-			spriteMap["Paddle"]->addForce(0,.1);
+			spriteMap["Paddle"]->addForce(0,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_W])
 		{
-			spriteMap["Paddle"]->addForce(90,.1);
+			spriteMap["Paddle"]->addForce(90,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_S])
 		{
-			spriteMap["Paddle"]->addForce(270,.1);
+			spriteMap["Paddle"]->addForce(270,.1f);
 		}
 		
 	}

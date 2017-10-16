@@ -50,7 +50,6 @@ bool boxCollider::collide(std::vector<collider*> otherColliders)
 		}
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
-			//std::cout << "wut";
 			// Get center point circle first 
 			glm::vec2 center(otherColliders.at(i)->getSpritePos() + glm::vec2(otherColliders.at(i)->getPosX(), otherColliders.at(i)->getPosY()) + otherColliders.at(i)->getRadius());
 
@@ -94,7 +93,11 @@ int boxCollider::getPosX()
 {
 	return posXOffset;
 }
-
+
+bool boxCollider::getStaticState()
+{
+	return this->staticState;
+}
 int boxCollider::getPosY()
 {
 	return posYOffset;

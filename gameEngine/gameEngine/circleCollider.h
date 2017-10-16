@@ -24,7 +24,7 @@ public:
 	~circleCollider();
 
 private:
-	int radius;
+	float radius;
 	int posXOffset;
 	int posYOffset;
 	std::string type;
