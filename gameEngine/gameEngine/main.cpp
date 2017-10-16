@@ -26,7 +26,8 @@ void ballColl2(Sprite *Ball, Sprite *Player)
 	//check for collidition between ball and paddle
 	if (Ball->collide(Player))
 	{
-		std::cout << "collision\n";
+		Player->setDX(-Player->getDX());
+		std::cout << "collision";
 		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 	}
 }
@@ -43,23 +44,24 @@ int main(int argc, char *argv[])
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
-	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(300,500), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(0,0), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
-
+	//std::cout << Player->getPosition().x;
+	//std::cout << "\n" << Player->getCenter().x;
 	Player->setCollideDebug(true);
-	Player->removeCollider("default");
-	Player->addCircleCollider("t", 50, 0, 0);
+	//Player->removeCollider("default");
+	Player->addCircleCollider("t", 50, 50, 100);
 
 	//Ball->setSpeed(.1);
 	Ball->setMoveAngle(90);
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
-	Player->setBoundAction("BOUNCE");
+	//Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
-	Ball->removeCollider("default");
+	//Ball->removeCollider("default");
 	//Ball->addBoxCollider("test",50,50,50,100);
 	//Ball->addBoxCollider("test", 50, 50, -50, -100);
-	Ball->addCircleCollider("f", 80, 0, 0);
+	Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
 	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);

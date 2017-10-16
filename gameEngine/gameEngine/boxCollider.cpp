@@ -50,22 +50,26 @@ bool boxCollider::collide(std::vector<collider*> otherColliders)
 		}
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
+			//std::cout << "wut";
 			// Get center point circle first 
-			glm::vec2 center(otherColliders.at(i)->getSpritePos() + otherColliders.at(i)->getRadius());
-			
+			glm::vec2 center(otherColliders.at(i)->getSpritePos() + glm::vec2(otherColliders.at(i)->getPosX(), otherColliders.at(i)->getPosY()) + otherColliders.at(i)->getRadius());
+
+			//std::cout << "sizey: " << otherColliders.at(i)->getSpriteSize().y;
 			// Calculate AABB info (center, half-extents)
 			glm::vec2 aabb_half_extents(this->getSpriteSize().x / 2, this->getSpriteSize().y / 2);
 			glm::vec2 aabb_center(
-				this->getSpritePos().x + aabb_half_extents.x,
-				this->getSpritePos().y + aabb_half_extents.y
+				this->getSpritePos().x + this->getPosX() + aabb_half_extents.x,
+				this->getSpritePos().y + this->getPosY() + aabb_half_extents.y
 			);
 			// Get difference vector between both centers
 			glm::vec2 difference = center - aabb_center;
 			glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
 			// Add clamped value to AABB_center and we get the value of box closest to circle
 			glm::vec2 closest = aabb_center + clamped;
+
 			// Retrieve vector between center circle and closest point AABB and check if length <= radius
 			difference = closest - center;
+
 			if (glm::length(difference) < otherColliders.at(i)->getRadius())
 				return true;
 		}
@@ -98,7 +102,7 @@ int boxCollider::getPosY()
 
 glm::vec2 boxCollider::getSpriteCenterPos()
 {
-	return spriteParent->getRenderPosition();
+	return spriteParent->getCenter();
 }
 
 std::string boxCollider::getType()

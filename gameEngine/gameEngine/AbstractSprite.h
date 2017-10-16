@@ -28,7 +28,7 @@ public:
 	virtual void setMoveAngle(float newAngle) {};
 	virtual bool collide(AbstractSprite*) { return false; };
 	virtual glm::vec2 getPosition() = 0; //{ return glm::vec2(); };
-	virtual glm::vec2 getRenderPosition() = 0;
+	virtual glm::vec2 getCenter() = 0;
 	virtual glm::vec2 getSize() { return glm::vec2(); };
 	virtual glm::vec2 getVelocity() { return glm::vec2(); };
 	virtual glm::vec3 getColor() { return glm::vec3(); };
@@ -39,7 +39,8 @@ public:
 	virtual GLfloat getDX() = 0;
 	virtual GLfloat getDY() = 0;
 	virtual bool getState(std::string) = 0;
-	virtual void setPosition(glm::vec2) {};
+	virtual void setPosition(glm::vec2) = 0;
+	virtual void setCenter(glm::vec2) = 0;
 	virtual void setTexture(Texture2D test) {};
 	virtual void setSize(glm::vec2) {};
 	virtual void setVelocity(glm::vec2) {};

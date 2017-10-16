@@ -18,16 +18,16 @@ Sprite::Sprite()
 
 
 Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
-	: Position(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
+	: Center(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
 	//std::cout << "\n" << this->Size.x/2;
 	//center the postion based on the height and width of the sprite
-	this->RenderPosition.x = this->Position.x - this->Size.x/2;
-	this->RenderPosition.y = this->Position.y - this->Size.y/2;
-	std::cout << "\n posx " << this->Position.x;
-	std::cout << "\n posy " << this->Position.y;
-	std::cout << "\n renderposx " << this->RenderPosition.x;
-	std::cout << "\n renderposy " << this->RenderPosition.y;
+	this->Position.x = this->Center.x - this->Size.x/2;
+	this->Position.y = this->Center.y - this->Size.y/2;
+	//std::cout << "\n posx " << this->Position.x;
+	//std::cout << "\n posy " << this->Position.y;
+	//std::cout << "\n renderposx " << this->RenderPosition.x;
+	//std::cout << "\n renderposy " << this->RenderPosition.y;
 
 	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
@@ -46,6 +46,7 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 	scene.Sprites.push_back(this);
 
 	scene.Sprites.back()->setPosition(this->Position);
+	scene.Sprites.back()->setCenter(this->Center);
 	scene.Sprites.back()->setSize(this->Size);
 	scene.Sprites.back()->setVelocity(this->Velocity);
 	scene.Sprites.back()->setColor(this->Color);
@@ -63,21 +64,21 @@ void Sprite::Draw(SpriteRenderer &renderer)
 {
 	GLfloat t = 1;
 
-	renderer.DrawSprite(this->getTexture(), this->RenderPosition, this->getSize(), this->getRotation(), this->getColor(),t);
+	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(),t);
 	//check if collideDebug is true, if so draw all colliders
 	
 	if (collideDebug)
 	{
 		for (int i = 0; i < getColliders().size(); i++)
 		{
-			std::cout << "width: " << getColliders().at(i)->getWidth();
+			//std::cout << "width: " << getColliders().at(i)->getWidth();
 			t = .15;
 
 			if (getColliders().at(i)->getType() == "box")
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getRenderPosition().x, getColliders().at(i)->getPosY() + this->getRenderPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			else
 			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getRenderPosition().x, getColliders().at(i)->getPosY() + this->getRenderPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
+				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), t);
 			}
 		}
 	}
@@ -186,9 +187,9 @@ glm::vec2 Sprite::getPosition()
 	return this->Position;
 }
 
-glm::vec2 Sprite::getRenderPosition()
+glm::vec2 Sprite::getCenter()
 {
-	return this->RenderPosition;
+	return this->Center;
 }
 
 glm::vec2 Sprite::getSize()
@@ -239,6 +240,11 @@ GLfloat Sprite::getDY()
 void Sprite::setPosition(glm::vec2 newPosition)
 {
 	this->Position = newPosition;
+}
+
+void Sprite::setCenter(glm::vec2 newCenter)
+{
+	this->Center = newCenter;
 }
 
 void Sprite::setSize(glm::vec2 newSize)
@@ -338,9 +344,9 @@ void Sprite::update()
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
 
-	//update RenderPosition
-	this->RenderPosition.x += this->dx;
-	this->RenderPosition.y -= this->dy;
+	//update Center
+	this->Center.x += this->dx;
+	this->Center.y -= this->dy;
 
 	//run Observers
 	ObserverHandler::getInstance()->NotifyObservers();
