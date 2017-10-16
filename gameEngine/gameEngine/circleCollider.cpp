@@ -38,21 +38,10 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 		}
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
-			/*
-			int diffX = (this->getSpritePos().x + this->getPosX()) - (otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX());
-			int diffY = (this->getSpritePos().y + this->getPosY()) - (otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY());
-			*/
-
-			// Get center point circle first 
-			glm::vec2 center1(this->getSpriteCenterPos() + glm::vec2(this->getPosX(), this->getPosY()));
-			glm::vec2 center2(otherColliders.at(i)->getSpriteCenterPos() + glm::vec2(otherColliders.at(i)->getPosX(), otherColliders.at(i)->getPosY()) + otherColliders.at(i)->getRadius());
-
-			int diffX = this->getSpriteCenterPos().x - otherColliders.at(i)->getSpriteCenterPos().x;
-			int diffY = this->getSpriteCenterPos().y - otherColliders.at(i)->getSpriteCenterPos().y;
+			int diffX = (this->getSpriteCenterPos().x + this->getPosX()) - (otherColliders.at(i)->getSpriteCenterPos().x + otherColliders.at(i)->getPosX());
+			int diffY = (this->getSpriteCenterPos().y + this->getPosY()) - (otherColliders.at(i)->getSpriteCenterPos().y + otherColliders.at(i)->getPosY());
 			
 			int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
-			//std::cout << "\n" << this->getSpritePos().x;
-			//std::cout << "\nd " << dist;
 			if (dist <= (this->getRadius() + otherColliders.at(i)->getRadius()))
 				return true;
 			else

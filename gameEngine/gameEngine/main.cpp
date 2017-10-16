@@ -59,8 +59,8 @@ int main(int argc, char *argv[])
 	//Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
 	//Ball->removeCollider("default");
-	//Ball->addBoxCollider("test",50,50,50,100);
-	//Ball->addBoxCollider("test", 50, 50, -50, -100);
+	Ball->addBoxCollider("test",50,50,50,100);
+	Ball->addBoxCollider("test", 50, 50, -50, -100);
 	Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
