@@ -15,7 +15,6 @@
 #include "observerhandler.h"
 #include "ColliderObserver.h"
 #include "CheckBoundsObserver.h"
-#include "main.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
