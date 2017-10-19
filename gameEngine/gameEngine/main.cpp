@@ -16,6 +16,9 @@
 #include "ColliderObserver.h"
 #include "CheckBoundsObserver.h"
 
+#include "alut.h"
+#include <cstdlib>
+
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
@@ -39,6 +42,21 @@ void checkCols(Sprite *s, int w, int h)
 
 int main(int argc, char *argv[])
 {
+
+	/* Test to see if works
+	//this section plays an audio that says "Hello World"
+	ALuint helloBuffer, helloSource;
+	alutInit(&argc, argv);
+	helloBuffer = alutCreateBufferHelloWorld();
+	alGenSources(1, &helloSource);
+	alSourcei(helloSource, AL_BUFFER, helloBuffer);
+	alSourcePlay(helloSource);
+	alutSleep(1);
+	alutExit();
+	return EXIT_SUCCESS;
+	*/
+
+
 	Scene mainScene(800, 600);
 	mainScene.Init();
 
