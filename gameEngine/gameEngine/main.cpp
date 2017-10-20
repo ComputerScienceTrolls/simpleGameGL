@@ -16,6 +16,7 @@
 #include "ColliderObserver.h"
 #include "CheckBoundsObserver.h"
 
+<<<<<<< HEAD
 
 
 // Example 2 ---------------------------------------------------------
@@ -123,6 +124,8 @@ void KillALData()
 
 
 
+=======
+>>>>>>> origin/addingSound
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
@@ -148,6 +151,7 @@ void checkCols(Sprite *s, int w, int h)
 
 int main(int argc, char *argv[])
 {
+<<<<<<< HEAD
 	//Example 2--------------------------------------------------------------
 	cout << "Play OpenAL waveform audio file" << endl;
 	cout << "Type a character controls:" << endl;
@@ -204,6 +208,8 @@ int main(int argc, char *argv[])
 
 
 	/*
+=======
+>>>>>>> origin/addingSound
 	Scene mainScene(800, 600);
 	mainScene.Init();
 
