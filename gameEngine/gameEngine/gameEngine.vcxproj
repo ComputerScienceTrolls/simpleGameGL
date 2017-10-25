@@ -148,6 +148,7 @@
     <ClCompile Include="circleCollider.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="ColliderObserver.cpp" />
+    <ClCompile Include="CollisionGroupObserver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="observer.cpp" />
     <ClCompile Include="observerhandler.cpp" />
@@ -168,7 +169,7 @@
     <ClInclude Include="circleCollider.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="ColliderObserver.h" />
-    <ClInclude Include="main.h" />
+    <ClInclude Include="CollisionGroupObserver.h" />
     <ClInclude Include="observer.h" />
     <ClInclude Include="observerhandler.h" />
     <ClInclude Include="ResourceManager.h" />

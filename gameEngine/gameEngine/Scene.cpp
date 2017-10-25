@@ -126,8 +126,33 @@ void Scene::Update(GLfloat dt)
 		{
 			Sprites.at(i)->update();
 			Sprites.at(i)->checkBounds(Width, Height);
+			/*
+			if (Sprites.at(i)->getName() == "Paddle")
+			{
+				std::vector<AbstractSprite*> tempVec = this->getSprite("Ball");
+				for (int j = 0; j < tempVec.size(); j++)
+				{
+					//std::cout << "step2";
+					if (Sprites.at(i)->collide(tempVec.at(j)))
+					{
+						std::cout << "collision3";
+					}
+				}
+			}
+			*/
 		}
 	}
+}
+
+std::vector<AbstractSprite*> Scene::getSprite(std::string name)
+{
+	std::vector<AbstractSprite*> tempVec;
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		if (Sprites.at(i)->getName() == name)
+			tempVec.push_back(Sprites[i]);
+	}
+	return tempVec;
 }
 
 void Scene::ProcessInput(GLfloat dt)
@@ -168,7 +193,6 @@ void Scene::Render()
 		}
 	}
 }
-
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
