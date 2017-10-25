@@ -15,6 +15,7 @@
 #include "observerhandler.h"
 #include "ColliderObserver.h"
 #include "CheckBoundsObserver.h"
+#include "CollisionGroupObserver.h"
 
 
 
@@ -129,15 +130,33 @@ const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
+Scene mainScene(800, 600);
+
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
 	//check for collidition between ball and paddle
 	if (Ball->collide(Player))
 	{
-		Player->setDX(-Player->getDX());
+		//Player->setDX(-Player->getDX());
 		std::cout << "collision";
 		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 	}
+}
+
+void ballColl3(Sprite *Player, std::string name)
+{
+	//get all instances of name and check for collision with given sprite
+	std::vector<AbstractSprite*> tempVec = mainScene.getSprite(name);
+	for (int i = 0; i < tempVec.size(); i++)
+	{
+		if (Player->collide(tempVec.at(i)))
+		{
+			//Player->setDX(-Player->getDX());
+			std::cout << "collision";
+			//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
+		}
+	}
+
 }
 
 void checkCols(Sprite *s, int w, int h)
@@ -149,66 +168,10 @@ void checkCols(Sprite *s, int w, int h)
 
 int main(int argc, char *argv[])
 {
-
-	//Example 2--------------------------------------------------------------
-	cout << "Play OpenAL waveform audio file" << endl;
-	cout << "Type a character controls:" << endl;
-	cout << "p) To Play" << endl;
-	cout << "s) To Stop playing" << endl;
-	cout << "h) To Hold / Pause playing" << endl;
-	cout << "q) To Quit playing" << endl << endl;
-
-	// Initialize OpenAL and clear the error bit. 
-	alutInit(NULL, 0);
-	alGetError();
-
-	// Load the wav data. 
-	if (LoadALData() == AL_FALSE) //method 1: LoadALData()
-	{
-		printf("Error loading data.");
-
-		cin.ignore();
-		return 0;
-	}
-
-	SetListenerValues(); //method 2: void SetListenerValues()
-
-						 // Setup an exit procedure. 
-						 //atexit(KillALData); //method 3: void KillALData()
-
-						 // Loop. 
-	char c = ' ';
-
-	while (c != 'q')
-	{
-		c = _getche();
-		switch (c)
-		{
-			// Pressing 'p' will begin playing the sample. 
-		case 'p': alSourcePlay(Source); break;
-
-			// Pressing 's' will stop the sample from playing. 
-		case 's': alSourceStop(Source); break;
-
-			// Pressing 'h' will pause the sample. 
-		case 'h': alSourcePause(Source); break;
-		};
-	}
-
-	return 0;
-
-
-	//-----------------------------------------------------
-
-
-
-
-
-
 	/*
-=======
->>>>>>> origin/addingSound
+
 	Scene mainScene(800, 600);
+
 	mainScene.Init();
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
@@ -236,16 +199,31 @@ int main(int argc, char *argv[])
 
 	ObserverHandler *test = ObserverHandler::getInstance();
 	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
-
-	for (int i = 0; i < 20; i++)
+	
+	for (int i = 0; i < 15; i++)
 	{
-		//Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*10), 300 + (i*10)), glm::vec2(i, i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
-		//ColliderObserver *temp = new ColliderObserver(ballColl2, temp2, Player);
+		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*10), 300 + (i*10)), glm::vec2(i, i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
+		//ColliderObserver *temp = new ColliderObserver(ballColl2, Player, Ball);
 		//CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
-		//temp2->addForce((i * 1), i);
-		//temp2->setBoundAction("BOUNCE");
+		temp2->addForce((i * 1), i);
+		temp2->setBoundAction("BOUNCE");
 		//test->addObserver(*temp);
 	}
+	CollisionGroupObserver *temp = new CollisionGroupObserver(ballColl3, Player, "Ball");
+	test->addObserver(*temp);
+	
+	/*
+	for (int i = 0; i < 50; i++)
+	{
+		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i * 10), 300 + (i * 10)), glm::vec2(i, i), "textures/face.png", glm::vec3(1.0f), glm::vec2(i, i));
+		//ColliderObserver *temp = new ColliderObserver(ballColl2, temp2, Player);
+		//CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
+		temp2->addForce((i * 1), i);
+		temp2->setBoundAction("BOUNCE");
+		//test->addObserver(*temp);
+	}
+	*/
+	
 	test->addObserver(*colTest);
 	
 	mainScene.Start();
@@ -253,5 +231,4 @@ int main(int argc, char *argv[])
 	
 
 	return 0;
-	*/
 }

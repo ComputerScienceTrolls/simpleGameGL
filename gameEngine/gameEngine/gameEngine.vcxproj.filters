@@ -66,6 +66,9 @@
     <ClCompile Include="staticBoxCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionGroupObserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -113,13 +116,13 @@
     <ClInclude Include="CheckBoundsObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="staticCircleCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="staticBoxCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionGroupObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

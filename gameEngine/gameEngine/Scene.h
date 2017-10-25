@@ -43,8 +43,8 @@ public:
 	// GameLoop
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
-	//void CheckCollisions();
 	void Render();
+	std::vector<AbstractSprite*> getSprite(std::string name);
 
 	std::vector<AbstractSprite*> Sprites;
 	GLFWwindow* window;
