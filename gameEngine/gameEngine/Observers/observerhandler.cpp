@@ -36,6 +36,11 @@ void ObserverHandler::NotifyObservers()
     (*itr)->Notify();
 }
 
+int ObserverHandler::getNumberOfObservers()
+{
+	return observers_.size();
+}
+
 void ObserverHandler::Trigger()
 {
     NotifyObservers();

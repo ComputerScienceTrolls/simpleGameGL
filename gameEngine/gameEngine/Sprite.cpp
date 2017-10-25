@@ -380,7 +380,8 @@ void Sprite::update()
 	this->Center.x += this->dx;
 	this->Center.y -= this->dy;
 
-	//run Observers
+	//run Observer
+	std::cout << ObserverHandler::getInstance()->getNumberOfObservers();
 	ObserverHandler::getInstance()->NotifyObservers();
 }
 

@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 	ObserverHandler *test = ObserverHandler::getInstance();
 	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*10), 300 + (i*10)), glm::vec2(i, i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
 		//ColliderObserver *temp = new ColliderObserver(ballColl2, Player, Ball);
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 	}
 	*/
 	
-	test->addObserver(*colTest);
+	//test->addObserver(*colTest);
 	
 	mainScene.Start();
 	
