@@ -12,10 +12,10 @@
 #include "Scene.h"
 #include "Sprite.h"
 
-#include "observerhandler.h"
-#include "ColliderObserver.h"
-#include "CheckBoundsObserver.h"
-#include "CollisionGroupObserver.h"
+#include "Observers/observerhandler.h"
+#include "Observers/ColliderObserver.h"
+#include "Observers/CheckBoundsObserver.h"
+#include "Observers/CollisionGroupObserver.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;

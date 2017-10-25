@@ -11,10 +11,10 @@
 #include <map>
 
 #include "AbstractSprite.h"
-#include "boxCollider.h"
-#include "circleCollider.h"
-#include "staticBoxCollider.h"
-#include "staticCircleCollider.h"
+#include "Colliders/boxCollider.h"
+#include "Colliders/circleCollider.h"
+#include "Colliders/staticBoxCollider.h"
+#include "Colliders/staticCircleCollider.h"
 #include "Scene.h"
 
 #pragma once

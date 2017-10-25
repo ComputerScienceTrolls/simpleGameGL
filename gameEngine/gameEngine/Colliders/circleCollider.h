@@ -1,37 +1,34 @@
 #pragma once
 #include "collider.h"
-#include "AbstractSprite.h"
-#include <iostream>
-#include <vector>
+#include "../AbstractSprite.h"
 
+#include "math.h"
 
-class boxCollider : public collider
+class circleCollider : public collider
 {
 
 public:
-	boxCollider (std::string name, AbstractSprite &parent, int w, int h);
-	boxCollider(std::string name, AbstractSprite &parent, int w, int h, int posX, int posY);
+	circleCollider(std::string name, AbstractSprite &parent, float r);
+	circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY);
 	virtual bool collide(std::vector<collider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
+	virtual float getRadius();
 	virtual int getPosX();
 	virtual int getPosY();
-	virtual bool getStaticState();
-	virtual glm::vec2 getSpriteCenterPos();
+	std::string getType();
 	virtual glm::vec2 getSpritePos();
+	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
-	std::string getType();
-	~boxCollider();
+	~circleCollider();
 
 private:
-	int offsetH;
-	int offsetW;
+	float radius;
 	int posXOffset;
 	int posYOffset;
 	std::string type;
 	std::string name;
-	bool staticState;
 	AbstractSprite *spriteParent;
 };
 
