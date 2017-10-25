@@ -9,6 +9,9 @@
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
 
+#include "alut.h"
+#include <cstdlib>
+
 #include <vector>
 
 // Represents the current state of the game
@@ -36,6 +39,7 @@ public:
 	~Scene();
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();
+	ALboolean loadWav(ALbyte* fileName);
 	// GameLoop
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
@@ -47,5 +51,8 @@ public:
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;
+	std::map<std::string, ALuint> soundBuffers;
+	ALuint soundBuffer;
+	ALuint soundSource;
 };
 #endif
