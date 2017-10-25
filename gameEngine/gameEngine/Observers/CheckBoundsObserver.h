@@ -1,6 +1,6 @@
 #pragma once
 #include "abstractobserver.h"
-#include "Sprite.h"
+#include "../Sprite.h"
 
 class CheckBoundsObserver : public AbstractObserver
 {

@@ -1,5 +1,5 @@
 #include "Sprite.h"
-#include "observerhandler.h"
+#include "Observers/observerhandler.h"
 
 //pie constant for math
 const double PI = 3.141592653589793238463;

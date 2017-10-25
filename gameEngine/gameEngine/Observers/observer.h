@@ -1,7 +1,7 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-#include "Sprite.h"
+#include "../Sprite.h"
 
 #include "abstractobserver.h"
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "collider.h"
+#include "Colliders/collider.h"
 #include "sprite_renderer.h"
 
 class AbstractSprite
