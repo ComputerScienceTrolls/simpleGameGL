@@ -156,6 +156,12 @@
     <ClCompile Include="Observers\observerhandler.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SensorActuatros\AbstractActuator.cpp" />
+    <ClCompile Include="SensorActuatros\AbstractFactory.cpp" />
+    <ClCompile Include="SensorActuatros\AbstractSensor.cpp" />
+    <ClCompile Include="SensorActuatros\CollisionSensor.cpp" />
+    <ClCompile Include="SensorActuatros\MotionActuator.cpp" />
+    <ClCompile Include="SensorActuatros\PositionActuator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
@@ -168,7 +174,6 @@
     <ClInclude Include="Colliders\collider.h" />
     <ClInclude Include="Colliders\staticBoxCollider.h" />
     <ClInclude Include="Colliders\staticCircleCollider.h" />
-    <ClInclude Include="Observers\abstractobserver.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />
     <ClInclude Include="Observers\ColliderObserver.h" />
     <ClInclude Include="Observers\CollisionGroupObserver.h" />
@@ -176,6 +181,12 @@
     <ClInclude Include="Observers\observerhandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SensorActuatros\AbstractActuator.h" />
+    <ClInclude Include="SensorActuatros\AbstractFactory.h" />
+    <ClInclude Include="SensorActuatros\AbstractSensor.h" />
+    <ClInclude Include="SensorActuatros\CollisionSensor.h" />
+    <ClInclude Include="SensorActuatros\MotionActuator.h" />
+    <ClInclude Include="SensorActuatros\PositionActuator.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="sprite_renderer.h" />

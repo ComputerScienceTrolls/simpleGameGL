@@ -17,6 +17,10 @@
 #include "Observers/CheckBoundsObserver.h"
 #include "Observers/CollisionGroupObserver.h"
 
+#include "SensorActuatros\MotionActuator.h"
+#include "SensorActuatros\PositionActuator.h"
+#include "SensorActuatros\CollisionSensor.h"
+
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
@@ -76,27 +80,39 @@ int main(int argc, char *argv[])
 	Ball->setMoveAngle(90);
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
-	//Player->setBoundAction("BOUNCE");
+	Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
 	//Ball->removeCollider("default");
 	//Ball->addBoxCollider("test",50,50,50,100);
 	//Ball->addBoxCollider("test", 50, 50, -50, -100);
 	//Ball->addCircleCollider("f", 80, 300, 10);
 
-	ObserverHandler *test = ObserverHandler::getInstance();
-	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+	//ObserverHandler *test = ObserverHandler::getInstance();
+	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	
-	for (int i = 0; i < 50; i++)
+	CollisionSensor *t2 = new CollisionSensor(Player,Ball);
+	MotionActuator *m2 = new MotionActuator(Player,"flip");
+	PositionActuator *p1 = new PositionActuator(Player, "flip");
+	t2->addActuator(p1);
+	mainScene.addSensor(t2);
+
+	/*
+	for (int i = 0; i < 5; i++)
 	{
-		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*10), 300 + (i*10)), glm::vec2(i, i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
+		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*70), 300 + (i*70)), glm::vec2(10 * i, 10 * i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
 		//ColliderObserver *temp = new ColliderObserver(ballColl2, Player, Ball);
 		//CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
 		temp2->addForce((i * 1), i);
 		temp2->setBoundAction("BOUNCE");
+		CollisionSensor *t1 = new CollisionSensor(Player, temp2);
+		MotionActuator *m1 = new MotionActuator(Player, "flip");
+		t1->addActuator(m1);
+		mainScene.addSensor(t1);
 		//test->addObserver(*temp);
 	}
-	CollisionGroupObserver *temp = new CollisionGroupObserver(ballColl3, Player, "Ball");
-	test->addObserver(*temp);
+	*/
+	//CollisionGroupObserver *temp = new CollisionGroupObserver(ballColl3, Player, "Ball");
+	//test->addObserver(*temp);
 	
 	/*
 	for (int i = 0; i < 50; i++)

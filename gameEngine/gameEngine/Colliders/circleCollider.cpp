@@ -42,10 +42,10 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 		else if (otherColliders.at(i)->getType() == "staticBox")
 		{
 			// Get center point circle first 
-			glm::vec2 center(glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
+			glm::vec2 center(this->getSpritePos() + glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
 
 			// Calculate AABB info (center, half-extents)
-			glm::vec2 aabb_half_extents(otherColliders.at(i)->getSpriteSize().x / 2, otherColliders.at(i)->getSpriteSize().y / 2);
+			glm::vec2 aabb_half_extents(otherColliders.at(i)->getWidth() / 2, otherColliders.at(i)->getHeight() / 2);
 			glm::vec2 aabb_center(
 				otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX() + aabb_half_extents.x,
 				otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY() + aabb_half_extents.y
@@ -58,6 +58,7 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 
 			// Retrieve vector between center circle and closest point AABB and check if length <= radius
 			difference = closest - center;
+
 			if (glm::length(difference) < this->getRadius())
 				return true;
 		}
