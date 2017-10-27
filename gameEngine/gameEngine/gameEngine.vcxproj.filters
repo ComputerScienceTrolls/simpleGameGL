@@ -36,9 +36,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Observers\CheckBoundsObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -69,6 +66,27 @@
     <ClCompile Include="Colliders\staticCircleCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SensorActuatros\AbstractFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorActuatros\AbstractSensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorActuatros\AbstractActuator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorActuatros\PositionActuator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorActuatros\MotionActuator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorActuatros\CollisionSensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -87,9 +105,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="staticCircleCollider.h">
@@ -113,9 +128,6 @@
     <ClInclude Include="Colliders\staticCircleCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Observers\abstractobserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Observers\CheckBoundsObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -129,6 +141,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Observers\CollisionGroupObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuatros\AbstractSensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuatros\AbstractFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuatros\AbstractActuator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuatros\MotionActuator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuatros\PositionActuator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuatros\CollisionSensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

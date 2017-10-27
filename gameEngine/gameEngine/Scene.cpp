@@ -142,6 +142,10 @@ void Scene::Update(GLfloat dt)
 			*/
 		}
 	}
+	for (int i = 0; i < Sensors.size(); i++)
+	{
+		Sensors.at(i)->sense();
+	}
 }
 
 std::vector<AbstractSprite*> Scene::getSprite(std::string name)
@@ -153,6 +157,11 @@ std::vector<AbstractSprite*> Scene::getSprite(std::string name)
 			tempVec.push_back(Sprites[i]);
 	}
 	return tempVec;
+}
+
+void Scene::addSensor(AbstractSensor *s)
+{
+	Sensors.push_back(s);
 }
 
 void Scene::ProcessInput(GLfloat dt)

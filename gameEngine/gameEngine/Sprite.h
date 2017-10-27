@@ -19,7 +19,7 @@
 
 #pragma once
 class Scene;
-class Sprite : AbstractSprite
+class Sprite : public AbstractSprite
 {
 public:
 	// Object state

@@ -9,6 +9,8 @@
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
 
+#include "SensorActuatros\AbstractSensor.h"
+
 #include <vector>
 
 // Represents the current state of the game
@@ -41,11 +43,12 @@ public:
 	void Update(GLfloat dt);
 	void Render();
 	std::vector<AbstractSprite*> getSprite(std::string name);
-
 	std::vector<AbstractSprite*> Sprites;
 	GLFWwindow* window;
+	void addSensor(AbstractSensor*);
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;
+	std::vector<AbstractSensor*> Sensors;
 };
 #endif
