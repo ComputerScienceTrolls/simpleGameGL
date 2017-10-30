@@ -17,12 +17,12 @@
 #include "Observers/CheckBoundsObserver.h"
 #include "Observers/CollisionGroupObserver.h"
 
-#include "SensorActuatros\MotionActuator.h"
-#include "SensorActuatros\PositionActuator.h"
-#include "SensorActuatros\CollisionSensor.h"
-#include "CheckBoundsSensor.h"
-#include "VisibilityActuator.h"
-#include "ActiveActuator.h"
+#include "SensorActuators\MotionActuator.h"
+#include "SensorActuators\PositionActuator.h"
+#include "SensorActuators\CollisionSensor.h"
+#include "SensorActuators\CheckBoundsSensor.h"
+#include "SensorActuators\VisibilityActuator.h"
+#include "SensorActuators\ActiveActuator.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
-	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(0,0), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
 	//std::cout << Player->getPosition().x;
 	//std::cout << "\n" << Player->getCenter().x;
@@ -94,14 +94,14 @@ int main(int argc, char *argv[])
 	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	
 	//CollisionSensor *t2 = new CollisionSensor(Player,Ball);
-	CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
-	MotionActuator *m2 = new MotionActuator(Player, 50,50);
-	PositionActuator *p1 = new PositionActuator(Player, 50,50);
-	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
-	ActiveActuator *a1 = new ActiveActuator(Player, false);
+	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
+	//MotionActuator *m2 = new MotionActuator(Player, .05,.05);
+	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
+	//VisibilityActuator *v1 = new VisibilityActuator(Player, false);
+	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
-	t2->addActuator(m2);
-	mainScene.addSensor(t2);
+	//t2->addActuator(m2);
+	//mainScene.addSensor(t2);
 	/*
 	for (int i = 0; i < 5; i++)
 	{

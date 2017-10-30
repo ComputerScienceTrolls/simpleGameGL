@@ -1,7 +1,5 @@
 #include "CheckBoundsSensor.h"
 
-
-
 CheckBoundsSensor::CheckBoundsSensor(AbstractSprite* s, int w, int h) :
 	sprite(s), screenW(w), screenH(h)
 {

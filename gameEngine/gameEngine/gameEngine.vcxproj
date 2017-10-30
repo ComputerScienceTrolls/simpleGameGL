@@ -143,13 +143,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractSprite.cpp" />
-    <ClCompile Include="ActiveActuator.cpp" />
-    <ClCompile Include="CheckBoundsSensor.cpp" />
     <ClCompile Include="Colliders\boxCollider.cpp" />
     <ClCompile Include="Colliders\circleCollider.cpp" />
     <ClCompile Include="Colliders\collider.cpp" />
     <ClCompile Include="Colliders\staticBoxCollider.cpp" />
     <ClCompile Include="Colliders\staticCircleCollider.cpp" />
+    <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
     <ClCompile Include="Observers\ColliderObserver.cpp" />
@@ -158,17 +157,19 @@
     <ClCompile Include="Observers\observerhandler.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SensorActuatros\AbstractActuator.cpp" />
-    <ClCompile Include="SensorActuatros\AbstractFactory.cpp" />
-    <ClCompile Include="SensorActuatros\AbstractSensor.cpp" />
-    <ClCompile Include="SensorActuatros\CollisionSensor.cpp" />
-    <ClCompile Include="SensorActuatros\MotionActuator.cpp" />
-    <ClCompile Include="SensorActuatros\PositionActuator.cpp" />
+    <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
+    <ClCompile Include="SensorActuators\AbstractFactory.cpp" />
+    <ClCompile Include="SensorActuators\AbstractSensor.cpp" />
+    <ClCompile Include="SensorActuators\ActiveActuator.cpp" />
+    <ClCompile Include="SensorActuators\CheckBoundsSensor.cpp" />
+    <ClCompile Include="SensorActuators\CollisionSensor.cpp" />
+    <ClCompile Include="SensorActuators\MotionActuator.cpp" />
+    <ClCompile Include="SensorActuators\PositionActuator.cpp" />
+    <ClCompile Include="SensorActuators\VisibilityActuator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="VisibilityActuator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractSprite.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Colliders\collider.h" />
     <ClInclude Include="Colliders\staticBoxCollider.h" />
     <ClInclude Include="Colliders\staticCircleCollider.h" />
+    <ClInclude Include="KeyHandler.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />
     <ClInclude Include="Observers\ColliderObserver.h" />
     <ClInclude Include="Observers\CollisionGroupObserver.h" />
@@ -186,19 +188,21 @@
     <ClInclude Include="Observers\observerhandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SensorActuatros\AbstractActuator.h" />
-    <ClInclude Include="SensorActuatros\AbstractFactory.h" />
-    <ClInclude Include="SensorActuatros\AbstractSensor.h" />
-    <ClInclude Include="SensorActuatros\CollisionSensor.h" />
-    <ClInclude Include="SensorActuatros\MotionActuator.h" />
-    <ClInclude Include="SensorActuatros\PositionActuator.h" />
+    <ClInclude Include="SensorActuators\AbstractActuator.h" />
+    <ClInclude Include="SensorActuators\AbstractFactory.h" />
+    <ClInclude Include="SensorActuators\AbstractSensor.h" />
+    <ClInclude Include="SensorActuators\ActiveActuator.h" />
+    <ClInclude Include="SensorActuators\CheckBoundsSensor.h" />
+    <ClInclude Include="SensorActuators\CollisionSensor.h" />
+    <ClInclude Include="SensorActuators\MotionActuator.h" />
+    <ClInclude Include="SensorActuators\PositionActuator.h" />
+    <ClInclude Include="SensorActuators\VisibilityActuator.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="staticBoxCollider.h" />
     <ClInclude Include="staticCircleCollider.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="VisibilityActuator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\sprite.frag" />

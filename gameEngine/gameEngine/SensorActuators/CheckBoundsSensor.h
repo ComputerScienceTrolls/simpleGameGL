@@ -1,6 +1,6 @@
-#include "SensorActuatros\AbstractSensor.h"
-#include "SensorActuatros\AbstractActuator.h"
-#include "AbstractSprite.h"
+#include "AbstractSensor.h"
+#include "AbstractActuator.h"
+#include "../AbstractSprite.h"
 
 class CheckBoundsSensor : public AbstractSensor
 {

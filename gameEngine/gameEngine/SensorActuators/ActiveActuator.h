@@ -1,5 +1,5 @@
-#include "SensorActuatros\AbstractActuator.h"
-#include "AbstractSprite.h"
+#include "AbstractActuator.h"
+#include "../AbstractSprite.h"
 
 class ActiveActuator : public AbstractActuator
 {

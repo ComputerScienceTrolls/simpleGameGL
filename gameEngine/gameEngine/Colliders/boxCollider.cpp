@@ -93,7 +93,8 @@ int boxCollider::getPosX()
 {
 	return posXOffset;
 }
-
+
+
 bool boxCollider::getStaticState()
 {
 	return this->staticState;
