@@ -2,6 +2,8 @@
 #include "Sprite.h"
 #include <iostream>
 
+#include "KeyHandler.h"
+
 using namespace std;
 
 // GLFW function declerations
@@ -12,13 +14,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // The height of the screen
 //const GLuint SCREEN_HEIGHT = 600;
 SpriteRenderer  *Renderer;
-
-struct KeyHandler
-{
-	GLboolean Keys[1024];
-}; 
-
-KeyHandler keyHandler;
 
 void Scene::Init()
 {
@@ -50,9 +45,8 @@ void Scene::Init()
 }
 
 Scene::Scene(GLuint width, GLuint height) :
-	Width(width), Height(height), Keys()
+	Width(width), Height(height)
 {
-	KeyHandler keyHandler;
 	/*
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
@@ -168,24 +162,25 @@ void Scene::ProcessInput(GLfloat dt)
 {
 	if (this->State == GAME_ACTIVE)
 	{
+		/*
 		// Move playerboard
-		if (keyHandler.Keys[GLFW_KEY_A])
+		if (KeyHandler::getInstance()->Keys[GLFW_KEY_A])
 		{
 			spriteMap["Paddle"]->addForce(180,.1f);
 		}
-		if (keyHandler.Keys[GLFW_KEY_D])
+		if (KeyHandler::getInstance()->Keys[GLFW_KEY_D])
 		{
 			spriteMap["Paddle"]->addForce(0,.1f);
 		}
-		if (keyHandler.Keys[GLFW_KEY_W])
+		if (KeyHandler::getInstance()->Keys[GLFW_KEY_W])
 		{
 			spriteMap["Paddle"]->addForce(90,.1f);
 		}
-		if (keyHandler.Keys[GLFW_KEY_S])
+		if (KeyHandler::getInstance()->Keys[GLFW_KEY_S])
 		{
 			spriteMap["Paddle"]->addForce(270,.1f);
 		}
-		
+		*/
 	}
 }
 
@@ -211,9 +206,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
-			keyHandler.Keys[key] = GL_TRUE;
+			KeyHandler::getInstance()->Keys[key] = GL_TRUE;
 		else if (action == GLFW_RELEASE)
-			keyHandler.Keys[key] = GL_FALSE;
+			KeyHandler::getInstance()->Keys[key] = GL_FALSE;
 	}
 }
 

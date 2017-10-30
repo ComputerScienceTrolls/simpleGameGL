@@ -56,14 +56,17 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 	scene.Sprites.back()->collideDebug = this->collideDebug;
 	
 	this->setState("active", true);
+	this->setState("visible", true);
 	
 }
 
 void Sprite::Draw(SpriteRenderer &renderer)
 {
 	GLfloat t = 1;
-
-	renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(),t);
+	if (getState("visible"))
+	{
+		renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(), t);
+	}
 	//check if collideDebug is true, if so draw all colliders
 	
 	if (collideDebug)
@@ -401,7 +404,7 @@ void Sprite::setBoundAction(std::string newAction)
 	this->boundAction = newAction;
 }
 
-void Sprite::checkBounds(double screenWidth, double screenHeight)
+bool Sprite::checkBounds(double screenWidth, double screenHeight)
 {
 	double rightBorder = screenWidth;
 	double leftBorder = 0;
@@ -439,6 +442,11 @@ void Sprite::checkBounds(double screenWidth, double screenHeight)
 
 	if (this->Position.y < 0) {
 		offTop = true;
+	}
+	//if all are false, return false
+	if (!offTop && !offBottom && !offLeft && !offRight)
+	{
+		return false;
 	}
 
 	if (this->boundAction == "WRAP") {
@@ -595,6 +603,7 @@ void Sprite::checkBounds(double screenWidth, double screenHeight)
 	else {
 		//keep on going forever
 	}
+	return true;
 }
 
 void Sprite::hide()

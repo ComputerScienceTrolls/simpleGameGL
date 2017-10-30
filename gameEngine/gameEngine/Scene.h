@@ -9,7 +9,7 @@
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
 
-#include "SensorActuatros\AbstractSensor.h"
+#include "SensorActuators\AbstractSensor.h"
 
 #include <vector>
 
@@ -29,7 +29,6 @@ public:
 
 	// Game state
 	GameState	State;
-	GLboolean	Keys[1024];
 	GLuint	Width, Height;
 	// Constructor/Destructor
 	Scene(GLuint width, GLuint height);

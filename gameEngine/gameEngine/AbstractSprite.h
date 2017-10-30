@@ -14,7 +14,7 @@ public:
 	// Render state
 	Texture2D	Texture;
 	virtual void Draw(SpriteRenderer &renderer) {};
-	virtual void checkBounds(double screenWidth, double screenHeight) {};
+	virtual bool checkBounds(double screenWidth, double screenHeight) = 0;
 	virtual void hide() {};
 	virtual void setCollideDebug(bool state) {};
 	virtual void setDX(float newDx) {};

@@ -17,9 +17,13 @@
 #include "Observers/CheckBoundsObserver.h"
 #include "Observers/CollisionGroupObserver.h"
 
-#include "SensorActuatros\MotionActuator.h"
-#include "SensorActuatros\PositionActuator.h"
-#include "SensorActuatros\CollisionSensor.h"
+#include "SensorActuators\MotionActuator.h"
+#include "SensorActuators\PositionActuator.h"
+#include "SensorActuators\CollisionSensor.h"
+#include "SensorActuators\CheckBoundsSensor.h"
+#include "SensorActuators\VisibilityActuator.h"
+#include "SensorActuators\ActiveActuator.h"
+#include "SensorActuators\KeyboardSensor.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -66,7 +70,7 @@ int main(int argc, char *argv[])
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
-	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(0,0), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
 	//std::cout << Player->getPosition().x;
 	//std::cout << "\n" << Player->getCenter().x;
@@ -90,12 +94,29 @@ int main(int argc, char *argv[])
 	//ObserverHandler *test = ObserverHandler::getInstance();
 	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	
-	CollisionSensor *t2 = new CollisionSensor(Player,Ball);
-	MotionActuator *m2 = new MotionActuator(Player,"flip");
-	PositionActuator *p1 = new PositionActuator(Player, "flip");
-	t2->addActuator(p1);
-	mainScene.addSensor(t2);
+	KeyboardSensor *kLeft = new KeyboardSensor(GLFW_KEY_A);
+	KeyboardSensor *kRight = new KeyboardSensor(GLFW_KEY_D);
+	KeyboardSensor *kUp = new KeyboardSensor(GLFW_KEY_W);
+	KeyboardSensor *kDown = new KeyboardSensor(GLFW_KEY_S);
+	//CollisionSensor *t2 = new CollisionSensor(Player,Ball);
+	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
+	//MotionActuator *m2 = new MotionActuator(Player, .05,.05);
+	MotionActuator *mLeft = new MotionActuator(Player, 180, .1, "force");
+	MotionActuator *mRight = new MotionActuator(Player, 0, .1, "force");
+	MotionActuator *mUp = new MotionActuator(Player, 90, .1, "force");
+	MotionActuator *mDown = new MotionActuator(Player, 270, .1, "force");
+	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
+	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
+	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
+	kLeft->addActuator(mLeft);
+	kRight->addActuator(mRight);
+	kUp->addActuator(mUp);
+	kDown->addActuator(mDown);
+	mainScene.addSensor(kLeft);
+	mainScene.addSensor(kRight);
+	mainScene.addSensor(kUp);
+	mainScene.addSensor(kDown);
 	/*
 	for (int i = 0; i < 5; i++)
 	{
