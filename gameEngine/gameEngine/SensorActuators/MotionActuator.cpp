@@ -5,6 +5,11 @@ MotionActuator::MotionActuator(AbstractSprite *s, int newDX, int newDY) :
 {
 }
 
+MotionActuator::MotionActuator(AbstractSprite *s, double newAngle, double newForce, std::string con) :
+	sprite(s), force(newForce), angle(newAngle), condition(con)
+{
+}
+
 MotionActuator::MotionActuator(AbstractSprite *s, int newDT, std::string con) :
 	sprite(s), DT(newDT), condition(con)
 {
@@ -47,6 +52,10 @@ void MotionActuator::run()
 	{
 		sprite->setDX(sprite->getDX() * DT);
 		sprite->setDY(sprite->getDY() * DT);
+	}
+	else if (condition == "force")
+	{
+		sprite->addForce(angle, force);
 	}
 }
 

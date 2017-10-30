@@ -2,7 +2,7 @@
 #include "AbstractActuator.h"
 #include "../AbstractSprite.h"
 
-class CheckBoundsSensor : public AbstractSensor
+class CheckBoundsSensor :public AbstractSensor
 {
 public:
 	CheckBoundsSensor(AbstractSprite* one, int w, int h);

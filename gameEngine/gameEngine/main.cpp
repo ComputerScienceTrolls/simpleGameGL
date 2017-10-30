@@ -23,6 +23,7 @@
 #include "SensorActuators\CheckBoundsSensor.h"
 #include "SensorActuators\VisibilityActuator.h"
 #include "SensorActuators\ActiveActuator.h"
+#include "SensorActuators\KeyboardSensor.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -93,15 +94,29 @@ int main(int argc, char *argv[])
 	//ObserverHandler *test = ObserverHandler::getInstance();
 	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	
+	KeyboardSensor *kLeft = new KeyboardSensor(GLFW_KEY_A);
+	KeyboardSensor *kRight = new KeyboardSensor(GLFW_KEY_D);
+	KeyboardSensor *kUp = new KeyboardSensor(GLFW_KEY_W);
+	KeyboardSensor *kDown = new KeyboardSensor(GLFW_KEY_S);
 	//CollisionSensor *t2 = new CollisionSensor(Player,Ball);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	//MotionActuator *m2 = new MotionActuator(Player, .05,.05);
+	MotionActuator *mLeft = new MotionActuator(Player, 180, .1, "force");
+	MotionActuator *mRight = new MotionActuator(Player, 0, .1, "force");
+	MotionActuator *mUp = new MotionActuator(Player, 90, .1, "force");
+	MotionActuator *mDown = new MotionActuator(Player, 270, .1, "force");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
-	//VisibilityActuator *v1 = new VisibilityActuator(Player, false);
+	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
-	//t2->addActuator(m2);
-	//mainScene.addSensor(t2);
+	kLeft->addActuator(mLeft);
+	kRight->addActuator(mRight);
+	kUp->addActuator(mUp);
+	kDown->addActuator(mDown);
+	mainScene.addSensor(kLeft);
+	mainScene.addSensor(kRight);
+	mainScene.addSensor(kUp);
+	mainScene.addSensor(kDown);
 	/*
 	for (int i = 0; i < 5; i++)
 	{

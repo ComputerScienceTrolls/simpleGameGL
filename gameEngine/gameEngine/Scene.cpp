@@ -162,6 +162,7 @@ void Scene::ProcessInput(GLfloat dt)
 {
 	if (this->State == GAME_ACTIVE)
 	{
+		/*
 		// Move playerboard
 		if (KeyHandler::getInstance()->Keys[GLFW_KEY_A])
 		{
@@ -179,7 +180,7 @@ void Scene::ProcessInput(GLfloat dt)
 		{
 			spriteMap["Paddle"]->addForce(270,.1f);
 		}
-		
+		*/
 	}
 }
 
