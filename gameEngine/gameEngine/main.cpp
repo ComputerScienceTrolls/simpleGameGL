@@ -20,6 +20,9 @@
 #include "SensorActuatros\MotionActuator.h"
 #include "SensorActuatros\PositionActuator.h"
 #include "SensorActuatros\CollisionSensor.h"
+#include "CheckBoundsSensor.h"
+#include "VisibilityActuator.h"
+#include "ActiveActuator.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -90,12 +93,15 @@ int main(int argc, char *argv[])
 	//ObserverHandler *test = ObserverHandler::getInstance();
 	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	
-	CollisionSensor *t2 = new CollisionSensor(Player,Ball);
-	MotionActuator *m2 = new MotionActuator(Player,"flip");
-	PositionActuator *p1 = new PositionActuator(Player, "flip");
-	t2->addActuator(p1);
-	mainScene.addSensor(t2);
+	//CollisionSensor *t2 = new CollisionSensor(Player,Ball);
+	CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
+	MotionActuator *m2 = new MotionActuator(Player, 50,50);
+	PositionActuator *p1 = new PositionActuator(Player, 50,50);
+	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
+	ActiveActuator *a1 = new ActiveActuator(Player, false);
 
+	t2->addActuator(m2);
+	mainScene.addSensor(t2);
 	/*
 	for (int i = 0; i < 5; i++)
 	{

@@ -40,7 +40,7 @@ public:
 	void setState(std::string key, bool state);
 	bool getState(std::string key);
 	void setBoundAction(std::string newAction);
-	void checkBounds(double screenWidth, double screenHeight);
+	bool checkBounds(double screenWidth, double screenHeight);
 	void hide();
 	void setCollideDebug(bool state);
 	void setDX(float newDx);
@@ -97,7 +97,8 @@ private:
 	std::string boundAction;
 	Scene *parentScene;
 	std::string name;
-	
+	bool visible;
+	bool active;
 
 };
 

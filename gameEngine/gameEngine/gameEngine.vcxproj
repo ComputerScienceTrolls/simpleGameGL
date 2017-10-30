@@ -143,6 +143,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractSprite.cpp" />
+    <ClCompile Include="ActiveActuator.cpp" />
+    <ClCompile Include="CheckBoundsSensor.cpp" />
     <ClCompile Include="Colliders\boxCollider.cpp" />
     <ClCompile Include="Colliders\circleCollider.cpp" />
     <ClCompile Include="Colliders\collider.cpp" />
@@ -166,9 +168,12 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VisibilityActuator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractSprite.h" />
+    <ClInclude Include="ActiveActuator.h" />
+    <ClInclude Include="CheckBoundsSensor.h" />
     <ClInclude Include="Colliders\boxCollider.h" />
     <ClInclude Include="Colliders\circleCollider.h" />
     <ClInclude Include="Colliders\collider.h" />
@@ -193,6 +198,7 @@
     <ClInclude Include="staticBoxCollider.h" />
     <ClInclude Include="staticCircleCollider.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="VisibilityActuator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\sprite.frag" />
