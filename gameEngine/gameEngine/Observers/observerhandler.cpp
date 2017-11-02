@@ -1,21 +1,20 @@
 #include "observerhandler.h"
 #include <iostream>
 
-ObserverHandler* ObserverHandler::instance = nullptr;
+std::auto_ptr<ObserverHandler> ObserverHandler::instance;
 
 ObserverHandler::ObserverHandler()
 {
-
 }
 
 ObserverHandler* ObserverHandler::getInstance()
 {
-    if (instance == nullptr)
+    if (instance.get() == nullptr)
     {
-        instance = new ObserverHandler();
+        instance.reset(new ObserverHandler());
     }
 
-    return instance;
+    return instance.get();
 }
 
 void ObserverHandler::addObserver(AbstractObserver &obs)
@@ -44,4 +43,8 @@ int ObserverHandler::getNumberOfObservers()
 void ObserverHandler::Trigger()
 {
     NotifyObservers();
+}
+
+ObserverHandler::~ObserverHandler()
+{
 }

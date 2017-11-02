@@ -3,6 +3,7 @@
 
 #include "abstractobserver.h"
 #include "set"
+#include <memory>
 
 class ObserverHandler
 {
@@ -13,10 +14,11 @@ public:
     void NotifyObservers();
     void Trigger();
 	int getNumberOfObservers();
+	~ObserverHandler();
 
 private:
     ObserverHandler();
-    static ObserverHandler* instance;
+	static std::auto_ptr<ObserverHandler> instance;
     std::set<AbstractObserver*> observers_;
 
 };

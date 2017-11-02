@@ -76,9 +76,20 @@ int main(int argc, char *argv[])
 	//std::cout << "\n" << Player->getCenter().x;
 	Player->setCollideDebug(true);
 	Player->removeCollider("default");
-	Player->addCircleCollider("test", 50, 0, 0);
+	std::vector<glm::vec2> vecTest1;
+	vecTest1.push_back(glm::vec2(10,10));
+	vecTest1.push_back(glm::vec2(0, 20));
+	vecTest1.push_back(glm::vec2(20, 20));
+	std::vector<glm::vec2> vecTest2;
+	vecTest2.push_back(glm::vec2(100, 200));
+	vecTest2.push_back(glm::vec2(90, 210));
+	vecTest2.push_back(glm::vec2(110, 210));
+	Player->addPolyCollider("test1", vecTest1);
+	Ball->addPolyCollider("test2", vecTest2);
+	Player->setSize(glm::vec2(200,30));
+	//Player->addCircleCollider("test", 50, 0, 0);
 	//Ball->addStaticCircleCollider("t", 50, 50, 100);
-	Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
+	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
 
 	//Ball->setSpeed(.1);
 	Ball->setMoveAngle(90);
@@ -86,13 +97,13 @@ int main(int argc, char *argv[])
 	//Ball->setBoundAction("BOUNCE");
 	Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
-	//Ball->removeCollider("default");
+	Ball->removeCollider("default");
 	//Ball->addBoxCollider("test",50,50,50,100);
 	//Ball->addBoxCollider("test", 50, 50, -50, -100);
 	//Ball->addCircleCollider("f", 80, 300, 10);
 
-	//ObserverHandler *test = ObserverHandler::getInstance();
-	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+	ObserverHandler *test = ObserverHandler::getInstance();
+	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
 	
 	KeyboardSensor *kLeft = new KeyboardSensor(GLFW_KEY_A);
 	KeyboardSensor *kRight = new KeyboardSensor(GLFW_KEY_D);
@@ -133,7 +144,7 @@ int main(int argc, char *argv[])
 	}
 	*/
 	//CollisionGroupObserver *temp = new CollisionGroupObserver(ballColl3, Player, "Ball");
-	//test->addObserver(*temp);
+	test->addObserver(*colTest);
 	
 	/*
 	for (int i = 0; i < 50; i++)

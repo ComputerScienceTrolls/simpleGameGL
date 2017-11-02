@@ -1,4 +1,5 @@
 #include <GLFW/glfw3.h>
+#include <memory>
 
 class KeyHandler
 {
@@ -9,6 +10,6 @@ public:
 
 private:
 	KeyHandler();
-	static KeyHandler* instance;
+	static std::auto_ptr<KeyHandler> instance;
 };
 

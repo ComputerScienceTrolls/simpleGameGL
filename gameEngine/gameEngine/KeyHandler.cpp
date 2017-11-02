@@ -1,7 +1,7 @@
 #include "KeyHandler.h"
 #include <iostream>
 
-KeyHandler* KeyHandler::instance = nullptr;
+std::auto_ptr<KeyHandler> KeyHandler::instance;
 
 KeyHandler::KeyHandler()
 {
@@ -11,14 +11,14 @@ KeyHandler::KeyHandler()
 	}
 }
 
-KeyHandler * KeyHandler::getInstance()
+KeyHandler* KeyHandler::getInstance()
 {
-	if (instance == nullptr)
+	if (instance.get() == nullptr)
 	{
-		instance = new KeyHandler();
+		instance.reset(new KeyHandler());
 	}
 
-	return instance;
+	return instance.get();
 }
 
 KeyHandler::~KeyHandler()

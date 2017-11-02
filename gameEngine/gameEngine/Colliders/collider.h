@@ -5,6 +5,8 @@
 
 #include <glm/glm.hpp>
 
+//only Needed for poly collider
+#include "../Edge.h"
 
 class collider
 {
@@ -22,12 +24,17 @@ public:
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
 	virtual std::string getName() = 0;
 
+	//needed for poly collider
+	virtual std::vector<double> project(glm::vec2) { return std::vector<double>(); }
+	virtual std::vector<glm::vec2> getVerticies() { return std::vector<glm::vec2>(); }
+	virtual std::vector<Edge*> getEdges() { return std::vector<Edge*>(); }
+	virtual void updateVecs() {  }
+
 	//needed for circle collider
 	virtual float getRadius() {return 0;};
 	~collider();
 
 private:
 	SpriteRender *render;
-
 };
 

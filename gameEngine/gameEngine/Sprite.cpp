@@ -375,6 +375,12 @@ void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int p
 	this->colliders_.push_back(temp);
 }
 
+void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
+{
+	PolyCollider *temp = new PolyCollider(name, *this, verticies);
+	this->colliders_.push_back(temp);
+}
+
 void Sprite::update()
 {
 	this->Position.x += this->dx;
