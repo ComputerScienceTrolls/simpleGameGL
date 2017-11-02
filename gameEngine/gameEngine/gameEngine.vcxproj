@@ -146,10 +146,10 @@
     <ClCompile Include="Colliders\boxCollider.cpp" />
     <ClCompile Include="Colliders\circleCollider.cpp" />
     <ClCompile Include="Colliders\collider.cpp" />
+    <ClCompile Include="Colliders\Edge.cpp" />
     <ClCompile Include="Colliders\PolyCollider.cpp" />
     <ClCompile Include="Colliders\staticBoxCollider.cpp" />
     <ClCompile Include="Colliders\staticCircleCollider.cpp" />
-    <ClCompile Include="Edge.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
@@ -180,10 +180,10 @@
     <ClInclude Include="Colliders\boxCollider.h" />
     <ClInclude Include="Colliders\circleCollider.h" />
     <ClInclude Include="Colliders\collider.h" />
+    <ClInclude Include="Colliders\Edge.h" />
     <ClInclude Include="Colliders\PolyCollider.h" />
     <ClInclude Include="Colliders\staticBoxCollider.h" />
     <ClInclude Include="Colliders\staticCircleCollider.h" />
-    <ClInclude Include="Edge.h" />
     <ClInclude Include="KeyHandler.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />
     <ClInclude Include="Observers\ColliderObserver.h" />

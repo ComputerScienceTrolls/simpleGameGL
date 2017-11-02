@@ -28,16 +28,41 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 
 void PolyCollider::updateVecs()
 {
+	//get every vertex and apply the sprite's pos onto it
+	for (int i = 0; i < edges.size(); i++)
+	{
+		int tempX = edges[i]->getPoint1().x + spriteParent->getPosition().x;
+		int tempY = edges[i]->getPoint1().y + spriteParent->getPosition().y;
+		//std::cout << edges[i]->getPoint1().x << "\n";
+		//std::cout << tempY << "\n";
+		//std::cout << edges[i]->getPoint1Pos().y << "\n";
+		edges[i]->setPoint1Pos(glm::vec2(tempX, tempY));
 
+		tempX = edges[i]->getPoint2().x + spriteParent->getPosition().x;
+		tempY = edges[i]->getPoint2().y + spriteParent->getPosition().y;
+		edges[i]->setPoint2Pos(glm::vec2(tempX, tempY));
+
+		edges[i]->updateDir();
+	}
+
+	//get every vertex and apply the sprite's pos onto it
+	for (int i = 0; i < vectrices.size(); i++)
+	{
+		//int tempX = vectrices[i].x + spriteParent->getPosition().x;
+		//int tempY = vectrices[i].y + spriteParent->getPosition().y;
+
+		//vectrices[i] = glm::vec2(tempX, tempY);
+	}
 }
 
 bool PolyCollider::collide(std::vector<collider*> otherColliders)
 {
-	//we need to update the vecs based on each sprite's movement
+	//we need to update the vecs based on each sprite's position
 	updateVecs();
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
-		//we need to update otherCollidiers vecs based on it's 
+		//we need to update otherCollidiers vecs based on it's sprite's position
+		otherColliders.at(i)->updateVecs();
 		for (int j = 0; j < this->vectrices.size(); j++)
 		{
 			//get dir of the current edge
@@ -142,14 +167,20 @@ Edge* PolyCollider::createEdge(glm::vec2 p0, glm::vec2 p1)
 std::vector<double> PolyCollider::project(glm::vec2 axis)
 {
 	axis = normalize(axis);
-	double min = getDot(vectrices.at(0),axis);
+	//create tmp vector for vectrices + spritePos
+	std::vector<glm::vec2> tmpVec;
+	for (int i = 0; i < vectrices.size(); i++)
+	{
+		tmpVec.push_back(vectrices.at(i) + spriteParent->getPosition());
+	}
+	double min = getDot(tmpVec.at(0),axis);
 	//min and max are the start and finish points
 	double max = min;
 
-	for (int i = 0; i < vectrices.size(); i++)
+	for (int i = 0; i < tmpVec.size(); i++)
 	{
 		//find the projection of every point on the polygon onto the line.
-		double proj = getDot(vectrices.at(i), axis);
+		double proj = getDot(tmpVec.at(i), axis);
 		if (proj < min)
 		{
 			min = proj;

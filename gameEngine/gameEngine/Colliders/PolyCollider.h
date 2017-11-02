@@ -1,6 +1,6 @@
 #include "collider.h"
 #include "../AbstractSprite.h"
-#include "../Edge.h";
+#include "Edge.h"
 #include <iostream>
 #include <vector>
 

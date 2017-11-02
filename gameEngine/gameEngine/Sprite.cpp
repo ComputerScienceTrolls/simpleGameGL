@@ -101,7 +101,6 @@ void Sprite::Draw(SpriteRenderer &renderer)
 //iterate through all this sprite's colliders, and have it check if it's colliding with another specified sprite's colliders
 bool Sprite::collide(AbstractSprite* otherSprite)
 {
-	std::cout << otherSprite->getColliders().size();
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))

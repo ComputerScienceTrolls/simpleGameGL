@@ -105,7 +105,7 @@
     <ClCompile Include="Colliders\PolyCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Edge.cpp">
+    <ClCompile Include="Colliders\Edge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -206,7 +206,7 @@
     <ClInclude Include="Colliders\PolyCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Edge.h">
+    <ClInclude Include="Colliders\Edge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

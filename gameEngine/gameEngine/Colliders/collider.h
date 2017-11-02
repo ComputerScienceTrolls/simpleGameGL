@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 
 //only Needed for poly collider
-#include "../Edge.h"
+#include "Edge.h"
 
 class collider
 {
