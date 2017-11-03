@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include "Sprite.h"
 #include <iostream>
 
 #include "KeyHandler.h"
@@ -16,7 +15,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 SpriteRenderer  *Renderer;
 
 void Scene::Init()
-{
+{	
+	SceneDirector *temp = SceneDirector::getInstance();
+	if (temp->getNumberOfScenes() < 1)
+	{
+		temp->addScene(this);
+	}
+	std::cout << temp->getNumberOfScenes();
+	
+	/*
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -30,9 +37,9 @@ void Scene::Init()
 	glewExperimental = GL_TRUE;
 	glewInit();
 	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
-
+	
 	glfwSetKeyCallback(window, key_callback);
-
+	
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
 	// Configure shaders
@@ -42,11 +49,13 @@ void Scene::Init()
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+	*/
 }
 
 Scene::Scene(GLuint width, GLuint height) :
 	Width(width), Height(height)
 {
+	//see if SceneDirector has any Scenes in it, if it doesn't, make this scene it's current Scene
 	/*
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
@@ -151,6 +160,16 @@ std::vector<AbstractSprite*> Scene::getSprite(std::string name)
 			tempVec.push_back(Sprites[i]);
 	}
 	return tempVec;
+}
+
+GLFWwindow * Scene::getWindow()
+{
+	return this->window;
+}
+
+void Scene::setWindow(GLFWwindow * newWindow)
+{
+	window = newWindow;
 }
 
 void Scene::addSensor(AbstractSensor *s)

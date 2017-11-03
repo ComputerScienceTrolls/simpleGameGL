@@ -9,10 +9,8 @@ class PolyCollider : public collider
 public:
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);
 	virtual bool collide(std::vector<collider*> otherColliders);
-	//virtual int getWidth();
-	//virtual int getHeight();
-	//virtual int getPosX();
-	//virtual int getPosY();
+	virtual int getWidth();
+	virtual int getHeight();
 	virtual bool getStaticState();
 	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpritePos();
@@ -30,6 +28,7 @@ public:
 	bool overlap(std::vector<double> a, std::vector<double> b);
 	
 	virtual std::vector<glm::vec2> getVectrices();
+	virtual std::vector<glm::vec2> getOffsetVectrices();
 	virtual std::vector<Edge*> getEdges();
 	virtual void updateVecs();
 
@@ -42,6 +41,9 @@ private:
 	std::string name;
 	bool staticState;
 	AbstractSprite *spriteParent;
+	std::vector<glm::vec2> offsetVectrices;
 	std::vector<glm::vec2> vectrices;
 	std::vector<Edge*> edges;
+	glm::vec2 minXPoint;
+	glm::vec2 minYPoint;
 };

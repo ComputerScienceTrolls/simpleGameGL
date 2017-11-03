@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
     <ClCompile Include="Colliders\boxCollider.cpp" />
     <ClCompile Include="Colliders\circleCollider.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Observers\observerhandler.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneDirector.cpp" />
     <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
     <ClCompile Include="SensorActuators\AbstractFactory.cpp" />
     <ClCompile Include="SensorActuators\AbstractSensor.cpp" />
@@ -175,6 +177,7 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
     <ClInclude Include="ActiveActuator.h" />
     <ClInclude Include="Colliders\boxCollider.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="Observers\observerhandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneDirector.h" />
     <ClInclude Include="SensorActuators\AbstractActuator.h" />
     <ClInclude Include="SensorActuators\AbstractFactory.h" />
     <ClInclude Include="SensorActuators\AbstractSensor.h" />

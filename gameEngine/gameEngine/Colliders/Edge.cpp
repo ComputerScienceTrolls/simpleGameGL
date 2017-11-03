@@ -15,7 +15,6 @@ void Edge::updateDir()
 {
 	glm::vec2 newDir = { point2Pos.x - point1Pos.x, point2Pos.y - point1Pos.y };
 	dir = newDir;
-	//std::cout << "\n" << dir.x;
 }
 
 void Edge::setPoint1(glm::vec2 newPoint)

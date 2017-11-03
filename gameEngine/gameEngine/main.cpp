@@ -10,6 +10,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Scene.h"
+#include "SceneDirector.h"
 #include "Sprite.h"
 
 #include "Observers/observerhandler.h"
@@ -31,6 +32,7 @@ const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
 
 Scene mainScene(800, 600);
+Scene testScene(800, 600);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -77,9 +79,9 @@ int main(int argc, char *argv[])
 	Player->setCollideDebug(true);
 	Player->removeCollider("default");
 	std::vector<glm::vec2> vecTest1;
-	vecTest1.push_back(glm::vec2(100,100));
-	vecTest1.push_back(glm::vec2(150, 150));
-	vecTest1.push_back(glm::vec2(200, 200));
+	vecTest1.push_back(glm::vec2(10,10));
+	vecTest1.push_back(glm::vec2(0, 20));
+	vecTest1.push_back(glm::vec2(20, 20));
 	std::vector<glm::vec2> vecTest2;
 	vecTest2.push_back(glm::vec2(10, 10));
 	vecTest2.push_back(glm::vec2(0, 20));
@@ -158,10 +160,8 @@ int main(int argc, char *argv[])
 	*/
 	
 	//test->addObserver(*colTest);
+	AbstractScene *test4 = SceneDirector::getInstance()->getCurrentScene();
+	test4->Start();
 	
-	mainScene.Start();
-	
-	
-
 	return 0;
 }

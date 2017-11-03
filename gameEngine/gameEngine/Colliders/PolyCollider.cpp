@@ -1,8 +1,13 @@
 #include "PolyCollider.h"
 
 PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<glm::vec2> vecs) :
-	name(n), spriteParent(&parent), vectrices(vecs)
+	name(n), spriteParent(&parent), offsetVectrices(vecs)
 {
+	//get the vertex that is the most left, right, up, and down so we can get the poly con's "size" and box
+	int minX = 10000;
+	int maxX = 0;
+	int minY = 10000;
+	int maxY = 0;
 	if (vecs.size() < 2)
 	{
 		std::cout << "cannot create a poly collider with only 1 vector";
@@ -11,6 +16,24 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 	{
 		for (int i = 0; i < vecs.size(); i++)
 		{
+			if (vecs.at(i).x < minX)
+			{
+				minX = vecs.at(i).x;
+				this->minXPoint = vecs.at(i);
+			}
+			if (vecs.at(i).x > maxX)
+			{
+				maxX = vecs.at(i).x;
+			}
+			if (vecs.at(i).y < minY)
+			{
+				minY = vecs.at(i).y;
+				this->minYPoint = vecs.at(i);
+			}
+			if (vecs.at(i).y > maxY)
+			{
+				maxY = vecs.at(i).y;
+			}
 			//if last one, connect it to the first vec
 			Edge *temp;
 			if (i == vecs.size() - 1)
@@ -23,6 +46,14 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 			}
 			edges.push_back(temp);
 		}
+
+		for (int i = 0; i < vecs.size(); i++)
+		{
+			vectrices.push_back(vecs.at(i) + spriteParent->getPosition());
+		}
+
+		this->offsetW = maxX - minX;
+		this->offsetH = maxY - minY;
 	}
 }
 
@@ -45,14 +76,13 @@ void PolyCollider::updateVecs()
 		edges[i]->updateDir();
 	}
 
-	//get every vertex and apply the sprite's pos onto it
 	for (int i = 0; i < vectrices.size(); i++)
 	{
-		//int tempX = vectrices[i].x + spriteParent->getPosition().x;
-		//int tempY = vectrices[i].y + spriteParent->getPosition().y;
-
-		//vectrices[i] = glm::vec2(tempX, tempY);
+		vectrices[i] = offsetVectrices.at(i) + spriteParent->getPosition();
+		//std::cout << "\n" << vectrices.at(i).x;
+		//std::cout << "\n" << vectrices.at(i).y;
 	}
+
 }
 
 bool PolyCollider::collide(std::vector<collider*> otherColliders)
@@ -97,6 +127,16 @@ bool PolyCollider::collide(std::vector<collider*> otherColliders)
 	}
 	
 	return false;
+}
+
+int PolyCollider::getWidth()
+{
+	return offsetW;
+}
+
+int PolyCollider::getHeight()
+{
+	return offsetH;
 }
 
 bool PolyCollider::getStaticState()
@@ -171,16 +211,17 @@ std::vector<double> PolyCollider::project(glm::vec2 axis)
 	std::vector<glm::vec2> tmpVec;
 	for (int i = 0; i < vectrices.size(); i++)
 	{
-		tmpVec.push_back(vectrices.at(i) + spriteParent->getPosition());
+		//tmpVec.push_back(vectrices.at(i) + spriteParent->getPosition());
 	}
-	double min = getDot(tmpVec.at(0),axis);
+	double min = getDot(vectrices.at(0), axis);
 	//min and max are the start and finish points
 	double max = min;
 
-	for (int i = 0; i < tmpVec.size(); i++)
+	for (int i = 0; i < vectrices.size(); i++)
 	{
 		//find the projection of every point on the polygon onto the line.
-		double proj = getDot(tmpVec.at(i), axis);
+		double proj = getDot(vectrices.at(i), axis);
+		//std::cout << "\nproj: " << proj;
 		if (proj < min)
 		{
 			min = proj;
@@ -235,6 +276,11 @@ bool PolyCollider::overlap(std::vector<double> a, std::vector<double> b)
 std::vector<glm::vec2> PolyCollider::getVectrices()
 {
 	return this->vectrices;
+}
+
+std::vector<glm::vec2> PolyCollider::getOffsetVectrices()
+{
+	return this->offsetVectrices;
 }
 
 std::vector<Edge*> PolyCollider::getEdges()
