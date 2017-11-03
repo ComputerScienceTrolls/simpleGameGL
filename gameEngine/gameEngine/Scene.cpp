@@ -52,6 +52,21 @@ void Scene::Init()
 	*/
 }
 
+void Scene::initRenderer()
+{
+	// Load shaders
+	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
+	// Configure shaders
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(600), static_cast<GLfloat>(800), 0.0f, -1.0f, 1.0f);
+	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+
+	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+}
+
 Scene::Scene(GLuint width, GLuint height) :
 	Width(width), Height(height)
 {

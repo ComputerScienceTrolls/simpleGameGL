@@ -44,6 +44,7 @@ public:
 	virtual GLFWwindow* getWindow();
 	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
+	virtual void initRenderer();
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;

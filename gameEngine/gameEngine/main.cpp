@@ -69,6 +69,7 @@ void checkCols(Sprite *s, int w, int h)
 int main(int argc, char *argv[])
 {
 	mainScene.Init();
+	mainScene.initRenderer();
 
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
@@ -88,6 +89,7 @@ int main(int argc, char *argv[])
 	vecTest2.push_back(glm::vec2(20, 20));
 	Player->addPolyCollider("test1", vecTest1);
 	Ball->addPolyCollider("test2", vecTest2);
+	Ball->addForce(0, 3);
 	//Player->addCircleCollider("test", 50, 0, 0);
 	//Ball->addStaticCircleCollider("t", 50, 50, 100);
 	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
