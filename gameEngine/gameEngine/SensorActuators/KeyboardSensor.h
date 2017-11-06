@@ -8,13 +8,15 @@
 class KeyboardSensor : public AbstractSensor
 {
 public:
-	KeyboardSensor(int key);
+	KeyboardSensor(int key, std::string con = "na");
 	virtual void sense();
 	void addActuator(AbstractActuator*);
 	~KeyboardSensor();
 
 private:
 	int key;
+	std::string condition;
+	bool oneShot;
 	std::vector<AbstractActuator*> actuators;
 };
 

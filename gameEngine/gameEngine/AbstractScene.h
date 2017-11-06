@@ -17,6 +17,8 @@ public:
 	virtual GLFWwindow* getWindow() = 0;
 	virtual void setWindow(GLFWwindow *newWindow) {};
 	virtual void initRenderer() {};
+	virtual void setActive(bool) {};
+	virtual bool getActive() { return false; };
 	~AbstractScene();
 };
 

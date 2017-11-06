@@ -25,6 +25,7 @@
 #include "SensorActuators\VisibilityActuator.h"
 #include "SensorActuators\ActiveActuator.h"
 #include "SensorActuators\KeyboardSensor.h"
+#include "SensorActuators\SceneActuator.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -75,6 +76,9 @@ int main(int argc, char *argv[])
 	ResourceManager::LoadTexture("textures/face.png",true,"face");
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
+	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png");
+	Player2->addForce(0, 7);
+	Player2->setBoundAction("BOUNCE");
 	//std::cout << Player->getPosition().x;
 	//std::cout << "\n" << Player->getCenter().x;
 	Player->setCollideDebug(true);
@@ -100,7 +104,7 @@ int main(int argc, char *argv[])
 	//Ball->setBoundAction("BOUNCE");
 	Player->setBoundAction("BOUNCE");
 	Ball->setCollideDebug(true);
-	Ball->removeCollider("default");
+	Ball->setBoundAction("BOUNCE");
 	//Ball->addBoxCollider("test",50,50,50,100);
 	//Ball->addBoxCollider("test", 50, 50, -50, -100);
 	//Ball->addCircleCollider("f", 80, 300, 10);
@@ -112,6 +116,9 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kRight = new KeyboardSensor(GLFW_KEY_D);
 	KeyboardSensor *kUp = new KeyboardSensor(GLFW_KEY_W);
 	KeyboardSensor *kDown = new KeyboardSensor(GLFW_KEY_S);
+	KeyboardSensor *kArrowLeft = new KeyboardSensor(GLFW_KEY_LEFT);
+	KeyboardSensor *kArrowRight = new KeyboardSensor(GLFW_KEY_RIGHT);
+	KeyboardSensor *kSpace = new KeyboardSensor(GLFW_KEY_SPACE, "clicked");
 	//CollisionSensor *t2 = new CollisionSensor(Player,Ball);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	//MotionActuator *m2 = new MotionActuator(Player, .05,.05);
@@ -121,12 +128,21 @@ int main(int argc, char *argv[])
 	MotionActuator *mDown = new MotionActuator(Player, 270, .1, "force");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
+	SceneActuator *s1 = new SceneActuator(&testScene, "setPause");
+	SceneActuator *s2 = new SceneActuator(&mainScene, "setPause");
+	SceneActuator *s3 = new SceneActuator(&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
+	kSpace->addActuator(s3);
+	kArrowLeft->addActuator(s1);
+	kArrowRight->addActuator(s2);
 	kLeft->addActuator(mLeft);
 	kRight->addActuator(mRight);
 	kUp->addActuator(mUp);
 	kDown->addActuator(mDown);
+	SceneDirector::getInstance()->addSensor(kSpace);
+	SceneDirector::getInstance()->addSensor(kArrowLeft);
+	SceneDirector::getInstance()->addSensor(kArrowRight);
 	mainScene.addSensor(kLeft);
 	mainScene.addSensor(kRight);
 	mainScene.addSensor(kUp);
@@ -162,8 +178,10 @@ int main(int argc, char *argv[])
 	*/
 	
 	//test->addObserver(*colTest);
+	SceneDirector::getInstance()->addScene(&testScene);
 	AbstractScene *test4 = SceneDirector::getInstance()->getCurrentScene();
-	test4->Start();
+	
+	SceneDirector::getInstance()->Start();
 	
 	return 0;
 }

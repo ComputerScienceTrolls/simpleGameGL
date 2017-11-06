@@ -24,9 +24,6 @@ enum GameState {
 class Scene : public AbstractScene
 {
 public:
-
-	// Game state
-	GameState	State;
 	GLuint	Width, Height;
 	// Constructor/Destructor
 	Scene(GLuint width, GLuint height);
@@ -45,10 +42,13 @@ public:
 	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
 	virtual void initRenderer();
+	virtual void setActive(bool state);
+	virtual bool getActive();
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;
 	std::vector<AbstractSensor*> Sensors;
 	GLFWwindow* window;
+	bool active;
 };
 #endif
