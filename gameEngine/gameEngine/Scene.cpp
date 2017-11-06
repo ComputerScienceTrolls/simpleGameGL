@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include "Sprite.h"
 #include <iostream>
 
 #include "KeyHandler.h"
@@ -16,7 +15,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 SpriteRenderer  *Renderer;
 
 void Scene::Init()
-{
+{	
+	SceneDirector *temp = SceneDirector::getInstance();
+	if (temp->getNumberOfScenes() < 1)
+	{
+		temp->addScene(this);
+	}
+	glfwSetKeyCallback(window, key_callback);
+	/*
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -30,9 +36,9 @@ void Scene::Init()
 	glewExperimental = GL_TRUE;
 	glewInit();
 	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
-
+	
 	glfwSetKeyCallback(window, key_callback);
-
+	
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
 	// Configure shaders
@@ -42,11 +48,36 @@ void Scene::Init()
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+	*/
+}
+
+void Scene::initRenderer()
+{
+	// Load shaders
+	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
+	// Configure shaders
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
+	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+
+	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+}
+
+void Scene::setActive(bool state)
+{
+	this->active = state;
+}
+
+bool Scene::getActive()
+{
+	return this->active;
 }
 
 Scene::Scene(GLuint width, GLuint height) :
 	Width(width), Height(height)
 {
+	//see if SceneDirector has any Scenes in it, if it doesn't, make this scene it's current Scene
 	/*
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
@@ -65,6 +96,7 @@ void Scene::Start()
 	{
 		spriteMap[Sprites.at(i)->getName()] = Sprites.at(i);
 	}
+	/*
 	// OpenGL configuration
 	glViewport(0, 0, Width, Height);
 	glEnable(GL_CULL_FACE);
@@ -74,11 +106,12 @@ void Scene::Start()
 	// DeltaTime variables
 	GLfloat deltaTime = 0.0f;
 	GLfloat lastFrame = 0.0f;
+	*/
 
-	// Start Game within Menu State
-	this->State = GAME_ACTIVE;
+	// set active to true
+	this->setActive(true);
 
-
+	/*
 	while (!glfwWindowShouldClose(window))
 	{
 		// Calculate delta time
@@ -101,6 +134,7 @@ void Scene::Start()
 
 		glfwSwapBuffers(window);
 	}
+	*/
 }
 
 void Scene::Stop()
@@ -108,37 +142,43 @@ void Scene::Stop()
 	// Delete all resources as loaded using the resource manager
 	ResourceManager::Clear();
 
-	glfwTerminate();
+	//glfwTerminate();
 }
 
 void Scene::Update(GLfloat dt)
 {
-	//for each sprite in scene
-	for (int i = 0; i < Sprites.size(); i++)
+	if (this->active)
 	{
-		if (Sprites.at(i)->getState("active"))
+		//for each sprite in scene
+		for (int i = 0; i < Sprites.size(); i++)
 		{
-			Sprites.at(i)->update();
-			Sprites.at(i)->checkBounds(Width, Height);
-			/*
-			if (Sprites.at(i)->getName() == "Paddle")
+			if (Sprites.at(i)->getState("active"))
 			{
+				Sprites.at(i)->update();
+				Sprites.at(i)->checkBounds(Width, Height);
+				/*
+				if (Sprites.at(i)->getName() == "Paddle")
+				{
 				std::vector<AbstractSprite*> tempVec = this->getSprite("Ball");
 				for (int j = 0; j < tempVec.size(); j++)
 				{
-					//std::cout << "step2";
-					if (Sprites.at(i)->collide(tempVec.at(j)))
-					{
-						std::cout << "collision3";
-					}
+				//std::cout << "step2";
+				if (Sprites.at(i)->collide(tempVec.at(j)))
+				{
+				std::cout << "collision3";
 				}
+				}
+				}
+				*/
 			}
-			*/
 		}
-	}
-	for (int i = 0; i < Sensors.size(); i++)
-	{
-		Sensors.at(i)->sense();
+		for (int i = 0; i < Sensors.size(); i++)
+		{
+			Sensors.at(i)->sense();
+		}
+
+		//may not be good design but... we need to check for Sensors of SceneDirector,
+		SceneDirector::getInstance()->checkSensors();
 	}
 }
 
@@ -153,6 +193,16 @@ std::vector<AbstractSprite*> Scene::getSprite(std::string name)
 	return tempVec;
 }
 
+GLFWwindow * Scene::getWindow()
+{
+	return this->window;
+}
+
+void Scene::setWindow(GLFWwindow * newWindow)
+{
+	window = newWindow;
+}
+
 void Scene::addSensor(AbstractSensor *s)
 {
 	Sensors.push_back(s);
@@ -160,33 +210,11 @@ void Scene::addSensor(AbstractSensor *s)
 
 void Scene::ProcessInput(GLfloat dt)
 {
-	if (this->State == GAME_ACTIVE)
-	{
-		/*
-		// Move playerboard
-		if (KeyHandler::getInstance()->Keys[GLFW_KEY_A])
-		{
-			spriteMap["Paddle"]->addForce(180,.1f);
-		}
-		if (KeyHandler::getInstance()->Keys[GLFW_KEY_D])
-		{
-			spriteMap["Paddle"]->addForce(0,.1f);
-		}
-		if (KeyHandler::getInstance()->Keys[GLFW_KEY_W])
-		{
-			spriteMap["Paddle"]->addForce(90,.1f);
-		}
-		if (KeyHandler::getInstance()->Keys[GLFW_KEY_S])
-		{
-			spriteMap["Paddle"]->addForce(270,.1f);
-		}
-		*/
-	}
 }
 
 void Scene::Render()
 {
-	if (this->State == GAME_ACTIVE)
+	if (this->active)
 	{
 		Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0), glm::vec2(this->Width, this->Height), 0.0f);
 		//for each sprite in scene

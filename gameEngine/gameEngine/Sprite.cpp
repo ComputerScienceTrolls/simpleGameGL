@@ -101,7 +101,6 @@ void Sprite::Draw(SpriteRenderer &renderer)
 //iterate through all this sprite's colliders, and have it check if it's colliding with another specified sprite's colliders
 bool Sprite::collide(AbstractSprite* otherSprite)
 {
-	std::cout << otherSprite->getColliders().size();
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
@@ -372,6 +371,12 @@ void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int p
 		diffY = r - this->getSize().y / 2;
 	}
 	staticCircleCollider *temp = new staticCircleCollider(name, r, posX - diffX, posY - diffY);
+	this->colliders_.push_back(temp);
+}
+
+void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
+{
+	PolyCollider *temp = new PolyCollider(name, *this, verticies);
 	this->colliders_.push_back(temp);
 }
 

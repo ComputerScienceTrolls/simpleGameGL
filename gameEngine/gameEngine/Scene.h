@@ -1,13 +1,11 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-
+#include "AbstractScene.h"
 #include "ResourceManager.h"
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
+#include "SceneDirector.h"
 
 #include "SensorActuators\AbstractSensor.h"
 
@@ -23,31 +21,34 @@ enum GameState {
 // Game holds all game-related state and functionality.
 // Combines all game-related data into a single class for
 // easy access to each of the components and manageability.
-class Scene
+class Scene : public AbstractScene
 {
 public:
-
-	// Game state
-	GameState	State;
 	GLuint	Width, Height;
 	// Constructor/Destructor
 	Scene(GLuint width, GLuint height);
-	void Start();
-	void Stop();
+	virtual void Start();
+	virtual void Stop();
 	~Scene();
 	// Initialize game state (load all shaders/textures/levels)
-	void Init();
+	virtual void Init();
 	// GameLoop
-	void ProcessInput(GLfloat dt);
-	void Update(GLfloat dt);
-	void Render();
+	virtual void ProcessInput(GLfloat dt);
+	virtual void Update(GLfloat dt);
+	virtual void Render();
 	std::vector<AbstractSprite*> getSprite(std::string name);
 	std::vector<AbstractSprite*> Sprites;
-	GLFWwindow* window;
+	virtual GLFWwindow* getWindow();
+	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
+	virtual void initRenderer();
+	virtual void setActive(bool state);
+	virtual bool getActive();
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;
 	std::vector<AbstractSensor*> Sensors;
+	GLFWwindow* window;
+	bool active;
 };
 #endif

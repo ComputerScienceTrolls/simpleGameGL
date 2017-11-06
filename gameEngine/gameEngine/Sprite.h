@@ -15,6 +15,7 @@
 #include "Colliders/circleCollider.h"
 #include "Colliders/staticBoxCollider.h"
 #include "Colliders/staticCircleCollider.h"
+#include "Colliders\PolyCollider.h"
 #include "Scene.h"
 
 #pragma once
@@ -77,6 +78,7 @@ public:
 	virtual void addStaticBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void addCircleCollider(std::string name, double r, int posX, int posY);
 	virtual void addStaticCircleCollider(std::string name, double r, int posX, int posY);
+	virtual void addPolyCollider(std::string name, std::vector<glm::vec2> verticies);
 	virtual void removeCollider(std::string name);
 	~Sprite();
 

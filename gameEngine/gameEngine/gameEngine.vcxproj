@@ -142,10 +142,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
     <ClCompile Include="Colliders\boxCollider.cpp" />
     <ClCompile Include="Colliders\circleCollider.cpp" />
     <ClCompile Include="Colliders\collider.cpp" />
+    <ClCompile Include="Colliders\Edge.cpp" />
+    <ClCompile Include="Colliders\PolyCollider.cpp" />
     <ClCompile Include="Colliders\staticBoxCollider.cpp" />
     <ClCompile Include="Colliders\staticCircleCollider.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
@@ -157,6 +160,7 @@
     <ClCompile Include="Observers\observerhandler.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneDirector.cpp" />
     <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
     <ClCompile Include="SensorActuators\AbstractFactory.cpp" />
     <ClCompile Include="SensorActuators\AbstractSensor.cpp" />
@@ -166,6 +170,7 @@
     <ClCompile Include="SensorActuators\KeyboardSensor.cpp" />
     <ClCompile Include="SensorActuators\MotionActuator.cpp" />
     <ClCompile Include="SensorActuators\PositionActuator.cpp" />
+    <ClCompile Include="SensorActuators\SceneActuator.cpp" />
     <ClCompile Include="SensorActuators\VisibilityActuator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -173,11 +178,13 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
-    <ClInclude Include="ActiveActuator.h" />
     <ClInclude Include="Colliders\boxCollider.h" />
     <ClInclude Include="Colliders\circleCollider.h" />
     <ClInclude Include="Colliders\collider.h" />
+    <ClInclude Include="Colliders\Edge.h" />
+    <ClInclude Include="Colliders\PolyCollider.h" />
     <ClInclude Include="Colliders\staticBoxCollider.h" />
     <ClInclude Include="Colliders\staticCircleCollider.h" />
     <ClInclude Include="KeyHandler.h" />
@@ -188,6 +195,7 @@
     <ClInclude Include="Observers\observerhandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneDirector.h" />
     <ClInclude Include="SensorActuators\AbstractActuator.h" />
     <ClInclude Include="SensorActuators\AbstractFactory.h" />
     <ClInclude Include="SensorActuators\AbstractSensor.h" />
@@ -197,6 +205,7 @@
     <ClInclude Include="SensorActuators\KeyboardSensor.h" />
     <ClInclude Include="SensorActuators\MotionActuator.h" />
     <ClInclude Include="SensorActuators\PositionActuator.h" />
+    <ClInclude Include="SensorActuators\SceneActuator.h" />
     <ClInclude Include="SensorActuators\VisibilityActuator.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
