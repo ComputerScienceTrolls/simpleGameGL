@@ -33,7 +33,7 @@ const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
 
 Scene mainScene(800, 600);
-Scene testScene(800, 600);
+Scene testScene(700, 700);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -128,8 +128,8 @@ int main(int argc, char *argv[])
 	MotionActuator *mDown = new MotionActuator(Player, 270, .1, "force");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
-	SceneActuator *s1 = new SceneActuator(&testScene, "setPause");
-	SceneActuator *s2 = new SceneActuator(&mainScene, "setPause");
+	SceneActuator *s1 = new SceneActuator(&testScene, "next");
+	SceneActuator *s2 = new SceneActuator(&mainScene, "previous");
 	SceneActuator *s3 = new SceneActuator(&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
@@ -147,6 +147,7 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(kRight);
 	mainScene.addSensor(kUp);
 	mainScene.addSensor(kDown);
+	testScene.setBackground("textures/face.png");
 	/*
 	for (int i = 0; i < 5; i++)
 	{

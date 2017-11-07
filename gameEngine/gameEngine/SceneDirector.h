@@ -22,13 +22,13 @@ public:
 	void setScene(AbstractScene *s);
 	void setScenePause(AbstractScene *s);
 	void nextScene();
+	void previousScene();
 	int getNumberOfScenes();
 	AbstractScene* getCurrentScene();
 	void Start();
 	void Update(float delta);
 	void Render();
 	void addSensor(AbstractSensor *s);
-	void init();
 	void checkSensors();
 	void pauseScene(AbstractScene *s);
 	void unpauseScene(AbstractScene *s);
