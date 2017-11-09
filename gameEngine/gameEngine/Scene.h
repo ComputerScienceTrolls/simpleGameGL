@@ -45,12 +45,16 @@ public:
 	void setWidth(int);
 	void setHeight(int);
 	void setBackground(char*);
+	bool getDeleted();
+	void setDeleted(bool);
+	void reset();
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;
 	std::vector<AbstractSensor*> Sensors;
 	GLFWwindow* window;
 	bool active;
+	bool deleted;
 	int height;
 	int width;
 };

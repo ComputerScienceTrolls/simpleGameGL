@@ -31,7 +31,7 @@ public:
 	GLboolean   Destroyed;
 	// Constructor(s)
 	Sprite();
-	Sprite(std::string name, Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
+	Sprite(std::string name, Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
 	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
 	bool collide(AbstractSprite * otherSprite);
@@ -80,6 +80,9 @@ public:
 	virtual void addStaticCircleCollider(std::string name, double r, int posX, int posY);
 	virtual void addPolyCollider(std::string name, std::vector<glm::vec2> verticies);
 	virtual void removeCollider(std::string name);
+
+	virtual void reset();
+	virtual void reInit();
 	~Sprite();
 
 private:
@@ -92,15 +95,22 @@ private:
 	float imgAngle;
 	bool collideDebug;
 	glm::vec2   Position, Size, Velocity, Center;
+	glm::vec2   initPosition, initSize, initVelocity, initCenter;
 	Texture2D	Texture;
+	char* textureFile;
 	glm::vec3   Color;
 	GLfloat     Rotation;
+	Texture2D	initTexture;
+	char* initTextureFile;
+	glm::vec3 initColor;
+	GLfloat initRotation;
 	std::map<std::string , bool> states;
 	std::string boundAction;
 	Scene *parentScene;
 	std::string name;
 	bool visible;
 	bool active;
+	int resetCounter;
 
 };
 

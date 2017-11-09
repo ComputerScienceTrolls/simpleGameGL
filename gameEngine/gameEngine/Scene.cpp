@@ -27,7 +27,7 @@ void Scene::Init()
 }
 
 Scene::Scene(GLuint w, GLuint h) :
-	width(w), height(h)
+	width(w), height(h), deleted(false)
 {
 }
 
@@ -44,6 +44,25 @@ void Scene::setActive(bool state)
 bool Scene::getActive()
 {
 	return this->active;
+}
+
+void Scene::setDeleted(bool b)
+{
+	this->deleted = b;
+}
+
+void Scene::reset()
+{
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->reInit();
+	}
+	this->deleted = false;
+}
+
+bool Scene::getDeleted()
+{
+	return this->deleted;
 }
 
 void Scene::setSize(int w, int h)
@@ -80,6 +99,8 @@ void Scene::Start()
 	//setup SpriteMap
 	for (int i = 0; i < Sprites.size(); i++)
 	{
+		//reset every sprite
+		Sprites.at(i)->reset();
 		spriteMap[Sprites.at(i)->getName()] = Sprites.at(i);
 	}
 
@@ -89,8 +110,17 @@ void Scene::Start()
 
 void Scene::Stop()
 {
+	this->active = false;
 	// Delete all resources as loaded using the resource manager
-	ResourceManager::Clear();
+	
+	//tell all sprites to delete their textures
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Texture2D temp = Sprites[i]->getTexture();
+		glDeleteTextures(1, &temp.ID);
+	}
+	this->deleted = true;
+	//ResourceManager::Clear();
 }
 
 void Scene::Update(GLfloat dt)

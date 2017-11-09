@@ -15,18 +15,12 @@ Sprite::Sprite()
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 }
 
-
-Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec3 color, glm::vec2 velocity)
-	: Center(pos), Size(size), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
+Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
+	: Center(pos), Size(size), textureFile(texture), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
-	//std::cout << "\n" << this->Size.x/2;
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
 	this->Position.y = this->Center.y - this->Size.y/2;
-	//std::cout << "\n posx " << this->Position.x;
-	//std::cout << "\n posy " << this->Position.y;
-	//std::cout << "\n renderposx " << this->RenderPosition.x;
-	//std::cout << "\n renderposy " << this->RenderPosition.y;
 
 	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
@@ -57,7 +51,22 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 	
 	this->setState("active", true);
 	this->setState("visible", true);
+
+	//velocity testing
+	this->dx = Velocity.x;
+	this->dy = Velocity.y;
 	
+	//init init vars, for restarting scenes
+	initCenter = Center;
+	initColor = Color;
+	initPosition = Position;
+	initRotation = Rotation;
+	initSize = Size;
+	initTexture = Texture;
+	initTextureFile = textureFile;
+	initVelocity = Velocity;
+
+	resetCounter = 0;
 }
 
 void Sprite::Draw(SpriteRenderer &renderer)
@@ -620,6 +629,32 @@ void Sprite::hide()
 void Sprite::setCollideDebug(bool state)
 {
 	this->collideDebug = state;
+}
+
+void Sprite::reset()
+{
+	this->Position = initPosition;
+	this->Velocity = initVelocity;
+	this->Rotation = initRotation;
+	this->Center = initCenter;
+	this->Color = initColor;
+	this->Texture = initTexture;
+	this->textureFile = initTextureFile;
+
+	this->dx = Velocity.x;
+	this->dy = Velocity.y;
+}
+
+void Sprite::reInit()
+{
+	std::cout << "\nuh oops\n";
+	resetCounter++;
+	//load texture
+	std::string temp(textureFile + std::to_string(resetCounter));
+	const char* temp2 = temp.c_str();
+	std::cout << temp2;
+	ResourceManager::LoadTexture(textureFile, true, temp2);
+	this->Texture = ResourceManager::GetTexture(temp2);
 }
 
 Sprite::~Sprite()

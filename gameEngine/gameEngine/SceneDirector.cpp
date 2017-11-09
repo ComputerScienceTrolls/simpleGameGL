@@ -116,7 +116,11 @@ void SceneDirector::setScene(AbstractScene *s)
 	currentScene = s;
 	currentScene->setWindow(window);
 	currentScene->Init();
-	currentScene->initRenderer();
+	//see if newCurrentScene's texture are deleted, if so reinit
+	if (currentScene->getDeleted())
+	{
+		currentScene->reset();
+	}
 	currentScene->Start();
 
 	bool found = false;
@@ -183,6 +187,11 @@ void SceneDirector::nextScene()
 		//init new currentScene
 		currentScene->setWindow(window);
 		currentScene->Init();
+		//see if newCurrentScene's texture are deleted, if so reinit
+		if (currentScene->getDeleted())
+		{
+			currentScene->reset();
+		}
 		currentScene->Start();
 	}
 	else
@@ -215,6 +224,11 @@ void SceneDirector::previousScene()
 		//init new currentScene
 		currentScene->setWindow(window);
 		currentScene->Init();
+		//see if newCurrentScene's texture are deleted, if so reinit
+		if (currentScene->getDeleted())
+		{
+			currentScene->reset();
+		}
 		currentScene->Start();
 	}
 	else
@@ -292,4 +306,5 @@ AbstractScene* SceneDirector::getCurrentScene()
 SceneDirector::~SceneDirector()
 {
 	glfwTerminate();
+	ResourceManager::Clear();
 }
