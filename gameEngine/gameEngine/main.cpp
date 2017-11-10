@@ -33,7 +33,7 @@ const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
 
 Scene mainScene(800, 600);
-Scene testScene(800, 600);
+Scene testScene(700, 700);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -70,13 +70,12 @@ void checkCols(Sprite *s, int w, int h)
 int main(int argc, char *argv[])
 {
 	mainScene.Init();
-	mainScene.initRenderer();
 
-	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
-	ResourceManager::LoadTexture("textures/face.png",true,"face");
+	//ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
+	//ResourceManager::LoadTexture("textures/face.png",true,"face");
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
-	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png");
+	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
 	Player2->addForce(0, 7);
 	Player2->setBoundAction("BOUNCE");
 	//std::cout << Player->getPosition().x;
@@ -128,8 +127,8 @@ int main(int argc, char *argv[])
 	MotionActuator *mDown = new MotionActuator(Player, 270, .1, "force");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
-	SceneActuator *s1 = new SceneActuator(&testScene, "setPause");
-	SceneActuator *s2 = new SceneActuator(&mainScene, "setPause");
+	SceneActuator *s1 = new SceneActuator(&testScene, "next");
+	SceneActuator *s2 = new SceneActuator(&mainScene, "previous");
 	SceneActuator *s3 = new SceneActuator(&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
@@ -147,6 +146,7 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(kRight);
 	mainScene.addSensor(kUp);
 	mainScene.addSensor(kDown);
+	//testScene.setBackground("textures/face.png");
 	/*
 	for (int i = 0; i < 5; i++)
 	{

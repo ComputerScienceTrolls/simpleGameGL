@@ -24,16 +24,12 @@ enum GameState {
 class Scene : public AbstractScene
 {
 public:
-	GLuint	Width, Height;
-	// Constructor/Destructor
 	Scene(GLuint width, GLuint height);
 	virtual void Start();
 	virtual void Stop();
 	~Scene();
 	// Initialize game state (load all shaders/textures/levels)
 	virtual void Init();
-	// GameLoop
-	virtual void ProcessInput(GLfloat dt);
 	virtual void Update(GLfloat dt);
 	virtual void Render();
 	std::vector<AbstractSprite*> getSprite(std::string name);
@@ -41,14 +37,25 @@ public:
 	virtual GLFWwindow* getWindow();
 	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
-	virtual void initRenderer();
 	virtual void setActive(bool state);
 	virtual bool getActive();
+	void setSize(int width, int height);
+	int getWidth();
+	int getHeight();
+	void setWidth(int);
+	void setHeight(int);
+	void setBackground(char*);
+	bool getDeleted();
+	void setDeleted(bool);
+	void reset();
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;
 	std::vector<AbstractSensor*> Sensors;
 	GLFWwindow* window;
 	bool active;
+	bool deleted;
+	int height;
+	int width;
 };
 #endif

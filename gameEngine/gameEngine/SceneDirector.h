@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include "ResourceManager.h"
 
 #include "SensorActuators\AbstractSensor.h"
 
@@ -22,13 +23,13 @@ public:
 	void setScene(AbstractScene *s);
 	void setScenePause(AbstractScene *s);
 	void nextScene();
+	void previousScene();
 	int getNumberOfScenes();
 	AbstractScene* getCurrentScene();
 	void Start();
 	void Update(float delta);
 	void Render();
 	void addSensor(AbstractSensor *s);
-	void init();
 	void checkSensors();
 	void pauseScene(AbstractScene *s);
 	void unpauseScene(AbstractScene *s);

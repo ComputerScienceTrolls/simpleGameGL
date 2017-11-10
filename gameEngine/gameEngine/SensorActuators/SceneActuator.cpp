@@ -26,6 +26,10 @@ void SceneActuator::run()
 	{
 		SceneDirector::getInstance()->nextScene();
 	}
+	else if (condition == "previous")
+	{
+		SceneDirector::getInstance()->previousScene();
+	}
 	else if (condition == "setPause")
 	{
 		SceneDirector::getInstance()->setScenePause(scene);
@@ -38,7 +42,6 @@ void SceneActuator::run()
 	{
 		if (scene->getActive())
 		{
-			std::cout << "\ntest2\n";
 			SceneDirector::getInstance()->pauseScene(scene);
 		}
 		else

@@ -3,15 +3,9 @@
 
 #include "KeyHandler.h"
 
-using namespace std;
-
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-// The Width of the screen
-//const GLuint SCREEN_WIDTH = 800;
-// The height of the screen
-//const GLuint SCREEN_HEIGHT = 600;
 SpriteRenderer  *Renderer;
 
 void Scene::Init()
@@ -22,37 +16,6 @@ void Scene::Init()
 		temp->addScene(this);
 	}
 	glfwSetKeyCallback(window, key_callback);
-	/*
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-	window = glfwCreateWindow(Width, Height, "HelloWorld", nullptr, nullptr);
-	glfwMakeContextCurrent(window);
-
-
-	glewExperimental = GL_TRUE;
-	glewInit();
-	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
-	
-	glfwSetKeyCallback(window, key_callback);
-	
-	// Load shaders
-	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
-	// Configure shaders
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
-	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
-	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
-
-	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
-	*/
-}
-
-void Scene::initRenderer()
-{
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
 	// Configure shaders
@@ -60,8 +23,17 @@ void Scene::initRenderer()
 	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
-
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+}
+
+Scene::Scene(GLuint w, GLuint h) :
+	width(w), height(h), deleted(false)
+{
+}
+
+void Scene::setBackground(char* newBackground)
+{
+	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
 }
 
 void Scene::setActive(bool state)
@@ -74,19 +46,52 @@ bool Scene::getActive()
 	return this->active;
 }
 
-Scene::Scene(GLuint width, GLuint height) :
-	Width(width), Height(height)
+void Scene::setDeleted(bool b)
 {
-	//see if SceneDirector has any Scenes in it, if it doesn't, make this scene it's current Scene
-	/*
-	// Load shaders
-	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
-	// Configure shaders
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
-	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
-	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
-	*/
+	this->deleted = b;
+}
+
+void Scene::reset()
+{
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->reInit();
+	}
+	this->deleted = false;
+}
+
+bool Scene::getDeleted()
+{
+	return this->deleted;
+}
+
+void Scene::setSize(int w, int h)
+{
+	glfwSetWindowSize(window, w, h);
+	this->width = w;
+	this->height = h;
+}
+
+int Scene::getWidth()
+{
+	return this->width;
+}
+
+int Scene::getHeight()
+{
+	return this->height;
+}
+
+void Scene::setWidth(int w)
+{
+	this->width = w;
+	glfwSetWindowSize(window, this->width, this->height);
+}
+
+void Scene::setHeight(int h)
+{
+	this->height = h;
+	glfwSetWindowSize(window, this->width, this->height);
 }
 
 void Scene::Start()
@@ -94,55 +99,28 @@ void Scene::Start()
 	//setup SpriteMap
 	for (int i = 0; i < Sprites.size(); i++)
 	{
+		//reset every sprite
+		Sprites.at(i)->reset();
 		spriteMap[Sprites.at(i)->getName()] = Sprites.at(i);
 	}
-	/*
-	// OpenGL configuration
-	glViewport(0, 0, Width, Height);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	// DeltaTime variables
-	GLfloat deltaTime = 0.0f;
-	GLfloat lastFrame = 0.0f;
-	*/
 
 	// set active to true
 	this->setActive(true);
-
-	/*
-	while (!glfwWindowShouldClose(window))
-	{
-		// Calculate delta time
-		GLfloat currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-		glfwPollEvents();
-
-		//deltaTime = 0.001f;
-		// Manage user input
-		this->ProcessInput(deltaTime);
-
-		// Update Game state
-		this->Update(deltaTime);
-
-		// Render
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-		this->Render();
-
-		glfwSwapBuffers(window);
-	}
-	*/
 }
 
 void Scene::Stop()
 {
+	this->active = false;
 	// Delete all resources as loaded using the resource manager
-	ResourceManager::Clear();
-
-	//glfwTerminate();
+	
+	//tell all sprites to delete their textures
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Texture2D temp = Sprites[i]->getTexture();
+		glDeleteTextures(1, &temp.ID);
+	}
+	this->deleted = true;
+	//ResourceManager::Clear();
 }
 
 void Scene::Update(GLfloat dt)
@@ -155,30 +133,13 @@ void Scene::Update(GLfloat dt)
 			if (Sprites.at(i)->getState("active"))
 			{
 				Sprites.at(i)->update();
-				Sprites.at(i)->checkBounds(Width, Height);
-				/*
-				if (Sprites.at(i)->getName() == "Paddle")
-				{
-				std::vector<AbstractSprite*> tempVec = this->getSprite("Ball");
-				for (int j = 0; j < tempVec.size(); j++)
-				{
-				//std::cout << "step2";
-				if (Sprites.at(i)->collide(tempVec.at(j)))
-				{
-				std::cout << "collision3";
-				}
-				}
-				}
-				*/
+				Sprites.at(i)->checkBounds(this->width, this->height);
 			}
 		}
 		for (int i = 0; i < Sensors.size(); i++)
 		{
 			Sensors.at(i)->sense();
 		}
-
-		//may not be good design but... we need to check for Sensors of SceneDirector,
-		SceneDirector::getInstance()->checkSensors();
 	}
 }
 
@@ -201,6 +162,8 @@ GLFWwindow * Scene::getWindow()
 void Scene::setWindow(GLFWwindow * newWindow)
 {
 	window = newWindow;
+	//set window to scene's defined width and height
+	setSize(this->width, this->height);
 }
 
 void Scene::addSensor(AbstractSensor *s)
@@ -208,15 +171,11 @@ void Scene::addSensor(AbstractSensor *s)
 	Sensors.push_back(s);
 }
 
-void Scene::ProcessInput(GLfloat dt)
-{
-}
-
 void Scene::Render()
 {
 	if (this->active)
 	{
-		Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0), glm::vec2(this->Width, this->Height), 0.0f);
+		Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0), glm::vec2(this->width, this->height), 0.0f);
 		//for each sprite in scene
 		for (int i = 0; i < Sprites.size(); i++)
 		{

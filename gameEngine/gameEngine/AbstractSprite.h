@@ -50,6 +50,9 @@ public:
 	virtual void setColliders(std::vector<collider*>) = 0;
 	virtual void setName(std::string) {};
 
+	virtual void reset() {};
+	virtual void reInit() {};
+
 	~AbstractSprite();
 
 private:
