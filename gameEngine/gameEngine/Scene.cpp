@@ -6,10 +6,14 @@
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-SpriteRenderer  *Renderer;
+Scene::Scene(GLuint w, GLuint h) :
+	width(w), height(h), deleted(false)
+{
+}
 
+//if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
 void Scene::Init()
-{	
+{
 	SceneDirector *temp = SceneDirector::getInstance();
 	if (temp->getNumberOfScenes() < 1)
 	{
@@ -26,74 +30,7 @@ void Scene::Init()
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
 }
 
-Scene::Scene(GLuint w, GLuint h) :
-	width(w), height(h), deleted(false)
-{
-}
-
-void Scene::setBackground(char* newBackground)
-{
-	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
-}
-
-void Scene::setActive(bool state)
-{
-	this->active = state;
-}
-
-bool Scene::getActive()
-{
-	return this->active;
-}
-
-void Scene::setDeleted(bool b)
-{
-	this->deleted = b;
-}
-
-void Scene::reset()
-{
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		Sprites[i]->reInit();
-	}
-	this->deleted = false;
-}
-
-bool Scene::getDeleted()
-{
-	return this->deleted;
-}
-
-void Scene::setSize(int w, int h)
-{
-	glfwSetWindowSize(window, w, h);
-	this->width = w;
-	this->height = h;
-}
-
-int Scene::getWidth()
-{
-	return this->width;
-}
-
-int Scene::getHeight()
-{
-	return this->height;
-}
-
-void Scene::setWidth(int w)
-{
-	this->width = w;
-	glfwSetWindowSize(window, this->width, this->height);
-}
-
-void Scene::setHeight(int h)
-{
-	this->height = h;
-	glfwSetWindowSize(window, this->width, this->height);
-}
-
+//set Scene's state to active and visible, then tell every Sprite to start in their initial state, init spriteMap
 void Scene::Start()
 {
 	//setup SpriteMap
@@ -105,24 +42,30 @@ void Scene::Start()
 	}
 
 	// set active to true
-	this->setActive(true);
+	this->active = true;
+
+	//set visible to true
+	this->visible = true;
 }
 
+//set Scene's state to not active and not visible
 void Scene::Stop()
 {
 	this->active = false;
+	this->visible = false;
 	// Delete all resources as loaded using the resource manager
-	
+
 	//tell all sprites to delete their textures
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		Texture2D temp = Sprites[i]->getTexture();
-		glDeleteTextures(1, &temp.ID);
-	}
-	this->deleted = true;
+	//for (int i = 0; i < Sprites.size(); i++)
+	//{
+	//	Texture2D temp = Sprites[i]->getTexture();
+	//	glDeleteTextures(1, &temp.ID);
+	//}
+	//this->deleted = true;
 	//ResourceManager::Clear();
 }
 
+//if Scene is active, tell Sprites to update and check Sensors.
 void Scene::Update(GLfloat dt)
 {
 	if (this->active)
@@ -133,7 +76,6 @@ void Scene::Update(GLfloat dt)
 			if (Sprites.at(i)->getState("active"))
 			{
 				Sprites.at(i)->update();
-				Sprites.at(i)->checkBounds(this->width, this->height);
 			}
 		}
 		for (int i = 0; i < Sensors.size(); i++)
@@ -143,48 +85,30 @@ void Scene::Update(GLfloat dt)
 	}
 }
 
-std::vector<AbstractSprite*> Scene::getSprite(std::string name)
-{
-	std::vector<AbstractSprite*> tempVec;
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		if (Sprites.at(i)->getName() == name)
-			tempVec.push_back(Sprites[i]);
-	}
-	return tempVec;
-}
-
-GLFWwindow * Scene::getWindow()
-{
-	return this->window;
-}
-
-void Scene::setWindow(GLFWwindow * newWindow)
-{
-	window = newWindow;
-	//set window to scene's defined width and height
-	setSize(this->width, this->height);
-}
-
-void Scene::addSensor(AbstractSensor *s)
-{
-	Sensors.push_back(s);
-}
-
+//renders background and all sprites, if visible state is true
 void Scene::Render()
 {
-	if (this->active)
+	if (this->visible)
 	{
 		Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0), glm::vec2(this->width, this->height), 0.0f);
-		//for each sprite in scene
 		for (int i = 0; i < Sprites.size(); i++)
 		{
 			Sprites.at(i)->Draw(*Renderer);
-			//Renderer->DrawSprite(Sprites.at(i)->getTexture(), Sprites.at(i)->getPosition(), Sprites.at(i)->getSize(), Sprites.at(i)->getRotation(), Sprites.at(i)->getColor());
 		}
 	}
 }
 
+//tell every Sprite to reInit their inital texture, currently not working
+void Scene::reset()
+{
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->reInit();
+	}
+	this->deleted = false;
+}
+
+//event called every time a key is pressed, check for exit, update KeyHandler singleton keys.
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	// When a user presses the escape key, we set the WindowShouldClose property to true, closing the application
@@ -197,6 +121,124 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		else if (action == GLFW_RELEASE)
 			KeyHandler::getInstance()->Keys[key] = GL_FALSE;
 	}
+}
+
+//gets a vector of sprites that all share the given name
+std::vector<AbstractSprite*> Scene::getSprite(std::string name)
+{
+	std::vector<AbstractSprite*> tempVec;
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		if (Sprites.at(i)->getName() == name)
+			tempVec.push_back(Sprites[i]);
+	}
+	return tempVec;
+}
+
+//add sensor to vector of Sensors
+void Scene::addSensor(AbstractSensor *s)
+{
+	Sensors.push_back(s);
+}
+
+//set new background with given file
+void Scene::setBackground(char* newBackground)
+{
+	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
+}
+
+//set active state
+void Scene::setActive(bool state)
+{
+	this->active = state;
+}
+
+//set visible state
+void Scene::setVisible(bool state)
+{
+	this->visible = state;
+}
+
+//get active state
+bool Scene::getActive()
+{
+	return this->active;
+}
+
+//get visible state
+bool Scene::getVisible()
+{
+	return this->visible;
+}
+
+//set deleted state, deleting and reInit is not currently working
+void Scene::setDeleted(bool b)
+{
+	this->deleted = b;
+}
+
+//return deleted state, deleting and reInit is not currently working
+bool Scene::getDeleted()
+{
+	return this->deleted;
+}
+
+//set width and height, then resize window
+void Scene::setSize(int w, int h)
+{
+	glfwSetWindowSize(window, w, h);
+	this->width = w;
+	this->height = h;
+}
+
+std::vector<AbstractSprite*> Scene::getSprites()
+{
+	return this->Sprites;
+}
+
+void Scene::setSprites(std::vector<AbstractSprite*> newVector)
+{
+	this->Sprites = newVector;
+}
+
+//get Scene's width
+int Scene::getWidth()
+{
+	return this->width;
+}
+
+//get Scene's height
+int Scene::getHeight()
+{
+	return this->height;
+}
+
+//set Scene's width, resize window
+void Scene::setWidth(int w)
+{
+	this->width = w;
+	glfwSetWindowSize(window, this->width, this->height);
+}
+
+//set Scene's height, resize window
+void Scene::setHeight(int h)
+{
+	this->height = h;
+	glfwSetWindowSize(window, this->width, this->height);
+}
+
+//returns GLFWwindow assigned to this scene
+GLFWwindow * Scene::getWindow()
+{
+	return this->window;
+}
+
+//sets GLFWwindow, then calls setSize in case GLFWwindow is not the right size
+void Scene::setWindow(GLFWwindow * newWindow)
+{
+	window = newWindow;
+	//set window to scene's defined width and height
+	setSize(this->width, this->height);
 }
 
 Scene::~Scene()

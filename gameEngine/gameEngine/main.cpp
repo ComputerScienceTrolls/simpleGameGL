@@ -34,6 +34,10 @@ const GLuint SCREEN_HEIGHT = 600;
 
 Scene mainScene(800, 600);
 Scene testScene(700, 700);
+Scene testScene2(700, 700);
+Scene testScene3(700, 700);
+Scene testScene4(700, 700);
+Scene testScene5(700, 700);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -179,7 +183,9 @@ int main(int argc, char *argv[])
 	
 	//test->addObserver(*colTest);
 	SceneDirector::getInstance()->addScene(&testScene);
-	AbstractScene *test4 = SceneDirector::getInstance()->getCurrentScene();
+	SceneDirector::getInstance()->addScene(&testScene2);
+	SceneDirector::getInstance()->addScene(&testScene3);
+	SceneDirector::getInstance()->addScene(&testScene4);
 	
 	SceneDirector::getInstance()->Start();
 	

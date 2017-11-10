@@ -173,10 +173,13 @@ void SceneDirector::nextScene()
 			currentIndex = i;
 		}
 	}
-	std::cout << "\ncurrentIndex: " << currentIndex;
-	std::cout << "\nsize: " << scenes.size();
+	//std::cout << "\ncurrentIndex: " << currentIndex;
+	//std::cout << "\nsize: " << scenes.size();
 	//make sure currentIndex and currentIndex+1 is in range
-	if (currentIndex != -1 && !currentIndex + 1 > scenes.size()-1)
+	std::cout << !((currentIndex + 1) > (scenes.size() - 1));
+	std::cout << "\n currentIndex " << currentIndex + 1;
+	std::cout << "\n scenes size " << scenes.size() - 1 << "\n";
+	if (currentIndex != -1 && (currentIndex + 1) < scenes.size()-1)
 	{
 		//stop currentScene
 		currentScene->Stop();
@@ -196,7 +199,9 @@ void SceneDirector::nextScene()
 	}
 	else
 	{
-		std::cout << "there is no Scene to jump to";
+		std::cout << "Next: there is no Scene to jump to";
+		std::cout << "\ncurrentIndex: " << currentIndex;
+		std::cout << "\nsize: " << scenes.size();
 	}
 }
 
@@ -210,8 +215,7 @@ void SceneDirector::previousScene()
 			currentIndex = i;
 		}
 	}
-	std::cout << "\ncurrentIndex: " << currentIndex;
-	std::cout << "\nsize: " << scenes.size();
+
 	//make sure currentIndex and currentIndex-1 is in range
 	if (currentIndex != -1 && currentIndex - 1 > -1)
 	{
@@ -233,7 +237,9 @@ void SceneDirector::previousScene()
 	}
 	else
 	{
-		std::cout << "there is no Scene to jump to";
+		std::cout << "Previous: there is no Scene to jump to";
+		std::cout << "\ncurrentIndex: " << currentIndex;
+		std::cout << "\nsize: " << scenes.size();
 	}
 }
 

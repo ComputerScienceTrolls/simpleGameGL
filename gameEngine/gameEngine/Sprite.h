@@ -16,10 +16,9 @@
 #include "Colliders/staticBoxCollider.h"
 #include "Colliders/staticCircleCollider.h"
 #include "Colliders\PolyCollider.h"
-#include "Scene.h"
+#include "AbstractScene.h"
 
 #pragma once
-class Scene;
 class Sprite : public AbstractSprite
 {
 public:
@@ -31,13 +30,13 @@ public:
 	GLboolean   Destroyed;
 	// Constructor(s)
 	Sprite();
-	Sprite(std::string name, Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
+	Sprite(std::string name, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
 	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
-	bool collide(AbstractSprite * otherSprite);
-	bool collide(Sprite * otherSprite);
+	virtual bool collide(AbstractSprite * otherSprite);
+	virtual bool collide(Sprite * otherSprite);
 	void setVelocity(GLfloat dt);
-	void update();
+	virtual void update();
 	void setState(std::string key, bool state);
 	bool getState(std::string key);
 	void setBoundAction(std::string newAction);
@@ -106,7 +105,7 @@ private:
 	GLfloat initRotation;
 	std::map<std::string , bool> states;
 	std::string boundAction;
-	Scene *parentScene;
+	AbstractScene *parentScene;
 	std::string name;
 	bool visible;
 	bool active;

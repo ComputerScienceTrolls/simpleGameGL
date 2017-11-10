@@ -11,24 +11,14 @@
 
 #include <vector>
 
-// Represents the current state of the game
-enum GameState {
-	GAME_ACTIVE,
-	GAME_MENU,
-	GAME_WIN
-};
-
-// Game holds all game-related state and functionality.
-// Combines all game-related data into a single class for
-// easy access to each of the components and manageability.
+// Scene holds all sprite set to it, determines when they are drawn and updated.
 class Scene : public AbstractScene
 {
 public:
 	Scene(GLuint width, GLuint height);
+	~Scene();
 	virtual void Start();
 	virtual void Stop();
-	~Scene();
-	// Initialize game state (load all shaders/textures/levels)
 	virtual void Init();
 	virtual void Update(GLfloat dt);
 	virtual void Render();
@@ -38,22 +28,54 @@ public:
 	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
 	virtual void setActive(bool state);
+	virtual void setVisible(bool state);
+
+	//gets active state of scene, determines if sprites are updated and Sensors are checked
 	virtual bool getActive();
+
+	//gets visible state of scene, determines if sprites are rendered on screen
+	virtual bool getVisible();
+
+	//sets Scene's size
 	void setSize(int width, int height);
+
+	//get vector of Sprites;
+	virtual std::vector<AbstractSprite*> getSprites();
+
+	//set vector of Sprites;
+	virtual void setSprites(std::vector<AbstractSprite*> newVector);
+
+	//returns Scene's width
 	int getWidth();
+
+	//returns Scene's height
 	int getHeight();
+
+	//sets Scene's width
 	void setWidth(int);
+
+	//sets Scene's height
 	void setHeight(int);
+
+	//set's Scene's background, get's image from filename you give to fill the scene
 	void setBackground(char*);
+
+	//get deleted state, deleting and reiniting sprites not working yet
 	bool getDeleted();
+
+	//set deleted state, deleting and reiniting sprites not working yet
 	void setDeleted(bool);
+
+	//sets all sprites back to their init states.
 	void reset();
 
 private:
+	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
 	std::vector<AbstractSensor*> Sensors;
 	GLFWwindow* window;
 	bool active;
+	bool visible;
 	bool deleted;
 	int height;
 	int width;

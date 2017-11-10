@@ -4,7 +4,7 @@
 //pie constant for math
 const double PI = 3.141592653589793238463;
 
-
+//empty sprite
 Sprite::Sprite()
 	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0), speed(10), moveAngle(0), imgAngle(0), collideDebug(false)
 {
@@ -15,8 +15,9 @@ Sprite::Sprite()
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 }
 
-Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
-	: Center(pos), Size(size), textureFile(texture), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
+//make given pos the center of the sprite, so calc the real pos, setup given texture, setup collider texture, add sprite to scene, set velocity, and init initvalues
+Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
+	:name(n), parentScene(&scene), Center(pos), Size(size), textureFile(texture), Velocity(velocity), Color(color), Rotation(0.0f), IsSolid(false), Destroyed(false), collideDebug(false)
 {
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
@@ -24,8 +25,6 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 
 	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
-
-	this->name = name;
 
 	//load texture
 	ResourceManager::LoadTexture(texture,true,texture);
@@ -35,24 +34,28 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
-	//add Sprite to Scene
-	scene.Sprites.push_back(this);
+	//add Sprite to Scene, get Sprites, add new sprite.
+	std::vector<AbstractSprite*> tempSprites = scene.getSprites();
+	tempSprites.push_back(this);
 
-	scene.Sprites.back()->setPosition(this->Position);
-	scene.Sprites.back()->setCenter(this->Center);
-	scene.Sprites.back()->setSize(this->Size);
-	scene.Sprites.back()->setVelocity(this->Velocity);
-	scene.Sprites.back()->setColor(this->Color);
-	scene.Sprites.back()->setRotation(this->Rotation);
-	scene.Sprites.back()->setTexture(this->Texture);
-	scene.Sprites.back()->IsSolid = this->IsSolid;
-	scene.Sprites.back()->Destroyed = this->Destroyed;
-	scene.Sprites.back()->collideDebug = this->collideDebug;
+	tempSprites.back()->setPosition(this->Position);
+	tempSprites.back()->setCenter(this->Center);
+	tempSprites.back()->setSize(this->Size);
+	tempSprites.back()->setVelocity(this->Velocity);
+	tempSprites.back()->setColor(this->Color);
+	tempSprites.back()->setRotation(this->Rotation);
+	tempSprites.back()->setTexture(this->Texture);
+	tempSprites.back()->IsSolid = this->IsSolid;
+	tempSprites.back()->Destroyed = this->Destroyed;
+	tempSprites.back()->collideDebug = this->collideDebug;
+
+	//set new vector back to the scene
+	scene.setSprites(tempSprites);
 	
 	this->setState("active", true);
 	this->setState("visible", true);
 
-	//velocity testing
+	//set up velocity
 	this->dx = Velocity.x;
 	this->dy = Velocity.y;
 	
@@ -69,6 +72,7 @@ Sprite::Sprite(std::string name,Scene &scene, glm::vec2 pos, glm::vec2 size, GLc
 	resetCounter = 0;
 }
 
+//if visible true, draw sprite, draw collider(s) if collideDebug true.
 void Sprite::Draw(SpriteRenderer &renderer)
 {
 	GLfloat t = 1;
@@ -82,7 +86,7 @@ void Sprite::Draw(SpriteRenderer &renderer)
 	{
 		for (int i = 0; i < getColliders().size(); i++)
 		{
-			//std::cout << "width: " << getColliders().at(i)->getWidth();
+			//default transparent
 			t = .15;
 
 			//see which texture to use, if circle or box, if collider is static we need to exclude the position of the sprite
@@ -104,7 +108,6 @@ void Sprite::Draw(SpriteRenderer &renderer)
 			}
 		}
 	}
-	//renderer.DrawSprite(this->Texture, this->Position, this->Size, this->Rotation, this->Color);
 }
 
 //iterate through all this sprite's colliders, and have it check if it's colliding with another specified sprite's colliders
@@ -398,8 +401,9 @@ void Sprite::update()
 	this->Center.x += this->dx;
 	this->Center.y -= this->dy;
 
+	this->checkBounds(parentScene->getWidth(),parentScene->getHeight());
+
 	//run Observer
-	//std::cout << ObserverHandler::getInstance()->getNumberOfObservers();
 	ObserverHandler::getInstance()->NotifyObservers();
 }
 
