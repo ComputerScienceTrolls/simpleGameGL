@@ -1,4 +1,4 @@
-#include "boxCollider.h"
+#include "BoxCollider.h"
 
 //constructor with no position offset
 boxCollider::boxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
