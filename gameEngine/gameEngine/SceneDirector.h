@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 
 #include "SensorActuators\AbstractSensor.h"
+#include "Observers\AbstractObserver.h"
 
 class SceneDirector
 {
@@ -30,6 +31,11 @@ public:
 	void Update(float delta);
 	void Render();
 	void addSensor(AbstractSensor *s);
+	void addObserver(AbstractObserver *o);
+	void removeSensor(std::string);
+	void removeSensor(int);
+	void removeObserver(std::string);
+	void removeObserver(int);
 	void checkSensors();
 	void pauseScene(AbstractScene *s);
 	void unpauseScene(AbstractScene *s);
@@ -42,6 +48,7 @@ private:
 	std::vector<AbstractScene*> scenes;
 	AbstractScene *currentScene;
 	std::vector<AbstractSensor*> sensors;
+	std::vector<AbstractObserver*> observers;
 };
 
 #endif

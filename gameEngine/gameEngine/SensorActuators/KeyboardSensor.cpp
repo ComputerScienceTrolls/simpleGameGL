@@ -1,8 +1,8 @@
 #include "KeyboardSensor.h"
 
 //constructor, if no condition given, default is "na"
-KeyboardSensor::KeyboardSensor(int k, std::string con) :
-	key(k), condition(con)
+KeyboardSensor::KeyboardSensor(std::string n, int k, std::string con) :
+	name(n), key(k), condition(con)
 {
 }
 
@@ -44,6 +44,16 @@ void KeyboardSensor::sense()
 void KeyboardSensor::addActuator(AbstractActuator* act)
 {
 	actuators.push_back(act);
+}
+
+void KeyboardSensor::setName(std::string newName)
+{
+	this->name = newName;
+}
+
+std::string KeyboardSensor::getName()
+{
+	return this->name;
 }
 
 KeyboardSensor::~KeyboardSensor()

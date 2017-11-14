@@ -11,3 +11,13 @@ void Observer::Notify()
 {
     this->func_();
 }
+
+void Observer::setName(std::string newName)
+{
+	this->name = newName;
+}
+
+std::string Observer::getName()
+{
+	return this->name;
+}

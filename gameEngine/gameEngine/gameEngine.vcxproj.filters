@@ -87,9 +87,6 @@
     <ClCompile Include="SensorActuators\AbstractActuator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SensorActuators\AbstractFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SensorActuators\AbstractSensor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -194,9 +191,6 @@
     <ClInclude Include="SensorActuators\AbstractActuator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SensorActuators\AbstractFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SensorActuators\AbstractSensor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -222,6 +216,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Colliders\AbstractCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Observers\AbstractObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

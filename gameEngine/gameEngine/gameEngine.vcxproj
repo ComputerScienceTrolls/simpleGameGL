@@ -162,7 +162,6 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
     <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
-    <ClCompile Include="SensorActuators\AbstractFactory.cpp" />
     <ClCompile Include="SensorActuators\AbstractSensor.cpp" />
     <ClCompile Include="SensorActuators\ActiveActuator.cpp" />
     <ClCompile Include="SensorActuators\CheckBoundsSensor.cpp" />
@@ -188,6 +187,7 @@
     <ClInclude Include="Colliders\staticBoxCollider.h" />
     <ClInclude Include="Colliders\staticCircleCollider.h" />
     <ClInclude Include="KeyHandler.h" />
+    <ClInclude Include="Observers\AbstractObserver.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />
     <ClInclude Include="Observers\ColliderObserver.h" />
     <ClInclude Include="Observers\CollisionGroupObserver.h" />
@@ -197,7 +197,6 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneDirector.h" />
     <ClInclude Include="SensorActuators\AbstractActuator.h" />
-    <ClInclude Include="SensorActuators\AbstractFactory.h" />
     <ClInclude Include="SensorActuators\AbstractSensor.h" />
     <ClInclude Include="SensorActuators\ActiveActuator.h" />
     <ClInclude Include="SensorActuators\CheckBoundsSensor.h" />

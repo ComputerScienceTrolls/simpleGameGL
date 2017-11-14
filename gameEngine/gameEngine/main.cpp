@@ -14,6 +14,7 @@
 #include "Sprite.h"
 
 #include "Observers/observerhandler.h"
+#include "Observers/Observer.h"
 #include "Observers/ColliderObserver.h"
 #include "Observers/CheckBoundsObserver.h"
 #include "Observers/CollisionGroupObserver.h"
@@ -32,12 +33,12 @@ const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-Scene mainScene(800, 600);
-Scene testScene(700, 700);
-Scene testScene2(700, 700);
-Scene testScene3(700, 700);
-Scene testScene4(700, 700);
-Scene testScene5(700, 700);
+Scene mainScene("main",800, 600);
+Scene testScene("test",700, 700);
+Scene testScene2("test",700, 700);
+Scene testScene3("test",700, 700);
+Scene testScene4("test",700, 700);
+Scene testScene5("test",700, 700);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -48,6 +49,11 @@ void ballColl2(Sprite *Ball, Sprite *Player)
 		std::cout << "collision";
 		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 	}
+}
+
+void test9()
+{
+	std::cout << "test\n";
 }
 
 void ballColl3(Sprite *Player, std::string name)
@@ -113,15 +119,16 @@ int main(int argc, char *argv[])
 	//Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
-	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+	Observer *simplyObserver = new Observer(test9);
 	
-	KeyboardSensor *kLeft = new KeyboardSensor(GLFW_KEY_A);
-	KeyboardSensor *kRight = new KeyboardSensor(GLFW_KEY_D);
-	KeyboardSensor *kUp = new KeyboardSensor(GLFW_KEY_W);
-	KeyboardSensor *kDown = new KeyboardSensor(GLFW_KEY_S);
-	KeyboardSensor *kArrowLeft = new KeyboardSensor(GLFW_KEY_LEFT);
-	KeyboardSensor *kArrowRight = new KeyboardSensor(GLFW_KEY_RIGHT);
-	KeyboardSensor *kSpace = new KeyboardSensor(GLFW_KEY_SPACE, "clicked");
+	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
+	KeyboardSensor *kRight = new KeyboardSensor("kright", GLFW_KEY_D);
+	KeyboardSensor *kUp = new KeyboardSensor("kup", GLFW_KEY_W);
+	KeyboardSensor *kDown = new KeyboardSensor("kdown", GLFW_KEY_S);
+	KeyboardSensor *kArrowLeft = new KeyboardSensor("left",GLFW_KEY_LEFT);
+	KeyboardSensor *kArrowRight = new KeyboardSensor("right",GLFW_KEY_RIGHT);
+	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	//CollisionSensor *t2 = new CollisionSensor(Player,Ball);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	//MotionActuator *m2 = new MotionActuator(Player, .05,.05);
@@ -166,8 +173,10 @@ int main(int argc, char *argv[])
 		//test->addObserver(*temp);
 	}
 	*/
-	//CollisionGroupObserver *temp = new CollisionGroupObserver(ballColl3, Player, "Ball");
-	test->addObserver(*colTest);
+	ColliderObserver *temp = new ColliderObserver("ballCol", ballColl2, Player, Ball);
+	mainScene.addObserver(temp);
+	mainScene.removeObserver("ballCol");
+
 	
 	/*
 	for (int i = 0; i < 50; i++)

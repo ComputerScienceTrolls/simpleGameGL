@@ -6,8 +6,8 @@
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-Scene::Scene(GLuint w, GLuint h) :
-	width(w), height(h), deleted(false)
+Scene::Scene(std::string n, GLuint w, GLuint h) :
+	name(n), width(w), height(h), deleted(false)
 {
 }
 
@@ -78,9 +78,15 @@ void Scene::Update(GLfloat dt)
 				Sprites.at(i)->update();
 			}
 		}
+
 		for (int i = 0; i < Sensors.size(); i++)
 		{
 			Sensors.at(i)->sense();
+		}
+
+		for (int i = 0; i < Observers.size(); i++)
+		{
+			Observers.at(i)->Notify();
 		}
 	}
 }
@@ -106,6 +112,16 @@ void Scene::reset()
 		Sprites[i]->reInit();
 	}
 	this->deleted = false;
+}
+
+std::string Scene::getName()
+{
+	return this->name;
+}
+
+void Scene::setName(std::string newName)
+{
+	this->name = newName;
 }
 
 //event called every time a key is pressed, check for exit, update KeyHandler singleton keys.
@@ -139,6 +155,82 @@ std::vector<AbstractSprite*> Scene::getSprite(std::string name)
 void Scene::addSensor(AbstractSensor *s)
 {
 	Sensors.push_back(s);
+}
+
+void Scene::removeSensor(std::string name)
+{
+	int index = -1;
+	for (int i = 0; i < this->Sensors.size(); i++)
+	{
+		if (this->Sensors[i]->getName() == name)
+		{
+			index = i;
+		}
+	}
+
+	//if found remove it from the vector
+	if (index != -1)
+	{
+		std::cout << "deleting " << this->Sensors.at(index)->getName();
+		this->Sensors.erase(Sensors.begin() + index);
+	}
+	else
+	{
+		std::cout << "Sensor with the name of " << name << " not found";
+	}
+}
+
+void Scene::removeSensor(int index)
+{
+	if (index > -1 && index <= Sensors.size() - 1)
+	{
+		this->Sensors.erase(Sensors.begin() + index);
+	}
+	else
+	{
+		std::cout << "index is not in range";
+	}
+}
+
+void Scene::addObserver(AbstractObserver *o)
+{
+	Observers.push_back(o);
+}
+
+void Scene::removeObserver(std::string name)
+{
+	//get index of collider
+	int index = -1;
+	for (int i = 0; i < this->Observers.size(); i++)
+	{
+		if (this->Observers[i]->getName() == name)
+		{
+			index = i;
+		}
+	}
+
+	//if found remove it from the vector
+	if (index != -1)
+	{
+		std::cout << "deleting " << this->Observers.at(index)->getName();
+		this->Observers.erase(this->Observers.begin() + index);
+	}
+	else
+	{
+		std::cout << "observer with the name of " << name << " not found";
+	}
+}
+
+void Scene::removeObserver(int index)
+{
+	if (index > -1 && index <= Observers.size() - 1)
+	{
+		this->Observers.erase(Observers.begin() + index);
+	}
+	else
+	{
+		std::cout << "index is not in range";
+	}
 }
 
 //set new background with given file

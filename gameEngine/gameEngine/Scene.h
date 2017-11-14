@@ -6,6 +6,7 @@
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
 #include "SceneDirector.h"
+#include "Observers\AbstractObserver.h"
 
 #include "SensorActuators\AbstractSensor.h"
 
@@ -15,7 +16,7 @@
 class Scene : public AbstractScene
 {
 public:
-	Scene(GLuint width, GLuint height);
+	Scene(std::string name, GLuint width, GLuint height);
 	~Scene();
 	virtual void Start();
 	virtual void Stop();
@@ -27,6 +28,11 @@ public:
 	virtual GLFWwindow* getWindow();
 	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
+	void removeSensor(std::string name);
+	void removeSensor(int index);
+	void addObserver(AbstractObserver*);
+	void removeObserver(std::string name);
+	void removeObserver(int index);
 	virtual void setActive(bool state);
 	virtual void setVisible(bool state);
 
@@ -69,15 +75,21 @@ public:
 	//sets all sprites back to their init states.
 	void reset();
 
+	std::string getName();
+	
+	void setName(std::string);
+
 private:
 	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
 	std::vector<AbstractSensor*> Sensors;
+	std::vector<AbstractObserver*> Observers;
 	GLFWwindow* window;
 	bool active;
 	bool visible;
 	bool deleted;
 	int height;
 	int width;
+	std::string name;
 };
 #endif

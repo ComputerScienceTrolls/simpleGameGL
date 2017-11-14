@@ -1,7 +1,7 @@
 #include "PolyCollider.h"
 
 PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<glm::vec2> vecs) :
-	name(n), spriteParent(&parent), offsetVectrices(vecs)
+	name(n), spriteParent(&parent), offsetVectrices(vecs), type("Poly")
 {
 	//get the vertex that is the most left, right, up, and down so we can get the poly con's "size" and box
 	int minX = 10000;
@@ -90,39 +90,42 @@ bool PolyCollider::collide(std::vector<AbstractCollider*> otherColliders)
 	updateVecs();
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
-		//we need to update otherCollidiers vecs based on it's sprite's position
-		otherColliders.at(i)->updateVecs();
-		for (int j = 0; j < this->vectrices.size(); j++)
+		if (otherColliders.at(i)->getType() == "Poly")
 		{
-			//get dir of the current edge
-			glm::vec2 tempDir = this->edges[j]->getDir();
-
-			//get normal of that dir
-			tempDir = getNormal(tempDir);
-
-			//find the projection of this polygon on the axis
-			std::vector<double> thisProj = project(tempDir);
-			std::vector<double> otherProj = otherColliders.at(i)->project(tempDir);
-			if (!overlap(thisProj, otherProj))
+			//we need to update otherCollidiers vecs based on it's sprite's position
+			otherColliders.at(i)->updateVecs();
+			for (int j = 0; j < this->vectrices.size(); j++)
 			{
-				return false;
-			}
-		}
+				//get dir of the current edge
+				glm::vec2 tempDir = this->edges[j]->getDir();
 
-		//now do it the other way
-		for (int j = 0; j < otherColliders.at(i)->getVerticies().size(); j++)
-		{
-			glm::vec2 tempDir = otherColliders.at(i)->getEdges().at(j)->getDir();
-			tempDir = getNormal(tempDir);
-			std::vector<double> thisProj = otherColliders.at(i)->project(tempDir);
-			std::vector<double> otherProj = otherColliders.at(i)->project(tempDir);
-			if (!overlap(thisProj, otherProj))
+				//get normal of that dir
+				tempDir = getNormal(tempDir);
+
+				//find the projection of this polygon on the axis
+				std::vector<double> thisProj = project(tempDir);
+				std::vector<double> otherProj = otherColliders.at(i)->project(tempDir);
+				if (!overlap(thisProj, otherProj))
+				{
+					return false;
+				}
+			}
+
+			//now do it the other way
+			for (int j = 0; j < otherColliders.at(i)->getVerticies().size(); j++)
 			{
-				return false;
+				glm::vec2 tempDir = otherColliders.at(i)->getEdges().at(j)->getDir();
+				tempDir = getNormal(tempDir);
+				std::vector<double> thisProj = otherColliders.at(i)->project(tempDir);
+				std::vector<double> otherProj = otherColliders.at(i)->project(tempDir);
+				if (!overlap(thisProj, otherProj))
+				{
+					return false;
+				}
 			}
-		}
 
-		return true;
+			return true;
+		}
 	}
 	
 	return false;
