@@ -1,6 +1,6 @@
 #pragma once
 #include "collider.h"
-class StaticCircleCollider : public collider
+class StaticCircleCollider : public AbstractCollider
 {
 public:
 	StaticCircleCollider(std::string name, float r);
