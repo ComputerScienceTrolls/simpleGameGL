@@ -1,4 +1,4 @@
-#include "observer.h"
+#include "Observer.h"
 #include <iostream>
 
 Observer::Observer(void(*f)()):
