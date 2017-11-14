@@ -1,19 +1,16 @@
-#include "circleCollider.h"
+#include "StaticCircleCollider.h"
 
-//consturctor with no positon offset from sprite.
-circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r):
-	type("circle"), spriteParent(&parent), radius(r)
+StaticCircleCollider::StaticCircleCollider(std::string name, float r):
+	name(name), radius(r), type("staticCircle")
 {
 }
 
-//consturctor with a position offset from it's sprite
-circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY) :
-	posXOffset(posX), posYOffset(posY), type("circle"), spriteParent(&parent), radius(r)
+StaticCircleCollider::StaticCircleCollider(std::string name, float r, int posX, int posY):
+	name(name), radius(r), posXOffset(posX), posYOffset(posY), type("staticCircle")
 {
-
 }
 
-bool circleCollider::collide(std::vector<collider*> otherColliders)
+bool StaticCircleCollider::collide(std::vector<collider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
@@ -21,7 +18,7 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 		if (otherColliders.at(i)->getType() == "box")
 		{
 			// Get center point circle first 
-			glm::vec2 center(this->getSpritePos() + glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
+			glm::vec2 center(glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
 
 			// Calculate AABB info (center, half-extents)
 			glm::vec2 aabb_half_extents(otherColliders.at(i)->getSpriteSize().x / 2, otherColliders.at(i)->getSpriteSize().y / 2);
@@ -44,13 +41,13 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 		else if (otherColliders.at(i)->getType() == "staticBox")
 		{
 			// Get center point circle first 
-			glm::vec2 center(this->getSpritePos() + glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
+			glm::vec2 center(glm::vec2(this->getPosX(), this->getPosY()) + this->getRadius());
 
 			// Calculate AABB info (center, half-extents)
-			glm::vec2 aabb_half_extents(otherColliders.at(i)->getWidth() / 2, otherColliders.at(i)->getHeight() / 2);
+			glm::vec2 aabb_half_extents(otherColliders.at(i)->getSpriteSize().x / 2, otherColliders.at(i)->getSpriteSize().y / 2);
 			glm::vec2 aabb_center(
-				otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX() + aabb_half_extents.x,
-				otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY() + aabb_half_extents.y
+				otherColliders.at(i)->getPosX() + aabb_half_extents.x,
+				otherColliders.at(i)->getPosY() + aabb_half_extents.y
 			);
 			// Get difference vector between both centers
 			glm::vec2 difference = center - aabb_center;
@@ -60,16 +57,16 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 
 			// Retrieve vector between center circle and closest point AABB and check if length <= radius
 			difference = closest - center;
-
 			if (glm::length(difference) < this->getRadius())
 				return true;
 		}
 		//if other collider is a circle and static is false
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
-			int diffX = (this->getSpriteCenterPos().x + this->getPosX()) - (otherColliders.at(i)->getSpriteCenterPos().x + otherColliders.at(i)->getPosX());
-			int diffY = (this->getSpriteCenterPos().y + this->getPosY()) - (otherColliders.at(i)->getSpriteCenterPos().y + otherColliders.at(i)->getPosY());
-
+			int diffX = this->getPosX() - (otherColliders.at(i)->getSpritePos().x + otherColliders.at(i)->getPosX());
+			int diffY = this->getPosY() - (otherColliders.at(i)->getSpritePos().y + otherColliders.at(i)->getPosY());
+			std::cout << "\n diffX " << diffX;
+			std::cout << "\n diffY " << diffY;
 			int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
 			if (dist <= (this->getRadius() + otherColliders.at(i)->getRadius()))
 				return true;
@@ -78,8 +75,8 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 		}
 		else if (otherColliders.at(i)->getType() == "staticCircle")
 		{
-			int diffX = this->getPosX() - (otherColliders.at(i)->getSpriteCenterPos().x + otherColliders.at(i)->getPosX());
-			int diffY = this->getPosY() - (otherColliders.at(i)->getSpriteCenterPos().y + otherColliders.at(i)->getPosY());
+			int diffX = this->getPosX() - otherColliders.at(i)->getPosX();
+			int diffY = this->getPosY() - otherColliders.at(i)->getPosY();
 
 			int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
 			if (dist <= (this->getRadius() + otherColliders.at(i)->getRadius()))
@@ -92,56 +89,37 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 	return false;
 }
 
-float circleCollider::getRadius()
+int StaticCircleCollider::getWidth()
 {
-	return radius;
+	return this->radius*2;
 }
 
-int circleCollider::getPosX()
+int StaticCircleCollider::getHeight()
 {
-	return posXOffset;
+	return this->radius*2;
 }
 
-int circleCollider::getPosY()
+float StaticCircleCollider::getRadius()
 {
-	return posYOffset;
+	return this->radius;
 }
 
-std::string circleCollider::getType()
+int StaticCircleCollider::getPosX()
+{
+	return this->posXOffset;
+}
+
+int StaticCircleCollider::getPosY()
+{
+	return this->posYOffset;
+}
+
+std::string StaticCircleCollider::getType()
 {
 	return this->type;
 }
 
-glm::vec2 circleCollider::getSpriteSize()
-{
-	return spriteParent->getSize();
-}
-
-std::string circleCollider::getName()
+std::string StaticCircleCollider::getName()
 {
 	return this->name;
-}
-
-glm::vec2 circleCollider::getSpritePos()
-{
-	return spriteParent->getPosition();
-}
-
-glm::vec2 circleCollider::getSpriteCenterPos()
-{
-	return spriteParent->getCenter();
-}
-
-int circleCollider::getWidth()
-{
-	return this->radius*2;
-}
-
-int circleCollider::getHeight()
-{
-	return this->radius*2;
-}
-
-circleCollider::~circleCollider()
-{
 }

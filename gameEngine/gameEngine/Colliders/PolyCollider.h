@@ -1,10 +1,10 @@
-#include "collider.h"
+#include "AbstractCollider.h"
 #include "../AbstractSprite.h"
 #include "Edge.h"
 #include <iostream>
 #include <vector>
 
-class PolyCollider : public collider
+class PolyCollider : public AbstractCollider
 {
 public:
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);

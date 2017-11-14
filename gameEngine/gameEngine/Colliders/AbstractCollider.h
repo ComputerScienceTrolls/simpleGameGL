@@ -8,11 +8,11 @@
 //only Needed for poly collider
 #include "Edge.h"
 
-class collider
+class AbstractCollider
 {
 	class SpriteRender;
 public:
-	collider();
+	AbstractCollider();
 	virtual bool collide(std::vector<collider*>) { return false; };
 	virtual std::string getType() = 0;
 	virtual int getWidth() { return 0; }
@@ -32,7 +32,7 @@ public:
 
 	//needed for circle collider
 	virtual float getRadius() {return 0;};
-	~collider();
+	~AbstractCollider();
 
 private:
 	SpriteRender *render;

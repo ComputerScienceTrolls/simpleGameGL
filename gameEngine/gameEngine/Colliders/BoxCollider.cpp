@@ -1,20 +1,20 @@
-#include "boxCollider.h"
+#include "BoxCollider.h"
 
 //constructor with no position offset
-boxCollider::boxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
+BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
 	name(newName), offsetW(w), offsetH(h), posXOffset(0), posYOffset(0), type("box"), spriteParent(&parent)
 {
 
 }
 
 //consturctor with a positon offset
-boxCollider::boxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY) :
+BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY) :
 	name(newName), offsetW(w), offsetH(h), posXOffset(posX), posYOffset(posY), type("box"), spriteParent(&parent)
 {
 
 }
 
-bool boxCollider::collide(std::vector<collider*> otherColliders)
+bool BoxCollider::collide(std::vector<collider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
@@ -65,56 +65,56 @@ bool boxCollider::collide(std::vector<collider*> otherColliders)
 
 }
 
-int boxCollider::getWidth()
+int BoxCollider::getWidth()
 {
 	return offsetW;
 }
 
-int boxCollider::getHeight()
+int BoxCollider::getHeight()
 {
 	return offsetH;
 }
 
-int boxCollider::getPosX()
+int BoxCollider::getPosX()
 {
 	return posXOffset;
 }
 
 
-bool boxCollider::getStaticState()
+bool BoxCollider::getStaticState()
 {
 	return this->staticState;
 }
-int boxCollider::getPosY()
+int BoxCollider::getPosY()
 {
 	return posYOffset;
 }
 
-glm::vec2 boxCollider::getSpriteCenterPos()
+glm::vec2 BoxCollider::getSpriteCenterPos()
 {
 	return spriteParent->getCenter();
 }
 
-std::string boxCollider::getType()
+std::string BoxCollider::getType()
 {
 	return type;
 }
 
-glm::vec2 boxCollider::getSpritePos()
+glm::vec2 BoxCollider::getSpritePos()
 {
 	return spriteParent->getPosition();
 }
 
-glm::vec2 boxCollider::getSpriteSize()
+glm::vec2 BoxCollider::getSpriteSize()
 {
 	return spriteParent->getSize();
 }
 
-std::string boxCollider::getName()
+std::string BoxCollider::getName()
 {
 	return this->name;
 }
 
-boxCollider::~boxCollider()
+BoxCollider::~BoxCollider()
 {
 }

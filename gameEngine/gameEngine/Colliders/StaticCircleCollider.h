@@ -1,10 +1,10 @@
 #pragma once
-#include "collider.h"
-class staticCircleCollider : public collider
+#include "AbstractCollider.h"
+class StaticCircleCollider : public AbstractCollider
 {
 public:
-	staticCircleCollider(std::string name, float r);
-	staticCircleCollider(std::string name, float r, int posX, int posY);
+	StaticCircleCollider(std::string name, float r);
+	StaticCircleCollider(std::string name, float r, int posX, int posY);
 	virtual bool collide(std::vector<collider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
