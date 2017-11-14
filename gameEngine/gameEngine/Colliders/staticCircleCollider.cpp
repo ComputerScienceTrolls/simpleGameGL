@@ -1,16 +1,16 @@
-#include "staticCircleCollider.h"
+#include "StaticCircleCollider.h"
 
-staticCircleCollider::staticCircleCollider(std::string name, float r):
+StaticCircleCollider::StaticCircleCollider(std::string name, float r):
 	name(name), radius(r), type("staticCircle")
 {
 }
 
-staticCircleCollider::staticCircleCollider(std::string name, float r, int posX, int posY):
+StaticCircleCollider::StaticCircleCollider(std::string name, float r, int posX, int posY):
 	name(name), radius(r), posXOffset(posX), posYOffset(posY), type("staticCircle")
 {
 }
 
-bool staticCircleCollider::collide(std::vector<collider*> otherColliders)
+bool StaticCircleCollider::collide(std::vector<collider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
@@ -89,37 +89,37 @@ bool staticCircleCollider::collide(std::vector<collider*> otherColliders)
 	return false;
 }
 
-int staticCircleCollider::getWidth()
+int StaticCircleCollider::getWidth()
 {
 	return this->radius*2;
 }
 
-int staticCircleCollider::getHeight()
+int StaticCircleCollider::getHeight()
 {
 	return this->radius*2;
 }
 
-float staticCircleCollider::getRadius()
+float StaticCircleCollider::getRadius()
 {
 	return this->radius;
 }
 
-int staticCircleCollider::getPosX()
+int StaticCircleCollider::getPosX()
 {
 	return this->posXOffset;
 }
 
-int staticCircleCollider::getPosY()
+int StaticCircleCollider::getPosY()
 {
 	return this->posYOffset;
 }
 
-std::string staticCircleCollider::getType()
+std::string StaticCircleCollider::getType()
 {
 	return this->type;
 }
 
-std::string staticCircleCollider::getName()
+std::string StaticCircleCollider::getName()
 {
 	return this->name;
 }
