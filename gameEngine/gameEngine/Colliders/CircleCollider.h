@@ -1,5 +1,5 @@
 #pragma once
-#include "collider.h"
+#include "Collider.h"
 #include "../AbstractSprite.h"
 
 #include "math.h"
