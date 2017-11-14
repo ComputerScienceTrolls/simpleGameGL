@@ -1,12 +1,9 @@
-#include "collider.h"
+#include "AbstractCollider.h"
 
-
-
-collider::collider()
+AbstractCollider::AbstractCollider()
 {
 }
 
-
-collider::~collider()
+AbstractCollider::~AbstractCollider()
 {
 }
