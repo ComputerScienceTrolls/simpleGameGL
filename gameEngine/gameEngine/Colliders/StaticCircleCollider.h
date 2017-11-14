@@ -1,5 +1,5 @@
 #pragma once
-#include "collider.h"
+#include "AbstractCollider.h"
 class StaticCircleCollider : public AbstractCollider
 {
 public:
