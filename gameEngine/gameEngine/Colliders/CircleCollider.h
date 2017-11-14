@@ -1,15 +1,15 @@
 #pragma once
-#include "Collider.h"
+#include "AbstractCollider.h"
 #include "../AbstractSprite.h"
 
 #include "math.h"
 
-class circleCollider : public collider
+class CircleCollider : public AbstractCollider
 {
 
 public:
-	circleCollider(std::string name, AbstractSprite &parent, float r);
-	circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY);
+	CircleCollider(std::string name, AbstractSprite &parent, float r);
+	CircleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY);
 	virtual bool collide(std::vector<collider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
