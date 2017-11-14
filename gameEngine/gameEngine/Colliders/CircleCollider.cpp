@@ -1,4 +1,4 @@
-#include "circleCollider.h"
+#include "CircleCollider.h"
 
 //consturctor with no positon offset from sprite.
 circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r):
