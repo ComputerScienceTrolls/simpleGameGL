@@ -1,31 +1,17 @@
 #include "boxCollider.h"
 
-
+//constructor with no position offset
 boxCollider::boxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
 	name(newName), offsetW(w), offsetH(h), posXOffset(0), posYOffset(0), type("box"), spriteParent(&parent)
 {
 
 }
 
+//consturctor with a positon offset
 boxCollider::boxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY) :
 	name(newName), offsetW(w), offsetH(h), posXOffset(posX), posYOffset(posY), type("box"), spriteParent(&parent)
 {
 
-}
-
-glm::vec2 boxCollider::getSpritePos()
-{
-	return spriteParent->getPosition();
-}
-
-glm::vec2 boxCollider::getSpriteSize()
-{
-	return spriteParent->getSize();
-}
-
-std::string boxCollider::getName()
-{
-	return this->name;
 }
 
 bool boxCollider::collide(std::vector<collider*> otherColliders)
@@ -112,6 +98,21 @@ glm::vec2 boxCollider::getSpriteCenterPos()
 std::string boxCollider::getType()
 {
 	return type;
+}
+
+glm::vec2 boxCollider::getSpritePos()
+{
+	return spriteParent->getPosition();
+}
+
+glm::vec2 boxCollider::getSpriteSize()
+{
+	return spriteParent->getSize();
+}
+
+std::string boxCollider::getName()
+{
+	return this->name;
 }
 
 boxCollider::~boxCollider()

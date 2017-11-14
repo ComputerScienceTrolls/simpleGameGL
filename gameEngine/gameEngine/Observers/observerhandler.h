@@ -12,7 +12,6 @@ public:
     void addObserver(AbstractObserver &obs);
     void removeObserver(AbstractObserver & obs);
     void NotifyObservers();
-    void Trigger();
 	int getNumberOfObservers();
 	~ObserverHandler();
 

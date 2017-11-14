@@ -6,15 +6,16 @@ Edge::Edge(glm::vec2 p0, glm::vec2 p1, glm::vec2 d) :
 {
 }
 
-glm::vec2 Edge::getDir()
-{
-	return this->dir;
-}
-
+//update dir, assuming the edges points have moved
 void Edge::updateDir()
 {
 	glm::vec2 newDir = { point2Pos.x - point1Pos.x, point2Pos.y - point1Pos.y };
 	dir = newDir;
+}
+
+glm::vec2 Edge::getDir()
+{
+	return this->dir;
 }
 
 void Edge::setPoint1(glm::vec2 newPoint)
