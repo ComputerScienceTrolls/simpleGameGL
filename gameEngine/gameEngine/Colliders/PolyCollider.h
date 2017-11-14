@@ -8,7 +8,7 @@ class PolyCollider : public AbstractCollider
 {
 public:
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);
-	virtual bool collide(std::vector<collider*> otherColliders);
+	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual bool getStaticState();

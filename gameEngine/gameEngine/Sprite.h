@@ -11,11 +11,11 @@
 #include <map>
 
 #include "AbstractSprite.h"
-#include "Colliders/boxCollider.h"
-#include "Colliders/circleCollider.h"
-#include "Colliders/staticBoxCollider.h"
-#include "Colliders/staticCircleCollider.h"
-#include "Colliders\PolyCollider.h"
+#include "Colliders/BoxCollider.h"
+#include "Colliders/CircleCollider.h"
+#include "Colliders/StaticBoxCollider.h"
+#include "Colliders/StaticCircleCollider.h"
+#include "Colliders/PolyCollider.h"
 #include "AbstractScene.h"
 
 #pragma once
@@ -52,7 +52,7 @@ public:
 	virtual glm::vec2 getVelocity();
 	virtual glm::vec3 getColor();
 	virtual GLfloat getRotation();
-	virtual std::vector<collider*> getColliders();
+	virtual std::vector<AbstractCollider*> getColliders();
 	virtual std::string getName();
 	virtual GLfloat getDX();
 	virtual GLfloat getDY();
@@ -63,7 +63,7 @@ public:
 	virtual void setVelocity(glm::vec2);
 	virtual void setColor(glm::vec3);
 	virtual void setRotation(GLfloat);
-	virtual void setColliders(std::vector<collider*>);
+	virtual void setColliders(std::vector<AbstractCollider*>);
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
 	//virtual void setColliderPredictive(std::string name, bool predictive);
@@ -79,8 +79,8 @@ public:
 	~Sprite();
 
 private:
-	collider *collider_;
-	std::vector<collider*> colliders_;
+	AbstractCollider *collider_;
+	std::vector<AbstractCollider*> colliders_;
 	float dx;
 	float dy;
 	float speed;

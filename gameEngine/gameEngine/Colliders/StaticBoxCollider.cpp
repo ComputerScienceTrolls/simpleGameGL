@@ -5,7 +5,7 @@ StaticBoxCollider::StaticBoxCollider(std::string name, int w, int h, int posX, i
 {
 }
 
-bool StaticBoxCollider::collide(std::vector<collider*> otherColliders)
+bool StaticBoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{

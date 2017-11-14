@@ -13,7 +13,7 @@ CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r
 
 }
 
-bool CircleCollider::collide(std::vector<collider*> otherColliders)
+bool CircleCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{

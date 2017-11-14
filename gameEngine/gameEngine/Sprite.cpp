@@ -9,7 +9,7 @@ Sprite::Sprite()
 	: Position(0, 0), Size(1, 1), Velocity(10.0f), Color(1.0f), Rotation(0.0f), Texture(), IsSolid(false), Destroyed(false), dx(0), dy(0), speed(10), moveAngle(0), imgAngle(0), collideDebug(false)
 {
 	//give default box collider
-	boxCollider *temp = new boxCollider("default",*this, 1, 1);
+	BoxCollider *temp = new BoxCollider("default",*this, 1, 1);
 	colliders_.push_back(temp);
 	//texture for collider debug
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
@@ -23,7 +23,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	this->Position.x = this->Center.x - this->Size.x/2;
 	this->Position.y = this->Center.y - this->Size.y/2;
 
-	boxCollider *temp = new boxCollider("default",*this, size.x, size.y);
+	BoxCollider *temp = new BoxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
 
 	//load texture
@@ -217,21 +217,21 @@ void Sprite::setMoveAngle(float newAngle)
 //add box collider to the sprite. with pos offset from sprite
 void Sprite::addBoxCollider(std::string name, int w, int h, int posX, int posY)
 {
-	boxCollider *temp = new boxCollider(name, *this, w, h, posX, posY);
+	BoxCollider *temp = new BoxCollider(name, *this, w, h, posX, posY);
 	this->colliders_.push_back(temp);
 }
 
 //add box collider to the sprite. pos is assumed on sprite
 void Sprite::addBoxCollider(std::string name, int w, int h)
 {
-	boxCollider *temp = new boxCollider(name, *this, w, h);
+	BoxCollider *temp = new BoxCollider(name, *this, w, h);
 	this->colliders_.push_back(temp);
 }
 
 //add static(none moving) box collider to the sprite.
 void Sprite::addStaticBoxCollider(std::string name, int w, int h, int posX, int posY)
 {
-	staticBoxCollider *temp = new staticBoxCollider(name, w, h, posX, posY);
+	StaticBoxCollider *temp = new StaticBoxCollider(name, w, h, posX, posY);
 	this->colliders_.push_back(temp);
 }
 
@@ -280,7 +280,7 @@ void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 		diffX = r - this->getSize().x/2;
 		diffY = r - this->getSize().y/2;
 	}
-	circleCollider *temp = new circleCollider(name, *this, r, posX - diffX, posY - diffY);
+	CircleCollider *temp = new CircleCollider(name, *this, r, posX - diffX, posY - diffY);
 	this->colliders_.push_back(temp);
 }
 
@@ -297,7 +297,7 @@ void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int p
 		diffX = r - this->getSize().x / 2;
 		diffY = r - this->getSize().y / 2;
 	}
-	staticCircleCollider *temp = new staticCircleCollider(name, r, posX - diffX, posY - diffY);
+	StaticCircleCollider *temp = new StaticCircleCollider(name, r, posX - diffX, posY - diffY);
 	this->colliders_.push_back(temp);
 }
 
@@ -612,7 +612,7 @@ GLfloat Sprite::getRotation()
 	return this->Rotation;
 }
 
-std::vector<collider*> Sprite::getColliders()
+std::vector<AbstractCollider*> Sprite::getColliders()
 {
 	return this->colliders_;
 }
@@ -667,7 +667,7 @@ void Sprite::setRotation(GLfloat newRotation)
 	this->Rotation = newRotation;
 }
 
-void Sprite::setColliders(std::vector<collider*> newColliders)
+void Sprite::setColliders(std::vector<AbstractCollider*> newColliders)
 {
 	this->colliders_ = newColliders;
 }

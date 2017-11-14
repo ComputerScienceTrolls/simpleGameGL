@@ -84,7 +84,7 @@ void PolyCollider::updateVecs()
 
 }
 
-bool PolyCollider::collide(std::vector<collider*> otherColliders)
+bool PolyCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	//we need to update the vecs based on each sprite's position
 	updateVecs();

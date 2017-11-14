@@ -13,7 +13,7 @@ class AbstractCollider
 	class SpriteRender;
 public:
 	AbstractCollider();
-	virtual bool collide(std::vector<collider*>) { return false; };
+	virtual bool collide(std::vector<AbstractCollider*>) { return false; };
 	virtual std::string getType() = 0;
 	virtual int getWidth() { return 0; }
 	virtual int getHeight() { return 0; }

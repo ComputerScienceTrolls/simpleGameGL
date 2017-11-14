@@ -4,7 +4,7 @@ class StaticBoxCollider : public AbstractCollider
 {
 public:
 	StaticBoxCollider(std::string name, int w, int h, int posX, int posY);
-	virtual bool collide(std::vector<collider*>);
+	virtual bool collide(std::vector<AbstractCollider*>);
 	virtual std::string getType();
 	virtual int getWidth();
 	virtual int getHeight();

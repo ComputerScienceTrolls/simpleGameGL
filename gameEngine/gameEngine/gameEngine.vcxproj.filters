@@ -57,9 +57,6 @@
     <ClCompile Include="Colliders\circleCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Colliders\collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Colliders\staticBoxCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,6 +114,9 @@
     <ClCompile Include="SensorActuators\SceneActuator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Colliders\AbstractCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -147,9 +147,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Colliders\circleCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Colliders\collider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Colliders\staticBoxCollider.h">
@@ -222,6 +219,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SensorActuators\SceneActuator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Colliders\AbstractCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

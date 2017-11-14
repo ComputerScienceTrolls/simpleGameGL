@@ -144,9 +144,9 @@
   <ItemGroup>
     <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
+    <ClCompile Include="Colliders\AbstractCollider.cpp" />
     <ClCompile Include="Colliders\boxCollider.cpp" />
     <ClCompile Include="Colliders\circleCollider.cpp" />
-    <ClCompile Include="Colliders\collider.cpp" />
     <ClCompile Include="Colliders\Edge.cpp" />
     <ClCompile Include="Colliders\PolyCollider.cpp" />
     <ClCompile Include="Colliders\staticBoxCollider.cpp" />
@@ -180,9 +180,9 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
+    <ClInclude Include="Colliders\AbstractCollider.h" />
     <ClInclude Include="Colliders\boxCollider.h" />
     <ClInclude Include="Colliders\circleCollider.h" />
-    <ClInclude Include="Colliders\collider.h" />
     <ClInclude Include="Colliders\Edge.h" />
     <ClInclude Include="Colliders\PolyCollider.h" />
     <ClInclude Include="Colliders\staticBoxCollider.h" />

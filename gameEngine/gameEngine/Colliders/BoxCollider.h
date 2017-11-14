@@ -11,7 +11,7 @@ class BoxCollider : public AbstractCollider
 public:
 	BoxCollider(std::string name, AbstractSprite &parent, int w, int h);
 	BoxCollider(std::string name, AbstractSprite &parent, int w, int h, int posX, int posY);
-	virtual bool collide(std::vector<collider*> otherColliders);
+	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual int getPosX();

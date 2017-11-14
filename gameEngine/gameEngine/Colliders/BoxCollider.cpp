@@ -14,7 +14,7 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int 
 
 }
 
-bool BoxCollider::collide(std::vector<collider*> otherColliders)
+bool BoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{

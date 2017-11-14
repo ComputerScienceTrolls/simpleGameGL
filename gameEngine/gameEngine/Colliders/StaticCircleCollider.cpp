@@ -10,7 +10,7 @@ StaticCircleCollider::StaticCircleCollider(std::string name, float r, int posX, 
 {
 }
 
-bool StaticCircleCollider::collide(std::vector<collider*> otherColliders)
+bool StaticCircleCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
