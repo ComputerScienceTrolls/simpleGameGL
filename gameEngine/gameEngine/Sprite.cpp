@@ -124,6 +124,7 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 	return false;
 }
 
+//iterate through all this sprite's colliders, and have it check if it's colliding with another specified sprite's colliders
 bool Sprite::collide(Sprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
@@ -137,6 +138,7 @@ bool Sprite::collide(Sprite* otherSprite)
 	return false;
 }
 
+//multiple the velocity by a given float.
 void Sprite::setVelocity(GLfloat dt)
 {
 	this->Position += this->Velocity * dt;
@@ -148,16 +150,19 @@ void Sprite::setVelocity(GLfloat dt)
 	}
 }
 
+//set Sprite's dx
 void Sprite::setDX(float newDx)
 {
 	this->dx = newDx;
 }
 
+//set Sprite's dy
 void Sprite::setDY(float newDy)
 {
 	this->dy = newDy;
 }
 
+//set Sprite's dx and dy based on angle and thrust/magnitude
 void Sprite::addForce(float angle, float thrust)
 {
 	//input angle is in degrees - convert to radians    
@@ -173,163 +178,71 @@ void Sprite::addForce(float angle, float thrust)
 	this->calcSpeedAngle();
 }
 
+//opposite of calcVector:
+//sets speed and moveAngle based on dx, dy
 void Sprite::calcSpeedAngle()
 {
-	//opposite of calcVector:
-	//sets speed and moveAngle based on dx, dy
 	this->speed = std::sqrt((this->dx * this->dx) + (this->dy * this->dy));
 	this->moveAngle = std::atan2(this->dy, this->dx);
 }
 
+//used throughout speed angle calculations to 
+//recalculate dx and dy based on speed and angle
 void Sprite::calcVector()
 {
-	//used throughout speed angle calculations to 
-	//recalculate dx and dy based on speed and angle
 	this->dx = this->speed * std::cos(this->moveAngle);
 	this->dy = this->speed * std::sin(this->moveAngle);
 }
 
+//set new speed and recalc the vector
 void Sprite::setSpeed(float newSpeed)
 {
 	this->speed = newSpeed;
 	this->calcVector();
 }
 
+//set rotation to new angle, don't calc change
 void Sprite::setImgAngle(float newAngle)
 {
 	this->Rotation = newAngle;
-	//this->calcVector();
 }
 
+//set move angle, angle the sprite will move
 void Sprite::setMoveAngle(float newAngle)
 {
 	this->moveAngle = newAngle;
 	this->calcVector();
 }
 
-glm::vec2 Sprite::getPosition()
-{
-	return this->Position;
-}
-
-glm::vec2 Sprite::getCenter()
-{
-	return this->Center;
-}
-
-glm::vec2 Sprite::getSize()
-{
-	return this->Size;
-}
-
-Texture2D Sprite::getTexture()
-{
-	return this->Texture;
-}
-
-glm::vec2 Sprite::getVelocity()
-{
-	return this->Velocity;
-}
-
-glm::vec3 Sprite::getColor()
-{
-	return this->Color;
-}
-
-GLfloat Sprite::getRotation()
-{
-	return this->Rotation;
-}
-
-std::vector<collider*> Sprite::getColliders()
-{
-	return this->colliders_;
-}
-
-std::string Sprite::getName()
-{
-	return this->name;
-}
-
-GLfloat Sprite::getDX()
-{
-	return this->dx;
-}
-
-GLfloat Sprite::getDY()
-{
-	return this->dy;
-}
-
-void Sprite::setPosition(glm::vec2 newPosition)
-{
-	this->Position = newPosition;
-}
-
-void Sprite::setCenter(glm::vec2 newCenter)
-{
-	this->Center = newCenter;
-}
-
-void Sprite::setSize(glm::vec2 newSize)
-{
-	this->Size = newSize;
-}
-
-void Sprite::setTexture(Texture2D newTexture)
-{
-	this->Texture = newTexture;
-}
-
-void Sprite::setVelocity(glm::vec2 newVelocity)
-{
-	this->Velocity = newVelocity;
-}
-
-void Sprite::setColor(glm::vec3 newColor)
-{
-	this->Color = newColor;
-}
-
-void Sprite::setRotation(GLfloat newRotation)
-{
-	this->Rotation = newRotation;
-}
-
-void Sprite::setColliders(std::vector<collider*> newColliders)
-{
-	this->colliders_ = newColliders;
-}
-
-void Sprite::setName(std::string newName)
-{
-	this->name = newName;
-}
-
+//add box collider to the sprite. with pos offset from sprite
 void Sprite::addBoxCollider(std::string name, int w, int h, int posX, int posY)
 {
 	boxCollider *temp = new boxCollider(name, *this, w, h, posX, posY);
 	this->colliders_.push_back(temp);
 }
 
-void Sprite::setColliderPredictive(std::string name, bool predictive)
-{
-
-}
-
+//add box collider to the sprite. pos is assumed on sprite
 void Sprite::addBoxCollider(std::string name, int w, int h)
 {
 	boxCollider *temp = new boxCollider(name, *this, w, h);
 	this->colliders_.push_back(temp);
 }
 
+//add static(none moving) box collider to the sprite.
 void Sprite::addStaticBoxCollider(std::string name, int w, int h, int posX, int posY)
 {
 	staticBoxCollider *temp = new staticBoxCollider(name, w, h, posX, posY);
 	this->colliders_.push_back(temp);
 }
 
+/*
+void Sprite::setColliderPredictive(std::string name, bool predictive)
+{
+
+}
+*/
+
+//removes collider from sprite with given name, if multiple with name only gets last one
 void Sprite::removeCollider(std::string name)
 {
 	//get index of collider
@@ -354,6 +267,7 @@ void Sprite::removeCollider(std::string name)
 	}
 }
 
+//add circle collider to sprite, auto recenter circle before placing
 void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 {
 	double r2 = r * 2;
@@ -370,6 +284,7 @@ void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 	this->colliders_.push_back(temp);
 }
 
+//add a static(none moving) circle collider to the sprite, auto recenter circle before placing
 void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int posY)
 {
 	double r2 = r * 2;
@@ -386,12 +301,14 @@ void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int p
 	this->colliders_.push_back(temp);
 }
 
+//add a poly collider to the sprite, takes a list of verticies
 void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
 {
 	PolyCollider *temp = new PolyCollider(name, *this, verticies);
 	this->colliders_.push_back(temp);
 }
 
+//called every cycle as long sprite is active, sets position and center based on dx and dy. Check bounds
 void Sprite::update()
 {
 	this->Position.x += this->dx;
@@ -403,8 +320,8 @@ void Sprite::update()
 
 	this->checkBounds(parentScene->getWidth(),parentScene->getHeight());
 
-	//run Observer
-	ObserverHandler::getInstance()->NotifyObservers();
+	//run Observer, may need to restructure
+	//ObserverHandler::getInstance()->NotifyObservers();
 }
 
 void Sprite::setState(std::string key, bool state)
@@ -422,6 +339,7 @@ void Sprite::setBoundAction(std::string newAction)
 	this->boundAction = newAction;
 }
 
+//checks if sprite is on screen, if off screen do something based on Sprite's boundaction
 bool Sprite::checkBounds(double screenWidth, double screenHeight)
 {
 	double rightBorder = screenWidth;
@@ -624,17 +542,14 @@ bool Sprite::checkBounds(double screenWidth, double screenHeight)
 	return true;
 }
 
+//hide the sprite, by moving it far far away
 void Sprite::hide()
 {
 	this->Position.x = 10000;
 	this->Position.y = 10000;
 }
 
-void Sprite::setCollideDebug(bool state)
-{
-	this->collideDebug = state;
-}
-
+//reset Sprite's inital values
 void Sprite::reset()
 {
 	this->Position = initPosition;
@@ -649,6 +564,7 @@ void Sprite::reset()
 	this->dy = Velocity.y;
 }
 
+//does not currently work, reload inital texture and assign it
 void Sprite::reInit()
 {
 	std::cout << "\nuh oops\n";
@@ -659,6 +575,111 @@ void Sprite::reInit()
 	std::cout << temp2;
 	ResourceManager::LoadTexture(textureFile, true, temp2);
 	this->Texture = ResourceManager::GetTexture(temp2);
+}
+
+glm::vec2 Sprite::getPosition()
+{
+	return this->Position;
+}
+
+glm::vec2 Sprite::getCenter()
+{
+	return this->Center;
+}
+
+glm::vec2 Sprite::getSize()
+{
+	return this->Size;
+}
+
+Texture2D Sprite::getTexture()
+{
+	return this->Texture;
+}
+
+glm::vec2 Sprite::getVelocity()
+{
+	return this->Velocity;
+}
+
+glm::vec3 Sprite::getColor()
+{
+	return this->Color;
+}
+
+GLfloat Sprite::getRotation()
+{
+	return this->Rotation;
+}
+
+std::vector<collider*> Sprite::getColliders()
+{
+	return this->colliders_;
+}
+
+std::string Sprite::getName()
+{
+	return this->name;
+}
+
+GLfloat Sprite::getDX()
+{
+	return this->dx;
+}
+
+GLfloat Sprite::getDY()
+{
+	return this->dy;
+}
+
+void Sprite::setPosition(glm::vec2 newPosition)
+{
+	this->Position = newPosition;
+}
+
+void Sprite::setCenter(glm::vec2 newCenter)
+{
+	this->Center = newCenter;
+}
+
+void Sprite::setSize(glm::vec2 newSize)
+{
+	this->Size = newSize;
+}
+
+void Sprite::setTexture(Texture2D newTexture)
+{
+	this->Texture = newTexture;
+}
+
+void Sprite::setVelocity(glm::vec2 newVelocity)
+{
+	this->Velocity = newVelocity;
+}
+
+void Sprite::setColor(glm::vec3 newColor)
+{
+	this->Color = newColor;
+}
+
+void Sprite::setRotation(GLfloat newRotation)
+{
+	this->Rotation = newRotation;
+}
+
+void Sprite::setColliders(std::vector<collider*> newColliders)
+{
+	this->colliders_ = newColliders;
+}
+
+void Sprite::setName(std::string newName)
+{
+	this->name = newName;
+}
+
+void Sprite::setCollideDebug(bool state)
+{
+	this->collideDebug = state;
 }
 
 Sprite::~Sprite()

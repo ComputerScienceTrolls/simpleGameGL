@@ -1,10 +1,12 @@
 #include "KeyboardSensor.h"
 
+//constructor, if no condition given, default is "na"
 KeyboardSensor::KeyboardSensor(int k, std::string con) :
 	key(k), condition(con)
 {
 }
 
+//sense if given key is pressed, if condition set to clicked only check once per press.
 void KeyboardSensor::sense()
 {
 	if (condition == "na")
@@ -38,6 +40,7 @@ void KeyboardSensor::sense()
 	}
 }
 
+//add actuator to run when sensed
 void KeyboardSensor::addActuator(AbstractActuator* act)
 {
 	actuators.push_back(act);

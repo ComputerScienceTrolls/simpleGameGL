@@ -1,10 +1,12 @@
 #include "circleCollider.h"
 
+//consturctor with no positon offset from sprite.
 circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r):
 	type("circle"), spriteParent(&parent), radius(r)
 {
 }
 
+//consturctor with a position offset from it's sprite
 circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY) :
 	posXOffset(posX), posYOffset(posY), type("circle"), spriteParent(&parent), radius(r)
 {

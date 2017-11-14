@@ -22,16 +22,10 @@
 class Sprite : public AbstractSprite
 {
 public:
-	// Object state
-	//glm::vec2   Position, Size, Velocity;
-	//glm::vec3   Color;
-	//GLfloat     Rotation;
 	GLboolean   IsSolid;
 	GLboolean   Destroyed;
-	// Constructor(s)
 	Sprite();
 	Sprite(std::string name, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
-	// Draw sprite
 	virtual void Draw(SpriteRenderer &renderer);
 	virtual bool collide(AbstractSprite * otherSprite);
 	virtual bool collide(Sprite * otherSprite);
@@ -72,7 +66,7 @@ public:
 	virtual void setColliders(std::vector<collider*>);
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
-	virtual void setColliderPredictive(std::string name, bool predictive);
+	//virtual void setColliderPredictive(std::string name, bool predictive);
 	virtual void addBoxCollider(std::string name, int w, int h);
 	virtual void addStaticBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void addCircleCollider(std::string name, double r, int posX, int posY);

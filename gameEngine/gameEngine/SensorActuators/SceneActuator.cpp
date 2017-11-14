@@ -1,21 +1,29 @@
 #include "SceneActuator.h"
 #include <iostream>
 
+//constructor that isn't given a condition
 SceneActuator::SceneActuator(AbstractScene * newScene) :
 	scene(newScene), condition("na")
 {
 }
 
+//constructor that is given a condition
 SceneActuator::SceneActuator(AbstractScene * newScene, std::string con) :
 	scene(newScene), condition(con)
 {
 }
 
+//constructor that is only given a condition, can only use next, previous, or pause/toggle pause command
 SceneActuator::SceneActuator(std::string con) :
 	condition(con)
 {
+	if (con == "next" || con == "previous" || con == "pause" || con == "togglePause")
+	{
+		std::cout << con << " not a command that can be used without a given scene\ncommands that work without a given scene are next, previous, pause, and togglePause";
+	}
 }
 
+//run command based on given condition, if none given assume set given scene
 void SceneActuator::run()
 {
 	if (condition == "na")
@@ -46,7 +54,6 @@ void SceneActuator::run()
 		}
 		else
 		{
-			std::cout << "\ntest\n";
 			SceneDirector::getInstance()->unpauseScene(scene);
 		}
 	}
