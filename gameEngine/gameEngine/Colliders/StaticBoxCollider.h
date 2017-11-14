@@ -1,9 +1,9 @@
 #pragma once
-#include "collider.h"
-class staticBoxCollider : public collider
+#include "AbstractCollider.h"
+class StaticBoxCollider : public AbstractCollider
 {
 public:
-	staticBoxCollider(std::string name, int w, int h, int posX, int posY);
+	StaticBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual bool collide(std::vector<collider*>);
 	virtual std::string getType();
 	virtual int getWidth();
@@ -11,7 +11,7 @@ public:
 	virtual int getPosX();
 	virtual int getPosY();
 	virtual std::string getName();
-	~staticBoxCollider();
+	~StaticBoxCollider();
 
 private:
 	int width;
