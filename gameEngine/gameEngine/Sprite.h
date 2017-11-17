@@ -22,9 +22,7 @@
 class Sprite : public AbstractSprite
 {
 public:
-	GLboolean   IsSolid;
-	GLboolean   Destroyed;
-	Sprite();
+	Sprite(std::string n, AbstractScene &scene);
 	Sprite(std::string name, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
 	virtual void Draw(SpriteRenderer &renderer);
 	virtual bool collide(AbstractSprite * otherSprite);
@@ -78,11 +76,13 @@ public:
 	virtual void reInit();
 	~Sprite();
 
+protected:
+	GLfloat dx;
+	GLfloat dy;
+
 private:
 	AbstractCollider *collider_;
 	std::vector<AbstractCollider*> colliders_;
-	float dx;
-	float dy;
 	float speed;
 	float moveAngle;
 	float imgAngle;
@@ -98,6 +98,7 @@ private:
 	glm::vec3 initColor;
 	GLfloat initRotation;
 	std::map<std::string , bool> states;
+	GLfloat transparency;
 	std::string boundAction;
 	AbstractScene *parentScene;
 	std::string name;

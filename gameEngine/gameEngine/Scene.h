@@ -51,6 +51,8 @@ public:
 	//set vector of Sprites;
 	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
+	virtual void addSprite(AbstractSprite*);
+
 	//returns Scene's width
 	int getWidth();
 
@@ -74,6 +76,8 @@ public:
 
 	//sets all sprites back to their init states.
 	void reset();
+
+	void reInit();
 
 	std::string getName();
 	

@@ -25,6 +25,7 @@ SceneDirector::SceneDirector()
 	glewExperimental = GL_TRUE;
 	glewInit();
 	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
+	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
 }
 
 void SceneDirector::checkSensors()
@@ -147,10 +148,11 @@ void SceneDirector::setScene(AbstractScene *s)
 	currentScene = s;
 	currentScene->setWindow(window);
 	currentScene->Init();
+	currentScene->reset();
 	//see if newCurrentScene's texture are deleted, if so reinit
 	if (currentScene->getDeleted())
 	{
-		currentScene->reset();
+		currentScene->reInit();
 	}
 	currentScene->Start();
 
@@ -221,10 +223,11 @@ void SceneDirector::nextScene()
 		//init new currentScene
 		currentScene->setWindow(window);
 		currentScene->Init();
+		currentScene->reset();
 		//see if newCurrentScene's texture are deleted, if so reinit
 		if (currentScene->getDeleted())
 		{
-			currentScene->reset();
+			currentScene->reInit();
 		}
 		currentScene->Start();
 	}
@@ -259,10 +262,11 @@ void SceneDirector::previousScene()
 		//init new currentScene
 		currentScene->setWindow(window);
 		currentScene->Init();
+		currentScene->reset();
 		//see if newCurrentScene's texture are deleted, if so reinit
 		if (currentScene->getDeleted())
 		{
-			currentScene->reset();
+			currentScene->reInit();
 		}
 		currentScene->Start();
 	}
@@ -318,7 +322,6 @@ void SceneDirector::Update(float delta)
 	{
 		sensors.at(i)->sense();
 	}
-
 
 	// Measure speed
 	double currentTime = glfwGetTime();

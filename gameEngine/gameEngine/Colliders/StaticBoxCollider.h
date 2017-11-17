@@ -1,5 +1,7 @@
 #pragma once
 #include "AbstractCollider.h"
+#include "../ResourceManager.h"
+
 class StaticBoxCollider : public AbstractCollider
 {
 public:
@@ -11,6 +13,7 @@ public:
 	virtual int getPosX();
 	virtual int getPosY();
 	virtual std::string getName();
+	virtual void Draw(SpriteRenderer &renderer);
 	~StaticBoxCollider();
 
 private:
@@ -18,6 +21,7 @@ private:
 	int height;
 	int posXOffset;
 	int posYOffset;
+	GLfloat transparency;
 	std::string type;
 	std::string name;
 };

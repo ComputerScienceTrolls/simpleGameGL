@@ -1,6 +1,8 @@
 #pragma once
 #include "AbstractCollider.h"
 #include "../AbstractSprite.h"
+#include "../ResourceManager.h"
+
 #include <iostream>
 #include <vector>
 
@@ -21,6 +23,7 @@ public:
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
+	virtual void Draw(SpriteRenderer &renderer);
 	std::string getType();
 	~BoxCollider();
 
@@ -32,6 +35,7 @@ private:
 	std::string type;
 	std::string name;
 	bool staticState;
+	GLfloat transparency;
 	AbstractSprite *spriteParent;
 };
 

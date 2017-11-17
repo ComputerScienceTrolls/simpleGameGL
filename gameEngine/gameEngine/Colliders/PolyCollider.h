@@ -22,11 +22,12 @@ public:
 	std::string getType();
 	virtual int getPosX();
 	virtual int getPosY();
+	virtual void Draw(SpriteRenderer &renderer);
+
 	Edge* createEdge(glm::vec2 p0, glm::vec2 p1);
 	virtual std::vector<double> project(glm::vec2 axis);
 	bool contains(double n, std::vector<double> range);
 	bool overlap(std::vector<double> a, std::vector<double> b);
-	
 	virtual std::vector<glm::vec2> getVectrices();
 	virtual std::vector<glm::vec2> getOffsetVectrices();
 	virtual std::vector<Edge*> getEdges();

@@ -1,5 +1,7 @@
 #pragma once
 #include "AbstractCollider.h"
+#include "../ResourceManager.h"
+
 class StaticCircleCollider : public AbstractCollider
 {
 public:
@@ -12,12 +14,14 @@ public:
 	virtual int getPosX();
 	virtual int getPosY();
 	std::string getType();
+	virtual void Draw(SpriteRenderer &renderer);
 	virtual std::string getName();
 
 private:
 	int radius;
 	int posXOffset;
 	int posYOffset;
+	GLfloat transparency;
 	std::string type;
 	std::string name;
 };

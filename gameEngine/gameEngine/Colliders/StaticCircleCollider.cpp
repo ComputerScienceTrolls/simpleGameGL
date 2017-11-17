@@ -1,12 +1,12 @@
 #include "StaticCircleCollider.h"
 
 StaticCircleCollider::StaticCircleCollider(std::string name, float r):
-	name(name), radius(r), type("staticCircle")
+	name(name), radius(r), type("staticCircle"), transparency(.15)
 {
 }
 
 StaticCircleCollider::StaticCircleCollider(std::string name, float r, int posX, int posY):
-	name(name), radius(r), posXOffset(posX), posYOffset(posY), type("staticCircle")
+	name(name), radius(r), posXOffset(posX), posYOffset(posY), type("staticCircle"), transparency(.15)
 {
 }
 
@@ -117,6 +117,11 @@ int StaticCircleCollider::getPosY()
 std::string StaticCircleCollider::getType()
 {
 	return this->type;
+}
+
+void StaticCircleCollider::Draw(SpriteRenderer & renderer)
+{
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX(), this->getPosY()), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 std::string StaticCircleCollider::getName()

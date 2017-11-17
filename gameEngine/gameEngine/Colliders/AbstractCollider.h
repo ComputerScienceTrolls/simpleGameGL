@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <glm/glm.hpp>
+#include "../sprite_renderer.h"
 
 //only Needed for poly collider
 #include "Edge.h"
@@ -23,6 +24,7 @@ public:
 	virtual glm::vec2 getSpritePos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
 	virtual std::string getName() = 0;
+	virtual void Draw(SpriteRenderer &renderer) = 0;
 
 	//needed for poly collider
 	virtual std::vector<double> project(glm::vec2) { return std::vector<double>(); }

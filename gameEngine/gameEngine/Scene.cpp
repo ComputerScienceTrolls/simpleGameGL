@@ -21,7 +21,7 @@ void Scene::Init()
 	}
 	glfwSetKeyCallback(window, key_callback);
 	// Load shaders
-	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
+	//ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
 	// Configure shaders
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
@@ -30,16 +30,18 @@ void Scene::Init()
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
 }
 
-//set Scene's state to active and visible, then tell every Sprite to start in their initial state, init spriteMap
+//set Scene's state to active alsnd visible, then tell every Sprite to start in their initial state, init spriteMap
 void Scene::Start()
 {
+	/*
 	//setup SpriteMap
 	for (int i = 0; i < Sprites.size(); i++)
 	{
 		//reset every sprite
-		Sprites.at(i)->reset();
+		//Sprites.at(i)->reset();
 		spriteMap[Sprites.at(i)->getName()] = Sprites.at(i);
 	}
+	*/
 
 	// set active to true
 	this->active = true;
@@ -75,6 +77,8 @@ void Scene::Update(GLfloat dt)
 		{
 			if (Sprites.at(i)->getState("active"))
 			{
+				std::string test = Sprites.at(i)->getName();
+				int test2 =	Sprites.at(i)->getDX();
 				Sprites.at(i)->update();
 			}
 		}
@@ -104,8 +108,17 @@ void Scene::Render()
 	}
 }
 
-//tell every Sprite to reInit their inital texture, currently not working
+//tell every Sprite to reset their inital texture, currently not working
 void Scene::reset()
+{
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->reset();
+	}
+}
+
+//tell every Sprite to reInit their inital texture, currently not working
+void Scene::reInit()
 {
 	for (int i = 0; i < Sprites.size(); i++)
 	{
@@ -293,6 +306,12 @@ void Scene::setSprites(std::vector<AbstractSprite*> newVector)
 	this->Sprites = newVector;
 }
 
+void Scene::addSprite(AbstractSprite *newSprite)
+{
+	GLfloat dx = newSprite->getDX();
+	Sprites.push_back(newSprite);
+}
+
 //get Scene's width
 int Scene::getWidth()
 {
@@ -320,7 +339,7 @@ void Scene::setHeight(int h)
 }
 
 //returns GLFWwindow assigned to this scene
-GLFWwindow * Scene::getWindow()
+GLFWwindow* Scene::getWindow()
 {
 	return this->window;
 }

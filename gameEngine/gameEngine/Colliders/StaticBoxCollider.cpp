@@ -1,7 +1,7 @@
 #include "StaticBoxCollider.h"
 
 StaticBoxCollider::StaticBoxCollider(std::string name, int w, int h, int posX, int posY):
-	name(name), width(w), height(h), posXOffset(posX), posYOffset(posY), type("staticBox")
+	name(name), width(w), height(h), posXOffset(posX), posYOffset(posY), type("staticBox"), transparency(.15)
 {
 }
 
@@ -119,6 +119,11 @@ int StaticBoxCollider::getPosY()
 std::string StaticBoxCollider::getName()
 {
 	return this->name;
+}
+
+void StaticBoxCollider::Draw(SpriteRenderer & renderer)
+{
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(this->getPosX(), this->getPosY()), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 StaticBoxCollider::~StaticBoxCollider()

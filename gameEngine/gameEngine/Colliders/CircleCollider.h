@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractCollider.h"
 #include "../AbstractSprite.h"
+#include "../ResourceManager.h"
 
 #include "math.h"
 
@@ -21,6 +22,7 @@ public:
 	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
+	virtual void Draw(SpriteRenderer &renderer);
 	~CircleCollider();
 
 private:
@@ -29,6 +31,7 @@ private:
 	int posYOffset;
 	std::string type;
 	std::string name;
+	GLfloat transparency;
 	AbstractSprite *spriteParent;
 };
 

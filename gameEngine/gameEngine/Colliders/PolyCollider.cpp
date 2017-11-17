@@ -202,6 +202,10 @@ int PolyCollider::getPosY()
 	return 0;
 }
 
+void PolyCollider::Draw(SpriteRenderer & renderer)
+{
+}
+
 //create an edge from two given vertexs.
 Edge* PolyCollider::createEdge(glm::vec2 p0, glm::vec2 p1)
 {

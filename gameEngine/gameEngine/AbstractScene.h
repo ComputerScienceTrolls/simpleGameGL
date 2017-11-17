@@ -28,6 +28,8 @@ public:
 	virtual int getHeight() { return 0; };
 	virtual std::vector<AbstractSprite*> getSprites() = 0;
 	virtual void setSprites(std::vector<AbstractSprite*>) = 0;
+	virtual void addSprite(AbstractSprite*) = 0;
+	virtual void reInit() {};
 	virtual void reset() {};
 	virtual void setName(std::string) = 0;
 	virtual std::string getName() = 0;

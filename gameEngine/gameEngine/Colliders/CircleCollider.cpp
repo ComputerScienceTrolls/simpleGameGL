@@ -2,13 +2,13 @@
 
 //consturctor with no positon offset from sprite.
 CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r):
-	type("circle"), spriteParent(&parent), radius(r)
+	type("circle"), spriteParent(&parent), radius(r), transparency(.15)
 {
 }
 
 //consturctor with a position offset from it's sprite
 CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY) :
-	posXOffset(posX), posYOffset(posY), type("circle"), spriteParent(&parent), radius(r)
+	posXOffset(posX), posYOffset(posY), type("circle"), spriteParent(&parent), radius(r), transparency(.15)
 {
 
 }
@@ -120,6 +120,11 @@ glm::vec2 CircleCollider::getSpriteSize()
 std::string CircleCollider::getName()
 {
 	return this->name;
+}
+
+void CircleCollider::Draw(SpriteRenderer & renderer)
+{
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX() + spriteParent->getPosition().x, this->getPosY() + spriteParent->getPosition().y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 glm::vec2 CircleCollider::getSpritePos()

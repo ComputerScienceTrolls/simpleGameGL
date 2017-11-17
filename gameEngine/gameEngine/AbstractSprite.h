@@ -59,5 +59,7 @@ private:
 	glm::vec2   Position, Size, Velocity;
 	glm::vec3   Color;
 	GLfloat     Rotation;
+	GLfloat dx;
+	GLfloat dy;
 };
 
