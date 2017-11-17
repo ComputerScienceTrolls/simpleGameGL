@@ -1,17 +1,19 @@
 #pragma once
-#include "collider.h"
+#include "AbstractCollider.h"
 #include "../AbstractSprite.h"
+#include "../ResourceManager.h"
+
 #include <iostream>
 #include <vector>
 
 
-class boxCollider : public collider
+class BoxCollider : public AbstractCollider
 {
 
 public:
-	boxCollider (std::string name, AbstractSprite &parent, int w, int h);
-	boxCollider(std::string name, AbstractSprite &parent, int w, int h, int posX, int posY);
-	virtual bool collide(std::vector<collider*> otherColliders);
+	BoxCollider(std::string name, AbstractSprite &parent, int w, int h);
+	BoxCollider(std::string name, AbstractSprite &parent, int w, int h, int posX, int posY);
+	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual int getPosX();
@@ -21,8 +23,9 @@ public:
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
+	virtual void Draw(SpriteRenderer &renderer);
 	std::string getType();
-	~boxCollider();
+	~BoxCollider();
 
 private:
 	int offsetH;
@@ -32,6 +35,7 @@ private:
 	std::string type;
 	std::string name;
 	bool staticState;
+	GLfloat transparency;
 	AbstractSprite *spriteParent;
 };
 

@@ -1,14 +1,14 @@
-#include "collider.h"
+#include "AbstractCollider.h"
 #include "../AbstractSprite.h"
 #include "Edge.h"
 #include <iostream>
 #include <vector>
 
-class PolyCollider : public collider
+class PolyCollider : public AbstractCollider
 {
 public:
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);
-	virtual bool collide(std::vector<collider*> otherColliders);
+	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual bool getStaticState();
@@ -22,11 +22,12 @@ public:
 	std::string getType();
 	virtual int getPosX();
 	virtual int getPosY();
+	virtual void Draw(SpriteRenderer &renderer);
+
 	Edge* createEdge(glm::vec2 p0, glm::vec2 p1);
 	virtual std::vector<double> project(glm::vec2 axis);
 	bool contains(double n, std::vector<double> range);
 	bool overlap(std::vector<double> a, std::vector<double> b);
-	
 	virtual std::vector<glm::vec2> getVectrices();
 	virtual std::vector<glm::vec2> getOffsetVectrices();
 	virtual std::vector<Edge*> getEdges();

@@ -14,6 +14,7 @@
 #include "Sprite.h"
 
 #include "Observers/observerhandler.h"
+#include "Observers/Observer.h"
 #include "Observers/ColliderObserver.h"
 #include "Observers/CheckBoundsObserver.h"
 #include "Observers/CollisionGroupObserver.h"
@@ -32,8 +33,12 @@ const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-Scene mainScene(800, 600);
-Scene testScene(700, 700);
+Scene mainScene("main",800, 600);
+Scene testScene("test",700, 700);
+Scene testScene2("test",700, 700);
+Scene testScene3("test",700, 700);
+Scene testScene4("test",700, 700);
+Scene testScene5("test",700, 700);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -44,6 +49,11 @@ void ballColl2(Sprite *Ball, Sprite *Player)
 		std::cout << "collision";
 		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 	}
+}
+
+void test9()
+{
+	std::cout << "test\n";
 }
 
 void ballColl3(Sprite *Player, std::string name)
@@ -59,7 +69,6 @@ void ballColl3(Sprite *Player, std::string name)
 			//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 		}
 	}
-
 }
 
 void checkCols(Sprite *s, int w, int h)
@@ -76,51 +85,35 @@ int main(int argc, char *argv[])
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
 	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
-	Player2->addForce(0, 7);
-	Player2->setBoundAction("BOUNCE");
-	//std::cout << Player->getPosition().x;
-	//std::cout << "\n" << Player->getCenter().x;
-	Player->setCollideDebug(true);
-	Player->removeCollider("default");
-	std::vector<glm::vec2> vecTest1;
-	vecTest1.push_back(glm::vec2(10,10));
-	vecTest1.push_back(glm::vec2(0, 20));
-	vecTest1.push_back(glm::vec2(20, 20));
-	std::vector<glm::vec2> vecTest2;
-	vecTest2.push_back(glm::vec2(10, 10));
-	vecTest2.push_back(glm::vec2(0, 20));
-	vecTest2.push_back(glm::vec2(20, 20));
-	Player->addPolyCollider("test1", vecTest1);
-	Ball->addPolyCollider("test2", vecTest2);
-	Ball->addForce(0, 3);
+	Sprite *trigger = new Sprite("trigger",mainScene);
+	trigger->addBoxCollider("test", 50, 50);
+	trigger->addForce(0, .5);
+	//trigger->setSpeed(.5);
+	trigger->setCollideDebug(true);
 	//Player->addCircleCollider("test", 50, 0, 0);
 	//Ball->addStaticCircleCollider("t", 50, 50, 100);
 	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
 
-	//Ball->setSpeed(.1);
-	Ball->setMoveAngle(90);
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
-	Player->setBoundAction("BOUNCE");
-	Ball->setCollideDebug(true);
-	Ball->setBoundAction("BOUNCE");
 	//Ball->addBoxCollider("test",50,50,50,100);
 	//Ball->addBoxCollider("test", 50, 50, -50, -100);
 	//Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
-	ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+	Observer *simplyObserver = new Observer(test9);
 	
-	KeyboardSensor *kLeft = new KeyboardSensor(GLFW_KEY_A);
-	KeyboardSensor *kRight = new KeyboardSensor(GLFW_KEY_D);
-	KeyboardSensor *kUp = new KeyboardSensor(GLFW_KEY_W);
-	KeyboardSensor *kDown = new KeyboardSensor(GLFW_KEY_S);
-	KeyboardSensor *kArrowLeft = new KeyboardSensor(GLFW_KEY_LEFT);
-	KeyboardSensor *kArrowRight = new KeyboardSensor(GLFW_KEY_RIGHT);
-	KeyboardSensor *kSpace = new KeyboardSensor(GLFW_KEY_SPACE, "clicked");
-	//CollisionSensor *t2 = new CollisionSensor(Player,Ball);
+	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
+	KeyboardSensor *kRight = new KeyboardSensor("kright", GLFW_KEY_D);
+	KeyboardSensor *kUp = new KeyboardSensor("kup", GLFW_KEY_W);
+	KeyboardSensor *kDown = new KeyboardSensor("kdown", GLFW_KEY_S);
+	KeyboardSensor *kArrowLeft = new KeyboardSensor("left",GLFW_KEY_LEFT);
+	KeyboardSensor *kArrowRight = new KeyboardSensor("right",GLFW_KEY_RIGHT);
+	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
+	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player,trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
-	//MotionActuator *m2 = new MotionActuator(Player, .05,.05);
+	MotionActuator *m2 = new MotionActuator(Player,"flip");
 	MotionActuator *mLeft = new MotionActuator(Player, 180, .1, "force");
 	MotionActuator *mRight = new MotionActuator(Player, 0, .1, "force");
 	MotionActuator *mUp = new MotionActuator(Player, 90, .1, "force");
@@ -139,6 +132,7 @@ int main(int argc, char *argv[])
 	kRight->addActuator(mRight);
 	kUp->addActuator(mUp);
 	kDown->addActuator(mDown);
+	t2->addActuator(m2);
 	SceneDirector::getInstance()->addSensor(kSpace);
 	SceneDirector::getInstance()->addSensor(kArrowLeft);
 	SceneDirector::getInstance()->addSensor(kArrowRight);
@@ -146,6 +140,8 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(kRight);
 	mainScene.addSensor(kUp);
 	mainScene.addSensor(kDown);
+	mainScene.addSensor(t2);
+
 	//testScene.setBackground("textures/face.png");
 	/*
 	for (int i = 0; i < 5; i++)
@@ -162,8 +158,10 @@ int main(int argc, char *argv[])
 		//test->addObserver(*temp);
 	}
 	*/
-	//CollisionGroupObserver *temp = new CollisionGroupObserver(ballColl3, Player, "Ball");
-	test->addObserver(*colTest);
+	//ColliderObserver *temp = new ColliderObserver("ballCol", ballColl2, Player, Ball);
+	//mainScene.addObserver(temp);
+	//mainScene.removeObserver("ballCol");
+
 	
 	/*
 	for (int i = 0; i < 50; i++)
@@ -179,7 +177,9 @@ int main(int argc, char *argv[])
 	
 	//test->addObserver(*colTest);
 	SceneDirector::getInstance()->addScene(&testScene);
-	AbstractScene *test4 = SceneDirector::getInstance()->getCurrentScene();
+	SceneDirector::getInstance()->addScene(&testScene2);
+	SceneDirector::getInstance()->addScene(&testScene3);
+	SceneDirector::getInstance()->addScene(&testScene4);
 	
 	SceneDirector::getInstance()->Start();
 	

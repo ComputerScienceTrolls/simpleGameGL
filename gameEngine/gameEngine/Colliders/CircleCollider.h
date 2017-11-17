@@ -1,16 +1,17 @@
 #pragma once
-#include "collider.h"
+#include "AbstractCollider.h"
 #include "../AbstractSprite.h"
+#include "../ResourceManager.h"
 
 #include "math.h"
 
-class circleCollider : public collider
+class CircleCollider : public AbstractCollider
 {
 
 public:
-	circleCollider(std::string name, AbstractSprite &parent, float r);
-	circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY);
-	virtual bool collide(std::vector<collider*> otherColliders);
+	CircleCollider(std::string name, AbstractSprite &parent, float r);
+	CircleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY);
+	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual float getRadius();
@@ -21,7 +22,8 @@ public:
 	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpriteSize();
 	virtual std::string getName();
-	~circleCollider();
+	virtual void Draw(SpriteRenderer &renderer);
+	~CircleCollider();
 
 private:
 	float radius;
@@ -29,6 +31,7 @@ private:
 	int posYOffset;
 	std::string type;
 	std::string name;
+	GLfloat transparency;
 	AbstractSprite *spriteParent;
 };
 

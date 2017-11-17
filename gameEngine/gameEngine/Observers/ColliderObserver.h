@@ -5,13 +5,16 @@
 class ColliderObserver : public AbstractObserver
 {
 public:
-	ColliderObserver(void(*f)(Sprite*, Sprite*), Sprite *s1, Sprite *s2);
+	ColliderObserver(std::string name, void(*f)(Sprite*, Sprite*), Sprite *s1, Sprite *s2);
 	virtual void Notify();
+	virtual void setName(std::string);
+	virtual std::string getName();
 
 
 private:
 	void(*func_) (Sprite*,Sprite*);
 	Sprite *one;
 	Sprite *two;
+	std::string name;
 };
 

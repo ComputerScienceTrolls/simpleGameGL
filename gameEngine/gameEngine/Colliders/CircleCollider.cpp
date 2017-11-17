@@ -1,17 +1,19 @@
-#include "circleCollider.h"
+#include "CircleCollider.h"
 
-circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r):
-	type("circle"), spriteParent(&parent), radius(r)
+//consturctor with no positon offset from sprite.
+CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r):
+	type("circle"), spriteParent(&parent), radius(r), transparency(.15)
 {
 }
 
-circleCollider::circleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY) :
-	posXOffset(posX), posYOffset(posY), type("circle"), spriteParent(&parent), radius(r)
+//consturctor with a position offset from it's sprite
+CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY) :
+	posXOffset(posX), posYOffset(posY), type("circle"), spriteParent(&parent), radius(r), transparency(.15)
 {
 
 }
 
-bool circleCollider::collide(std::vector<collider*> otherColliders)
+bool CircleCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
@@ -90,56 +92,61 @@ bool circleCollider::collide(std::vector<collider*> otherColliders)
 	return false;
 }
 
-float circleCollider::getRadius()
+float CircleCollider::getRadius()
 {
 	return radius;
 }
 
-int circleCollider::getPosX()
+int CircleCollider::getPosX()
 {
 	return posXOffset;
 }
 
-int circleCollider::getPosY()
+int CircleCollider::getPosY()
 {
 	return posYOffset;
 }
 
-std::string circleCollider::getType()
+std::string CircleCollider::getType()
 {
 	return this->type;
 }
 
-glm::vec2 circleCollider::getSpriteSize()
+glm::vec2 CircleCollider::getSpriteSize()
 {
 	return spriteParent->getSize();
 }
 
-std::string circleCollider::getName()
+std::string CircleCollider::getName()
 {
 	return this->name;
 }
 
-glm::vec2 circleCollider::getSpritePos()
+void CircleCollider::Draw(SpriteRenderer & renderer)
+{
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX() + spriteParent->getPosition().x, this->getPosY() + spriteParent->getPosition().y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+}
+
+glm::vec2 CircleCollider::getSpritePos()
 {
 	return spriteParent->getPosition();
 }
 
-glm::vec2 circleCollider::getSpriteCenterPos()
+glm::vec2 CircleCollider::getSpriteCenterPos()
 {
 	return spriteParent->getCenter();
 }
 
-int circleCollider::getWidth()
+int CircleCollider::getWidth()
 {
 	return this->radius*2;
 }
 
-int circleCollider::getHeight()
+int CircleCollider::getHeight()
 {
 	return this->radius*2;
 }
 
-circleCollider::~circleCollider()
+CircleCollider::~CircleCollider()
 {
 }

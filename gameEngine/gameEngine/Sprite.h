@@ -11,33 +11,24 @@
 #include <map>
 
 #include "AbstractSprite.h"
-#include "Colliders/boxCollider.h"
-#include "Colliders/circleCollider.h"
-#include "Colliders/staticBoxCollider.h"
-#include "Colliders/staticCircleCollider.h"
-#include "Colliders\PolyCollider.h"
-#include "Scene.h"
+#include "Colliders/BoxCollider.h"
+#include "Colliders/CircleCollider.h"
+#include "Colliders/StaticBoxCollider.h"
+#include "Colliders/StaticCircleCollider.h"
+#include "Colliders/PolyCollider.h"
+#include "AbstractScene.h"
 
 #pragma once
-class Scene;
 class Sprite : public AbstractSprite
 {
 public:
-	// Object state
-	//glm::vec2   Position, Size, Velocity;
-	//glm::vec3   Color;
-	//GLfloat     Rotation;
-	GLboolean   IsSolid;
-	GLboolean   Destroyed;
-	// Constructor(s)
-	Sprite();
-	Sprite(std::string name, Scene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
-	// Draw sprite
+	Sprite(std::string n, AbstractScene &scene);
+	Sprite(std::string name, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
 	virtual void Draw(SpriteRenderer &renderer);
-	bool collide(AbstractSprite * otherSprite);
-	bool collide(Sprite * otherSprite);
+	virtual bool collide(AbstractSprite * otherSprite);
+	virtual bool collide(Sprite * otherSprite);
 	void setVelocity(GLfloat dt);
-	void update();
+	virtual void update();
 	void setState(std::string key, bool state);
 	bool getState(std::string key);
 	void setBoundAction(std::string newAction);
@@ -59,7 +50,7 @@ public:
 	virtual glm::vec2 getVelocity();
 	virtual glm::vec3 getColor();
 	virtual GLfloat getRotation();
-	virtual std::vector<collider*> getColliders();
+	virtual std::vector<AbstractCollider*> getColliders();
 	virtual std::string getName();
 	virtual GLfloat getDX();
 	virtual GLfloat getDY();
@@ -70,10 +61,10 @@ public:
 	virtual void setVelocity(glm::vec2);
 	virtual void setColor(glm::vec3);
 	virtual void setRotation(GLfloat);
-	virtual void setColliders(std::vector<collider*>);
+	virtual void setColliders(std::vector<AbstractCollider*>);
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
-	virtual void setColliderPredictive(std::string name, bool predictive);
+	//virtual void setColliderPredictive(std::string name, bool predictive);
 	virtual void addBoxCollider(std::string name, int w, int h);
 	virtual void addStaticBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void addCircleCollider(std::string name, double r, int posX, int posY);
@@ -85,11 +76,13 @@ public:
 	virtual void reInit();
 	~Sprite();
 
+protected:
+	GLfloat dx;
+	GLfloat dy;
+
 private:
-	collider *collider_;
-	std::vector<collider*> colliders_;
-	float dx;
-	float dy;
+	AbstractCollider *collider_;
+	std::vector<AbstractCollider*> colliders_;
 	float speed;
 	float moveAngle;
 	float imgAngle;
@@ -105,8 +98,9 @@ private:
 	glm::vec3 initColor;
 	GLfloat initRotation;
 	std::map<std::string , bool> states;
+	GLfloat transparency;
 	std::string boundAction;
-	Scene *parentScene;
+	AbstractScene *parentScene;
 	std::string name;
 	bool visible;
 	bool active;

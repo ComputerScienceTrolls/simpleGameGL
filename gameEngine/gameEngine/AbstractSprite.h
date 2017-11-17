@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "Colliders/collider.h"
+#include "Colliders/AbstractCollider.h"
 #include "sprite_renderer.h"
 
 class AbstractSprite
@@ -34,7 +34,7 @@ public:
 	virtual glm::vec3 getColor() { return glm::vec3(); };
 	virtual Texture2D getTexture() { return Texture2D(); };
 	virtual GLfloat getRotation() { return 0; };
-	virtual std::vector<collider*> getColliders() = 0;
+	virtual std::vector<AbstractCollider*> getColliders() = 0;
 	virtual std::string getName() = 0;
 	virtual GLfloat getDX() = 0;
 	virtual GLfloat getDY() = 0;
@@ -47,7 +47,7 @@ public:
 	virtual void setColor(glm::vec3) {};
 	virtual	void setRotation(GLfloat) {};
 	virtual void setState(std::string, bool) {};
-	virtual void setColliders(std::vector<collider*>) = 0;
+	virtual void setColliders(std::vector<AbstractCollider*>) = 0;
 	virtual void setName(std::string) {};
 
 	virtual void reset() {};
@@ -59,5 +59,7 @@ private:
 	glm::vec2   Position, Size, Velocity;
 	glm::vec3   Color;
 	GLfloat     Rotation;
+	GLfloat dx;
+	GLfloat dy;
 };
 

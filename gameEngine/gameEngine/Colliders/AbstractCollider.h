@@ -4,16 +4,17 @@
 #include <vector>
 
 #include <glm/glm.hpp>
+#include "../sprite_renderer.h"
 
 //only Needed for poly collider
 #include "Edge.h"
 
-class collider
+class AbstractCollider
 {
 	class SpriteRender;
 public:
-	collider();
-	virtual bool collide(std::vector<collider*>) { return false; };
+	AbstractCollider();
+	virtual bool collide(std::vector<AbstractCollider*>) { return false; };
 	virtual std::string getType() = 0;
 	virtual int getWidth() { return 0; }
 	virtual int getHeight() { return 0; }
@@ -23,6 +24,7 @@ public:
 	virtual glm::vec2 getSpritePos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
 	virtual std::string getName() = 0;
+	virtual void Draw(SpriteRenderer &renderer) = 0;
 
 	//needed for poly collider
 	virtual std::vector<double> project(glm::vec2) { return std::vector<double>(); }
@@ -32,7 +34,7 @@ public:
 
 	//needed for circle collider
 	virtual float getRadius() {return 0;};
-	~collider();
+	~AbstractCollider();
 
 private:
 	SpriteRender *render;

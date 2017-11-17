@@ -1,11 +1,11 @@
-#include "staticBoxCollider.h"
+#include "StaticBoxCollider.h"
 
-staticBoxCollider::staticBoxCollider(std::string name, int w, int h, int posX, int posY):
-	name(name), width(w), height(h), posXOffset(posX), posYOffset(posY), type("staticBox")
+StaticBoxCollider::StaticBoxCollider(std::string name, int w, int h, int posX, int posY):
+	name(name), width(w), height(h), posXOffset(posX), posYOffset(posY), type("staticBox"), transparency(.15)
 {
 }
 
-bool staticBoxCollider::collide(std::vector<collider*> otherColliders)
+bool StaticBoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
@@ -91,36 +91,41 @@ bool staticBoxCollider::collide(std::vector<collider*> otherColliders)
 	return false;
 }
 
-std::string staticBoxCollider::getType()
+std::string StaticBoxCollider::getType()
 {
 	return this->type;
 }
 
-int staticBoxCollider::getWidth()
+int StaticBoxCollider::getWidth()
 {
 	return this->width;
 }
 
-int staticBoxCollider::getHeight()
+int StaticBoxCollider::getHeight()
 {
 	return this->height;
 }
 
-int staticBoxCollider::getPosX()
+int StaticBoxCollider::getPosX()
 {
 	return this->posXOffset;
 }
 
-int staticBoxCollider::getPosY()
+int StaticBoxCollider::getPosY()
 {
 	return this->posYOffset;
 }
 
-std::string staticBoxCollider::getName()
+std::string StaticBoxCollider::getName()
 {
 	return this->name;
 }
 
-staticBoxCollider::~staticBoxCollider()
+void StaticBoxCollider::Draw(SpriteRenderer & renderer)
+{
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(this->getPosX(), this->getPosY()), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+}
+
+StaticBoxCollider::~StaticBoxCollider()
 {
 }

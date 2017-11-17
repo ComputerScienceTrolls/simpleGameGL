@@ -2,12 +2,14 @@
 #include "AbstractActuator.h"
 #include "../AbstractSprite.h"
 
-class CheckBoundsSensor :public AbstractSensor
+class CheckBoundsSensor : public AbstractSensor
 {
 public:
-	CheckBoundsSensor(AbstractSprite* one, int w, int h);
+	CheckBoundsSensor(std::string, AbstractSprite* one, int w, int h);
 	void sense();
 	void addActuator(AbstractActuator*);
+	std::string getName();
+	void setName(std::string);
 	~CheckBoundsSensor();
 
 private:
@@ -15,5 +17,6 @@ private:
 	int screenW;
 	int screenH;
 	std::vector<AbstractActuator*> actuators;
+	std::string name;
 };
 

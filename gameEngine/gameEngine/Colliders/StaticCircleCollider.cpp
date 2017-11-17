@@ -1,16 +1,16 @@
-#include "staticCircleCollider.h"
+#include "StaticCircleCollider.h"
 
-staticCircleCollider::staticCircleCollider(std::string name, float r):
-	name(name), radius(r), type("staticCircle")
+StaticCircleCollider::StaticCircleCollider(std::string name, float r):
+	name(name), radius(r), type("staticCircle"), transparency(.15)
 {
 }
 
-staticCircleCollider::staticCircleCollider(std::string name, float r, int posX, int posY):
-	name(name), radius(r), posXOffset(posX), posYOffset(posY), type("staticCircle")
+StaticCircleCollider::StaticCircleCollider(std::string name, float r, int posX, int posY):
+	name(name), radius(r), posXOffset(posX), posYOffset(posY), type("staticCircle"), transparency(.15)
 {
 }
 
-bool staticCircleCollider::collide(std::vector<collider*> otherColliders)
+bool StaticCircleCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	for (int i = 0; i < otherColliders.size(); i++)
 	{
@@ -89,37 +89,42 @@ bool staticCircleCollider::collide(std::vector<collider*> otherColliders)
 	return false;
 }
 
-int staticCircleCollider::getWidth()
+int StaticCircleCollider::getWidth()
 {
 	return this->radius*2;
 }
 
-int staticCircleCollider::getHeight()
+int StaticCircleCollider::getHeight()
 {
 	return this->radius*2;
 }
 
-float staticCircleCollider::getRadius()
+float StaticCircleCollider::getRadius()
 {
 	return this->radius;
 }
 
-int staticCircleCollider::getPosX()
+int StaticCircleCollider::getPosX()
 {
 	return this->posXOffset;
 }
 
-int staticCircleCollider::getPosY()
+int StaticCircleCollider::getPosY()
 {
 	return this->posYOffset;
 }
 
-std::string staticCircleCollider::getType()
+std::string StaticCircleCollider::getType()
 {
 	return this->type;
 }
 
-std::string staticCircleCollider::getName()
+void StaticCircleCollider::Draw(SpriteRenderer & renderer)
+{
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX(), this->getPosY()), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+}
+
+std::string StaticCircleCollider::getName()
 {
 	return this->name;
 }
