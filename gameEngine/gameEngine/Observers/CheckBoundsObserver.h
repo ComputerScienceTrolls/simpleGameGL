@@ -5,7 +5,7 @@
 class CheckBoundsObserver : public AbstractObserver
 {
 public:
-	CheckBoundsObserver(void(*f)(Sprite*, int, int), Sprite *s, int w, int h);
+	CheckBoundsObserver(std::string name, void(*f)(Sprite*, int, int), Sprite *s, int w, int h);
 	virtual void Notify();
 
 

@@ -83,14 +83,14 @@ void Scene::Update(GLfloat dt)
 			}
 		}
 
-		for (int i = 0; i < Sensors.size(); i++)
+		for (int i = 0; i < sensors.size(); i++)
 		{
-			Sensors.at(i)->sense();
+			sensors.at(i)->sense();
 		}
 
-		for (int i = 0; i < Observers.size(); i++)
+		for (int i = 0; i < observers.size(); i++)
 		{
-			Observers.at(i)->Notify();
+			observers.at(i)->Notify();
 		}
 	}
 }
@@ -167,15 +167,15 @@ std::vector<AbstractSprite*> Scene::getSprite(std::string name)
 //add sensor to vector of Sensors
 void Scene::addSensor(AbstractSensor *s)
 {
-	Sensors.push_back(s);
+	sensors.push_back(s);
 }
 
 void Scene::removeSensor(std::string name)
 {
 	int index = -1;
-	for (int i = 0; i < this->Sensors.size(); i++)
+	for (int i = 0; i < this->sensors.size(); i++)
 	{
-		if (this->Sensors[i]->getName() == name)
+		if (this->sensors[i]->getName() == name)
 		{
 			index = i;
 		}
@@ -184,8 +184,8 @@ void Scene::removeSensor(std::string name)
 	//if found remove it from the vector
 	if (index != -1)
 	{
-		std::cout << "deleting " << this->Sensors.at(index)->getName();
-		this->Sensors.erase(Sensors.begin() + index);
+		std::cout << "deleting " << this->sensors.at(index)->getName();
+		this->sensors.erase(sensors.begin() + index);
 	}
 	else
 	{
@@ -195,9 +195,9 @@ void Scene::removeSensor(std::string name)
 
 void Scene::removeSensor(int index)
 {
-	if (index > -1 && index <= Sensors.size() - 1)
+	if (index > -1 && index <= sensors.size() - 1)
 	{
-		this->Sensors.erase(Sensors.begin() + index);
+		this->sensors.erase(sensors.begin() + index);
 	}
 	else
 	{
@@ -207,16 +207,16 @@ void Scene::removeSensor(int index)
 
 void Scene::addObserver(AbstractObserver *o)
 {
-	Observers.push_back(o);
+	observers.push_back(o);
 }
 
 void Scene::removeObserver(std::string name)
 {
 	//get index of collider
 	int index = -1;
-	for (int i = 0; i < this->Observers.size(); i++)
+	for (int i = 0; i < this->observers.size(); i++)
 	{
-		if (this->Observers[i]->getName() == name)
+		if (this->observers[i]->getName() == name)
 		{
 			index = i;
 		}
@@ -225,8 +225,8 @@ void Scene::removeObserver(std::string name)
 	//if found remove it from the vector
 	if (index != -1)
 	{
-		std::cout << "deleting " << this->Observers.at(index)->getName();
-		this->Observers.erase(this->Observers.begin() + index);
+		std::cout << "deleting " << this->observers.at(index)->getName();
+		this->observers.erase(this->observers.begin() + index);
 	}
 	else
 	{
@@ -236,9 +236,9 @@ void Scene::removeObserver(std::string name)
 
 void Scene::removeObserver(int index)
 {
-	if (index > -1 && index <= Observers.size() - 1)
+	if (index > -1 && index <= observers.size() - 1)
 	{
-		this->Observers.erase(Observers.begin() + index);
+		this->observers.erase(observers.begin() + index);
 	}
 	else
 	{

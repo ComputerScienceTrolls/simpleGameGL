@@ -4,7 +4,7 @@
 class ActiveActuator : public AbstractActuator
 {
 public:
-	ActiveActuator(AbstractSprite *s, bool con);
+	ActiveActuator(std::string name, AbstractSprite *s, bool con);
 	virtual void run();
 	~ActiveActuator();
 

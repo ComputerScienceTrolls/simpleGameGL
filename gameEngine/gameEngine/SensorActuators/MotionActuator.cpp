@@ -1,23 +1,27 @@
 #include "MotionActuator.h"
 
-MotionActuator::MotionActuator(AbstractSprite *s, int newDX, int newDY) :
+MotionActuator::MotionActuator(std::string n, AbstractSprite *s, int newDX, int newDY) :
 	sprite(s), DX(newDX), DY(newDY), condition("both")
 {
+	this->name = n;
 }
 
-MotionActuator::MotionActuator(AbstractSprite *s, double newAngle, double newForce, std::string con) :
+MotionActuator::MotionActuator(std::string n, AbstractSprite *s, double newAngle, double newForce, std::string con) :
 	sprite(s), force(newForce), angle(newAngle), condition(con)
 {
+	this->name = n;
 }
 
-MotionActuator::MotionActuator(AbstractSprite *s, int newDT, std::string con) :
+MotionActuator::MotionActuator(std::string n, AbstractSprite *s, int newDT, std::string con) :
 	sprite(s), DT(newDT), condition(con)
 {
+	this->name = n;
 }
 
-MotionActuator::MotionActuator(AbstractSprite *s, std::string con) :
+MotionActuator::MotionActuator(std::string n, AbstractSprite *s, std::string con) :
 	sprite(s), condition(con)
 {
+	this->name = n;
 }
 
 void MotionActuator::run()

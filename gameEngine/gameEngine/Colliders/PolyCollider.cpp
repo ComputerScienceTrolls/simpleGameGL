@@ -1,8 +1,10 @@
 #include "PolyCollider.h"
 
 PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<glm::vec2> vecs) :
-	name(n), spriteParent(&parent), offsetVectrices(vecs), type("Poly")
+	spriteParent(&parent), offsetVectrices(vecs)
 {
+	this->name = n;
+	this->type = "Poly";
 	//get the vertex that is the most left, right, up, and down so we can get the poly con's "size" and box
 	int minX = 10000;
 	int maxX = 0;

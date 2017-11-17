@@ -126,6 +126,9 @@
     <ClCompile Include="Observers\CheckBoundsObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
+    <ClCompile Include="Observers\AbstractObserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">

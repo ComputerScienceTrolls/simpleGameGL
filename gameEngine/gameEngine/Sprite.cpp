@@ -106,6 +106,8 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	initVelocity = Velocity;
 
 	resetCounter = 0;
+
+	this->setBoundAction("STOP");
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
@@ -355,7 +357,6 @@ void Sprite::update()
 	this->Center.y -= this->dy;
 
 	this->checkBounds(parentScene->getWidth(),parentScene->getHeight());
-
 }
 
 void Sprite::setState(std::string key, bool state)

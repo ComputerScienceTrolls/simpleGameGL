@@ -87,6 +87,9 @@ int main(int argc, char *argv[])
 	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
 	Sprite *trigger = new Sprite("trigger",mainScene);
 	trigger->addBoxCollider("test", 50, 50);
+	trigger->addCircleCollider("test2", 50, 10, 40);
+	trigger->addStaticBoxCollider("test3", 50, 40, 100, 400);
+	trigger->addStaticCircleCollider("test4", 20, 400, 200);
 	trigger->addForce(0, .5);
 	//trigger->setSpeed(.5);
 	trigger->setCollideDebug(true);
@@ -102,7 +105,7 @@ int main(int argc, char *argv[])
 
 	ObserverHandler *test = ObserverHandler::getInstance();
 	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
-	Observer *simplyObserver = new Observer(test9);
+	Observer *simplyObserver = new Observer("observer1", test9);
 	
 	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
 	KeyboardSensor *kRight = new KeyboardSensor("kright", GLFW_KEY_D);
@@ -113,16 +116,16 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player,trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
-	MotionActuator *m2 = new MotionActuator(Player,"flip");
-	MotionActuator *mLeft = new MotionActuator(Player, 180, .1, "force");
-	MotionActuator *mRight = new MotionActuator(Player, 0, .1, "force");
-	MotionActuator *mUp = new MotionActuator(Player, 90, .1, "force");
-	MotionActuator *mDown = new MotionActuator(Player, 270, .1, "force");
+	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
+	MotionActuator *mLeft = new MotionActuator("motion2", Player, 180, .1, "force");
+	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
+	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
+	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
-	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
-	SceneActuator *s1 = new SceneActuator(&testScene, "next");
-	SceneActuator *s2 = new SceneActuator(&mainScene, "previous");
-	SceneActuator *s3 = new SceneActuator(&mainScene, "togglePause");
+	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
+	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
+	SceneActuator *s2 = new SceneActuator("scene2",&mainScene, "previous");
+	SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
 	kSpace->addActuator(s3);

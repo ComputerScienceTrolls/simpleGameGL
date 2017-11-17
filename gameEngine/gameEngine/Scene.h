@@ -86,8 +86,8 @@ public:
 private:
 	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
-	std::vector<AbstractSensor*> Sensors;
-	std::vector<AbstractObserver*> Observers;
+	std::vector<AbstractSensor*> sensors;
+	std::vector<AbstractObserver*> observers;
 	GLFWwindow* window;
 	bool active;
 	bool visible;

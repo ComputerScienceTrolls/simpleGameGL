@@ -2,16 +2,26 @@
 
 //constructor with no position offset
 BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
-	name(newName), offsetW(w), offsetH(h), posXOffset(0), posYOffset(0), type("box"), spriteParent(&parent), transparency(.15)
+	spriteParent(&parent), transparency(.15)
 {
-
+	this->name = newName;
+	this->offsetW = w;
+	this->offsetH = h;
+	this->posXOffset = 0;
+	this->posYOffset = 0;
+	this->type = "box";
 }
 
 //consturctor with a positon offset
 BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY) :
-	name(newName), offsetW(w), offsetH(h), posXOffset(posX), posYOffset(posY), type("box"), spriteParent(&parent), transparency(.15)
+	spriteParent(&parent), transparency(.15)
 {
-
+	this->name = newName;
+	this->offsetW = w;
+	this->offsetH = h;
+	this->posXOffset = posX;
+	this->posYOffset = posY;
+	this->type = "box";
 }
 
 bool BoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
@@ -65,39 +75,14 @@ bool BoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 
 }
 
-int BoxCollider::getWidth()
-{
-	return offsetW;
-}
-
-int BoxCollider::getHeight()
-{
-	return offsetH;
-}
-
-int BoxCollider::getPosX()
-{
-	return posXOffset;
-}
-
-
 bool BoxCollider::getStaticState()
 {
 	return this->staticState;
-}
-int BoxCollider::getPosY()
-{
-	return posYOffset;
 }
 
 glm::vec2 BoxCollider::getSpriteCenterPos()
 {
 	return spriteParent->getCenter();
-}
-
-std::string BoxCollider::getType()
-{
-	return type;
 }
 
 glm::vec2 BoxCollider::getSpritePos()
@@ -108,11 +93,6 @@ glm::vec2 BoxCollider::getSpritePos()
 glm::vec2 BoxCollider::getSpriteSize()
 {
 	return spriteParent->getSize();
-}
-
-std::string BoxCollider::getName()
-{
-	return this->name;
 }
 
 void BoxCollider::Draw(SpriteRenderer & renderer)

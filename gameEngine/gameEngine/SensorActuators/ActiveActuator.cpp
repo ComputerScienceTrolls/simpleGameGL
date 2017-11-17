@@ -1,8 +1,9 @@
 #include "ActiveActuator.h"
 
-ActiveActuator::ActiveActuator(AbstractSprite * s, bool con) :
+ActiveActuator::ActiveActuator(std::string n, AbstractSprite * s, bool con) :
 	sprite(s), state(con)
 {
+	this->name = n;
 }
 
 void ActiveActuator::run()

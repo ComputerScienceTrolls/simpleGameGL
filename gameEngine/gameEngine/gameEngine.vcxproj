@@ -153,6 +153,7 @@
     <ClCompile Include="Colliders\StaticCircleCollider.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Observers\AbstractObserver.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
     <ClCompile Include="Observers\ColliderObserver.cpp" />
     <ClCompile Include="Observers\CollisionGroupObserver.cpp" />

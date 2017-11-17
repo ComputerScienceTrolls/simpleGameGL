@@ -1,8 +1,14 @@
 #include "StaticBoxCollider.h"
 
-StaticBoxCollider::StaticBoxCollider(std::string name, int w, int h, int posX, int posY):
-	name(name), width(w), height(h), posXOffset(posX), posYOffset(posY), type("staticBox"), transparency(.15)
+StaticBoxCollider::StaticBoxCollider(std::string n, int w, int h, int posX, int posY):
+	transparency(.15)
 {
+	this->name = n;
+	this->offsetW = w;
+	this->offsetH = h;
+	this->posXOffset = posX;
+	this->posYOffset = posY;
+	this->type = "staticBox";
 }
 
 bool StaticBoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
@@ -89,36 +95,6 @@ bool StaticBoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 	}
 
 	return false;
-}
-
-std::string StaticBoxCollider::getType()
-{
-	return this->type;
-}
-
-int StaticBoxCollider::getWidth()
-{
-	return this->width;
-}
-
-int StaticBoxCollider::getHeight()
-{
-	return this->height;
-}
-
-int StaticBoxCollider::getPosX()
-{
-	return this->posXOffset;
-}
-
-int StaticBoxCollider::getPosY()
-{
-	return this->posYOffset;
-}
-
-std::string StaticBoxCollider::getName()
-{
-	return this->name;
 }
 
 void StaticBoxCollider::Draw(SpriteRenderer & renderer)

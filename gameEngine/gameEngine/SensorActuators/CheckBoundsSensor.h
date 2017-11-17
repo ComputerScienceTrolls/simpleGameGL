@@ -5,18 +5,13 @@
 class CheckBoundsSensor : public AbstractSensor
 {
 public:
-	CheckBoundsSensor(std::string, AbstractSprite* one, int w, int h);
+	CheckBoundsSensor(std::string name, AbstractSprite* one, int w, int h);
 	void sense();
-	void addActuator(AbstractActuator*);
-	std::string getName();
-	void setName(std::string);
 	~CheckBoundsSensor();
 
 private:
 	AbstractSprite *sprite;
 	int screenW;
 	int screenH;
-	std::vector<AbstractActuator*> actuators;
-	std::string name;
 };
 
