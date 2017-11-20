@@ -99,3 +99,13 @@ void StaticCircleCollider::Draw(SpriteRenderer & renderer)
 {
 	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX(), this->getPosY()), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
+
+int StaticCircleCollider::getWidth()
+{
+	return this->radius * 2;
+}
+
+int StaticCircleCollider::getHeight()
+{
+	return this->radius * 2;
+}

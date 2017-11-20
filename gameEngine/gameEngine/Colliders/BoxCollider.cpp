@@ -42,8 +42,8 @@ bool BoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 			{
 				return collisionX && collisionY;
 			}
-			
 		}
+
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
 			// Get center point circle first 
@@ -69,6 +69,24 @@ bool BoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 				return true;
 		}
 
+		else if (otherColliders.at(i)->getType() == "staticBox")
+		{
+			// Collision x-axis?
+			bool collisionX = (this->getSpritePos().x + this->getPosX() + this->getWidth() >= otherColliders.at(i)->getPosX() + otherColliders.at(i)->getWidth() >= this->getPosX() + this->getSpritePos().x);
+			// Collision y-axis?
+			bool collisionY = (this->getSpritePos().y + this->getPosY() + (this->getHeight())) >= otherColliders.at(i)->getPosY() + otherColliders.at(i)->getHeight() >= this->getPosY() + this->getSpritePos().y;
+
+			// Collision only if on both axes
+			if (collisionX && collisionY)
+			{
+				return collisionX && collisionY;
+			}
+		}
+
+		else if (otherColliders.at(i)->getType() == "staticCircle")
+		{
+
+		}
 	}
 
 	return false;
