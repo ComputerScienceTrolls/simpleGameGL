@@ -152,6 +152,7 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
+		AbstractCollider* test = otherSprite->getColliders().at(i);
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
 		{
 			return true;
@@ -349,6 +350,7 @@ void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
 //called every cycle as long sprite is active, sets position and center based on dx and dy. Check bounds
 void Sprite::update()
 {
+	std::cout << this->dx;
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
 
