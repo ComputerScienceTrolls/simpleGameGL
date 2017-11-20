@@ -44,3 +44,7 @@ gameEngine/.vs/gameEngine/v15/.suo
 gameEngine/.vs/gameEngine/v15/Browse.VC.db
 gameEngine/.vs/gameEngine/v15/Browse.VC.db
 *.db
+x64
+Debug
+/gameEngine/x64/Release/gameEngine.ipdb
+/gameEngine/x64/Release/gameEngine.iobj
