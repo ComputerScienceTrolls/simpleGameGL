@@ -86,16 +86,17 @@ int main(int argc, char *argv[])
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
 	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
 	Sprite *trigger = new Sprite("trigger",mainScene);
-	//trigger->addBoxCollider("test", 50, 50);
+	trigger->addBoxCollider("test", 50, 50);
 	//trigger->addCircleCollider("test2", 50, 10, 40);
 	//Ball->addForce(270, 1);
 	//Player->addForce(270, 1);
-	//trigger->addStaticBoxCollider("test3", 50, 40, 100, 400);
-	//trigger->addStaticCircleCollider("test4", 20, 100, 100);
+	trigger->addStaticBoxCollider("test3", 50, 40, 100, 400);
+	trigger->addStaticCircleCollider("test4", 20, 100, 100);
 	//trigger->addBoxCollider("test5", 600, 4, 0, 550);
 	//trigger->setSpeed(.5);
 	trigger->setCollideDebug(true);
-	//Player->addCircleCollider("test", 50, 0, 0);
+	//Player->addCircleCollider("test", 10, 0, 0);
+	Player->setCollideDebug(true);
 	//Ball->addStaticCircleCollider("t", 50, 50, 100);
 	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
 
@@ -106,7 +107,7 @@ int main(int argc, char *argv[])
 	//Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
-	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
+	ColliderObserver *colTest = new ColliderObserver("uh",ballColl2, trigger, Player);
 	Observer *simplyObserver = new Observer("observer1", test9);
 	
 	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
@@ -116,7 +117,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kArrowLeft = new KeyboardSensor("left",GLFW_KEY_LEFT);
 	KeyboardSensor *kArrowRight = new KeyboardSensor("right",GLFW_KEY_RIGHT);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
-	CollisionSensor *t2 = new CollisionSensor("colSensor1", Ball,trigger);
+	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player,trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
 	MotionActuator *mLeft = new MotionActuator("motion2", Player, 180, .1, "force");

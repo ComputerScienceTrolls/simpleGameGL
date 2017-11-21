@@ -274,13 +274,6 @@ void Sprite::addStaticBoxCollider(std::string name, int w, int h, int posX, int 
 	this->colliders_.push_back(temp);
 }
 
-/*
-void Sprite::setColliderPredictive(std::string name, bool predictive)
-{
-
-}
-*/
-
 //removes collider from sprite with given name, if multiple with name only gets last one
 void Sprite::removeCollider(std::string name)
 {

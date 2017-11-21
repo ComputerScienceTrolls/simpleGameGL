@@ -109,3 +109,8 @@ int StaticCircleCollider::getHeight()
 {
 	return this->radius * 2;
 }
+
+float StaticCircleCollider::getRadius()
+{
+	return this->radius;
+}
