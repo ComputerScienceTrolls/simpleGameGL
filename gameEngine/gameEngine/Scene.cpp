@@ -7,7 +7,7 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Scene::Scene(std::string n, GLuint w, GLuint h) :
-	name(n), width(w), height(h), deleted(false)
+	name(n), width(w), height(h), deleted(false), backgroundPos(0)
 {
 }
 
@@ -100,7 +100,7 @@ void Scene::Render()
 {
 	if (this->visible)
 	{
-		Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0), glm::vec2(this->width, this->height), 0.0f);
+		Renderer->DrawSprite(ResourceManager::GetTexture("background"), backgroundPos, glm::vec2(this->width, this->height), 0.0f);
 		for (int i = 0; i < Sprites.size(); i++)
 		{
 			Sprites.at(i)->Draw(*Renderer);
@@ -135,6 +135,42 @@ std::string Scene::getName()
 void Scene::setName(std::string newName)
 {
 	this->name = newName;
+}
+
+void Scene::setCameraDX(int newDX)
+{
+	//move all sprites by y
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setDX(newDX);
+	}
+}
+
+void Scene::setCameraDY(int newDY)
+{
+	//move all sprites by y
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setDY(newDY);
+	}
+}
+
+void Scene::changeCameraByX(int x)
+{
+	//move all sprites by x
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x + x, Sprites.at(i)->getPosition().y));
+	}
+}
+
+void Scene::changeCameraByY(int y)
+{
+	//move all sprites by y
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x , Sprites.at(i)->getPosition().y + y));
+	}
 }
 
 //event called every time a key is pressed, check for exit, update KeyHandler singleton keys.

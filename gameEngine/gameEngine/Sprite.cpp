@@ -124,25 +124,6 @@ void Sprite::Draw(SpriteRenderer &renderer)
 		for (int i = 0; i < colliders_.size(); i++)
 		{
 			colliders_.at(i)->Draw(renderer);
-			/*
-			//see which texture to use, if circle or box, if collider is static we need to exclude the position of the sprite
-			if (getColliders().at(i)->getType() == "box")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			else if (getColliders().at(i)->getType() == "staticBox")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			else if (getColliders().at(i)->getType() == "circle")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			else if (getColliders().at(i)->getType() == "staticCircle")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			*/
 		}
 	}
 }

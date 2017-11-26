@@ -82,6 +82,10 @@ public:
 	std::string getName();
 	
 	void setName(std::string);
+	virtual void changeCameraByX(int);
+	virtual void changeCameraByY(int);
+	virtual void setCameraDX(int);
+	virtual void setCameraDY(int);
 
 private:
 	SpriteRenderer  *Renderer;
@@ -95,5 +99,6 @@ private:
 	int height;
 	int width;
 	std::string name;
+	glm::vec2 backgroundPos;
 };
 #endif
