@@ -64,13 +64,16 @@ public:
 	virtual void setColliders(std::vector<AbstractCollider*>);
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
-	//virtual void setColliderPredictive(std::string name, bool predictive);
 	virtual void addBoxCollider(std::string name, int w, int h);
 	virtual void addStaticBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void addCircleCollider(std::string name, double r, int posX, int posY);
 	virtual void addStaticCircleCollider(std::string name, double r, int posX, int posY);
 	virtual void addPolyCollider(std::string name, std::vector<glm::vec2> verticies);
 	virtual void removeCollider(std::string name);
+	virtual void setRenderPosX(int);
+	virtual void setRenderPosY(int);
+	virtual void setRenderDX(int);
+	virtual void setRenderDY(int);
 
 	virtual void reset();
 	virtual void reInit();
@@ -79,6 +82,8 @@ public:
 protected:
 	GLfloat dx;
 	GLfloat dy;
+	int renderDX;
+	int renderDY;
 
 private:
 	AbstractCollider *collider_;
@@ -87,7 +92,7 @@ private:
 	float moveAngle;
 	float imgAngle;
 	bool collideDebug;
-	glm::vec2   Position, Size, Velocity, Center;
+	glm::vec2   Position, Size, Velocity, Center, RenderPosition;
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;
 	Texture2D	Texture;
 	char* textureFile;

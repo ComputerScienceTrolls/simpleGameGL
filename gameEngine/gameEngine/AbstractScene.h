@@ -26,6 +26,10 @@ public:
 	virtual bool getDeleted() { return false; };
 	virtual int getWidth() { return 0; };
 	virtual int getHeight() { return 0; };
+	virtual void setCameraWidth(int) = 0;
+	virtual void setCameraHeight(int) = 0;
+	virtual void setCameraPosX(int) = 0;
+	virtual void setCameraPosY(int) = 0;
 	virtual std::vector<AbstractSprite*> getSprites() = 0;
 	virtual void setSprites(std::vector<AbstractSprite*>) = 0;
 	virtual void addSprite(AbstractSprite*) = 0;

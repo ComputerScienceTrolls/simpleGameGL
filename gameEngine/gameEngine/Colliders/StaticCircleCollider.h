@@ -9,6 +9,7 @@ public:
 	StaticCircleCollider(std::string name, float r, int posX, int posY);
 	virtual int getWidth();
 	virtual int getHeight();
+	virtual float getRadius();
 	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual void Draw(SpriteRenderer &renderer);
 
