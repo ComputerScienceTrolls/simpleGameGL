@@ -7,8 +7,11 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Scene::Scene(std::string n, GLuint w, GLuint h) :
-	name(n), width(w), height(h), deleted(false), backgroundPos(0)
+	name(n), width(w), height(h), deleted(false), backgroundPos(0), camera(w,h)
 {
+	//set default camera
+	//Camera default(w, h);
+	//this->camera = default;
 }
 
 //if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
@@ -142,7 +145,7 @@ void Scene::setCameraDX(int newDX)
 	//move all sprites by y
 	for (int i = 0; i < Sprites.size(); i++)
 	{
-		Sprites[i]->setDX(newDX);
+		Sprites[i]->setRenderDX(newDX);
 	}
 }
 
@@ -153,6 +156,38 @@ void Scene::setCameraDY(int newDY)
 	{
 		Sprites[i]->setDY(newDY);
 	}
+}
+
+void Scene::setCameraWidth(int w)
+{
+	this->camera.setWidth(w);
+	
+	//if camera width is more than the scene, set the scene's width to the new width
+	if (w > this->width)
+	{
+		this->setSize(w, this->height);
+	}
+}
+
+void Scene::setCameraHeight(int h)
+{
+	this->camera.setHeight(h);
+
+	//if camera height is more than the scene, set the scene's height to the new height
+	if (h > this->height)
+	{
+		this->setSize(this->width, h);
+	}
+}
+
+void Scene::setCameraPosX(int x)
+{
+	this->camera.setPosX(x);
+}
+
+void Scene::setCameraPosY(int y)
+{
+	this->camera.setPosY(y);
 }
 
 void Scene::changeCameraByX(int x)
@@ -169,7 +204,8 @@ void Scene::changeCameraByY(int y)
 	//move all sprites by y
 	for (int i = 0; i < Sprites.size(); i++)
 	{
-		Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x , Sprites.at(i)->getPosition().y + y));
+		Sprites[i]->setRenderPosY(1);
+		//Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x , Sprites.at(i)->getPosition().y + y));
 	}
 }
 

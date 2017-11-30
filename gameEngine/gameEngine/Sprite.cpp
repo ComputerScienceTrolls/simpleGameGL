@@ -53,7 +53,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 
 //make given pos the center of the sprite, so calc the real pos, setup given texture, setup collider texture, add sprite to scene, set velocity, and init initvalues
 Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
-	:name(n), parentScene(&scene), Center(pos), Size(size), textureFile(texture), Velocity(velocity), Color(color), Rotation(0.0f), collideDebug(false), transparency(1)
+	:name(n), parentScene(&scene), Center(pos), Size(size), textureFile(texture), Velocity(velocity), Color(color), Rotation(0.0f), collideDebug(false), transparency(1), RenderPosition(0), renderDX(0), renderDY(0)
 {
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
@@ -115,7 +115,7 @@ void Sprite::Draw(SpriteRenderer &renderer)
 {
 	if (getState("visible"))
 	{
-		renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->getPosition() + RenderPosition, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 	
@@ -280,6 +280,26 @@ void Sprite::removeCollider(std::string name)
 	}
 }
 
+void Sprite::setRenderPosX(int newX)
+{
+	this->RenderPosition.x = newX;
+}
+
+void Sprite::setRenderPosY(int newY)
+{
+	this->RenderPosition.y = newY;
+}
+
+void Sprite::setRenderDX(int newDX)
+{
+	this->renderDX = newDX;
+}
+
+void Sprite::setRenderDY(int newDY)
+{
+	this->renderDY = newDY;
+}
+
 //add circle collider to sprite, auto recenter circle before placing
 void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 {
@@ -327,6 +347,10 @@ void Sprite::update()
 	std::cout << this->dx;
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
+
+	//update RenderPos based on RenderDX and DY
+	this->RenderPosition.x += this->renderDX;
+	this->RenderPosition.y += this->renderDY;
 
 	//update Center
 	this->Center.x += this->dx;

@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
+#include "Camera.h"
 #include "SceneDirector.h"
 #include "Observers\AbstractObserver.h"
 
@@ -86,6 +87,10 @@ public:
 	virtual void changeCameraByY(int);
 	virtual void setCameraDX(int);
 	virtual void setCameraDY(int);
+	virtual void setCameraWidth(int);
+	virtual void setCameraHeight(int);
+	virtual void setCameraPosX(int);
+	virtual void setCameraPosY(int);
 
 private:
 	SpriteRenderer  *Renderer;
@@ -100,5 +105,6 @@ private:
 	int width;
 	std::string name;
 	glm::vec2 backgroundPos;
+	Camera camera;
 };
 #endif
