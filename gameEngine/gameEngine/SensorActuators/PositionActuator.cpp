@@ -1,21 +1,24 @@
 #include "PositionActuator.h"
 
 //constructor with a given x and y
-PositionActuator::PositionActuator(AbstractSprite *s, int newX, int newY) :
+PositionActuator::PositionActuator(std::string n, AbstractSprite *s, int newX, int newY) :
 	sprite(s), x(newX), y(newY), condition("both")
 {
+	this->name = n;
 }
 
 //constructor with a change and condition
-PositionActuator::PositionActuator(AbstractSprite *s, int newD, std::string con) :
+PositionActuator::PositionActuator(std::string n, AbstractSprite *s, int newD, std::string con) :
 	sprite(s), d(newD), condition(con)
 {
+	this->name = n;
 }
 
 //constructor with only a condition
-PositionActuator::PositionActuator(AbstractSprite *s, std::string con) :
+PositionActuator::PositionActuator(std::string n, AbstractSprite *s, std::string con) :
 	sprite(s), condition(con)
 {
+	this->name = n;
 }
 
 //run based on given or defaulted conditon, if both x and y given assume set to that new pos, if only x or y set it while retaining other not given axis, if flip condition set vertex to negative, always ending up offscreen

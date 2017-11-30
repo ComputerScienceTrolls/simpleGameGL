@@ -4,9 +4,9 @@
 class PositionActuator : public AbstractActuator
 {
 public:
-	PositionActuator(AbstractSprite*, int newX, int newY);
-	PositionActuator(AbstractSprite*, int newX, std::string condition);
-	PositionActuator(AbstractSprite*, std::string condition);
+	PositionActuator(std::string name, AbstractSprite*, int newX, int newY);
+	PositionActuator(std::string name, AbstractSprite*, int newX, std::string condition);
+	PositionActuator(std::string name, AbstractSprite*, std::string condition);
 	void run();
 	~PositionActuator();
 

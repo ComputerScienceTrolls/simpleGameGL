@@ -4,7 +4,7 @@
 class VisibilityActuator : public AbstractActuator
 {
 public:
-	VisibilityActuator(AbstractSprite *s, bool);
+	VisibilityActuator(std::string name, AbstractSprite *s, bool);
 	virtual void run();
 	~VisibilityActuator();
 

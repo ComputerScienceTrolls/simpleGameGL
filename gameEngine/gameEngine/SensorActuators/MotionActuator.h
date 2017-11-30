@@ -4,10 +4,10 @@
 class MotionActuator : public AbstractActuator
 {
 public:
-	MotionActuator(AbstractSprite*, int newDX, int newDY);
-	MotionActuator(AbstractSprite*, double newAngle, double newForce, std::string condition = "force");
-	MotionActuator(AbstractSprite*, int newDX, std::string condition);
-	MotionActuator(AbstractSprite*, std::string condition);
+	MotionActuator(std::string name, AbstractSprite*, int newDX, int newDY);
+	MotionActuator(std::string name, AbstractSprite*, double newAngle, double newForce, std::string condition = "force");
+	MotionActuator(std::string name, AbstractSprite*, int newDX, std::string condition);
+	MotionActuator(std::string name, AbstractSprite*, std::string condition);
 	void run();
 	~MotionActuator();
 

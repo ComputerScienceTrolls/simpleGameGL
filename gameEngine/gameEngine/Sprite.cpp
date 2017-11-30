@@ -53,7 +53,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 
 //make given pos the center of the sprite, so calc the real pos, setup given texture, setup collider texture, add sprite to scene, set velocity, and init initvalues
 Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
-	:name(n), parentScene(&scene), Center(pos), Size(size), textureFile(texture), Velocity(velocity), Color(color), Rotation(0.0f), collideDebug(false), transparency(1)
+	:name(n), parentScene(&scene), Center(pos), Size(size), textureFile(texture), Velocity(velocity), Color(color), Rotation(0.0f), collideDebug(false), transparency(1), RenderPosition(0), renderDX(0), renderDY(0)
 {
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
@@ -106,6 +106,8 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	initVelocity = Velocity;
 
 	resetCounter = 0;
+
+	this->setBoundAction("STOP");
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
@@ -113,7 +115,7 @@ void Sprite::Draw(SpriteRenderer &renderer)
 {
 	if (getState("visible"))
 	{
-		renderer.DrawSprite(this->getTexture(), this->getPosition(), this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->getPosition() + RenderPosition, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 	
@@ -122,25 +124,6 @@ void Sprite::Draw(SpriteRenderer &renderer)
 		for (int i = 0; i < colliders_.size(); i++)
 		{
 			colliders_.at(i)->Draw(renderer);
-			/*
-			//see which texture to use, if circle or box, if collider is static we need to exclude the position of the sprite
-			if (getColliders().at(i)->getType() == "box")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			else if (getColliders().at(i)->getType() == "staticBox")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			else if (getColliders().at(i)->getType() == "circle")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX() + this->getPosition().x, getColliders().at(i)->getPosY() + this->getPosition().y), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			else if (getColliders().at(i)->getType() == "staticCircle")
-			{
-				renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(getColliders().at(i)->getPosX(), getColliders().at(i)->getPosY()), glm::vec2(getColliders().at(i)->getWidth(), getColliders().at(i)->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
-			}
-			*/
 		}
 	}
 }
@@ -150,6 +133,7 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
+		AbstractCollider* test = otherSprite->getColliders().at(i);
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
 		{
 			return true;
@@ -271,13 +255,6 @@ void Sprite::addStaticBoxCollider(std::string name, int w, int h, int posX, int 
 	this->colliders_.push_back(temp);
 }
 
-/*
-void Sprite::setColliderPredictive(std::string name, bool predictive)
-{
-
-}
-*/
-
 //removes collider from sprite with given name, if multiple with name only gets last one
 void Sprite::removeCollider(std::string name)
 {
@@ -301,6 +278,31 @@ void Sprite::removeCollider(std::string name)
 	{
 		std::cout << "collider with the name of " << name << " not found";
 	}
+}
+
+void Sprite::setRenderPosX(int newX)
+{
+	this->RenderPosition.x = newX;
+}
+
+void Sprite::setRenderPosY(int newY)
+{
+	this->RenderPosition.y = newY;
+}
+
+glm::vec2 Sprite::getRenderPos()
+{
+	return this->RenderPosition;
+}
+
+void Sprite::setRenderDX(int newDX)
+{
+	this->renderDX = newDX;
+}
+
+void Sprite::setRenderDY(int newDY)
+{
+	this->renderDY = newDY;
 }
 
 //add circle collider to sprite, auto recenter circle before placing
@@ -347,15 +349,19 @@ void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
 //called every cycle as long sprite is active, sets position and center based on dx and dy. Check bounds
 void Sprite::update()
 {
+	std::cout << this->dx;
 	this->Position.x += this->dx;
 	this->Position.y -= this->dy;
+
+	//update RenderPos based on RenderDX and DY
+	this->RenderPosition.x += this->renderDX;
+	this->RenderPosition.y += this->renderDY;
 
 	//update Center
 	this->Center.x += this->dx;
 	this->Center.y -= this->dy;
 
 	this->checkBounds(parentScene->getWidth(),parentScene->getHeight());
-
 }
 
 void Sprite::setState(std::string key, bool state)

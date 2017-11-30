@@ -34,12 +34,6 @@ public:
 	virtual void updateVecs();
 
 private:
-	int offsetH;
-	int offsetW;
-	int posXOffset;
-	int posYOffset;
-	std::string type;
-	std::string name;
 	bool staticState;
 	AbstractSprite *spriteParent;
 	std::vector<glm::vec2> offsetVectrices;

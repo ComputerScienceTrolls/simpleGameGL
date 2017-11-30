@@ -2,21 +2,24 @@
 #include <iostream>
 
 //constructor that isn't given a condition
-SceneActuator::SceneActuator(AbstractScene * newScene) :
+SceneActuator::SceneActuator(std::string n, AbstractScene * newScene) :
 	scene(newScene), condition("na")
 {
+	this->name = n;
 }
 
 //constructor that is given a condition
-SceneActuator::SceneActuator(AbstractScene * newScene, std::string con) :
+SceneActuator::SceneActuator(std::string n, AbstractScene * newScene, std::string con) :
 	scene(newScene), condition(con)
 {
+	this->name = n;
 }
 
 //constructor that is only given a condition, can only use next, previous, or pause/toggle pause command
-SceneActuator::SceneActuator(std::string con) :
+SceneActuator::SceneActuator(std::string n, std::string con) :
 	condition(con)
 {
+	this->name = n;
 	if (con == "next" || con == "previous" || con == "pause" || con == "togglePause")
 	{
 		std::cout << con << " not a command that can be used without a given scene\ncommands that work without a given scene are next, previous, pause, and togglePause";

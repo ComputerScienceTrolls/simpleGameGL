@@ -13,6 +13,8 @@
 #include "SceneDirector.h"
 #include "Sprite.h"
 
+#include "CameraActuator.h"
+
 #include "Observers/observerhandler.h"
 #include "Observers/Observer.h"
 #include "Observers/ColliderObserver.h"
@@ -33,7 +35,7 @@ const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-Scene mainScene("main",800, 600);
+Scene mainScene("main",2000, 600);
 Scene testScene("test",700, 700);
 Scene testScene2("test",700, 700);
 Scene testScene3("test",700, 700);
@@ -83,14 +85,20 @@ int main(int argc, char *argv[])
 	//ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	//ResourceManager::LoadTexture("textures/face.png",true,"face");
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
-	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/face.png");
+	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
 	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
 	Sprite *trigger = new Sprite("trigger",mainScene);
 	trigger->addBoxCollider("test", 50, 50);
-	trigger->addForce(0, .5);
+	//trigger->addCircleCollider("test2", 50, 10, 40);
+	//Ball->addForce(270, 1);
+	//Player->addForce(270, 1);
+	//trigger->addStaticBoxCollider("test3", 50, 40, 100, 400);
+	//trigger->addStaticCircleCollider("test4", 20, 100, 100);
+	//trigger->addBoxCollider("test5", 600, 4, 0, 550);
 	//trigger->setSpeed(.5);
 	trigger->setCollideDebug(true);
-	//Player->addCircleCollider("test", 50, 0, 0);
+	//Player->addCircleCollider("test", 10, 0, 0);
+	Player->setCollideDebug(true);
 	//Ball->addStaticCircleCollider("t", 50, 50, 100);
 	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
 
@@ -101,8 +109,8 @@ int main(int argc, char *argv[])
 	//Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
-	//ColliderObserver *colTest = new ColliderObserver(ballColl2, Ball, Player);
-	Observer *simplyObserver = new Observer(test9);
+	ColliderObserver *colTest = new ColliderObserver("uh",ballColl2, trigger, Player);
+	Observer *simplyObserver = new Observer("observer1", test9);
 	
 	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
 	KeyboardSensor *kRight = new KeyboardSensor("kright", GLFW_KEY_D);
@@ -113,16 +121,17 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player,trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
-	MotionActuator *m2 = new MotionActuator(Player,"flip");
-	MotionActuator *mLeft = new MotionActuator(Player, 180, .1, "force");
-	MotionActuator *mRight = new MotionActuator(Player, 0, .1, "force");
-	MotionActuator *mUp = new MotionActuator(Player, 90, .1, "force");
-	MotionActuator *mDown = new MotionActuator(Player, 270, .1, "force");
+	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
+	MotionActuator *mLeft = new MotionActuator("motion2", Player, 180, .1, "force");
+	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
+	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
+	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
+	CameraActuator *cLeft = new CameraActuator("cLeft", &mainScene, "movex", 1);
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
-	VisibilityActuator *v1 = new VisibilityActuator(Player, false);
-	SceneActuator *s1 = new SceneActuator(&testScene, "next");
-	SceneActuator *s2 = new SceneActuator(&mainScene, "previous");
-	SceneActuator *s3 = new SceneActuator(&mainScene, "togglePause");
+	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
+	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
+	SceneActuator *s2 = new SceneActuator("scene2",&mainScene, "previous");
+	SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
 	kSpace->addActuator(s3);
@@ -180,6 +189,9 @@ int main(int argc, char *argv[])
 	SceneDirector::getInstance()->addScene(&testScene2);
 	SceneDirector::getInstance()->addScene(&testScene3);
 	SceneDirector::getInstance()->addScene(&testScene4);
+	mainScene.setCameraDX(-1);
+	mainScene.setCameraHeight(500);
+	mainScene.setCameraWidth(800);
 	
 	SceneDirector::getInstance()->Start();
 	

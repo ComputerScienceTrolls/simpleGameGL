@@ -1,10 +1,9 @@
 #include "VisibilityActuator.h"
 
-
-
-VisibilityActuator::VisibilityActuator(AbstractSprite *s, bool con) :
+VisibilityActuator::VisibilityActuator(std::string n, AbstractSprite *s, bool con) :
 	sprite(s), state(con)
 {
+	this->name = n;
 }
 
 void VisibilityActuator::run()
@@ -18,7 +17,6 @@ void VisibilityActuator::run()
 		sprite->setState("visible", false);
 	}
 }
-
 
 VisibilityActuator::~VisibilityActuator()
 {

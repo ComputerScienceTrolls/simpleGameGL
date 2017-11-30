@@ -49,6 +49,11 @@ public:
 	virtual void setState(std::string, bool) {};
 	virtual void setColliders(std::vector<AbstractCollider*>) = 0;
 	virtual void setName(std::string) {};
+	virtual void setRenderPosX(int) = 0;
+	virtual void setRenderPosY(int) = 0;
+	virtual void setRenderDX(int) = 0;
+	virtual void setRenderDY(int) = 0;
+	virtual glm::vec2 getRenderPos() = 0;
 
 	virtual void reset() {};
 	virtual void reInit() {};

@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
+#include "Camera.h"
 #include "SceneDirector.h"
 #include "Observers\AbstractObserver.h"
 
@@ -82,12 +83,20 @@ public:
 	std::string getName();
 	
 	void setName(std::string);
+	virtual void changeCameraByX(int);
+	virtual void changeCameraByY(int);
+	virtual void setCameraDX(int);
+	virtual void setCameraDY(int);
+	virtual void setCameraWidth(int);
+	virtual void setCameraHeight(int);
+	virtual void setCameraPosX(int);
+	virtual void setCameraPosY(int);
 
 private:
 	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
-	std::vector<AbstractSensor*> Sensors;
-	std::vector<AbstractObserver*> Observers;
+	std::vector<AbstractSensor*> sensors;
+	std::vector<AbstractObserver*> observers;
 	GLFWwindow* window;
 	bool active;
 	bool visible;
@@ -95,5 +104,9 @@ private:
 	int height;
 	int width;
 	std::string name;
+	glm::vec2 backgroundPos;
+	int backgroundDX;
+	int backgroundDY;
+	Camera camera;
 };
 #endif

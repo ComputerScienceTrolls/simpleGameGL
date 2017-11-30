@@ -6,15 +6,12 @@
 class Observer : public AbstractObserver
 {
 public:
-    Observer(void(*f)());
+    Observer(std::string n, void(*f)());
     virtual void Notify();
-	virtual void setName(std::string);
-	virtual std::string getName();
 
 
 private:
    void (*func_) (void);
-   std::string name;
 };
 
 

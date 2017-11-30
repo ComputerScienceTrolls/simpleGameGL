@@ -6,9 +6,9 @@
 class SceneActuator : public AbstractActuator
 {
 public:
-	SceneActuator(AbstractScene* newScene);
-	SceneActuator(AbstractScene* newScene, std::string condition);
-	SceneActuator(std::string condition);
+	SceneActuator(std::string name, AbstractScene* newScene);
+	SceneActuator(std::string name, AbstractScene* newScene, std::string condition);
+	SceneActuator(std::string name, std::string condition);
 	virtual void run();
 	~SceneActuator();
 

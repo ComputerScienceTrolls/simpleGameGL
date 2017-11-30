@@ -7,8 +7,11 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Scene::Scene(std::string n, GLuint w, GLuint h) :
-	name(n), width(w), height(h), deleted(false)
+	name(n), width(w), height(h), deleted(false), backgroundPos(0), camera(w,h), backgroundDX(0), backgroundDY(0)
 {
+	//set default camera
+	//Camera default(w, h);
+	//this->camera = default;
 }
 
 //if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
@@ -72,6 +75,9 @@ void Scene::Update(GLfloat dt)
 {
 	if (this->active)
 	{
+		//update backgroundPos by it's DX and DY
+		backgroundPos.x += backgroundDX;
+		backgroundPos.y += backgroundDY;
 		//for each sprite in scene
 		for (int i = 0; i < Sprites.size(); i++)
 		{
@@ -83,14 +89,14 @@ void Scene::Update(GLfloat dt)
 			}
 		}
 
-		for (int i = 0; i < Sensors.size(); i++)
+		for (int i = 0; i < sensors.size(); i++)
 		{
-			Sensors.at(i)->sense();
+			sensors.at(i)->sense();
 		}
 
-		for (int i = 0; i < Observers.size(); i++)
+		for (int i = 0; i < observers.size(); i++)
 		{
-			Observers.at(i)->Notify();
+			observers.at(i)->Notify();
 		}
 	}
 }
@@ -100,7 +106,7 @@ void Scene::Render()
 {
 	if (this->visible)
 	{
-		Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0), glm::vec2(this->width, this->height), 0.0f);
+		Renderer->DrawSprite(ResourceManager::GetTexture("background"), backgroundPos, glm::vec2(this->width, this->height), 0.0f);
 		for (int i = 0; i < Sprites.size(); i++)
 		{
 			Sprites.at(i)->Draw(*Renderer);
@@ -137,6 +143,72 @@ void Scene::setName(std::string newName)
 	this->name = newName;
 }
 
+void Scene::setCameraDX(int newDX)
+{
+	//move all sprites by y
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setRenderDX(newDX);
+	}
+	backgroundDX = newDX;
+}
+
+void Scene::setCameraDY(int newDY)
+{
+	//move all sprites by y
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setDY(newDY);
+	}
+	backgroundDY = newDY;
+}
+
+void Scene::setCameraWidth(int w)
+{
+	this->camera.setWidth(w);
+	
+	glfwSetWindowSize(window, w, camera.getHeight());
+}
+
+void Scene::setCameraHeight(int h)
+{
+	this->camera.setHeight(h);
+
+	glfwSetWindowSize(window, camera.getWidth(), h);
+}
+
+void Scene::setCameraPosX(int x)
+{
+	this->camera.setPosX(x);
+}
+
+void Scene::setCameraPosY(int y)
+{
+	this->camera.setPosY(y);
+}
+
+void Scene::changeCameraByX(int x)
+{
+	//move all sprites by x
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x + x, Sprites.at(i)->getPosition().y));
+	}
+	
+	//move the background
+	backgroundPos.x = backgroundPos.x + x;
+}
+
+void Scene::changeCameraByY(int y)
+{
+	//move all sprites by y
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->setRenderPosY(1);
+		//Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x , Sprites.at(i)->getPosition().y + y));
+	}
+}
+
 //event called every time a key is pressed, check for exit, update KeyHandler singleton keys.
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -167,15 +239,15 @@ std::vector<AbstractSprite*> Scene::getSprite(std::string name)
 //add sensor to vector of Sensors
 void Scene::addSensor(AbstractSensor *s)
 {
-	Sensors.push_back(s);
+	sensors.push_back(s);
 }
 
 void Scene::removeSensor(std::string name)
 {
 	int index = -1;
-	for (int i = 0; i < this->Sensors.size(); i++)
+	for (int i = 0; i < this->sensors.size(); i++)
 	{
-		if (this->Sensors[i]->getName() == name)
+		if (this->sensors[i]->getName() == name)
 		{
 			index = i;
 		}
@@ -184,8 +256,8 @@ void Scene::removeSensor(std::string name)
 	//if found remove it from the vector
 	if (index != -1)
 	{
-		std::cout << "deleting " << this->Sensors.at(index)->getName();
-		this->Sensors.erase(Sensors.begin() + index);
+		std::cout << "deleting " << this->sensors.at(index)->getName();
+		this->sensors.erase(sensors.begin() + index);
 	}
 	else
 	{
@@ -195,9 +267,9 @@ void Scene::removeSensor(std::string name)
 
 void Scene::removeSensor(int index)
 {
-	if (index > -1 && index <= Sensors.size() - 1)
+	if (index > -1 && index <= sensors.size() - 1)
 	{
-		this->Sensors.erase(Sensors.begin() + index);
+		this->sensors.erase(sensors.begin() + index);
 	}
 	else
 	{
@@ -207,16 +279,16 @@ void Scene::removeSensor(int index)
 
 void Scene::addObserver(AbstractObserver *o)
 {
-	Observers.push_back(o);
+	observers.push_back(o);
 }
 
 void Scene::removeObserver(std::string name)
 {
 	//get index of collider
 	int index = -1;
-	for (int i = 0; i < this->Observers.size(); i++)
+	for (int i = 0; i < this->observers.size(); i++)
 	{
-		if (this->Observers[i]->getName() == name)
+		if (this->observers[i]->getName() == name)
 		{
 			index = i;
 		}
@@ -225,8 +297,8 @@ void Scene::removeObserver(std::string name)
 	//if found remove it from the vector
 	if (index != -1)
 	{
-		std::cout << "deleting " << this->Observers.at(index)->getName();
-		this->Observers.erase(this->Observers.begin() + index);
+		std::cout << "deleting " << this->observers.at(index)->getName();
+		this->observers.erase(this->observers.begin() + index);
 	}
 	else
 	{
@@ -236,9 +308,9 @@ void Scene::removeObserver(std::string name)
 
 void Scene::removeObserver(int index)
 {
-	if (index > -1 && index <= Observers.size() - 1)
+	if (index > -1 && index <= observers.size() - 1)
 	{
-		this->Observers.erase(Observers.begin() + index);
+		this->observers.erase(observers.begin() + index);
 	}
 	else
 	{
