@@ -105,6 +105,8 @@ private:
 	int width;
 	std::string name;
 	glm::vec2 backgroundPos;
+	int backgroundDX;
+	int backgroundDY;
 	Camera camera;
 };
 #endif

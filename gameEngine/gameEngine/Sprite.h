@@ -72,6 +72,7 @@ public:
 	virtual void removeCollider(std::string name);
 	virtual void setRenderPosX(int);
 	virtual void setRenderPosY(int);
+	virtual glm::vec2 getRenderPos();
 	virtual void setRenderDX(int);
 	virtual void setRenderDY(int);
 

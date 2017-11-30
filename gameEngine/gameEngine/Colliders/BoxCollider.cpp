@@ -136,9 +136,14 @@ glm::vec2 BoxCollider::getSpriteSize()
 	return spriteParent->getSize();
 }
 
+glm::vec2 BoxCollider::getRenderPos()
+{
+	return spriteParent->getRenderPos();
+}
+
 void BoxCollider::Draw(SpriteRenderer & renderer)
 {
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(this->getPosX() + spriteParent->getPosition().x, this->getPosY() + spriteParent->getPosition().y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(this->getPosX() + spriteParent->getPosition().x + spriteParent->getRenderPos().x, this->getPosY() + spriteParent->getPosition().y + spriteParent->getRenderPos().y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 BoxCollider::~BoxCollider()

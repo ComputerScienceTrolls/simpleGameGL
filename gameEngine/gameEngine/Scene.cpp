@@ -7,7 +7,7 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Scene::Scene(std::string n, GLuint w, GLuint h) :
-	name(n), width(w), height(h), deleted(false), backgroundPos(0), camera(w,h)
+	name(n), width(w), height(h), deleted(false), backgroundPos(0), camera(w,h), backgroundDX(0), backgroundDY(0)
 {
 	//set default camera
 	//Camera default(w, h);
@@ -75,6 +75,9 @@ void Scene::Update(GLfloat dt)
 {
 	if (this->active)
 	{
+		//update backgroundPos by it's DX and DY
+		backgroundPos.x += backgroundDX;
+		backgroundPos.y += backgroundDY;
 		//for each sprite in scene
 		for (int i = 0; i < Sprites.size(); i++)
 		{
@@ -147,6 +150,7 @@ void Scene::setCameraDX(int newDX)
 	{
 		Sprites[i]->setRenderDX(newDX);
 	}
+	backgroundDX = newDX;
 }
 
 void Scene::setCameraDY(int newDY)
@@ -156,28 +160,21 @@ void Scene::setCameraDY(int newDY)
 	{
 		Sprites[i]->setDY(newDY);
 	}
+	backgroundDY = newDY;
 }
 
 void Scene::setCameraWidth(int w)
 {
 	this->camera.setWidth(w);
 	
-	//if camera width is more than the scene, set the scene's width to the new width
-	if (w > this->width)
-	{
-		this->setSize(w, this->height);
-	}
+	glfwSetWindowSize(window, w, camera.getHeight());
 }
 
 void Scene::setCameraHeight(int h)
 {
 	this->camera.setHeight(h);
 
-	//if camera height is more than the scene, set the scene's height to the new height
-	if (h > this->height)
-	{
-		this->setSize(this->width, h);
-	}
+	glfwSetWindowSize(window, camera.getWidth(), h);
 }
 
 void Scene::setCameraPosX(int x)
@@ -197,6 +194,9 @@ void Scene::changeCameraByX(int x)
 	{
 		Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x + x, Sprites.at(i)->getPosition().y));
 	}
+	
+	//move the background
+	backgroundPos.x = backgroundPos.x + x;
 }
 
 void Scene::changeCameraByY(int y)

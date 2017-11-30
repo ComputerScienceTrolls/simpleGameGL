@@ -290,6 +290,11 @@ void Sprite::setRenderPosY(int newY)
 	this->RenderPosition.y = newY;
 }
 
+glm::vec2 Sprite::getRenderPos()
+{
+	return this->RenderPosition;
+}
+
 void Sprite::setRenderDX(int newDX)
 {
 	this->renderDX = newDX;

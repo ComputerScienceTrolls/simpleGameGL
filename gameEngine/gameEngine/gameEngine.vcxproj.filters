@@ -132,6 +132,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CameraActuator.cpp">
+      <Filter>Actuators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraActuator.h">
+      <Filter>Actuators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,8 @@
 #include "SceneDirector.h"
 #include "Sprite.h"
 
+#include "CameraActuator.h"
+
 #include "Observers/observerhandler.h"
 #include "Observers/Observer.h"
 #include "Observers/ColliderObserver.h"
@@ -33,7 +35,7 @@ const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-Scene mainScene("main",800, 600);
+Scene mainScene("main",2000, 600);
 Scene testScene("test",700, 700);
 Scene testScene2("test",700, 700);
 Scene testScene3("test",700, 700);
@@ -90,8 +92,8 @@ int main(int argc, char *argv[])
 	//trigger->addCircleCollider("test2", 50, 10, 40);
 	//Ball->addForce(270, 1);
 	//Player->addForce(270, 1);
-	trigger->addStaticBoxCollider("test3", 50, 40, 100, 400);
-	trigger->addStaticCircleCollider("test4", 20, 100, 100);
+	//trigger->addStaticBoxCollider("test3", 50, 40, 100, 400);
+	//trigger->addStaticCircleCollider("test4", 20, 100, 100);
 	//trigger->addBoxCollider("test5", 600, 4, 0, 550);
 	//trigger->setSpeed(.5);
 	trigger->setCollideDebug(true);
@@ -124,6 +126,7 @@ int main(int argc, char *argv[])
 	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
 	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
+	CameraActuator *cLeft = new CameraActuator("cLeft", &mainScene, "movex", 1);
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
 	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
@@ -186,7 +189,9 @@ int main(int argc, char *argv[])
 	SceneDirector::getInstance()->addScene(&testScene2);
 	SceneDirector::getInstance()->addScene(&testScene3);
 	SceneDirector::getInstance()->addScene(&testScene4);
-	mainScene.setCameraDX(1);
+	mainScene.setCameraDX(-1);
+	mainScene.setCameraHeight(500);
+	mainScene.setCameraWidth(800);
 	
 	SceneDirector::getInstance()->Start();
 	

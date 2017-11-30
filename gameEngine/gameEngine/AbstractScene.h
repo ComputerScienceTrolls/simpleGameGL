@@ -30,6 +30,8 @@ public:
 	virtual void setCameraHeight(int) = 0;
 	virtual void setCameraPosX(int) = 0;
 	virtual void setCameraPosY(int) = 0;
+	virtual void setCameraDX(int) = 0;
+	virtual void setCameraDY(int) = 0;
 	virtual std::vector<AbstractSprite*> getSprites() = 0;
 	virtual void setSprites(std::vector<AbstractSprite*>) = 0;
 	virtual void addSprite(AbstractSprite*) = 0;

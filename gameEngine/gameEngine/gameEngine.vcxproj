@@ -145,6 +145,7 @@
     <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraActuator.cpp" />
     <ClCompile Include="Colliders\AbstractCollider.cpp" />
     <ClCompile Include="Colliders\BoxCollider.cpp" />
     <ClCompile Include="Colliders\CircleCollider.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraActuator.h" />
     <ClInclude Include="Colliders\AbstractCollider.h" />
     <ClInclude Include="Colliders\BoxCollider.h" />
     <ClInclude Include="Colliders\CircleCollider.h" />
