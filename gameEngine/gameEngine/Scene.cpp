@@ -7,8 +7,10 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Scene::Scene(std::string n, GLuint w, GLuint h) :
-	name(n), width(w), height(h), deleted(false), backgroundPos(0), camera(w,h), backgroundDX(0), backgroundDY(0)
+	name(n), width(w), height(h), deleted(false), backgroundPos(0), backgroundDX(0), backgroundDY(0)
 {
+	this->camera.setHeight(h);
+	this->camera.setWidth(w);
 	//set default camera
 	//Camera default(w, h);
 	//this->camera = default;

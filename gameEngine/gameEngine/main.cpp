@@ -189,7 +189,6 @@ int main(int argc, char *argv[])
 	SceneDirector::getInstance()->addScene(&testScene2);
 	SceneDirector::getInstance()->addScene(&testScene3);
 	SceneDirector::getInstance()->addScene(&testScene4);
-	mainScene.setCameraDX(-1);
 	mainScene.setCameraHeight(500);
 	mainScene.setCameraWidth(800);
 	

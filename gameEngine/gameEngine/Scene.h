@@ -5,7 +5,6 @@
 #include "ResourceManager.h"
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
-#include "Camera.h"
 #include "SceneDirector.h"
 #include "Observers\AbstractObserver.h"
 
@@ -107,6 +106,5 @@ private:
 	glm::vec2 backgroundPos;
 	int backgroundDX;
 	int backgroundDY;
-	Camera camera;
 };
 #endif
