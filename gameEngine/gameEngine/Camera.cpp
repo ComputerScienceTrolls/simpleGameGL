@@ -41,20 +41,20 @@ void Camera::setDY(int newDY)
 	this->dy = newDY;
 }
 
-void Camera::setCameraForce(float angle, float force)
+void Camera::setCameraForce(float angle, float thrust)
 {
 	//input angle is in degrees - convert to radians    
-	angle = angle * PI / 180;
+	angle = angle * 3.14 / 180;
 
 	//calculate dx and dy
-	double newDX = thrust * std::cos(angle);
-	double newDY = thrust * std::sin(angle);
+	double newDX = thrust * cos(angle);
+	double newDY = thrust * sin(angle);
 
 	this->dx += newDX;
 	this->dy += newDY;
 
 	//ensure speed and angle are updated
-	this->calcSpeedAngle();
+	//this->calcSpeedAngle();
 }
 
 int Camera::getPosX()

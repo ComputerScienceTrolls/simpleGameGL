@@ -80,12 +80,6 @@ public:
 	virtual void reInit();
 	~Sprite();
 
-protected:
-	GLfloat dx;
-	GLfloat dy;
-	int renderDX;
-	int renderDY;
-
 private:
 	AbstractCollider *collider_;
 	std::vector<AbstractCollider*> colliders_;
@@ -96,6 +90,10 @@ private:
 	glm::vec2   Position, Size, Velocity, Center, RenderPosition;
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;
 	Texture2D	Texture;
+	GLfloat dx;
+	GLfloat dy;
+	int renderDX;
+	int renderDY;
 	char* textureFile;
 	glm::vec3   Color;
 	GLfloat     Rotation;

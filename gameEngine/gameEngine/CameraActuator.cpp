@@ -23,37 +23,37 @@ void CameraActuator::run()
 if (condition == "both")
 	{
 		camera->setDX(DX);
-		parent->setCameraDY(DY);
+		camera->setDY(DY);
 	}
 	else if (condition == "x")
 	{
-		parent->setCameraDX(DT);
+		camera->setDX(DT);
 	}
 	else if (condition == "y")
 	{
-		parent->setCameraDY(DT);
+		camera->setDY(DT);
 	}
 	else if (condition == "flip")
 	{
-		parent->setCameraDX(-parent->getCamera().getDX());
-		parent->setCameraDY(-parent->getCamera().getDY());
+		camera->setDX(-camera->getDX());
+		camera->setDY(-camera->getDY());
 	}
 	else if (condition == "flipx")
 	{
-		parent->setCameraPosX(-parent->getCamera().getPosX());
+		camera->setPosX(-camera->getPosX());
 	}
 	else if (condition == "flipy")
 	{
-		parent->setCameraPosX(-parent->getCamera().getPosX());
+		camera->setPosY(-camera->getPosX());
 	}
 	else if (condition == "multiply")
 	{
-		parent->setCameraDX(parent->getCamera().getDX() * DT);
-		parent->setCameraDY(parent->getCamera().getDY() * DT);
+		camera->setDX(camera->getDX() * DT);
+		camera->setDY(camera->getDY() * DT);
 	}
 	else if (condition == "force")
 	{
-		parent->setCameraForce(angle, force);
+		camera->setCameraForce(angle, force);
 	}
 	
 }

@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
 	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
-	CameraActuator *cLeft = new CameraActuator("cLeft", &mainScene, "movex", 1);
+	CameraActuator *cLeft = new CameraActuator("cLeft", &mainScene.getCamera(), "movex", 1);
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
 	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
