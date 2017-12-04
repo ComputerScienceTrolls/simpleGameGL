@@ -6,12 +6,9 @@ Camera::Camera(int w, int h)
 	this->height = h;
 }
 
-Camera::Camera(int w, int h, int x, int y)
+Camera::Camera(int w, int h, int x, int y) :
+	width(w), height(h), posX(x), posY(y), dx(0), dy(0)
 {
-	this->width = w;
-	this->height = h;
-	this->posX = x;
-	this->posY = y;
 }
 
 void Camera::setPosX(int newX)
@@ -34,6 +31,32 @@ void Camera::setHeight(int newH)
 	this->height = newH;
 }
 
+void Camera::setDX(int newDX)
+{
+	this->dx = newDX;
+}
+
+void Camera::setDY(int newDY)
+{
+	this->dy = newDY;
+}
+
+void Camera::setCameraForce(float angle, float thrust)
+{
+	//input angle is in degrees - convert to radians    
+	angle = angle * 3.14 / 180;
+
+	//calculate dx and dy
+	double newDX = thrust * cos(angle);
+	double newDY = thrust * sin(angle);
+
+	this->dx += newDX;
+	this->dy += newDY;
+
+	//ensure speed and angle are updated
+	//this->calcSpeedAngle();
+}
+
 int Camera::getPosX()
 {
 	return this->posX;
@@ -42,6 +65,16 @@ int Camera::getPosX()
 int Camera::getPosY()
 {
 	return this->posY;
+}
+
+int Camera::getDX()
+{
+	return this->dx;
+}
+
+int Camera::getDY()
+{
+	return this->dy;
 }
 
 int Camera::getWidth()

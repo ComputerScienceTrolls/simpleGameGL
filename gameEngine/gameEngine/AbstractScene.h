@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 
 #include <vector>
+#include "Camera.h"
 
 class AbstractScene
 {
@@ -39,6 +40,10 @@ public:
 	virtual void reset() {};
 	virtual void setName(std::string) = 0;
 	virtual std::string getName() = 0;
+	virtual Camera getCamera();
 	~AbstractScene();
+
+protected:
+	Camera camera;
 };
 

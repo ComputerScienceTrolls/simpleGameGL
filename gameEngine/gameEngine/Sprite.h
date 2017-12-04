@@ -27,40 +27,21 @@ public:
 	virtual void Draw(SpriteRenderer &renderer);
 	virtual bool collide(AbstractSprite * otherSprite);
 	virtual bool collide(Sprite * otherSprite);
-	void setVelocity(GLfloat dt);
-	virtual void update();
+	virtual void Update();
 	void setState(std::string key, bool state);
 	bool getState(std::string key);
 	void setBoundAction(std::string newAction);
 	bool checkBounds(double screenWidth, double screenHeight);
 	void hide();
 	void setCollideDebug(bool state);
-	void setDX(float newDx);
-	void setDY(float newDy);
-	void addForce(float angle, float mag);
-	void calcSpeedAngle();
-	void calcVector();
-	void setSpeed(float newSpeed);
+
 	void setImgAngle(float newAngle);
-	void setMoveAngle(float newAngle);
-	virtual glm::vec2 getPosition();
-	virtual glm::vec2 getCenter();
-	virtual glm::vec2 getSize();
 	virtual Texture2D getTexture();
-	virtual glm::vec2 getVelocity();
 	virtual glm::vec3 getColor();
-	virtual GLfloat getRotation();
+	virtual bool getVisible();
 	virtual std::vector<AbstractCollider*> getColliders();
-	virtual std::string getName();
-	virtual GLfloat getDX();
-	virtual GLfloat getDY();
-	virtual void setPosition(glm::vec2);
-	virtual void setCenter(glm::vec2);
-	virtual void setSize(glm::vec2);
 	virtual void setTexture(Texture2D);
-	virtual void setVelocity(glm::vec2);
 	virtual void setColor(glm::vec3);
-	virtual void setRotation(GLfloat);
 	virtual void setColliders(std::vector<AbstractCollider*>);
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
@@ -70,35 +51,21 @@ public:
 	virtual void addStaticCircleCollider(std::string name, double r, int posX, int posY);
 	virtual void addPolyCollider(std::string name, std::vector<glm::vec2> verticies);
 	virtual void removeCollider(std::string name);
-	virtual void setRenderPosX(int);
-	virtual void setRenderPosY(int);
-	virtual glm::vec2 getRenderPos();
-	virtual void setRenderDX(int);
-	virtual void setRenderDY(int);
+	virtual void setVisible(bool);
 
 	virtual void reset();
 	virtual void reInit();
 	~Sprite();
 
-protected:
-	GLfloat dx;
-	GLfloat dy;
-	int renderDX;
-	int renderDY;
-
 private:
 	AbstractCollider *collider_;
 	std::vector<AbstractCollider*> colliders_;
-	float speed;
-	float moveAngle;
 	float imgAngle;
 	bool collideDebug;
-	glm::vec2   Position, Size, Velocity, Center, RenderPosition;
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;
 	Texture2D	Texture;
 	char* textureFile;
 	glm::vec3   Color;
-	GLfloat     Rotation;
 	Texture2D	initTexture;
 	char* initTextureFile;
 	glm::vec3 initColor;
@@ -107,9 +74,7 @@ private:
 	GLfloat transparency;
 	std::string boundAction;
 	AbstractScene *parentScene;
-	std::string name;
 	bool visible;
-	bool active;
 	int resetCounter;
 
 };

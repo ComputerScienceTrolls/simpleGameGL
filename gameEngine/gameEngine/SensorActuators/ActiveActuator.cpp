@@ -10,11 +10,11 @@ void ActiveActuator::run()
 {
 	if (state)
 	{
-		sprite->setState("active", true);
+		sprite->setActive(true);
 	}
 	else
 	{
-		sprite->setState("active", false);
+		sprite->setActive(false);
 	}
 }
 

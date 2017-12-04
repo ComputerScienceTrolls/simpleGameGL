@@ -10,11 +10,11 @@ void VisibilityActuator::run()
 {
 	if (state)
 	{
-		sprite->setState("visible", true);
+		sprite->setVisible(true);
 	}
 	else
 	{
-		sprite->setState("visible", false);
+		sprite->setVisible(false);
 	}
 }
 
