@@ -83,11 +83,9 @@ void Scene::Update(GLfloat dt)
 		//for each sprite in scene
 		for (int i = 0; i < Sprites.size(); i++)
 		{
-			if (Sprites.at(i)->getState("active"))
+			if (Sprites.at(i)->getActive())
 			{
-				std::string test = Sprites.at(i)->getName();
-				int test2 =	Sprites.at(i)->getDX();
-				Sprites.at(i)->update();
+				Sprites.at(i)->Update();
 			}
 		}
 
@@ -382,8 +380,8 @@ void Scene::setSprites(std::vector<AbstractSprite*> newVector)
 
 void Scene::addSprite(AbstractSprite *newSprite)
 {
-	GLfloat dx = newSprite->getDX();
 	Sprites.push_back(newSprite);
+	SceneObjects.push_back(newSprite);
 }
 
 //get Scene's width

@@ -23,8 +23,8 @@ public:
 	virtual void Init();
 	virtual void Update(GLfloat dt);
 	virtual void Render();
-	std::vector<AbstractSprite*> getSprite(std::string name);
 	std::vector<AbstractSprite*> Sprites;
+	std::vector<AbstractSprite*> getSprite(std::string name);
 	virtual GLFWwindow* getWindow();
 	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
@@ -94,6 +94,8 @@ public:
 private:
 	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
+
+	std::vector<SceneObject*> SceneObjects;
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
 	GLFWwindow* window;
