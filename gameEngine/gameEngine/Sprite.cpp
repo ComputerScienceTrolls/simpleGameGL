@@ -5,7 +5,7 @@ const double PI = 3.141592653589793238463;
 
 //empty sprite
 Sprite::Sprite(std::string n, AbstractScene &scene)
-	: parentScene(&scene), Color(1.0f), Texture(), imgAngle(0), collideDebug(false), transparency(1)
+	: parentScene(&scene), Color(1.0f), Texture(), collideDebug(false), transparency(1)
 {
 	this->name = n;
 	this->Position = glm::vec2(10);
@@ -14,6 +14,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	this->Rotation = 0;
 	this->speed = 10;
 	this->moveAngle = 0;
+	this->imgAngle = 0;
 	//give default box collider
 	BoxCollider *temp = new BoxCollider("default",*this, 1, 1);
 	colliders_.push_back(temp);
@@ -160,13 +161,6 @@ bool Sprite::collide(Sprite* otherSprite)
 
 
 //set new speed and recalc the vector
-
-
-//set rotation to new angle, don't calc change
-void Sprite::setImgAngle(float newAngle)
-{
-	this->Rotation = newAngle;
-}
 
 //set move angle, angle the sprite will move
 

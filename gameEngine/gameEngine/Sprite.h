@@ -35,7 +35,6 @@ public:
 	void hide();
 	void setCollideDebug(bool state);
 
-	void setImgAngle(float newAngle);
 	virtual Texture2D getTexture();
 	virtual glm::vec3 getColor();
 	virtual bool getVisible();
@@ -60,7 +59,6 @@ public:
 private:
 	AbstractCollider *collider_;
 	std::vector<AbstractCollider*> colliders_;
-	float imgAngle;
 	bool collideDebug;
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;
 	Texture2D	Texture;

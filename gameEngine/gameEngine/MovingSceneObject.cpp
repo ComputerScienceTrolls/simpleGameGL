@@ -7,31 +7,6 @@ MovingSceneObject::MovingSceneObject()
 {
 }
 
-void MovingSceneObject::setRenderPosition(glm::vec2 newRenderPos)
-{
-	this->RenderPosition = newRenderPos;
-}
-
-void MovingSceneObject::setRenderPosX(int newX)
-{
-	this->RenderPosition.x = newX;
-}
-
-void MovingSceneObject::setRenderPosY(int newY)
-{
-	this->RenderPosition.y = newY;
-}
-
-void MovingSceneObject::setRenderDX(int newDX)
-{
-	this->RenderVelocity.x = newDX;
-}
-
-void MovingSceneObject::setRenderDY(int newDY)
-{
-	this->RenderVelocity.y = newDY;
-}
-
 void MovingSceneObject::setVelocity(glm::vec2 newVelocity)
 {
 	this->Velocity = newVelocity;
@@ -55,31 +30,6 @@ void MovingSceneObject::setSpeed(float newSpeed)
 void MovingSceneObject::setMoveAngle(float newMovleAngle)
 {
 	this->moveAngle = newMovleAngle;
-}
-
-glm::vec2 MovingSceneObject::getRenderPosition()
-{
-	return this->RenderPosition;
-}
-
-int MovingSceneObject::getRenderPosX()
-{
-	return this->RenderPosition.x;
-}
-
-int MovingSceneObject::getRenderPosY()
-{
-	return this->RenderPosition.y;
-}
-
-int MovingSceneObject::getRenderDX()
-{
-	return this->RenderVelocity.x;
-}
-
-int MovingSceneObject::getRenderDY()
-{
-	return this->RenderVelocity.y;
 }
 
 glm::vec2 MovingSceneObject::getVelocity()
