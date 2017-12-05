@@ -22,7 +22,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
-	scene.addSprite(this);
+	//scene.addSprite(this);
 
 	this->active = true;
 	this->visible = true;
@@ -65,6 +65,9 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
+	scene.addSprite(this);
+
+	/*
 	//add Sprite to Scene, get Sprites, add new sprite.
 	std::vector<AbstractSprite*> tempSprites = scene.getSprites();
 	tempSprites.push_back(this);
@@ -80,7 +83,8 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 
 	//set new vector back to the scene
 	scene.setSprites(tempSprites);
-	
+	*/
+
 	this->active = true;
 	this->visible = true;
 	

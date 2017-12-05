@@ -81,11 +81,11 @@ void Scene::Update(GLfloat dt)
 		backgroundPos.x += backgroundDX;
 		backgroundPos.y += backgroundDY;
 		//for each sprite in scene
-		for (int i = 0; i < Sprites.size(); i++)
+		for (int i = 0; i < SceneObjects.size(); i++)
 		{
-			if (Sprites.at(i)->getActive())
+			if (SceneObjects.at(i)->getActive())
 			{
-				Sprites.at(i)->Update();
+				SceneObjects.at(i)->Update();
 			}
 		}
 
@@ -107,9 +107,9 @@ void Scene::Render()
 	if (this->visible)
 	{
 		Renderer->DrawSprite(ResourceManager::GetTexture("background"), backgroundPos, glm::vec2(this->width, this->height), 0.0f);
-		for (int i = 0; i < Sprites.size(); i++)
+		for (int i = 0; i < SceneObjects.size(); i++)
 		{
-			Sprites.at(i)->Draw(*Renderer);
+			SceneObjects.at(i)->Draw(*Renderer);
 		}
 	}
 }

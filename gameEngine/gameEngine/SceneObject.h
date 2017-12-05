@@ -26,7 +26,7 @@ public:
 	virtual bool getActive();
 
 	virtual void Update() {};
-	//virtual void Draw(SpriteRenderer &renderer) {};
+	virtual void Draw(SpriteRenderer &renderer) {};
 	//virtual void reset() {};
 	//virtual void reInit() {};
 
