@@ -9,6 +9,16 @@ void SceneObject::setPosition(glm::vec2 newPosition)
 	this->Position = newPosition;
 }
 
+void SceneObject::setPosX(float newX)
+{
+	this->Position.x = newX;
+}
+
+void SceneObject::setPosY(float newY)
+{
+	this->Position.y = newY;
+}
+
 void SceneObject::setCenter(glm::vec2 newCenter)
 {
 	this->Center = newCenter;
@@ -17,6 +27,16 @@ void SceneObject::setCenter(glm::vec2 newCenter)
 void SceneObject::setSize(glm::vec2 newSize)
 {
 	this->Size = newSize;
+}
+
+void SceneObject::setWidth(float newWidth)
+{
+	this->Size.x = newWidth;
+}
+
+void SceneObject::setHeight(float newHeight)
+{
+	this->Size.y = newHeight;
 }
 
 void SceneObject::setName(std::string newName)
@@ -39,6 +59,16 @@ glm::vec2 SceneObject::getPosition()
 	return this->Position;
 }
 
+float SceneObject::getPosX()
+{
+	return this->Position.x;
+}
+
+float SceneObject::getPosY()
+{
+	return this->Position.y;
+}
+
 glm::vec2 SceneObject::getCenter()
 {
 	return this->Center;
@@ -47,6 +77,16 @@ glm::vec2 SceneObject::getCenter()
 glm::vec2 SceneObject::getSize()
 {
 	return this->Size;
+}
+
+float SceneObject::getWidth()
+{
+	return this->Size.x;
+}
+
+float SceneObject::getHeight()
+{
+	return this->Size.y;
 }
 
 std::string SceneObject::getName()

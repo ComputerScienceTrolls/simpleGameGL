@@ -59,6 +59,16 @@ float MovingSceneObject::getMoveAngle()
 	this->calcVector();
 }
 
+void MovingSceneObject::Update()
+{
+	this->Position.x += this->Velocity.x;
+	this->Position.y -= this->Velocity.y;
+
+	//update Center
+	this->Center.x += this->Velocity.x;
+	this->Center.y -= this->Velocity.y;
+}
+
 void MovingSceneObject::addForce(float angle, float thrust)
 {
 	//input angle is in degrees - convert to radians    
@@ -68,8 +78,6 @@ void MovingSceneObject::addForce(float angle, float thrust)
 	double newDX = thrust * std::cos(angle);
 	double newDY = thrust * std::sin(angle);
 
-	//this->setDX(this->getDX() + newDX);
-	//this->setDY(this->getDY() + newDY);
 	this->Velocity.x += newDX;
 	this->Velocity.y += newDY;
 

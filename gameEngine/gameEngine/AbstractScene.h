@@ -13,37 +13,51 @@ class AbstractScene
 {
 public:
 	AbstractScene();
-	virtual void Start() {};
-	virtual void Stop() {};
+	virtual void Start() = 0;
+	virtual void Stop() = 0;
 	virtual void Init() {};
 	virtual void ProcessInput(GLfloat dt) {};
 	virtual void Update(GLfloat dt) {};
 	virtual void Render() {};
-	virtual GLFWwindow* getWindow() = 0;
-	virtual void setWindow(GLFWwindow *newWindow) {};
-	virtual void setActive(bool) {};
-	virtual bool getActive() { return false; };
-	virtual void setDeleted(bool) {};
-	virtual bool getDeleted() { return false; };
-	virtual int getWidth() { return 0; };
-	virtual int getHeight() { return 0; };
-	virtual void setCameraWidth(int) = 0;
-	virtual void setCameraHeight(int) = 0;
-	virtual void setCameraPosX(int) = 0;
-	virtual void setCameraPosY(int) = 0;
-	virtual void setCameraDX(int) = 0;
-	virtual void setCameraDY(int) = 0;
 	virtual std::vector<AbstractSprite*> getSprites() = 0;
 	virtual void setSprites(std::vector<AbstractSprite*>) = 0;
 	virtual void addSprite(AbstractSprite*) = 0;
 	virtual void reInit() {};
 	virtual void reset() {};
-	virtual void setName(std::string) = 0;
-	virtual std::string getName() = 0;
-	virtual Camera getCamera();
+	virtual Camera* getCamera();
+	virtual void setDeleted(bool) {};
+	virtual bool getDeleted() { return false; };
+
+	virtual int getWidth();
+	virtual int getHeight();
+	virtual std::string getName();
+	virtual bool getActive();
+	virtual GLFWwindow* getWindow();
+
+	virtual void setSize(int, int);
+	virtual void setWidth(int);
+	virtual void setHeight(int);
+	virtual void setName(std::string);
+	virtual void setActive(bool);
+	virtual void setWindow(GLFWwindow *newWindow);
+	virtual void setCameraWidth(int);
+	virtual void setCameraHeight(int);
+	virtual void setCameraPosX(int);
+	virtual void setCameraPosY(int);
+	virtual void setCameraDX(int);
+	virtual void setCameraDY(int);
+	virtual void changeCameraByX(int);
+	virtual void changeCameraByY(int);
+
+
 	~AbstractScene();
 
 protected:
 	Camera camera;
+	bool active;
+	int height;
+	int width;
+	std::string name;
+	GLFWwindow* window;
 };
 

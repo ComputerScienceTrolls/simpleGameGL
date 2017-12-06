@@ -18,8 +18,7 @@ public:
 	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
-	virtual glm::vec2 getRenderPos();
-	virtual void Draw(SpriteRenderer &renderer);
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
 	~BoxCollider();
 
 private:

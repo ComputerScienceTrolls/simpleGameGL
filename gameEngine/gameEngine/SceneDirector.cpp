@@ -206,12 +206,8 @@ void SceneDirector::nextScene()
 			currentIndex = i;
 		}
 	}
-	//std::cout << "\ncurrentIndex: " << currentIndex;
-	//std::cout << "\nsize: " << scenes.size();
+
 	//make sure currentIndex and currentIndex+1 is in range
-	std::cout << !((currentIndex + 1) > (scenes.size() - 1));
-	std::cout << "\n currentIndex " << currentIndex + 1;
-	std::cout << "\n scenes size " << scenes.size() - 1 << "\n";
 	if (currentIndex != -1 && (currentIndex + 1) < scenes.size()-1)
 	{
 		//stop currentScene

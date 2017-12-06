@@ -20,7 +20,7 @@ public:
 	virtual float getSpeed();
 	virtual float getMoveAngle();
 	
-	virtual void Update() {};
+	virtual void Update();
 
 	//moving methods
 	virtual void addForce(float angle, float mag);

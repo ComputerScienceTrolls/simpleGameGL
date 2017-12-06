@@ -25,25 +25,18 @@ public:
 	virtual void Render();
 	std::vector<AbstractSprite*> Sprites;
 	std::vector<AbstractSprite*> getSprite(std::string name);
-	virtual GLFWwindow* getWindow();
-	virtual void setWindow(GLFWwindow *newWindow);
 	void addSensor(AbstractSensor*);
 	void removeSensor(std::string name);
 	void removeSensor(int index);
 	void addObserver(AbstractObserver*);
 	void removeObserver(std::string name);
 	void removeObserver(int index);
-	virtual void setActive(bool state);
 	virtual void setVisible(bool state);
 
-	//gets active state of scene, determines if sprites are updated and Sensors are checked
-	virtual bool getActive();
 
 	//gets visible state of scene, determines if sprites are rendered on screen
 	virtual bool getVisible();
 
-	//sets Scene's size
-	void setSize(int width, int height);
 
 	//get vector of Sprites;
 	virtual std::vector<AbstractSprite*> getSprites();
@@ -52,18 +45,6 @@ public:
 	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
 	virtual void addSprite(AbstractSprite*);
-
-	//returns Scene's width
-	int getWidth();
-
-	//returns Scene's height
-	int getHeight();
-
-	//sets Scene's width
-	void setWidth(int);
-
-	//sets Scene's height
-	void setHeight(int);
 
 	//set's Scene's background, get's image from filename you give to fill the scene
 	void setBackground(char*);
@@ -79,32 +60,16 @@ public:
 
 	void reInit();
 
-	std::string getName();
-	
-	void setName(std::string);
-	virtual void changeCameraByX(int);
-	virtual void changeCameraByY(int);
-	virtual void setCameraDX(int);
-	virtual void setCameraDY(int);
-	virtual void setCameraWidth(int);
-	virtual void setCameraHeight(int);
-	virtual void setCameraPosX(int);
-	virtual void setCameraPosY(int);
-
 private:
 	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
-
 	std::vector<SceneObject*> SceneObjects;
+	std::vector<MovingSceneObject*> MovingSceneObjects;
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
-	GLFWwindow* window;
-	bool active;
+
 	bool visible;
 	bool deleted;
-	int height;
-	int width;
-	std::string name;
 	glm::vec2 backgroundPos;
 	int backgroundDX;
 	int backgroundDY;

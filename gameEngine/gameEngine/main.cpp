@@ -118,6 +118,10 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kDown = new KeyboardSensor("kdown", GLFW_KEY_S);
 	KeyboardSensor *kArrowLeft = new KeyboardSensor("left",GLFW_KEY_LEFT);
 	KeyboardSensor *kArrowRight = new KeyboardSensor("right",GLFW_KEY_RIGHT);
+	KeyboardSensor *cKeyLeft = new KeyboardSensor("cleft", GLFW_KEY_KP_4);
+	KeyboardSensor *cKeyRight = new KeyboardSensor("cright", GLFW_KEY_KP_6);
+	KeyboardSensor *cKeyUp = new KeyboardSensor("cup", GLFW_KEY_KP_8);
+	KeyboardSensor *cKeydown = new KeyboardSensor("cdown", GLFW_KEY_KP_5);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player,trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
@@ -126,7 +130,10 @@ int main(int argc, char *argv[])
 	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
 	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
-	CameraActuator *cLeft = new CameraActuator("cLeft", &mainScene.getCamera(), "movex", 1);
+	CameraActuator *cLeft = new CameraActuator("cLeft", mainScene.getCamera(), 180, .1, "force");
+	CameraActuator *cRight = new CameraActuator("cRight", mainScene.getCamera(),0,.1,"force");
+	CameraActuator *cDown = new CameraActuator("cDown", mainScene.getCamera(), 270, .1, "force");
+	CameraActuator *cUp = new CameraActuator("cUp", mainScene.getCamera(), 90, .1, "force");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
 	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
@@ -141,6 +148,10 @@ int main(int argc, char *argv[])
 	kRight->addActuator(mRight);
 	kUp->addActuator(mUp);
 	kDown->addActuator(mDown);
+	cKeydown->addActuator(cDown);
+	cKeyLeft->addActuator(cLeft);
+	cKeyRight->addActuator(cRight);
+	cKeyUp->addActuator(cUp);
 	t2->addActuator(m2);
 	SceneDirector::getInstance()->addSensor(kSpace);
 	SceneDirector::getInstance()->addSensor(kArrowLeft);
@@ -150,6 +161,10 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(kUp);
 	mainScene.addSensor(kDown);
 	mainScene.addSensor(t2);
+	mainScene.addSensor(cKeydown);
+	mainScene.addSensor(cKeyUp);
+	mainScene.addSensor(cKeyRight);
+	mainScene.addSensor(cKeyLeft);
 
 	//testScene.setBackground("textures/face.png");
 	/*

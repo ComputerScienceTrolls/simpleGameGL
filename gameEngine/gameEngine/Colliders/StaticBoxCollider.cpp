@@ -97,9 +97,9 @@ bool StaticBoxCollider::collide(std::vector<AbstractCollider*> otherColliders)
 	return false;
 }
 
-void StaticBoxCollider::Draw(SpriteRenderer & renderer)
+void StaticBoxCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos)
 {
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(this->getPosX(), this->getPosY()), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(this->getPosX() + camPos.x, this->getPosY() + camPos.y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 StaticBoxCollider::~StaticBoxCollider()

@@ -11,24 +11,27 @@ public:
 
 	//set methods
 	virtual void setPosition(glm::vec2);
+	virtual void setPosX(float);
+	virtual void setPosY(float);
 	virtual void setCenter(glm::vec2);
 	virtual void setSize(glm::vec2);
+	virtual void setWidth(float);
+	virtual void setHeight(float);
 	virtual void setName(std::string);
 	virtual void setRotation(GLfloat);
 	virtual void setActive(bool);
 
 	//get methods
 	virtual glm::vec2 getPosition();
+	virtual float getPosX();
+	virtual float getPosY();
 	virtual glm::vec2 getCenter();
 	virtual glm::vec2 getSize();
+	virtual float getWidth();
+	virtual float getHeight();
 	virtual std::string getName();
 	virtual GLfloat getRotation();
 	virtual bool getActive();
-
-	virtual void Update() {};
-	virtual void Draw(SpriteRenderer &renderer) {};
-	//virtual void reset() {};
-	//virtual void reInit() {};
 
 	~SceneObject();
 

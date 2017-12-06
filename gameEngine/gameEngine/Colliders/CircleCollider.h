@@ -18,7 +18,7 @@ public:
 	virtual glm::vec2 getSpriteSize();
 	virtual int getWidth();
 	virtual int getHeight();
-	virtual void Draw(SpriteRenderer &renderer);
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
 	~CircleCollider();
 
 private:

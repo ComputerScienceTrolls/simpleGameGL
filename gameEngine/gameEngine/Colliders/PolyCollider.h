@@ -22,7 +22,7 @@ public:
 	std::string getType();
 	virtual int getPosX();
 	virtual int getPosY();
-	virtual void Draw(SpriteRenderer &renderer);
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
 
 	Edge* createEdge(glm::vec2 p0, glm::vec2 p1);
 	virtual std::vector<double> project(glm::vec2 axis);

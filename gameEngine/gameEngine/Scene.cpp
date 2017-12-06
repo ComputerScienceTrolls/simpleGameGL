@@ -7,13 +7,15 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Scene::Scene(std::string n, GLuint w, GLuint h) :
-	name(n), width(w), height(h), deleted(false), backgroundPos(0), backgroundDX(0), backgroundDY(0)
+	deleted(false), backgroundPos(0), backgroundDX(0), backgroundDY(0)
 {
+	this->name = n;
+	this->width = w;
+	this->height = h;
 	this->camera.setHeight(h);
 	this->camera.setWidth(w);
-	//set default camera
-	//Camera default(w, h);
-	//this->camera = default;
+	
+	this->MovingSceneObjects.push_back(&this->camera);
 }
 
 //if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
@@ -80,12 +82,13 @@ void Scene::Update(GLfloat dt)
 		//update backgroundPos by it's DX and DY
 		backgroundPos.x += backgroundDX;
 		backgroundPos.y += backgroundDY;
+
 		//for each sprite in scene
-		for (int i = 0; i < SceneObjects.size(); i++)
+		for (int i = 0; i < MovingSceneObjects.size(); i++)
 		{
-			if (SceneObjects.at(i)->getActive())
+			if (MovingSceneObjects.at(i)->getActive())
 			{
-				SceneObjects.at(i)->Update();
+				MovingSceneObjects.at(i)->Update();
 			}
 		}
 
@@ -106,10 +109,11 @@ void Scene::Render()
 {
 	if (this->visible)
 	{
-		Renderer->DrawSprite(ResourceManager::GetTexture("background"), backgroundPos, glm::vec2(this->width, this->height), 0.0f);
-		for (int i = 0; i < SceneObjects.size(); i++)
+		Renderer->DrawSprite(ResourceManager::GetTexture("background"), backgroundPos + this->camera.getPosition(), glm::vec2(this->width, this->height), 0.0f);
+		//give camera's pos so Sprite's can render accordingly
+		for (int i = 0; i < Sprites.size(); i++)
 		{
-			SceneObjects.at(i)->Draw(*Renderer);
+			Sprites.at(i)->Draw(*Renderer, glm::vec2(this->camera.getPosX(), this->camera.getPosY()));
 		}
 	}
 }
@@ -131,82 +135,6 @@ void Scene::reInit()
 		Sprites[i]->reInit();
 	}
 	this->deleted = false;
-}
-
-std::string Scene::getName()
-{
-	return this->name;
-}
-
-void Scene::setName(std::string newName)
-{
-	this->name = newName;
-}
-
-void Scene::setCameraDX(int newDX)
-{
-	//move all sprites by y
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		Sprites[i]->setRenderDX(newDX);
-	}
-	backgroundDX = newDX;
-}
-
-void Scene::setCameraDY(int newDY)
-{
-	//move all sprites by y
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		Sprites[i]->setDY(newDY);
-	}
-	backgroundDY = newDY;
-}
-
-void Scene::setCameraWidth(int w)
-{
-	this->camera.setWidth(w);
-	
-	glfwSetWindowSize(window, w, camera.getHeight());
-}
-
-void Scene::setCameraHeight(int h)
-{
-	this->camera.setHeight(h);
-
-	glfwSetWindowSize(window, camera.getWidth(), h);
-}
-
-void Scene::setCameraPosX(int x)
-{
-	this->camera.setPosX(x);
-}
-
-void Scene::setCameraPosY(int y)
-{
-	this->camera.setPosY(y);
-}
-
-void Scene::changeCameraByX(int x)
-{
-	//move all sprites by x
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x + x, Sprites.at(i)->getPosition().y));
-	}
-	
-	//move the background
-	backgroundPos.x = backgroundPos.x + x;
-}
-
-void Scene::changeCameraByY(int y)
-{
-	//move all sprites by y
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		Sprites[i]->setRenderPosY(1);
-		//Sprites[i]->setPosition(glm::vec2(Sprites.at(i)->getPosition().x , Sprites.at(i)->getPosition().y + y));
-	}
 }
 
 //event called every time a key is pressed, check for exit, update KeyHandler singleton keys.
@@ -324,22 +252,10 @@ void Scene::setBackground(char* newBackground)
 	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
 }
 
-//set active state
-void Scene::setActive(bool state)
-{
-	this->active = state;
-}
-
 //set visible state
 void Scene::setVisible(bool state)
 {
 	this->visible = state;
-}
-
-//get active state
-bool Scene::getActive()
-{
-	return this->active;
 }
 
 //get visible state
@@ -361,12 +277,6 @@ bool Scene::getDeleted()
 }
 
 //set width and height, then resize window
-void Scene::setSize(int w, int h)
-{
-	glfwSetWindowSize(window, w, h);
-	this->width = w;
-	this->height = h;
-}
 
 std::vector<AbstractSprite*> Scene::getSprites()
 {
@@ -381,47 +291,8 @@ void Scene::setSprites(std::vector<AbstractSprite*> newVector)
 void Scene::addSprite(AbstractSprite *newSprite)
 {
 	Sprites.push_back(newSprite);
+	MovingSceneObjects.push_back(newSprite);
 	SceneObjects.push_back(newSprite);
-}
-
-//get Scene's width
-int Scene::getWidth()
-{
-	return this->width;
-}
-
-//get Scene's height
-int Scene::getHeight()
-{
-	return this->height;
-}
-
-//set Scene's width, resize window
-void Scene::setWidth(int w)
-{
-	this->width = w;
-	glfwSetWindowSize(window, this->width, this->height);
-}
-
-//set Scene's height, resize window
-void Scene::setHeight(int h)
-{
-	this->height = h;
-	glfwSetWindowSize(window, this->width, this->height);
-}
-
-//returns GLFWwindow assigned to this scene
-GLFWwindow* Scene::getWindow()
-{
-	return this->window;
-}
-
-//sets GLFWwindow, then calls setSize in case GLFWwindow is not the right size
-void Scene::setWindow(GLFWwindow * newWindow)
-{
-	window = newWindow;
-	//set window to scene's defined width and height
-	setSize(this->width, this->height);
 }
 
 Scene::~Scene()

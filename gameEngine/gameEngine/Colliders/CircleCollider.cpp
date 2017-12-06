@@ -105,9 +105,9 @@ glm::vec2 CircleCollider::getSpriteSize()
 	return spriteParent->getSize();
 }
 
-void CircleCollider::Draw(SpriteRenderer & renderer)
+void CircleCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos)
 {
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX() + spriteParent->getPosition().x, this->getPosY() + spriteParent->getPosition().y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX() + spriteParent->getPosition().x + camPos.x, this->getPosY() + spriteParent->getPosition().y + camPos.y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 glm::vec2 CircleCollider::getSpritePos()
@@ -124,7 +124,7 @@ int CircleCollider::getWidth()
 {
 	return this->radius*2;
 }
-
+ 
 int CircleCollider::getHeight()
 {
 	return this->radius*2;

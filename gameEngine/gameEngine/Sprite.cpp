@@ -50,7 +50,6 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	this->Size = size;
 	this->Velocity = velocity;
 	this->Rotation = 0;
-	this->RenderPosition = glm::vec2(0);
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
 	this->Position.y = this->Center.y - this->Size.y/2;
@@ -105,11 +104,11 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
-void Sprite::Draw(SpriteRenderer &renderer)
+void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 {
 	if (visible)
 	{
-		renderer.DrawSprite(this->getTexture(), this->getPosition() + RenderPosition, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->getPosition() + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 	
@@ -117,7 +116,7 @@ void Sprite::Draw(SpriteRenderer &renderer)
 	{
 		for (int i = 0; i < colliders_.size(); i++)
 		{
-			colliders_.at(i)->Draw(renderer);
+			colliders_.at(i)->Draw(renderer, camPos);
 		}
 	}
 }
@@ -259,13 +258,8 @@ void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
 //called every cycle as long sprite is active, sets position and center based on dx and dy. Check bounds
 void Sprite::Update()
 {
-	std::cout << this->Velocity.x;
 	this->Position.x += this->Velocity.x;
 	this->Position.y -= this->Velocity.y;
-
-	//update RenderPos based on RenderDX and DY
-	this->RenderPosition.x += this->RenderVelocity.x;
-	this->RenderPosition.y += this->RenderVelocity.y;
 
 	//update Center
 	this->Center.x += this->Velocity.x;

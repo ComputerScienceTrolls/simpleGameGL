@@ -18,7 +18,7 @@ public:
 	virtual glm::vec2 getSpriteCenterPos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpritePos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
-	virtual void Draw(SpriteRenderer &renderer) = 0;
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2) = 0;
 
 	//needed for poly collider
 	virtual std::vector<double> project(glm::vec2) { return std::vector<double>(); }
