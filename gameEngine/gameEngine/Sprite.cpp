@@ -5,7 +5,7 @@ const double PI = 3.141592653589793238463;
 
 //empty sprite
 Sprite::Sprite(std::string n, AbstractScene &scene)
-	: parentScene(&scene), Color(1.0f), Texture(), imgAngle(0), collideDebug(false), transparency(1)
+	: parentScene(&scene), Color(1.0f), Texture(), collideDebug(false), transparency(1)
 {
 	this->name = n;
 	this->Position = glm::vec2(10);
@@ -14,6 +14,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	this->Rotation = 0;
 	this->speed = 10;
 	this->moveAngle = 0;
+	this->imgAngle = 0;
 	//give default box collider
 	BoxCollider *temp = new BoxCollider("default",*this, 1, 1);
 	colliders_.push_back(temp);
@@ -22,7 +23,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
-	scene.addSprite(this);
+	//scene.addSprite(this);
 
 	this->active = true;
 	this->visible = true;
@@ -49,7 +50,6 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	this->Size = size;
 	this->Velocity = velocity;
 	this->Rotation = 0;
-	this->RenderPosition = glm::vec2(0);
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
 	this->Position.y = this->Center.y - this->Size.y/2;
@@ -65,6 +65,9 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
+	scene.addSprite(this);
+
+	/*
 	//add Sprite to Scene, get Sprites, add new sprite.
 	std::vector<AbstractSprite*> tempSprites = scene.getSprites();
 	tempSprites.push_back(this);
@@ -80,7 +83,8 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 
 	//set new vector back to the scene
 	scene.setSprites(tempSprites);
-	
+	*/
+
 	this->active = true;
 	this->visible = true;
 	
@@ -100,11 +104,11 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
-void Sprite::Draw(SpriteRenderer &renderer)
+void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 {
 	if (visible)
 	{
-		renderer.DrawSprite(this->getTexture(), this->getPosition() + RenderPosition, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->getPosition() + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 	
@@ -112,7 +116,7 @@ void Sprite::Draw(SpriteRenderer &renderer)
 	{
 		for (int i = 0; i < colliders_.size(); i++)
 		{
-			colliders_.at(i)->Draw(renderer);
+			colliders_.at(i)->Draw(renderer, camPos);
 		}
 	}
 }
@@ -156,13 +160,6 @@ bool Sprite::collide(Sprite* otherSprite)
 
 
 //set new speed and recalc the vector
-
-
-//set rotation to new angle, don't calc change
-void Sprite::setImgAngle(float newAngle)
-{
-	this->Rotation = newAngle;
-}
 
 //set move angle, angle the sprite will move
 
@@ -261,13 +258,8 @@ void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
 //called every cycle as long sprite is active, sets position and center based on dx and dy. Check bounds
 void Sprite::Update()
 {
-	std::cout << this->Velocity.x;
 	this->Position.x += this->Velocity.x;
 	this->Position.y -= this->Velocity.y;
-
-	//update RenderPos based on RenderDX and DY
-	this->RenderPosition.x += this->RenderVelocity.x;
-	this->RenderPosition.y += this->RenderVelocity.y;
 
 	//update Center
 	this->Center.x += this->Velocity.x;

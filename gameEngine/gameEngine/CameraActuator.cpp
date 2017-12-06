@@ -1,21 +1,20 @@
 #include "CameraActuator.h"
 
-CameraActuator::CameraActuator(std::string n, Camera *c, std::string con, int dt) :
+CameraActuator::CameraActuator(std::string n, Camera *c, float dt, std::string con) :
 	camera(c), condition(con), DT(dt)
 {
 	this->name = n;
 }
 
-CameraActuator::CameraActuator(std::string n, Camera *c, std::string con, int x, int y) :
+CameraActuator::CameraActuator(std::string n, Camera *c, float x, float y, std::string con) :
 	camera(c), condition(con), DX(x), DY(y)
 {
 	this->name = n;
-}
-
-CameraActuator::CameraActuator(std::string n, Camera *c, double newAngle, double newForce, std::string con) :
-	camera(c), force(newForce), angle(newAngle), condition(con)
-{
-	this->name = n;
+	if (condition == "force")
+	{
+		angle = DX;
+		force = DY;
+	}
 }
 
 void CameraActuator::run()
@@ -53,7 +52,7 @@ if (condition == "both")
 	}
 	else if (condition == "force")
 	{
-		camera->setCameraForce(angle, force);
+		camera->addForce(angle, force);
 	}
 	
 }

@@ -11,7 +11,7 @@ public:
 	virtual int getHeight();
 	virtual float getRadius();
 	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
-	virtual void Draw(SpriteRenderer &renderer);
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
 
 private:
 	int radius;

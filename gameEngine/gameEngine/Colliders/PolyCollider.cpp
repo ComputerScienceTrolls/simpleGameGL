@@ -204,7 +204,7 @@ int PolyCollider::getPosY()
 	return 0;
 }
 
-void PolyCollider::Draw(SpriteRenderer & renderer)
+void PolyCollider::Draw(SpriteRenderer & renderer , glm::vec2)
 {
 }
 
