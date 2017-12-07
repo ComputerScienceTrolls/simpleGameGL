@@ -153,6 +153,7 @@
     <ClCompile Include="Colliders\PolyCollider.cpp" />
     <ClCompile Include="Colliders\StaticBoxCollider.cpp" />
     <ClCompile Include="Colliders\StaticCircleCollider.cpp" />
+    <ClCompile Include="DrawSceneObject.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingSceneObject.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
+    <ClCompile Include="StaticCollider.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +195,7 @@
     <ClInclude Include="Colliders\PolyCollider.h" />
     <ClInclude Include="Colliders\StaticBoxCollider.h" />
     <ClInclude Include="Colliders\StaticCircleCollider.h" />
+    <ClInclude Include="DrawSceneObject.h" />
     <ClInclude Include="KeyHandler.h" />
     <ClInclude Include="MovingSceneObject.h" />
     <ClInclude Include="Observers\AbstractObserver.h" />
@@ -218,6 +221,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="sprite_renderer.h" />
+    <ClInclude Include="StaticCollider.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>

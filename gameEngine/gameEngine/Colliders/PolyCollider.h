@@ -9,8 +9,6 @@ class PolyCollider : public AbstractCollider
 public:
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);
 	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
-	virtual int getWidth();
-	virtual int getHeight();
 	virtual bool getStaticState();
 	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpritePos();
@@ -20,8 +18,6 @@ public:
 	glm::vec2 normalize(glm::vec2 v);
 	glm::vec2 getNormal(glm::vec2 v);
 	std::string getType();
-	virtual int getPosX();
-	virtual int getPosY();
 	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
 
 	Edge* createEdge(glm::vec2 p0, glm::vec2 p1);

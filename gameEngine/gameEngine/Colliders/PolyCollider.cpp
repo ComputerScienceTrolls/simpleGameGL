@@ -133,16 +133,6 @@ bool PolyCollider::collide(std::vector<AbstractCollider*> otherColliders)
 	return false;
 }
 
-int PolyCollider::getWidth()
-{
-	return offsetW;
-}
-
-int PolyCollider::getHeight()
-{
-	return offsetH;
-}
-
 bool PolyCollider::getStaticState()
 {
 	return false;
@@ -192,16 +182,6 @@ glm::vec2 PolyCollider::getNormal(glm::vec2 v)
 std::string PolyCollider::getType()
 {
 	return this->type;
-}
-
-int PolyCollider::getPosX()
-{
-	return 0;
-}
-
-int PolyCollider::getPosY()
-{
-	return 0;
 }
 
 void PolyCollider::Draw(SpriteRenderer & renderer , glm::vec2)

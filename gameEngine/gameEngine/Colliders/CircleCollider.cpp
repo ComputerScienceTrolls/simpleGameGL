@@ -120,12 +120,12 @@ glm::vec2 CircleCollider::getSpriteCenterPos()
 	return spriteParent->getCenter();
 }
 
-int CircleCollider::getWidth()
+float CircleCollider::getWidth()
 {
 	return this->radius*2;
 }
  
-int CircleCollider::getHeight()
+float CircleCollider::getHeight()
 {
 	return this->radius*2;
 }

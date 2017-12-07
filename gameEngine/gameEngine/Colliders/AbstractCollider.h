@@ -1,15 +1,18 @@
-#pragma once
+#ifndef ABSTRACT_COLLIDER_H
+#define ABSTRACT_COLLIDER_H
 
 #include <iostream>
 #include <vector>
 
 #include <glm/glm.hpp>
 #include "../sprite_renderer.h"
+#include "../MovingSceneObject.h"
+#include "../DrawSceneObject.h"
 
 //only Needed for poly collider
 #include "Edge.h"
 
-class AbstractCollider
+class AbstractCollider : public MovingSceneObject, DrawSceneObject
 {
 	class SpriteRender;
 public:
@@ -31,10 +34,6 @@ public:
 
 	//only in Abstract Collider
 	virtual std::string getType();
-	virtual int getWidth();
-	virtual int getHeight();
-	virtual int getPosX();
-	virtual int getPosY();
 	virtual std::string getName();
 	~AbstractCollider();
 
@@ -52,3 +51,4 @@ private:
 	SpriteRender *render;
 };
 
+#endif

@@ -33,7 +33,6 @@ public:
 	void removeObserver(int index);
 	virtual void setVisible(bool state);
 
-
 	//gets visible state of scene, determines if sprites are rendered on screen
 	virtual bool getVisible();
 
@@ -45,6 +44,8 @@ public:
 	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
 	virtual void addSprite(AbstractSprite*);
+
+	virtual void addMovingObject(MovingSceneObject*);
 
 	//set's Scene's background, get's image from filename you give to fill the scene
 	void setBackground(char*);

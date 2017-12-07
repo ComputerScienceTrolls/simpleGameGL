@@ -5,6 +5,9 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int
 	spriteParent(&parent), transparency(.15)
 {
 	this->name = newName;
+	this->Size.x = w;
+	this->Size.y = h;
+	this->Position = glm::vec2(0,0);
 	this->offsetW = w;
 	this->offsetH = h;
 	this->posXOffset = 0;
@@ -19,9 +22,29 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int 
 	this->name = newName;
 	this->offsetW = w;
 	this->offsetH = h;
+	this->Size.x = w;
+	this->Size.y = h;
+	this->Position = glm::vec2(posX, posY);
 	this->posXOffset = posX;
 	this->posYOffset = posY;
 	this->type = "box";
+}
+
+BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
+{
+	this->name = n;
+	this->Size.x = w;
+	this->Size.y = h;
+	parent.addMovingObject(this);
+}
+
+BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int posX, int posY)
+{
+	this->name = n;
+	this->Size.x = w;
+	this->Size.y = h;
+	this->Position.x = posX;
+	this->Position.y = posY;
 }
 
 bool BoxCollider::collide(std::vector<AbstractCollider*> otherColliders)

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ABSTRACT_SPRITE_H
+#define ABSTRACT_SPRITE_H
+
 #include <vector>
 
 #include "Colliders/AbstractCollider.h"
@@ -41,3 +43,4 @@ protected:
 	float imgAngle;
 };
 
+#endif

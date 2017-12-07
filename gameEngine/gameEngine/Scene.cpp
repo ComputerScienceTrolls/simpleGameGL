@@ -295,6 +295,12 @@ void Scene::addSprite(AbstractSprite *newSprite)
 	SceneObjects.push_back(newSprite);
 }
 
+void Scene::addMovingObject(MovingSceneObject *newObject)
+{
+	MovingSceneObjects.push_back(newObject);
+	SceneObjects.push_back(newObject);
+}
+
 Scene::~Scene()
 {
 }

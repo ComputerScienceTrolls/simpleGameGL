@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ABSTRACT_SCENE_H
+#define ABSTRACT_SCENE_H
 
 #include "AbstractSprite.h"
 
@@ -22,6 +23,7 @@ public:
 	virtual std::vector<AbstractSprite*> getSprites() = 0;
 	virtual void setSprites(std::vector<AbstractSprite*>) = 0;
 	virtual void addSprite(AbstractSprite*) = 0;
+	virtual void addMovingObject(MovingSceneObject*) = 0;
 	virtual void reInit() {};
 	virtual void reset() {};
 	virtual Camera* getCamera();
@@ -61,3 +63,4 @@ protected:
 	GLFWwindow* window;
 };
 
+#endif

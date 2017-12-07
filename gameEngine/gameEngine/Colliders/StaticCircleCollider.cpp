@@ -100,12 +100,12 @@ void StaticCircleCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos)
 	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX() + camPos.x, this->getPosY() + camPos.y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
-int StaticCircleCollider::getWidth()
+float StaticCircleCollider::getWidth()
 {
 	return this->radius * 2;
 }
 
-int StaticCircleCollider::getHeight()
+float StaticCircleCollider::getHeight()
 {
 	return this->radius * 2;
 }

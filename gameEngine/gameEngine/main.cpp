@@ -88,6 +88,7 @@ int main(int argc, char *argv[])
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
 	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
 	Sprite *trigger = new Sprite("trigger",mainScene);
+	BoxCollider *test55 = new BoxCollider("collider", mainScene, 50, 10);
 	trigger->addBoxCollider("test", 50, 50);
 	//trigger->addCircleCollider("test2", 50, 10, 40);
 	//Ball->addForce(270, 1);
