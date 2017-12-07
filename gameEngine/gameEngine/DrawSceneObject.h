@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneObject.h"
 
-class DrawSceneObject
+class DrawSceneObject : public virtual SceneObject
 {
 	class SpriteRender;
 

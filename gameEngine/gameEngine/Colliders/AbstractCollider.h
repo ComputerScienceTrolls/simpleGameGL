@@ -12,16 +12,21 @@
 //only Needed for poly collider
 #include "Edge.h"
 
-class AbstractCollider : public MovingSceneObject, DrawSceneObject
+class AbstractSprite;
+class AbstractCollider : virtual public SceneObject
 {
 	class SpriteRender;
 public:
 	AbstractCollider();
 	virtual bool collide(std::vector<AbstractCollider*>) { return false; };
+	virtual bool collide(AbstractCollider*) { return false; };
+	virtual bool collide(AbstractSprite*) { return false; };
 	virtual glm::vec2 getSpriteCenterPos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpritePos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
+
 	virtual void Draw(SpriteRenderer &renderer, glm::vec2) = 0;
+	virtual void Update() {};
 
 	//needed for poly collider
 	virtual std::vector<double> project(glm::vec2) { return std::vector<double>(); }

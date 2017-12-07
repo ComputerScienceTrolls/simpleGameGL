@@ -61,6 +61,8 @@ private:
 	std::vector<AbstractCollider*> colliders_;
 	bool collideDebug;
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;
+	glm::vec2	lastPosition, lastSize;
+	float lastRotation;
 	Texture2D	Texture;
 	char* textureFile;
 	glm::vec3   Color;

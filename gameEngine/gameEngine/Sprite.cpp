@@ -9,9 +9,12 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 {
 	this->name = n;
 	this->Position = glm::vec2(10);
+	this->lastPosition = this->Position;
 	this->Size = glm::vec2(0);
+	this->lastSize = this->Size;
 	this->Velocity = glm::vec2(0);
 	this->Rotation = 0;
+	this->lastRotation = Rotation;
 	this->speed = 10;
 	this->moveAngle = 0;
 	this->imgAngle = 0;
@@ -23,7 +26,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
 	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
-	//scene.addSprite(this);
+	scene.addSprite(this);
 
 	this->active = true;
 	this->visible = true;
@@ -48,11 +51,15 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	this->name = n;
 	this->Center = pos;
 	this->Size = size;
+	this->lastSize = this->Size;
 	this->Velocity = velocity;
 	this->Rotation = 0;
+	this->lastRotation = this->Rotation;
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
 	this->Position.y = this->Center.y - this->Size.y/2;
+	
+	this->lastPosition = this->Position;
 
 	BoxCollider *temp = new BoxCollider("default",*this, size.x, size.y);
 	colliders_.push_back(temp);
@@ -264,6 +271,33 @@ void Sprite::Update()
 	//update Center
 	this->Center.x += this->Velocity.x;
 	this->Center.y -= this->Velocity.y;
+
+	glm::vec2 diffPos = glm::vec2(0);
+	glm::vec2 diffSize = glm::vec2(0);
+	bool change = false;
+
+	if (Position != lastPosition)
+	{
+		diffPos = Position - lastPosition;
+		change = true;
+	}
+
+	if (Size != lastSize)
+	{
+		diffSize = Size - lastSize;
+		change = true;
+	}
+
+	if (change)
+	{
+		for (int i = 0; i < colliders_.size(); i++)
+		{
+			colliders_[i]->changePositionBy(diffPos);
+			colliders_[i]->setSize(colliders_.at(i)->getSize() + diffSize);
+		}
+	}
+
+	lastPosition = Position;
 
 	this->checkBounds(parentScene->getWidth(),parentScene->getHeight());
 }

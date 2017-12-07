@@ -7,14 +7,14 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-class StaticCollider : SceneObject
+class StaticCollider : public SceneObject
 {
 public:
 	StaticCollider();
 	virtual void setType(std::string);
 	virtual std::string getType();
 
-	virtual void collide() = 0;
+	//virtual void collide(std::vector<AbstractCollider*>) = 0;
 
 	~StaticCollider();
 

@@ -5,8 +5,9 @@
 
 #include "Colliders/AbstractCollider.h"
 #include "MovingSceneObject.h"
+#include "DrawSceneObject.h"
 
-class AbstractSprite : public MovingSceneObject
+class AbstractSprite : virtual public MovingSceneObject, virtual public DrawSceneObject
 {
 public:
 	AbstractSprite();

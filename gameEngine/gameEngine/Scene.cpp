@@ -111,9 +111,9 @@ void Scene::Render()
 	{
 		Renderer->DrawSprite(ResourceManager::GetTexture("background"), backgroundPos + this->camera.getPosition(), glm::vec2(this->width, this->height), 0.0f);
 		//give camera's pos so Sprite's can render accordingly
-		for (int i = 0; i < Sprites.size(); i++)
+		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{
-			Sprites.at(i)->Draw(*Renderer, glm::vec2(this->camera.getPosX(), this->camera.getPosY()));
+			DrawSceneObjects.at(i)->Draw(*Renderer, glm::vec2(this->camera.getPosX(), this->camera.getPosY()));
 		}
 	}
 }
@@ -292,13 +292,23 @@ void Scene::addSprite(AbstractSprite *newSprite)
 {
 	Sprites.push_back(newSprite);
 	MovingSceneObjects.push_back(newSprite);
+	DrawSceneObjects.push_back(newSprite);
 	SceneObjects.push_back(newSprite);
+}
+
+void Scene::addSceneObject(SceneObject *newObject)
+{
+	SceneObjects.push_back(newObject);
 }
 
 void Scene::addMovingObject(MovingSceneObject *newObject)
 {
 	MovingSceneObjects.push_back(newObject);
-	SceneObjects.push_back(newObject);
+}
+
+void Scene::addDrawObject(DrawSceneObject *newObject)
+{
+	DrawSceneObjects.push_back(newObject);
 }
 
 Scene::~Scene()

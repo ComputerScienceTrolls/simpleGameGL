@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneObject.h"
 
-class MovingSceneObject : public SceneObject
+class MovingSceneObject : public virtual SceneObject
 {
 public:
 	MovingSceneObject();

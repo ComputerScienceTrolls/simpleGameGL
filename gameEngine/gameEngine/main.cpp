@@ -53,6 +53,19 @@ void ballColl2(Sprite *Ball, Sprite *Player)
 	}
 }
 
+
+void ColSpriteTest(Sprite *Ball, AbstractCollider *test)
+{
+	//check for collidition between ball and paddle
+	if (test->collide(Ball))
+	{
+		//Player->setDX(-Player->getDX());
+		std::cout << "collision";
+		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
+	}
+}
+
+
 void test9()
 {
 	std::cout << "test\n";
@@ -88,8 +101,11 @@ int main(int argc, char *argv[])
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
 	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
 	Sprite *trigger = new Sprite("trigger",mainScene);
-	BoxCollider *test55 = new BoxCollider("collider", mainScene, 50, 10);
-	trigger->addBoxCollider("test", 50, 50);
+	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 300, 300);
+	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
+	//test55->addForce(270, .5);
+	trigger->addBoxCollider("test", 50, 50,150,250);
+	trigger->addForce(0, 2);
 	//trigger->addCircleCollider("test2", 50, 10, 40);
 	//Ball->addForce(270, 1);
 	//Player->addForce(270, 1);
@@ -110,7 +126,7 @@ int main(int argc, char *argv[])
 	//Ball->addCircleCollider("f", 80, 300, 10);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
-	ColliderObserver *colTest = new ColliderObserver("uh",ballColl2, trigger, Player);
+	ColliderObserver *colTest = new ColliderObserver("uh", ColSpriteTest, trigger, test55);
 	Observer *simplyObserver = new Observer("observer1", test9);
 	
 	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
@@ -124,7 +140,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *cKeyUp = new KeyboardSensor("cup", GLFW_KEY_KP_8);
 	KeyboardSensor *cKeydown = new KeyboardSensor("cdown", GLFW_KEY_KP_5);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
-	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player,trigger);
+	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
 	MotionActuator *mLeft = new MotionActuator("motion2", Player, 180, .1, "force");
@@ -166,6 +182,7 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(cKeyUp);
 	mainScene.addSensor(cKeyRight);
 	mainScene.addSensor(cKeyLeft);
+	mainScene.addObserver(colTest);
 
 	//testScene.setBackground("textures/face.png");
 	/*

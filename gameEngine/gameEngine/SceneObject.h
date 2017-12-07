@@ -33,6 +33,10 @@ public:
 	virtual GLfloat getRotation();
 	virtual bool getActive();
 
+	virtual void changePositionBy(glm::vec2);
+	virtual void changeXBy(float);
+	virtual void changeYBy(float);
+
 	~SceneObject();
 
 protected:

@@ -81,7 +81,6 @@ void MovingSceneObject::addForce(float angle, float thrust)
 	this->Velocity.x += newDX;
 	this->Velocity.y += newDY;
 
-
 	//ensure speed and angle are updated
 	this->calcSpeedAngle();
 }

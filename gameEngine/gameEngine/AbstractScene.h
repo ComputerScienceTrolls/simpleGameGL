@@ -23,7 +23,9 @@ public:
 	virtual std::vector<AbstractSprite*> getSprites() = 0;
 	virtual void setSprites(std::vector<AbstractSprite*>) = 0;
 	virtual void addSprite(AbstractSprite*) = 0;
+	virtual void addSceneObject(SceneObject*) = 0;
 	virtual void addMovingObject(MovingSceneObject*) = 0;
+	virtual void addDrawObject(DrawSceneObject*) = 0;
 	virtual void reInit() {};
 	virtual void reset() {};
 	virtual Camera* getCamera();

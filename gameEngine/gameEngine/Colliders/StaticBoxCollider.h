@@ -1,6 +1,8 @@
 #pragma once
-#include "AbstractCollider.h"
+//#include "../StaticCollider.h"
 #include "../ResourceManager.h"
+#include "../SceneObject.h"
+#include "AbstractCollider.h"
 
 class StaticBoxCollider : public AbstractCollider
 {

@@ -147,6 +147,9 @@
     <ClCompile Include="DrawSceneObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MovingDrawSceneObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -264,6 +267,9 @@
       <Filter>Colliders</Filter>
     </ClInclude>
     <ClInclude Include="DrawSceneObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingDrawSceneObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

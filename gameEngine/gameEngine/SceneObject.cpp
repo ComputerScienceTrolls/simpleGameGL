@@ -104,6 +104,21 @@ bool SceneObject::getActive()
 	return this->active;
 }
 
+void SceneObject::changePositionBy(glm::vec2 dt)
+{
+	this->Position += dt;
+}
+
+void SceneObject::changeXBy(float dx)
+{
+	this->Position.x += dx;
+}
+
+void SceneObject::changeYBy(float dy)
+{
+	this->Position.y += dy;
+}
+
 SceneObject::~SceneObject()
 {
 }
