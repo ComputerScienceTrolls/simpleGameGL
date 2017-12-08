@@ -151,10 +151,10 @@
     <ClCompile Include="Colliders\CircleCollider.cpp" />
     <ClCompile Include="Colliders\Edge.cpp" />
     <ClCompile Include="Colliders\PolyCollider.cpp" />
-    <ClCompile Include="Colliders\StaticBoxCollider.cpp" />
-    <ClCompile Include="Colliders\StaticCircleCollider.cpp" />
+    <ClCompile Include="DrawSceneObject.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MovingDrawSceneObject.cpp" />
     <ClCompile Include="MovingSceneObject.cpp" />
     <ClCompile Include="Observers\AbstractObserver.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
@@ -191,9 +191,9 @@
     <ClInclude Include="Colliders\CircleCollider.h" />
     <ClInclude Include="Colliders\Edge.h" />
     <ClInclude Include="Colliders\PolyCollider.h" />
-    <ClInclude Include="Colliders\StaticBoxCollider.h" />
-    <ClInclude Include="Colliders\StaticCircleCollider.h" />
+    <ClInclude Include="DrawSceneObject.h" />
     <ClInclude Include="KeyHandler.h" />
+    <ClInclude Include="MovingDrawSceneObject.h" />
     <ClInclude Include="MovingSceneObject.h" />
     <ClInclude Include="Observers\AbstractObserver.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />

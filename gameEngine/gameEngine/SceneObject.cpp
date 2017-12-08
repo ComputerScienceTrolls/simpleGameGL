@@ -7,21 +7,35 @@ SceneObject::SceneObject()
 void SceneObject::setPosition(glm::vec2 newPosition)
 {
 	this->Position = newPosition;
+
+	//set Center accordingly
+	this->Center.x = this->Position.x + this->Size.x / 2;
+	this->Center.y = this->Position.y + this->Size.y / 2;
 }
 
 void SceneObject::setPosX(float newX)
 {
 	this->Position.x = newX;
+
+	//set Center accordingly
+	this->Center.x = this->Position.x + this->Size.x / 2;
 }
 
 void SceneObject::setPosY(float newY)
 {
 	this->Position.y = newY;
+
+	//set Center accordingly
+	this->Center.y = this->Position.y + this->Size.y / 2;
 }
 
 void SceneObject::setCenter(glm::vec2 newCenter)
 {
 	this->Center = newCenter;
+
+	//we need to change pos accordingly
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
 }
 
 void SceneObject::setSize(glm::vec2 newSize)
@@ -102,6 +116,21 @@ GLfloat SceneObject::getRotation()
 bool SceneObject::getActive()
 {
 	return this->active;
+}
+
+void SceneObject::changePositionBy(glm::vec2 dt)
+{
+	this->Position += dt;
+}
+
+void SceneObject::changeXBy(float dx)
+{
+	this->Position.x += dx;
+}
+
+void SceneObject::changeYBy(float dy)
+{
+	this->Position.y += dy;
 }
 
 SceneObject::~SceneObject()

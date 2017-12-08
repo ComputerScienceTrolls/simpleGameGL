@@ -59,6 +59,11 @@ float MovingSceneObject::getMoveAngle()
 	this->calcVector();
 }
 
+std::string MovingSceneObject::getBoundAction()
+{
+	return this->boundAction;
+}
+
 void MovingSceneObject::Update()
 {
 	this->Position.x += this->Velocity.x;
@@ -67,6 +72,214 @@ void MovingSceneObject::Update()
 	//update Center
 	this->Center.x += this->Velocity.x;
 	this->Center.y -= this->Velocity.y;
+}
+
+void MovingSceneObject::setBoundAction(std::string newAction)
+{
+	this->boundAction = newAction;
+}
+
+bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
+{
+	double rightBorder = screenWidth;
+	double leftBorder = 0;
+	double topBorder = 0;
+	double bottomBorder = screenHeight;
+
+	bool offRight = false;
+	bool offLeft = false;
+	bool offTop = false;
+	bool offBottom = false;
+
+	//since the Position.x starts on the left most of the sprite, we need to calculate and account for it's size
+	double offsetX = 0;
+	double offsetY = 0;
+	if (this->Size.x > 1)
+	{
+		offsetX = this->Size.x;
+	}
+	if (this->Size.y > 1)
+	{
+		offsetY = this->Size.y;
+	}
+
+	if (this->Position.x > rightBorder - offsetX) {
+		offRight = true;
+	}
+
+	if (this->Position.x < leftBorder) {
+		offLeft = true;
+	}
+
+	if (this->Position.y > bottomBorder - offsetY) {
+		offBottom = true;
+	}
+
+	if (this->Position.y < 0) {
+		offTop = true;
+	}
+	//if all are false, return false
+	if (!offTop && !offBottom && !offLeft && !offRight)
+	{
+		return false;
+	}
+
+	if (this->boundAction == "WRAP") {
+		if (offRight) {
+			this->Position.x = leftBorder;
+		} // end if
+
+		if (offBottom) {
+			this->Position.y = topBorder;
+		} // end if
+
+		if (offLeft) {
+			this->Position.x = rightBorder;
+		} // end if
+
+		if (offTop) {
+			this->Position.y = bottomBorder;
+		}
+	}
+	else if (this->boundAction == "BOUNCE") {
+		if (offTop || offBottom) {
+			this->Velocity.y *= -1;
+			this->calcSpeedAngle();
+			setImageAngle(this->moveAngle);
+		}
+
+		if (offLeft || offRight) {
+			this->Velocity.x *= -1;
+			this->calcSpeedAngle();
+			setImageAngle(this->moveAngle);
+		}
+		//check if it reaches a bound with no dt, if so prevent it from leaving the screen
+		//bascially treat it as STOP
+		if (this->Velocity.x == 0 && this->Velocity.y == 0)
+		{
+			if (offLeft || offRight || offTop || offBottom) {
+				this->setSpeed(0);
+
+				//if user is moving object by positon.x or position.y +=
+				if (offLeft)
+				{
+					this->Position.x = leftBorder;
+
+					//check for corners
+					if (offBottom)
+					{
+						this->Position.y = bottomBorder - offsetY;
+					}
+					else if (offTop)
+					{
+						this->Position.y = topBorder;
+					}
+				}
+				else if (offRight)
+				{
+					this->Position.x = rightBorder - offsetX;
+
+					//check for corners
+					if (offBottom)
+					{
+						this->Position.y = bottomBorder - offsetY;
+					}
+					else if (offTop)
+					{
+						this->Position.y = topBorder;
+					}
+				}
+				else if (offBottom)
+				{
+					this->Position.y = bottomBorder - offsetY;
+
+					//check for corners
+					if (offRight)
+					{
+						this->Position.x = rightBorder - offsetX;
+					}
+				}
+				else if (offTop)
+				{
+					this->Position.y = topBorder;
+				}
+				//check for corners
+				else if (offTop && offRight)
+				{
+					this->Position.y = topBorder;
+					this->Position.x = rightBorder - offsetX;
+				}
+			}
+		}
+
+	}
+	else if (this->boundAction == "STOP") {
+		if (offLeft || offRight || offTop || offBottom) {
+			this->setSpeed(0);
+
+			//if user is moving object by positon.x or position.y +=
+			if (offLeft)
+			{
+				this->Position.x = leftBorder;
+
+				//check for corners
+				if (offBottom)
+				{
+					this->Position.y = bottomBorder - offsetY;
+				}
+				else if (offTop)
+				{
+					this->Position.y = topBorder;
+				}
+			}
+			else if (offRight)
+			{
+				this->Position.x = rightBorder - offsetX;
+
+				//check for corners
+				if (offBottom)
+				{
+					this->Position.y = bottomBorder - offsetY;
+				}
+				else if (offTop)
+				{
+					this->Position.y = topBorder;
+				}
+			}
+			else if (offBottom)
+			{
+				this->Position.y = bottomBorder - offsetY;
+
+				//check for corners
+				if (offRight)
+				{
+					this->Position.x = rightBorder - offsetX;
+				}
+			}
+			else if (offTop)
+			{
+				this->Position.y = topBorder;
+			}
+			//check for corners
+			else if (offTop && offRight)
+			{
+				this->Position.y = topBorder;
+				this->Position.x = rightBorder - offsetX;
+			}
+		}
+	}
+	else if (this->boundAction == "DIE") {
+		if (offLeft || offRight || offTop || offBottom) {
+			this->setSpeed(0);
+			this->active = false;
+			setVisible(false);
+		}
+
+	}
+	else {
+		//keep on going forever
+	}
+	return true;
 }
 
 void MovingSceneObject::addForce(float angle, float thrust)
@@ -80,7 +293,6 @@ void MovingSceneObject::addForce(float angle, float thrust)
 
 	this->Velocity.x += newDX;
 	this->Velocity.y += newDY;
-
 
 	//ensure speed and angle are updated
 	this->calcSpeedAngle();

@@ -33,10 +33,8 @@ public:
 	void removeObserver(int index);
 	virtual void setVisible(bool state);
 
-
 	//gets visible state of scene, determines if sprites are rendered on screen
 	virtual bool getVisible();
-
 
 	//get vector of Sprites;
 	virtual std::vector<AbstractSprite*> getSprites();
@@ -45,6 +43,12 @@ public:
 	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
 	virtual void addSprite(AbstractSprite*);
+
+	virtual void addSceneObject(SceneObject*);
+
+	virtual void addMovingObject(MovingSceneObject*);
+
+	virtual void addDrawObject(DrawSceneObject*);
 
 	//set's Scene's background, get's image from filename you give to fill the scene
 	void setBackground(char*);
@@ -65,6 +69,7 @@ private:
 	std::map<std::string, AbstractSprite*> spriteMap;
 	std::vector<SceneObject*> SceneObjects;
 	std::vector<MovingSceneObject*> MovingSceneObjects;
+	std::vector<DrawSceneObject*> DrawSceneObjects;
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
 

@@ -1,24 +1,32 @@
-#pragma once
+#ifndef ABSTRACT_COLLIDER_H
+#define ABSTRACT_COLLIDER_H
 
 #include <iostream>
 #include <vector>
 
 #include <glm/glm.hpp>
 #include "../sprite_renderer.h"
+#include "../MovingSceneObject.h"
+#include "../DrawSceneObject.h"
 
 //only Needed for poly collider
 #include "Edge.h"
 
-class AbstractCollider
+class AbstractSprite;
+class AbstractCollider : virtual public SceneObject
 {
 	class SpriteRender;
 public:
 	AbstractCollider();
 	virtual bool collide(std::vector<AbstractCollider*>) { return false; };
+	virtual bool collide(AbstractCollider*) { return false; };
+	virtual bool collide(AbstractSprite*) { return false; };
 	virtual glm::vec2 getSpriteCenterPos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpritePos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
+
 	virtual void Draw(SpriteRenderer &renderer, glm::vec2) = 0;
+	virtual void Update() {};
 
 	//needed for poly collider
 	virtual std::vector<double> project(glm::vec2) { return std::vector<double>(); }
@@ -31,10 +39,6 @@ public:
 
 	//only in Abstract Collider
 	virtual std::string getType();
-	virtual int getWidth();
-	virtual int getHeight();
-	virtual int getPosX();
-	virtual int getPosY();
 	virtual std::string getName();
 	~AbstractCollider();
 
@@ -52,3 +56,4 @@ private:
 	SpriteRender *render;
 };
 
+#endif

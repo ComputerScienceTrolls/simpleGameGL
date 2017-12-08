@@ -96,12 +96,6 @@
     <ClCompile Include="SensorActuators\VisibilityActuator.cpp">
       <Filter>Actuators</Filter>
     </ClCompile>
-    <ClCompile Include="Colliders\StaticCircleCollider.cpp">
-      <Filter>Colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="Colliders\StaticBoxCollider.cpp">
-      <Filter>Colliders</Filter>
-    </ClCompile>
     <ClCompile Include="Colliders\PolyCollider.cpp">
       <Filter>Colliders</Filter>
     </ClCompile>
@@ -139,6 +133,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MovingSceneObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawSceneObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingDrawSceneObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -209,12 +209,6 @@
     <ClInclude Include="SensorActuators\AbstractActuator.h">
       <Filter>Actuators</Filter>
     </ClInclude>
-    <ClInclude Include="Colliders\StaticCircleCollider.h">
-      <Filter>Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="Colliders\StaticBoxCollider.h">
-      <Filter>Colliders</Filter>
-    </ClInclude>
     <ClInclude Include="Colliders\BoxCollider.h">
       <Filter>Colliders</Filter>
     </ClInclude>
@@ -252,6 +246,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MovingSceneObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawSceneObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingDrawSceneObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

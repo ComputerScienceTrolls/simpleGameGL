@@ -1,18 +1,19 @@
 #include "AbstractActuator.h"
+#include "../MovingSceneObject.h"
 #include "../AbstractSprite.h"
 
 class MotionActuator : public AbstractActuator
 {
 public:
-	MotionActuator(std::string name, AbstractSprite*, int newDX, int newDY);
-	MotionActuator(std::string name, AbstractSprite*, double newAngle, double newForce, std::string condition = "force");
-	MotionActuator(std::string name, AbstractSprite*, int newDX, std::string condition);
-	MotionActuator(std::string name, AbstractSprite*, std::string condition);
+	MotionActuator(std::string name, MovingSceneObject*, int newDX, int newDY);
+	MotionActuator(std::string name, MovingSceneObject*, double newAngle, double newForce, std::string condition = "force");
+	MotionActuator(std::string name, MovingSceneObject*, int newDX, std::string condition);
+	MotionActuator(std::string name, MovingSceneObject*, std::string condition);
 	void run();
 	~MotionActuator();
 
 private:
-	AbstractSprite *sprite;
+	MovingSceneObject *object;
 	int DX;
 	int DY;
 	int DT;
