@@ -14,11 +14,12 @@ public:
 	bool collideDebug;
 	Texture2D	Texture;
 	virtual void Draw(SpriteRenderer &renderer, glm::vec2) {};
-	virtual bool checkBounds(double screenWidth, double screenHeight) = 0;
+	//virtual bool checkBounds(double screenWidth, double screenHeight) = 0;
 	virtual void hide() {};
 	virtual void setCollideDebug(bool state) {};
 	virtual void Update() {};
 	virtual bool collide(AbstractSprite*) { return false; };
+	virtual bool collide(AbstractCollider*) { return false; };
 
 	//get methods
 	virtual glm::vec3 getColor() { return glm::vec3(); };

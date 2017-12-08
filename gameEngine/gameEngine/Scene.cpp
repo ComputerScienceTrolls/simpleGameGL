@@ -89,6 +89,7 @@ void Scene::Update(GLfloat dt)
 			if (MovingSceneObjects.at(i)->getActive())
 			{
 				MovingSceneObjects.at(i)->Update();
+				MovingSceneObjects.at(i)->checkBounds(this->width, this->height);
 			}
 		}
 

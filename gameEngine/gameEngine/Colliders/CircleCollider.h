@@ -19,11 +19,6 @@ public:
 	virtual bool collide(AbstractCollider* otherCollider);
 	virtual bool collide(AbstractSprite* otherSprite);
 	virtual float getRadius();
-	virtual glm::vec2 getSpritePos();
-	virtual glm::vec2 getSpriteCenterPos();
-	virtual glm::vec2 getSpriteSize();
-	virtual float getWidth();
-	virtual float getHeight();
 	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
 	~CircleCollider();
 

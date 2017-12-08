@@ -36,7 +36,6 @@ public:
 	//gets visible state of scene, determines if sprites are rendered on screen
 	virtual bool getVisible();
 
-
 	//get vector of Sprites;
 	virtual std::vector<AbstractSprite*> getSprites();
 

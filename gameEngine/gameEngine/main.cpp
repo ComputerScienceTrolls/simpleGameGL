@@ -99,13 +99,16 @@ int main(int argc, char *argv[])
 	//ResourceManager::LoadTexture("textures/face.png",true,"face");
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
-	Sprite *Player2 = new Sprite("Paddle", testScene, glm::vec2(300, 500), glm::vec2(100, 10), "textures/paddle.png", glm::vec2(1,0));
-	Sprite *trigger = new Sprite("trigger",mainScene);
-	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 300, 300);
+	//Sprite *trigger = new Sprite("trigger",mainScene);
+	Ball->removeCollider("default");
+	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 100, 300);
 	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
+
+	test66->addForce(0, 1);
+	Player->removeCollider("default");
 	//test55->addForce(270, .5);
-	trigger->addBoxCollider("test", 50, 50,150,250);
-	trigger->addForce(0, 2);
+	//trigger->addBoxCollider("test", 50, 50,150,250);
+	//trigger->addForce(0, 2);
 	//trigger->addCircleCollider("test2", 50, 10, 40);
 	//Ball->addForce(270, 1);
 	//Player->addForce(270, 1);
@@ -113,20 +116,21 @@ int main(int argc, char *argv[])
 	//trigger->addStaticCircleCollider("test4", 20, 100, 100);
 	//trigger->addBoxCollider("test5", 600, 4, 0, 550);
 	//trigger->setSpeed(.5);
-	trigger->setCollideDebug(true);
-	//Player->addCircleCollider("test", 10, 0, 0);
+	//trigger->setCollideDebug(true);
+	Player->addCircleCollider("test", 50, 0, 0);
 	Player->setCollideDebug(true);
 	//Ball->addStaticCircleCollider("t", 50, 50, 100);
 	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
-
+	Ball->setCollideDebug(true);
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
 	//Ball->addBoxCollider("test",50,50,50,100);
 	//Ball->addBoxCollider("test", 50, 50, -50, -100);
-	//Ball->addCircleCollider("f", 80, 300, 10);
+
+	//Ball->addCircleCollider("f", 50, 50, 50);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
-	ColliderObserver *colTest = new ColliderObserver("uh", ColSpriteTest, trigger, test55);
+	ColliderObserver *colTest = new ColliderObserver("uh", ColSpriteTest, Player, test66);
 	Observer *simplyObserver = new Observer("observer1", test9);
 	
 	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
@@ -140,7 +144,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *cKeyUp = new KeyboardSensor("cup", GLFW_KEY_KP_8);
 	KeyboardSensor *cKeydown = new KeyboardSensor("cdown", GLFW_KEY_KP_5);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
-	CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
+	//CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
 	MotionActuator *mLeft = new MotionActuator("motion2", Player, 180, .1, "force");
@@ -169,7 +173,7 @@ int main(int argc, char *argv[])
 	cKeyLeft->addActuator(cLeft);
 	cKeyRight->addActuator(cRight);
 	cKeyUp->addActuator(cUp);
-	t2->addActuator(m2);
+	//t2->addActuator(m2);
 	SceneDirector::getInstance()->addSensor(kSpace);
 	SceneDirector::getInstance()->addSensor(kArrowLeft);
 	SceneDirector::getInstance()->addSensor(kArrowRight);
@@ -177,7 +181,7 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(kRight);
 	mainScene.addSensor(kUp);
 	mainScene.addSensor(kDown);
-	mainScene.addSensor(t2);
+	//mainScene.addSensor(t2);
 	mainScene.addSensor(cKeydown);
 	mainScene.addSensor(cKeyUp);
 	mainScene.addSensor(cKeyRight);
@@ -216,6 +220,62 @@ int main(int argc, char *argv[])
 		//test->addObserver(*temp);
 	}
 	*/
+
+	//col test scene
+	Sprite *colTester1 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
+	Sprite *colTester2 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
+	BoxCollider *colTester3 = new BoxCollider("colTester3", testScene, 50, 50, 500, 100);
+	CircleCollider *colTester4 = new CircleCollider("colTester4", testScene, 50, 100, 500);
+	BoxCollider *colTester5 = new BoxCollider("colTester5", testScene, 25, 25, 300, 100);
+	BoxCollider *colTester6 = new BoxCollider("colTester6", testScene, 25, 25, 300, 300);
+	CircleCollider *colTester7 = new CircleCollider("colTester7", testScene, 25, 200, 100);
+	CircleCollider *colTester8 = new CircleCollider("colTester8", testScene, 25, 200, 200);
+
+	colTester1->setBoundAction("BOUNCE");
+	colTester2->setBoundAction("BOUNCE");
+	colTester3->setBoundAction("BOUNCE");
+	colTester4->setBoundAction("BOUNCE");
+	colTester5->setBoundAction("BOUNCE");
+	colTester6->setBoundAction("BOUNCE");
+	colTester7->setBoundAction("BOUNCE");
+	colTester8->setBoundAction("BOUNCE");
+
+	colTester3->setCenter(glm::vec2(500, 100));
+	colTester4->setCenter(glm::vec2(100, 500));
+	colTester2->removeCollider("default");
+	colTester2->setCenter(glm::vec2(500, 500));
+	colTester2->setCollideDebug(true);
+	colTester2->addCircleCollider("tester2", 50, 0, 0);
+	colTester3->addForce(270, 1);
+	colTester1->setCollideDebug(true);
+	colTester1->setCenter(glm::vec2(100, 100));
+	colTester4->addForce(90, 1);
+	colTester5->addForce(270, 1);
+	colTester6->addForce(90, 1);
+	colTester7->addForce(270, 1);
+	colTester8->addForce(90, 1);
+
+	CollisionSensor *t1 = new CollisionSensor("colSensor1", colTester2, colTester3, true);
+	CollisionSensor *t2 = new CollisionSensor("colSensor2", colTester1, colTester4, true);
+	CollisionSensor *t3 = new CollisionSensor("colSensor3", colTester5, colTester6, true);
+	CollisionSensor *t4 = new CollisionSensor("colSensor4", colTester7, colTester8, true);
+	MotionActuator *m1 = new MotionActuator("m1", colTester1, "flip");
+	MotionActuator *m3 = new MotionActuator("m2", colTester2, "flip");
+	MotionActuator *m4 = new MotionActuator("m3", colTester3, "flip");
+	MotionActuator *m5 = new MotionActuator("m4", colTester4, "flip");
+	MotionActuator *m6 = new MotionActuator("m6", colTester5, "flip");
+	MotionActuator *m7 = new MotionActuator("m7", colTester6, "flip");
+	MotionActuator *m8 = new MotionActuator("m8", colTester7, "flip");
+	MotionActuator *m9 = new MotionActuator("m9", colTester8, "flip");
+
+	t1->addActuator(m3);
+	t1->addActuator(m4);
+	t2->addActuator(m1);
+	t2->addActuator(m5);
+	t3->addActuator(m6);
+	t3->addActuator(m7);
+	testScene.addSensor(t1);
+	testScene.addSensor(t2);
 	
 	//test->addObserver(*colTest);
 	SceneDirector::getInstance()->addScene(&testScene);

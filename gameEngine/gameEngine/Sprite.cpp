@@ -8,10 +8,12 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	: parentScene(&scene), Color(1.0f), Texture(), collideDebug(false), transparency(1)
 {
 	this->name = n;
-	this->Position = glm::vec2(10);
-	this->lastPosition = this->Position;
+	this->Center = glm::vec2(10);
 	this->Size = glm::vec2(0);
 	this->lastSize = this->Size;
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
+	this->lastPosition = this->Position;
 	this->Velocity = glm::vec2(0);
 	this->Rotation = 0;
 	this->lastRotation = Rotation;
@@ -62,52 +64,54 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	this->lastPosition = this->Position;
 
 	BoxCollider *temp = new BoxCollider("default",*this, size.x, size.y);
-	colliders_.push_back(temp);
+temp->setPosition(this->Position);
+glm::vec2 test2 = temp->getPosition();
+colliders_.push_back(temp);
 
-	//load texture
-	ResourceManager::LoadTexture(texture,true,texture);
-	this->Texture = ResourceManager::GetTexture(texture);
-	
-	//texture for collider debug
-	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
-	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+//load texture
+ResourceManager::LoadTexture(texture, true, texture);
+this->Texture = ResourceManager::GetTexture(texture);
 
-	scene.addSprite(this);
+//texture for collider debug
+ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
-	/*
-	//add Sprite to Scene, get Sprites, add new sprite.
-	std::vector<AbstractSprite*> tempSprites = scene.getSprites();
-	tempSprites.push_back(this);
+scene.addSprite(this);
 
-	tempSprites.back()->setPosition(this->Position);
-	tempSprites.back()->setCenter(this->Center);
-	tempSprites.back()->setSize(this->Size);
-	tempSprites.back()->setVelocity(this->Velocity);
-	tempSprites.back()->setColor(this->Color);
-	tempSprites.back()->setRotation(this->Rotation);
-	tempSprites.back()->setTexture(this->Texture);
-	tempSprites.back()->collideDebug = this->collideDebug;
+/*
+//add Sprite to Scene, get Sprites, add new sprite.
+std::vector<AbstractSprite*> tempSprites = scene.getSprites();
+tempSprites.push_back(this);
 
-	//set new vector back to the scene
-	scene.setSprites(tempSprites);
-	*/
+tempSprites.back()->setPosition(this->Position);
+tempSprites.back()->setCenter(this->Center);
+tempSprites.back()->setSize(this->Size);
+tempSprites.back()->setVelocity(this->Velocity);
+tempSprites.back()->setColor(this->Color);
+tempSprites.back()->setRotation(this->Rotation);
+tempSprites.back()->setTexture(this->Texture);
+tempSprites.back()->collideDebug = this->collideDebug;
 
-	this->active = true;
-	this->visible = true;
-	
-	//init init vars, for restarting scenes
-	initCenter = Center;
-	initColor = Color;
-	initPosition = Position;
-	initRotation = Rotation;
-	initSize = Size;
-	initTexture = Texture;
-	initTextureFile = textureFile;
-	initVelocity = Velocity;
+//set new vector back to the scene
+scene.setSprites(tempSprites);
+*/
 
-	resetCounter = 0;
+this->active = true;
+this->visible = true;
 
-	this->setBoundAction("STOP");
+//init init vars, for restarting scenes
+initCenter = Center;
+initColor = Color;
+initPosition = Position;
+initRotation = Rotation;
+initSize = Size;
+initTexture = Texture;
+initTextureFile = textureFile;
+initVelocity = Velocity;
+
+resetCounter = 0;
+
+this->setBoundAction("STOP");
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
@@ -118,7 +122,7 @@ void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 		renderer.DrawSprite(this->getTexture(), this->getPosition() + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
-	
+
 	if (collideDebug)
 	{
 		for (int i = 0; i < colliders_.size(); i++)
@@ -156,6 +160,18 @@ bool Sprite::collide(Sprite* otherSprite)
 	//if we get here, no collision detected, return false
 	return false;
 }
+
+bool Sprite::collide(AbstractCollider * otherCollider)
+{
+	for (int i = 0; i < this->colliders_.size(); i++)
+	{
+		if (this->colliders_.at(i)->collide(otherCollider))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 //set Sprite's dx and dy based on angle and thrust/magnitude
 
 //opposite of calcVector:
@@ -181,13 +197,7 @@ void Sprite::addBoxCollider(std::string name, int w, int h, int posX, int posY)
 void Sprite::addBoxCollider(std::string name, int w, int h)
 {
 	BoxCollider *temp = new BoxCollider(name, *this, w, h);
-	this->colliders_.push_back(temp);
-}
-
-//add static(none moving) box collider to the sprite.
-void Sprite::addStaticBoxCollider(std::string name, int w, int h, int posX, int posY)
-{
-	StaticBoxCollider *temp = new StaticBoxCollider(name, w, h, posX, posY);
+	temp->setPosition(this->Position);
 	this->colliders_.push_back(temp);
 }
 
@@ -234,24 +244,9 @@ void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 		diffX = r - this->getSize().x/2;
 		diffY = r - this->getSize().y/2;
 	}
-	CircleCollider *temp = new CircleCollider(name, *this, r, posX - diffX, posY - diffY);
-	this->colliders_.push_back(temp);
-}
-
-//add a static(none moving) circle collider to the sprite, auto recenter circle before placing
-void Sprite::addStaticCircleCollider(std::string name, double r, int posX, int posY)
-{
-	double r2 = r * 2;
-	//if doesn't fit to sprite, we need to recenter the circle
-	int diffY = 0;
-	int diffX = 0;
-	if (r2 != this->getSize().x || r2 != this->getSize().y)
-	{
-		//get x and y offset
-		diffX = r - this->getSize().x / 2;
-		diffY = r - this->getSize().y / 2;
-	}
-	StaticCircleCollider *temp = new StaticCircleCollider(name, r, posX - diffX, posY - diffY);
+	CircleCollider *temp = new CircleCollider(name, *this, r, this->Position.x + posX - diffX, this->Position.y + posY - diffY);
+	//temp->setPosX(this->Position.x + temp->getPosX() - diffX);
+	//temp->setPosY(this->Position.y + temp->getPosY() - diffY);
 	this->colliders_.push_back(temp);
 }
 
@@ -298,8 +293,6 @@ void Sprite::Update()
 	}
 
 	lastPosition = Position;
-
-	this->checkBounds(parentScene->getWidth(),parentScene->getHeight());
 }
 
 void Sprite::setState(std::string key, bool state)
@@ -310,215 +303,6 @@ void Sprite::setState(std::string key, bool state)
 bool Sprite::getState(std::string key)
 {
 	return states[key];
-}
-
-void Sprite::setBoundAction(std::string newAction)
-{
-	this->boundAction = newAction;
-}
-
-//checks if sprite is on screen, if off screen do something based on Sprite's boundaction
-bool Sprite::checkBounds(double screenWidth, double screenHeight)
-{
-	double rightBorder = screenWidth;
-	double leftBorder = 0;
-	double topBorder = 0;
-	double bottomBorder = screenHeight;
-
-	bool offRight = false;
-	bool offLeft = false;
-	bool offTop = false;
-	bool offBottom = false;
-
-	//since the Position.x starts on the left most of the sprite, we need to calculate and account for it's size
-	double offsetX = 0;
-	double offsetY = 0;
-	if (this->Size.x > 1)
-	{
-		offsetX = this->Size.x;
-	}
-	if (this->Size.y > 1)
-	{
-		offsetY = this->Size.y;
-	}
-
-	if (this->Position.x > rightBorder - offsetX) {
-		offRight = true;
-	}
-
-	if (this->Position.x < leftBorder) {
-		offLeft = true;
-	}
-
-	if (this->Position.y > bottomBorder - offsetY) {
-		offBottom = true;
-	}
-
-	if (this->Position.y < 0) {
-		offTop = true;
-	}
-	//if all are false, return false
-	if (!offTop && !offBottom && !offLeft && !offRight)
-	{
-		return false;
-	}
-
-	if (this->boundAction == "WRAP") {
-		if (offRight) {
-			this->Position.x = leftBorder;
-		} // end if
-
-		if (offBottom) {
-			this->Position.y = topBorder;
-		} // end if
-
-		if (offLeft) {
-			this->Position.x = rightBorder;
-		} // end if
-
-		if (offTop) {
-			this->Position.y = bottomBorder;
-		}
-	}
-	else if (this->boundAction == "BOUNCE") {
-		if (offTop || offBottom) {
-			this->Velocity.y *= -1;
-			this->calcSpeedAngle();
-			this->imgAngle = this->moveAngle;
-		}
-
-		if (offLeft || offRight) {
-			this->Velocity.x *= -1;
-			this->calcSpeedAngle();
-			this->imgAngle = this->moveAngle;
-		}
-		//check if it reaches a bound with no dt, if so prevent it from leaving the screen
-		//bascially treat it as STOP
-		if (this->Velocity.x == 0 && this->Velocity.y == 0)
-		{
-			if (offLeft || offRight || offTop || offBottom) {
-				this->setSpeed(0);
-
-				//if user is moving object by positon.x or position.y +=
-				if (offLeft)
-				{
-					this->Position.x = leftBorder;
-
-					//check for corners
-					if (offBottom)
-					{
-						this->Position.y = bottomBorder - offsetY;
-					}
-					else if (offTop)
-					{
-						this->Position.y = topBorder;
-					}
-				}
-				else if (offRight)
-				{
-					this->Position.x = rightBorder - offsetX;
-
-					//check for corners
-					if (offBottom)
-					{
-						this->Position.y = bottomBorder - offsetY;
-					}
-					else if (offTop)
-					{
-						this->Position.y = topBorder;
-					}
-				}
-				else if (offBottom)
-				{
-					this->Position.y = bottomBorder - offsetY;
-
-					//check for corners
-					if (offRight)
-					{
-						this->Position.x = rightBorder - offsetX;
-					}
-				}
-				else if (offTop)
-				{
-					this->Position.y = topBorder;
-				}
-				//check for corners
-				else if (offTop && offRight)
-				{
-					this->Position.y = topBorder;
-					this->Position.x = rightBorder - offsetX;
-				}
-			}
-		}
-
-	}
-	else if (this->boundAction == "STOP") {
-		if (offLeft || offRight || offTop || offBottom) {
-			this->setSpeed(0);
-
-			//if user is moving object by positon.x or position.y +=
-			if (offLeft)
-			{
-				this->Position.x = leftBorder;
-
-				//check for corners
-				if (offBottom)
-				{
-					this->Position.y = bottomBorder - offsetY;
-				}
-				else if (offTop)
-				{
-					this->Position.y = topBorder;
-				}
-			}
-			else if (offRight)
-			{
-				this->Position.x = rightBorder - offsetX;
-
-				//check for corners
-				if (offBottom)
-				{
-					this->Position.y = bottomBorder - offsetY;
-				}
-				else if (offTop)
-				{
-					this->Position.y = topBorder;
-				}
-			}
-			else if (offBottom)
-			{
-				this->Position.y = bottomBorder - offsetY;
-
-				//check for corners
-				if (offRight)
-				{
-					this->Position.x = rightBorder - offsetX;
-				}
-			}
-			else if (offTop)
-			{
-				this->Position.y = topBorder;
-			}
-			//check for corners
-			else if (offTop && offRight)
-			{
-				this->Position.y = topBorder;
-				this->Position.x = rightBorder - offsetX;
-			}
-		}
-	}
-	else if (this->boundAction == "DIE") {
-		if (offLeft || offRight || offTop || offBottom) {
-			this->setSpeed(0);
-			this->active = false;
-			this->visible = false;
-		}
-
-	}
-	else {
-		//keep on going forever
-	}
-	return true;
 }
 
 //hide the sprite, by moving it far far away

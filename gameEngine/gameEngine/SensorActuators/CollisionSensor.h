@@ -6,12 +6,17 @@
 class CollisionSensor : public AbstractSensor
 {
 public:
-	CollisionSensor(std::string name, AbstractSprite*, AbstractSprite*);
+	CollisionSensor(std::string name, AbstractSprite*, AbstractSprite*, bool oneShot = false);
+	CollisionSensor(std::string name, AbstractSprite*, AbstractCollider*, bool oneShot = false);
+	CollisionSensor(std::string name, AbstractCollider*, AbstractCollider*, bool oneShot = false);
 	void sense();
 	~CollisionSensor();
 
 private:
-	AbstractSprite *one;
-	AbstractSprite *two;
+	AbstractSprite *oneS;
+	AbstractSprite *twoS;
+	AbstractCollider *oneC;
+	AbstractCollider *twoC;
+	bool oneShot;
 };
 
