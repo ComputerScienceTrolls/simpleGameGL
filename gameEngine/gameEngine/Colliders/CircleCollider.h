@@ -18,12 +18,11 @@ public:
 	virtual bool collide(AbstractCollider* otherCollider);
 	virtual bool collide(AbstractSprite* otherSprite);
 	virtual float getRadius();
-	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2, glm::vec2);
 	~CircleCollider();
 
 private:
 	float radius;
-	GLfloat transparency;
 	AbstractSprite *spriteParent;
 };
 

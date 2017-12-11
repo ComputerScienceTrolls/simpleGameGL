@@ -115,11 +115,11 @@ this->setBoundAction("STOP");
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
-void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
+void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos, glm::vec2 camSize)
 {
 	if (visible)
 	{
-		renderer.DrawSprite(this->getTexture(), this->getPosition() + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->Position + camPos, this->getSize() * camSize, this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 
@@ -127,7 +127,7 @@ void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 	{
 		for (int i = 0; i < colliders_.size(); i++)
 		{
-			colliders_.at(i)->Draw(renderer, camPos);
+			colliders_.at(i)->Draw(renderer, camPos, camSize);
 		}
 	}
 }
@@ -245,8 +245,6 @@ void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 		diffY = r - this->getSize().y/2;
 	}
 	CircleCollider *temp = new CircleCollider(name, *this, r, this->Position.x + posX - diffX, this->Position.y + posY - diffY);
-	//temp->setPosX(this->Position.x + temp->getPosX() - diffX);
-	//temp->setPosY(this->Position.y + temp->getPosY() - diffY);
 	this->colliders_.push_back(temp);
 }
 

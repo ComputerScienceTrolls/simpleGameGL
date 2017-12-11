@@ -19,29 +19,62 @@ CameraActuator::CameraActuator(std::string n, Camera *c, float x, float y, std::
 
 void CameraActuator::run()
 {
-if (condition == "both")
+	if (condition == "both")
+	{
+		camera->setPosX(DX);
+		camera->setPosY(DY);
+	}
+	else if (condition == "x")
+	{
+		camera->setPosX(DX);
+	}
+	else if (condition == "y")
+	{
+		camera->setDY(DY);
+	}
+	else if (condition == "zoom")
+	{
+		camera->setZoom(glm::vec2(DT));
+	}
+	else if (condition == "zoomX")
+	{
+		camera->setZoomX(DT);
+	}
+	else if (condition == "zoomY")
+	{
+		camera->setZoomY(DT);
+	}
+	else if (condition == "zoomDX")
+	{
+		camera->changeZoomByX(DT);
+	}
+	else if (condition == "zoomDY")
+	{
+		camera->changeZoomByY(DT);
+	}
+	else if (condition == "bothDt")
 	{
 		camera->setDX(DX);
 		camera->setDY(DY);
 	}
-	else if (condition == "x")
+	else if (condition == "dx")
 	{
 		camera->setDX(DT);
 	}
-	else if (condition == "y")
+	else if (condition == "dy")
 	{
 		camera->setDY(DT);
 	}
-	else if (condition == "flip")
+	else if (condition == "flipdt")
 	{
 		camera->setDX(-camera->getDX());
 		camera->setDY(-camera->getDY());
 	}
-	else if (condition == "flipx")
+	else if (condition == "flipdx")
 	{
 		camera->setPosX(-camera->getPosX());
 	}
-	else if (condition == "flipy")
+	else if (condition == "flipdy")
 	{
 		camera->setPosY(-camera->getPosX());
 	}

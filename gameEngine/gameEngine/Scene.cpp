@@ -104,7 +104,7 @@ void Scene::Render()
 		//give camera's pos so Sprite's can render accordingly
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{
-			DrawSceneObjects.at(i)->Draw(*Renderer, glm::vec2(this->camera.getPosX(), this->camera.getPosY()));
+			DrawSceneObjects.at(i)->Draw(*Renderer, this->camera.getPosition(), this->camera.getZoom());
 		}
 	}
 }

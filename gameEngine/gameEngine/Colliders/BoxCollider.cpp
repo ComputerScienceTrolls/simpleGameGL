@@ -2,54 +2,57 @@
 
 //constructor with no position offset
 BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
-	spriteParent(&parent), transparency(.15)
+	spriteParent(&parent)
 {
 	this->name = newName;
 	this->Size.x = w;
 	this->Size.y = h;
 	this->Position = glm::vec2(0,0);
-	this->offsetW = w;
-	this->offsetH = h;
-	this->posXOffset = 0;
-	this->posYOffset = 0;
 	this->type = "box";
+	this->transparency = .15;
 }
 
 //consturctor with a positon offset
 BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY) :
-	spriteParent(&parent), transparency(.15)
+	spriteParent(&parent)
 {
 	this->name = newName;
 	this->Size.x = w;
 	this->Size.y = h;
-	this->Position = glm::vec2(posX, posY);
+	this->Center.x = posX;
+	this->Center.y = posY;
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->type = "box";
+	this->transparency = .15;
 }
 
-BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h) :
-	transparency(.15)
+BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
 {
 	this->name = n;
 	this->active = true;
 	this->Size.x = w;
 	this->Size.y = h;
 	this->type = "box";
+	this->transparency = .15;
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
 	parent.addSceneObject(this);
 }
 
-BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int posX, int posY) :
-	transparency(.15)
+BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int posX, int posY)
 {
 	this->name = n;
 	this->active = true;
 	this->Size.x = w;
 	this->Size.y = h;
-	this->Position.x = posX;
-	this->Position.y = posY;
+	this->Center.x = posX;
+	this->Center.y = posY;
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->type = "box";
+	this->transparency = .15;
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
@@ -242,25 +245,10 @@ bool BoxCollider::getStaticState()
 	return this->staticState;
 }
 
-glm::vec2 BoxCollider::getSpriteCenterPos()
-{
-	return spriteParent->getCenter();
-}
-
-glm::vec2 BoxCollider::getSpritePos()
-{
-	return spriteParent->getPosition();
-}
-
-glm::vec2 BoxCollider::getSpriteSize()
-{
-	return spriteParent->getSize();
-}
-
-void BoxCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos)
+void BoxCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos, glm::vec2 camSize)
 {
 	//if parentSprite exists use it for render calc
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), glm::vec2(this->getPosX() + camPos.x, this->getPosY() + camPos.y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), this->Position + camPos, this->Size * camSize, 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 BoxCollider::~BoxCollider()

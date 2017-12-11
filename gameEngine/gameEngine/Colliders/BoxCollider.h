@@ -20,15 +20,11 @@ public:
 	virtual bool collide(AbstractCollider* otherCollider);
 	virtual bool collide(AbstractSprite* otherSprite);
 	virtual bool getStaticState();
-	virtual glm::vec2 getSpriteCenterPos();
-	virtual glm::vec2 getSpritePos();
-	virtual glm::vec2 getSpriteSize();
-	virtual void Draw(SpriteRenderer &renderer, glm::vec2);
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2, glm::vec2);
 	~BoxCollider();
 
 private:
 	bool staticState;
-	GLfloat transparency;
 	AbstractSprite *spriteParent;
 };
 

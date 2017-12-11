@@ -145,7 +145,6 @@
     <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraActuator.cpp" />
     <ClCompile Include="Colliders\AbstractCollider.cpp" />
     <ClCompile Include="Colliders\BoxCollider.cpp" />
     <ClCompile Include="Colliders\CircleCollider.cpp" />
@@ -168,6 +167,7 @@
     <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
     <ClCompile Include="SensorActuators\AbstractSensor.cpp" />
     <ClCompile Include="SensorActuators\ActiveActuator.cpp" />
+    <ClCompile Include="SensorActuators\CameraActuator.cpp" />
     <ClCompile Include="SensorActuators\CheckBoundsSensor.cpp" />
     <ClCompile Include="SensorActuators\CollisionSensor.cpp" />
     <ClCompile Include="SensorActuators\KeyboardSensor.cpp" />
@@ -184,7 +184,6 @@
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraActuator.h" />
     <ClInclude Include="Colliders\AbstractCollider.h" />
     <ClInclude Include="Colliders\BoxCollider.h" />
     <ClInclude Include="Colliders\CircleCollider.h" />
@@ -207,6 +206,7 @@
     <ClInclude Include="SensorActuators\AbstractActuator.h" />
     <ClInclude Include="SensorActuators\AbstractSensor.h" />
     <ClInclude Include="SensorActuators\ActiveActuator.h" />
+    <ClInclude Include="SensorActuators\CameraActuator.h" />
     <ClInclude Include="SensorActuators\CheckBoundsSensor.h" />
     <ClInclude Include="SensorActuators\CollisionSensor.h" />
     <ClInclude Include="SensorActuators\KeyboardSensor.h" />

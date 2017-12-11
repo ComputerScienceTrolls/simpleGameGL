@@ -13,7 +13,7 @@
 #include "SceneDirector.h"
 #include "Sprite.h"
 
-#include "CameraActuator.h"
+#include "SensorActuators\CameraActuator.h"
 
 #include "Observers/observerhandler.h"
 #include "Observers/Observer.h"
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
 
 	test66->addForce(0, 1);
-	Player->removeCollider("default");
+	//Player->removeCollider("default");
 	//test55->addForce(270, .5);
 	//trigger->addBoxCollider("test", 50, 50,150,250);
 	//trigger->addForce(0, 2);
@@ -119,8 +119,6 @@ int main(int argc, char *argv[])
 	//trigger->setCollideDebug(true);
 	Player->addCircleCollider("test", 50, 0, 0);
 	Player->setCollideDebug(true);
-	//Ball->addStaticCircleCollider("t", 50, 50, 100);
-	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
 	Ball->setCollideDebug(true);
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
@@ -144,6 +142,8 @@ int main(int argc, char *argv[])
 	KeyboardSensor *cKeyUp = new KeyboardSensor("cup", GLFW_KEY_KP_8);
 	KeyboardSensor *cKeydown = new KeyboardSensor("cdown", GLFW_KEY_KP_5);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
+	KeyboardSensor *kg = new KeyboardSensor("space", GLFW_KEY_G, "clicked");
+	KeyboardSensor *kh = new KeyboardSensor("space", GLFW_KEY_H, "clicked");
 	//CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
@@ -155,6 +155,8 @@ int main(int argc, char *argv[])
 	CameraActuator *cRight = new CameraActuator("cRight", mainScene.getCamera(),0,.1,"force");
 	CameraActuator *cDown = new CameraActuator("cDown", mainScene.getCamera(), 270, .1, "force");
 	CameraActuator *cUp = new CameraActuator("cUp", mainScene.getCamera(), 90, .1, "force");
+	CameraActuator *z = new CameraActuator("z", mainScene.getCamera(), 2, "zoom");
+	CameraActuator *z2 = new CameraActuator("z2", mainScene.getCamera(), .5, "zoom");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
 	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
@@ -167,6 +169,8 @@ int main(int argc, char *argv[])
 	kArrowRight->addActuator(s2);
 	kLeft->addActuator(mLeft);
 	kRight->addActuator(mRight);
+	kg->addActuator(z);
+	kh->addActuator(z2);
 	kUp->addActuator(mUp);
 	kDown->addActuator(mDown);
 	cKeydown->addActuator(cDown);
@@ -185,6 +189,8 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(cKeydown);
 	mainScene.addSensor(cKeyUp);
 	mainScene.addSensor(cKeyRight);
+	mainScene.addSensor(kg);
+	mainScene.addSensor(kh);
 	mainScene.addSensor(cKeyLeft);
 	mainScene.addObserver(colTest);
 
@@ -323,41 +329,7 @@ int main(int argc, char *argv[])
 	colTester711->addForce(270, 1);
 	colTester811->addForce(90, 1);
 
-	Sprite *colTester1111 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester2111 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester11111 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester21111 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester1199111 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester2iii1111 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester111111 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester211111 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester11112 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester21112 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester111112 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester211112 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester1111o12 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester211n112 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester11i11112 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester2111112 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester11113 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester21113 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester111113 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester211113 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *mxcmv = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester211nn113 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester1111113 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester2111113 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester111123 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester211123 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester1111123 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester2111123 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester1mmm111123 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester2lll11123 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	Sprite *colTester11111gggg123 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester211bbv11123 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	
-
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 25; i++)
 	{
 		new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
 	}
