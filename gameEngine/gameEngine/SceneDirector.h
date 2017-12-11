@@ -50,5 +50,5 @@ private:
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
 };
-
+#include "inline.inl"
 #endif

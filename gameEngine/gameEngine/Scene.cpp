@@ -40,16 +40,6 @@ void Scene::Init()
 //set Scene's state to active alsnd visible, then tell every Sprite to start in their initial state, init spriteMap
 void Scene::Start()
 {
-	/*
-	//setup SpriteMap
-	for (int i = 0; i < Sprites.size(); i++)
-	{
-		//reset every sprite
-		//Sprites.at(i)->reset();
-		spriteMap[Sprites.at(i)->getName()] = Sprites.at(i);
-	}
-	*/
-
 	// set active to true
 	this->active = true;
 

@@ -138,9 +138,6 @@
     <ClCompile Include="DrawSceneObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MovingDrawSceneObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -261,6 +258,9 @@
     </None>
     <None Include="..\shaders\sprite.vs">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="inline.inl">
+      <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

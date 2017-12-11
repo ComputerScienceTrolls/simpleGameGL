@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractCollider.h"
-#include "../MovingDrawSceneObject.h"
 #include "../MovingSceneObject.h"
 #include "../AbstractSprite.h"
 #include "../AbstractScene.h"

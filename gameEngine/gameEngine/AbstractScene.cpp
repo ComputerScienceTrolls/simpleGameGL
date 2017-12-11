@@ -39,7 +39,6 @@ void AbstractScene::setSize(int w, int h)
 {
 	this->width = w;
 	this->height = h;
-	glfwSetWindowSize(window, this->width, this->height);
 }
 
 void AbstractScene::setWidth(int w)
@@ -131,6 +130,7 @@ void AbstractScene::setWindow(GLFWwindow * newWindow)
 	window = newWindow;
 	//set window to scene's defined width and height
 	setSize(this->width, this->height);
+	glfwSetWindowSize(window, this->camera.getWidth(), this->camera.getHeight());
 }
 
 AbstractScene::~AbstractScene()

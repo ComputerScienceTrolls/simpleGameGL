@@ -154,7 +154,6 @@
     <ClCompile Include="DrawSceneObject.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MovingDrawSceneObject.cpp" />
     <ClCompile Include="MovingSceneObject.cpp" />
     <ClCompile Include="Observers\AbstractObserver.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
@@ -223,6 +222,7 @@
   <ItemGroup>
     <None Include="..\shaders\sprite.frag" />
     <None Include="..\shaders\sprite.vs" />
+    <None Include="inline.inl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\textures\awesomeface.png" />
