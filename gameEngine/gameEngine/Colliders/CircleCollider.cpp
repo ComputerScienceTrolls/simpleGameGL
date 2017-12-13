@@ -200,13 +200,10 @@ float CircleCollider::getRadius()
 	return radius;
 }
 
-void CircleCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos, glm::vec2 camSize)
+void CircleCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos)
 {
-	//get x and y offset
-	float diffX = this->radius - (this->getSize().x * camSize.x ) / 2;
-	float diffY = this->radius - (this->getSize().y * camSize.y) / 2;
 	//if spriteParent exists use it for rendering
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), this->Position + camPos, this->Size * camSize, 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), this->Position + camPos, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 CircleCollider::~CircleCollider()

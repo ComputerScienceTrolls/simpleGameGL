@@ -245,10 +245,10 @@ bool BoxCollider::getStaticState()
 	return this->staticState;
 }
 
-void BoxCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos, glm::vec2 camSize)
+void BoxCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos)
 {
 	//if parentSprite exists use it for render calc
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), this->Position + camPos, this->Size * camSize, 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), this->Position + camPos, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 BoxCollider::~BoxCollider()

@@ -115,11 +115,11 @@ this->setBoundAction("STOP");
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
-void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos, glm::vec2 camSize)
+void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 {
 	if (visible)
 	{
-		renderer.DrawSprite(this->getTexture(), this->Position + camPos, this->getSize() * camSize, this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->Position + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 
@@ -127,7 +127,7 @@ void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos, glm::vec2 camSize)
 	{
 		for (int i = 0; i < colliders_.size(); i++)
 		{
-			colliders_.at(i)->Draw(renderer, camPos, camSize);
+			colliders_.at(i)->Draw(renderer, camPos);
 		}
 	}
 }
@@ -278,6 +278,9 @@ void Sprite::Update()
 	if (Size != lastSize)
 	{
 		diffSize = Size - lastSize;
+		//we need to recalc center
+		this->Position.x = this->Center.x - this->Size.x / 2;
+		this->Position.y = this->Center.y - this->Size.y / 2;
 		change = true;
 	}
 

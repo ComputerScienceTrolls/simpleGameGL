@@ -138,6 +138,9 @@
     <ClCompile Include="SensorActuators\CameraActuator.cpp">
       <Filter>Actuators</Filter>
     </ClCompile>
+    <ClCompile Include="QuadScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="SensorActuators\CameraActuator.h">
       <Filter>Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadScene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

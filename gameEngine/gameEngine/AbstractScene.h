@@ -2,6 +2,9 @@
 #define ABSTRACT_SCENE_H
 
 #include "AbstractSprite.h"
+#include "Observers\AbstractObserver.h"
+#include "SensorActuators\AbstractSensor.h"
+#include "ResourceManager.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -14,35 +17,41 @@ class AbstractScene
 {
 public:
 	AbstractScene();
-	virtual void Start() = 0;
-	virtual void Stop() = 0;
-	virtual void Init() {};
-	virtual void ProcessInput(GLfloat dt) {};
-	virtual void Update(GLfloat dt) {};
-	virtual void Render() {};
-	virtual std::vector<AbstractSprite*> getSprites() = 0;
-	virtual void setSprites(std::vector<AbstractSprite*>) = 0;
-	virtual void addSprite(AbstractSprite*) = 0;
-	virtual void addSceneObject(SceneObject*) = 0;
-	virtual void addMovingObject(MovingSceneObject*) = 0;
-	virtual void addDrawObject(DrawSceneObject*) = 0;
-	virtual void reInit() {};
-	virtual void reset() {};
+	virtual void Start();
+	virtual void Stop();
+
+	virtual void Init() = 0;
+	virtual void Update(GLfloat dt) = 0;
+	virtual void Render() = 0;
+	virtual void reset();
 	virtual Camera* getCamera();
-	virtual void setDeleted(bool) {};
-	virtual bool getDeleted() { return false; };
+
+	virtual void addSprite(AbstractSprite*);
+	void addSensor(AbstractSensor*);
+	void removeSensor(std::string name);
+	void removeSensor(int index);
+	void addObserver(AbstractObserver*);
+	void removeObserver(std::string name);
+	void removeObserver(int index);
+	virtual void addSceneObject(SceneObject*);
+	virtual void addMovingObject(MovingSceneObject*);
+	virtual void addDrawObject(DrawSceneObject*);
 
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual std::string getName();
 	virtual bool getActive();
+	virtual bool getVisible();
 	virtual GLFWwindow* getWindow();
+	virtual std::vector<AbstractSprite*> getSprites();
+	std::vector<AbstractSprite*> getSprite(std::string name);
 
 	virtual void setSize(int, int);
 	virtual void setWidth(int);
 	virtual void setHeight(int);
 	virtual void setName(std::string);
 	virtual void setActive(bool);
+	virtual void setVisible(bool state);
 	virtual void setWindow(GLFWwindow *newWindow);
 	virtual void setCameraWidth(int);
 	virtual void setCameraHeight(int);
@@ -50,15 +59,20 @@ public:
 	virtual void setCameraPosY(int);
 	virtual void setCameraDX(int);
 	virtual void setCameraDY(int);
-	virtual void changeCameraByX(int);
-	virtual void changeCameraByY(int);
-
+	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
 	~AbstractScene();
 
 protected:
+	std::vector<AbstractSprite*> Sprites;
+	std::vector<SceneObject*> SceneObjects;
+	std::vector<MovingSceneObject*> MovingSceneObjects;
+	std::vector<DrawSceneObject*> DrawSceneObjects;
+	std::vector<AbstractSensor*> sensors;
+	std::vector<AbstractObserver*> observers;
 	Camera camera;
 	bool active;
+	bool visible;
 	int height;
 	int width;
 	std::string name;

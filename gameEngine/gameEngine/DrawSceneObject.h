@@ -10,7 +10,7 @@ public:
 	virtual void setTransparency(float);
 	virtual float getTransparency();
 
-	virtual void Draw(SpriteRenderer &renderer, glm::vec2, glm::vec2) = 0;
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2) = 0;
 	~DrawSceneObject();
 
 protected:
