@@ -227,7 +227,7 @@ void SceneDirector::nextScene()
 	}
 
 	//make sure currentIndex and currentIndex+1 is in range
-	if (currentIndex != -1 && (currentIndex + 1) < scenes.size()-1)
+	if (currentIndex != -1 && (currentIndex) < scenes.size()-1)
 	{
 		//stop currentScene
 		currentScene->Stop();

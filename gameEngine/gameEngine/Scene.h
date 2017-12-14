@@ -13,6 +13,7 @@
 class Scene : public AbstractScene
 {
 public:
+	Scene() { };
 	Scene(std::string name, GLuint width, GLuint height);
 	~Scene();
 	virtual void Init();
@@ -23,12 +24,9 @@ public:
 	void setBackground(char*);
 
 
-private:
+protected:
 	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
-
-	glm::vec2 backgroundPos;
-	int backgroundDX;
-	int backgroundDY;
+	MovingSceneObject background;
 };
 #endif

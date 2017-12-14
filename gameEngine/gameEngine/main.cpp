@@ -10,6 +10,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Scene.h"
+#include "QuadScene.h"
 #include "SceneDirector.h"
 #include "Sprite.h"
 
@@ -40,7 +41,7 @@ Scene testScene("test",700, 700);
 Scene testScene2("test",700, 700);
 Scene testScene3("test",700, 700);
 Scene testScene4("test",700, 700);
-Scene testScene5("test",700, 700);
+Scene testScene5("test",100, 100);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -288,6 +289,10 @@ int main(int argc, char *argv[])
 	SceneDirector::getInstance()->addScene(&testScene2);
 	SceneDirector::getInstance()->addScene(&testScene3);
 	SceneDirector::getInstance()->addScene(&testScene4);
+	SceneDirector::getInstance()->addScene(&testScene5);
+
+	QuadScene quadScene("test", 100, 100, Player, 4);
+	SceneDirector::getInstance()->addScene(&quadScene);
 	mainScene.setCameraHeight(500);
 	mainScene.setCameraWidth(800);
 	

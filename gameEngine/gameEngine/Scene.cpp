@@ -6,8 +6,7 @@
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-Scene::Scene(std::string n, GLuint w, GLuint h) :
-	backgroundPos(0), backgroundDX(0), backgroundDY(0)
+Scene::Scene(std::string n, GLuint w, GLuint h)
 {
 	this->name = n;
 	this->width = w;
@@ -16,6 +15,7 @@ Scene::Scene(std::string n, GLuint w, GLuint h) :
 	this->camera.setWidth(w);
 	
 	this->MovingSceneObjects.push_back(&this->camera);
+	this->MovingSceneObjects.push_back(&this->background);
 }
 
 //if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
@@ -42,10 +42,6 @@ void Scene::Update(GLfloat dt)
 {
 	if (this->active)
 	{
-		//update backgroundPos by it's DX and DY
-		backgroundPos.x += backgroundDX;
-		backgroundPos.y += backgroundDY;
-
 		//for each sprite in scene
 		for (int i = 0; i < MovingSceneObjects.size(); i++)
 		{
@@ -73,7 +69,7 @@ void Scene::Render()
 {
 	if (this->visible)
 	{
-		Renderer->DrawSprite(ResourceManager::GetTexture("background"), backgroundPos + this->camera.getPosition(), glm::vec2(this->width, this->height), 0.0f);
+		Renderer->DrawSprite(ResourceManager::GetTexture("background"),background.getPosition() + this->camera.getPosition(), glm::vec2(this->width, this->height), 0.0f);
 		//give camera's pos so Sprite's can render accordingly
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{
