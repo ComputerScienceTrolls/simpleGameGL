@@ -17,6 +17,8 @@ public:
 	virtual void setSize(glm::vec2);
 	virtual void setWidth(float);
 	virtual void setHeight(float);
+	virtual void changeWidthBy(float);
+	virtual void changeHeightBy(float);
 	virtual void setName(std::string);
 	virtual void setRotation(GLfloat);
 	virtual void setActive(bool);

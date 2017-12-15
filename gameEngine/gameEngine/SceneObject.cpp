@@ -53,6 +53,16 @@ void SceneObject::setHeight(float newHeight)
 	this->Size.y = newHeight;
 }
 
+void SceneObject::changeWidthBy(float newWidth)
+{
+	this->Size.x += newWidth;
+}
+
+void SceneObject::changeHeightBy(float newHeight)
+{
+	this->Size.y += newHeight;
+}
+
 void SceneObject::setName(std::string newName)
 {
 	this->name = newName;

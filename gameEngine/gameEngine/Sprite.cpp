@@ -119,7 +119,7 @@ void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 {
 	if (visible)
 	{
-		renderer.DrawSprite(this->getTexture(), this->getPosition() + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->Position + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 
@@ -245,8 +245,6 @@ void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
 		diffY = r - this->getSize().y/2;
 	}
 	CircleCollider *temp = new CircleCollider(name, *this, r, this->Position.x + posX - diffX, this->Position.y + posY - diffY);
-	//temp->setPosX(this->Position.x + temp->getPosX() - diffX);
-	//temp->setPosY(this->Position.y + temp->getPosY() - diffY);
 	this->colliders_.push_back(temp);
 }
 
@@ -280,6 +278,9 @@ void Sprite::Update()
 	if (Size != lastSize)
 	{
 		diffSize = Size - lastSize;
+		//we need to recalc center
+		this->Position.x = this->Center.x - this->Size.x / 2;
+		this->Position.y = this->Center.y - this->Size.y / 2;
 		change = true;
 	}
 

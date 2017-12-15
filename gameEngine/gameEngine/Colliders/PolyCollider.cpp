@@ -57,8 +57,8 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 		}
 
 		//set width and height from our mins and maxs
-		this->offsetW = maxX - minX;
-		this->offsetH = maxY - minY;
+		this->Size.x = maxX - minX;
+		this->Size.y = maxY - minY;
 	}
 }
 

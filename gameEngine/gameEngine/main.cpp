@@ -10,10 +10,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Scene.h"
+#include "QuadScene.h"
 #include "SceneDirector.h"
 #include "Sprite.h"
 
-#include "CameraActuator.h"
+#include "SensorActuators\CameraActuator.h"
 
 #include "Observers/observerhandler.h"
 #include "Observers/Observer.h"
@@ -40,7 +41,7 @@ Scene testScene("test",700, 700);
 Scene testScene2("test",700, 700);
 Scene testScene3("test",700, 700);
 Scene testScene4("test",700, 700);
-Scene testScene5("test",700, 700);
+Scene testScene5("test",100, 100);
 
 void ballColl2(Sprite *Ball, Sprite *Player)
 {
@@ -105,7 +106,7 @@ int main(int argc, char *argv[])
 	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
 
 	test66->addForce(0, 1);
-	Player->removeCollider("default");
+	//Player->removeCollider("default");
 	//test55->addForce(270, .5);
 	//trigger->addBoxCollider("test", 50, 50,150,250);
 	//trigger->addForce(0, 2);
@@ -119,8 +120,6 @@ int main(int argc, char *argv[])
 	//trigger->setCollideDebug(true);
 	Player->addCircleCollider("test", 50, 0, 0);
 	Player->setCollideDebug(true);
-	//Ball->addStaticCircleCollider("t", 50, 50, 100);
-	//Ball->addStaticBoxCollider("t2", 50, 50, 100,200);
 	Ball->setCollideDebug(true);
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
@@ -144,6 +143,8 @@ int main(int argc, char *argv[])
 	KeyboardSensor *cKeyUp = new KeyboardSensor("cup", GLFW_KEY_KP_8);
 	KeyboardSensor *cKeydown = new KeyboardSensor("cdown", GLFW_KEY_KP_5);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
+	KeyboardSensor *kg = new KeyboardSensor("space", GLFW_KEY_G, "clicked");
+	KeyboardSensor *kh = new KeyboardSensor("space", GLFW_KEY_H, "clicked");
 	//CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
@@ -155,6 +156,8 @@ int main(int argc, char *argv[])
 	CameraActuator *cRight = new CameraActuator("cRight", mainScene.getCamera(),0,.1,"force");
 	CameraActuator *cDown = new CameraActuator("cDown", mainScene.getCamera(), 270, .1, "force");
 	CameraActuator *cUp = new CameraActuator("cUp", mainScene.getCamera(), 90, .1, "force");
+	CameraActuator *z = new CameraActuator("z", mainScene.getCamera(), 2, "zoom");
+	CameraActuator *z2 = new CameraActuator("z2", mainScene.getCamera(), .5, "zoom");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
 	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
@@ -167,6 +170,8 @@ int main(int argc, char *argv[])
 	kArrowRight->addActuator(s2);
 	kLeft->addActuator(mLeft);
 	kRight->addActuator(mRight);
+	kg->addActuator(z);
+	kh->addActuator(z2);
 	kUp->addActuator(mUp);
 	kDown->addActuator(mDown);
 	cKeydown->addActuator(cDown);
@@ -185,6 +190,8 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(cKeydown);
 	mainScene.addSensor(cKeyUp);
 	mainScene.addSensor(cKeyRight);
+	mainScene.addSensor(kg);
+	mainScene.addSensor(kh);
 	mainScene.addSensor(cKeyLeft);
 	mainScene.addObserver(colTest);
 
@@ -282,6 +289,10 @@ int main(int argc, char *argv[])
 	SceneDirector::getInstance()->addScene(&testScene2);
 	SceneDirector::getInstance()->addScene(&testScene3);
 	SceneDirector::getInstance()->addScene(&testScene4);
+	SceneDirector::getInstance()->addScene(&testScene5);
+
+	QuadScene quadScene("test", 100, 100, Player, 4);
+	SceneDirector::getInstance()->addScene(&quadScene);
 	mainScene.setCameraHeight(500);
 	mainScene.setCameraWidth(800);
 	

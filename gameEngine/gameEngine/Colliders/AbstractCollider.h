@@ -43,14 +43,9 @@ public:
 	~AbstractCollider();
 
 protected:
-	int offsetH;
-	int offsetW;
-	int posXOffset;
-	int posYOffset;
 	std::string type;
 	std::string name;
 	bool staticState;
-	GLfloat transparency;
 
 private:
 	SpriteRender *render;

@@ -7,7 +7,13 @@ class DrawSceneObject : public virtual SceneObject
 
 public:
 	DrawSceneObject();
+	virtual void setTransparency(float);
+	virtual float getTransparency();
+
 	virtual void Draw(SpriteRenderer &renderer, glm::vec2) = 0;
 	~DrawSceneObject();
+
+protected:
+	GLfloat transparency;
 };
 

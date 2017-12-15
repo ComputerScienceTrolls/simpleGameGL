@@ -1,6 +1,6 @@
 #pragma once
-#include "SensorActuators\AbstractActuator.h"
-#include "AbstractScene.h"
+#include "AbstractActuator.h"
+#include "../AbstractScene.h"
 
 class CameraActuator : public AbstractActuator
 {

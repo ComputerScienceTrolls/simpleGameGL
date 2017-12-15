@@ -2,38 +2,47 @@
 
 //consturctor with no positon offset from sprite.
 CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r):
-	spriteParent(&parent), radius(r), transparency(.15)
+	spriteParent(&parent), radius(r)
 {
-	this->Position.x = 0;
-	this->Position.y = 0;
+	this->Center.x = 0;
+	this->Center.y = 0;
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->Size.x = r*2;
 	this->Size.y = r*2;
 	this->type = "circle";
 	this->active = true;
+	this->transparency = .15;
 }
 
 //consturctor with a position offset from it's sprite
 CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY) :
-	spriteParent(&parent), radius(r), transparency(.15)
+	spriteParent(&parent), radius(r)
 {
-	this->Position.x = posX;
-	this->Position.y = posY;
+	this->Center.x = posX;
+	this->Center.y = posY;
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->Size.x = r*2;
 	this->Size.y = r*2;
 	this->type = "circle";
 	this->active = true;
+	this->transparency = .15;
 }
 
 CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r) :
-	radius(r), transparency(.15)
+	radius(r)
 {
-	this->Position.x = 0;
-	this->Position.y = 0;
+	this->Center.x = 0;
+	this->Center.y = 0;
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->name = n;
 	this->Size.x = r * 2;
 	this->Size.y = r * 2;
 	this->type = "circle";
 	this->active = true;
+	this->transparency = .15;
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
@@ -41,7 +50,7 @@ CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r) :
 }
 
 CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r, int posX, int posY) :
-	radius(r), transparency(.15)
+	radius(r)
 {
 	this->name = n;
 	this->type = "circle";
@@ -50,6 +59,7 @@ CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r, in
 	this->Position.x = posX;
 	this->Position.y = posY;
 	this->active = true;
+	this->transparency = .15;
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
@@ -94,19 +104,6 @@ bool CircleCollider::collide(std::vector<AbstractCollider*> otherColliders)
 				return true;
 			else
 				return false;
-		}
-		else if (otherColliders.at(i)->getType() == "staticCircle")
-		{
-			/*
-			int diffX = this->getPosX() - (otherColliders.at(i)->getSpriteCenterPos().x + otherColliders.at(i)->getPosX());
-			int diffY = this->getPosY() - (otherColliders.at(i)->getSpriteCenterPos().y + otherColliders.at(i)->getPosY());
-
-			int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
-			if (dist <= (this->getRadius() + otherColliders.at(i)->getRadius()))
-				return true;
-			else
-				return false;
-			*/
 		}
 	}
 	return false;
@@ -206,7 +203,7 @@ float CircleCollider::getRadius()
 void CircleCollider::Draw(SpriteRenderer & renderer, glm::vec2 camPos)
 {
 	//if spriteParent exists use it for rendering
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), glm::vec2(this->getPosX() + camPos.x, this->getPosY() + camPos.y), glm::vec2(this->getWidth(), this->getHeight()), 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), this->Position + camPos, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 CircleCollider::~CircleCollider()
