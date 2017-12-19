@@ -47,17 +47,8 @@ void Scene::Init()
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
 
-	///* Test to see if works
-	// Initialize OpenAL and clear the error bit. 
-	alutInit(NULL, 0);
-	//soundBuffer = alutCreateBufferHelloWorld();
-	//alGenSources(1, &soundSource);
-	alSourcei(soundSource, AL_BUFFER, soundBuffer);
-	//alSourcePlay(soundSource);
-	//std::cout << "uh";
-	std::cout << this->loadWav("wavdata/CrowNoise.wav");
-	std::cout << "\n";
-	alSourcePlay(soundSource);
+	
+	
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
 }
 
@@ -121,54 +112,12 @@ void Scene::Start()
 	}
 }
 
-ALboolean Scene::loadWav(ALbyte *wavName)
-{
-	// Variables to load into.
-	ALenum format;
-	ALsizei size;
-	ALvoid* data;
-	ALsizei freq;
-	ALboolean loop = false;
-
-	// Load wav data into a buffer.
-	alGenBuffers(1, &soundBuffer);
-
-	if (alGetError() != AL_NO_ERROR)
-		return AL_FALSE;
-
-	// Load any of your favourite wav song here
-	alutCreateBufferFromFile(wavName);
-	//alBufferData(soundBuffer, format, data, size, freq);
-	//alutUnloadWAV(format, data, size, freq);
-
-	// Bind the buffer with the source.
-	alGenSources(1, &soundSource);
-
-	if (alGetError() != AL_NO_ERROR)
-		return AL_FALSE;
-
-	alSourcei(soundSource, AL_BUFFER, soundBuffer);
-	alSourcef(soundSource, AL_PITCH, 1.0);
-	alSourcef(soundSource, AL_GAIN, 1.0);
-	//alSourcefv(soundSource, AL_POSITION, SourcePos);
-	//alSourcefv(soundSource, AL_VELOCITY, soundSourceVel);
-	alSourcei(soundSource, AL_LOOPING, loop);
-
-	// Do another error check and return.
-	if (alGetError() == AL_NO_ERROR)
-		return AL_TRUE;
-
-	return AL_FALSE;
-}
 
 void Scene::Stop()
 {
 	// Delete all resources as loaded using the resource manager
 	ResourceManager::Clear();
 
-	alDeleteBuffers(1, &soundBuffer);
-	alDeleteSources(1, &soundSource);
-	alutExit();
 
 	glfwTerminate();
 }
@@ -219,13 +168,16 @@ void Scene::ProcessInput(GLfloat dt)
 		if (keyHandler.Keys[GLFW_KEY_A])
 		{
 			spriteMap["Paddle"]->addForce(180,.1f);
+			sound2->play();
 		}
 		if (keyHandler.Keys[GLFW_KEY_D])
 		{
+			sound2->changeVolume(.1);
 			spriteMap["Paddle"]->addForce(0,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_W])
 		{
+			sound2->changePitch(1.5);
 			spriteMap["Paddle"]->addForce(90,.1f);
 		}
 		if (keyHandler.Keys[GLFW_KEY_S])

@@ -9,7 +9,7 @@
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
 
-#include "alut.h"
+#include "Sound.h"
 #include <cstdlib>
 
 #include <vector>
@@ -39,7 +39,6 @@ public:
 	~Scene();
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();
-	ALboolean loadWav(ALbyte* fileName);
 	// GameLoop
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
@@ -51,8 +50,8 @@ public:
 
 private:
 	std::map<std::string, AbstractSprite*> spriteMap;
-	std::map<std::string, ALuint> soundBuffers;
-	ALuint soundBuffer;
-	ALuint soundSource;
+	Sound* crowNoise = new Sound("sound/CrowNoise.wav");
+	Sound* sound2 = new Sound("sound/truth.wav");
+	Sound* sound3 = new Sound("sound/watch.wav");
 };
 #endif
