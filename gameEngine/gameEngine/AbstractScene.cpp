@@ -1,0 +1,273 @@
+#include "AbstractScene.h"
+
+AbstractScene::AbstractScene() :
+	camera(0,0)
+{
+}
+
+//set Scene's state to active alsnd visible
+void AbstractScene::Start()
+{
+	// set active to true
+	this->active = true;
+
+	//set visible to true
+	this->visible = true;
+}
+
+//set Scene's state to not active and not visible
+void AbstractScene::Stop()
+{
+	this->active = false;
+	this->visible = false;
+}
+
+//tell every Sprite to reset their inital texture, currently not working
+void AbstractScene::reset()
+{
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		Sprites[i]->reset();
+	}
+}
+
+Camera* AbstractScene::getCamera()
+{
+	return &this->camera;
+}
+
+//gets a vector of sprites that all share the given name
+std::vector<AbstractSprite*> AbstractScene::getSprite(std::string name)
+{
+	std::vector<AbstractSprite*> tempVec;
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		if (Sprites.at(i)->getName() == name)
+			tempVec.push_back(Sprites[i]);
+	}
+	return tempVec;
+}
+
+void AbstractScene::addSprite(AbstractSprite *newSprite)
+{
+	Sprites.push_back(newSprite);
+	MovingSceneObjects.push_back(newSprite);
+	DrawSceneObjects.push_back(newSprite);
+	SceneObjects.push_back(newSprite);
+}
+
+void AbstractScene::addSensor(AbstractSensor *s)
+{
+	this->sensors.push_back(s);
+}
+
+void AbstractScene::removeSensor(std::string name)
+{
+	int index = -1;
+	for (int i = 0; i < this->sensors.size(); i++)
+	{
+		if (this->sensors[i]->getName() == name)
+		{
+			index = i;
+		}
+	}
+
+	//if found remove it from the vector
+	if (index != -1)
+	{
+		std::cout << "deleting " << this->sensors.at(index)->getName();
+		this->sensors.erase(sensors.begin() + index);
+	}
+	else
+	{
+		std::cout << "Sensor with the name of " << name << " not found";
+	}
+}
+
+void AbstractScene::removeSensor(int index)
+{
+	if (index > -1 && index <= sensors.size() - 1)
+	{
+		this->sensors.erase(sensors.begin() + index);
+	}
+	else
+	{
+		std::cout << "index is not in range";
+	}
+}
+
+void AbstractScene::addObserver(AbstractObserver *o)
+{
+	this->observers.push_back(o);
+}
+
+void AbstractScene::removeObserver(std::string name)
+{
+	//get index of collider
+	int index = -1;
+	for (int i = 0; i < this->observers.size(); i++)
+	{
+		if (this->observers[i]->getName() == name)
+		{
+			index = i;
+		}
+	}
+
+	//if found remove it from the vector
+	if (index != -1)
+	{
+		std::cout << "deleting " << this->observers.at(index)->getName();
+		this->observers.erase(this->observers.begin() + index);
+	}
+	else
+	{
+		std::cout << "observer with the name of " << name << " not found";
+	}
+}
+
+void AbstractScene::removeObserver(int index)
+{
+	if (index > -1 && index <= observers.size() - 1)
+	{
+		this->observers.erase(observers.begin() + index);
+	}
+	else
+	{
+		std::cout << "index is not in range";
+	}
+}
+
+void AbstractScene::addSceneObject(SceneObject *s)
+{
+	this->SceneObjects.push_back(s);
+}
+
+void AbstractScene::addMovingObject(MovingSceneObject *m)
+{
+	this->MovingSceneObjects.push_back(m);
+}
+
+void AbstractScene::addDrawObject(DrawSceneObject *d)
+{
+	this->DrawSceneObjects.push_back(d);
+}
+
+int AbstractScene::getWidth()
+{
+	return this->width;
+}
+
+int AbstractScene::getHeight()
+{
+	return this->height;
+}
+
+std::string AbstractScene::getName()
+{
+	return this->name;
+}
+
+bool AbstractScene::getActive()
+{
+	return this->active;
+}
+
+bool AbstractScene::getVisible()
+{
+	return this->visible;
+}
+
+GLFWwindow * AbstractScene::getWindow()
+{
+	return this->window;
+}
+
+std::vector<AbstractSprite*> AbstractScene::getSprites()
+{
+	return this->Sprites;
+}
+
+void AbstractScene::setSize(int w, int h)
+{
+	this->width = w;
+	this->height = h;
+}
+
+void AbstractScene::setWidth(int w)
+{
+	this->width = w;
+	glfwSetWindowSize(window, this->width, this->height);
+}
+
+void AbstractScene::setHeight(int h)
+{
+	this->height = h;
+	glfwSetWindowSize(window, this->width, this->height);
+}
+
+void AbstractScene::setName(std::string newName)
+{
+	this->name = newName;
+}
+
+void AbstractScene::setActive(bool newState)
+{
+	this->active = newState;
+}
+
+void AbstractScene::setVisible(bool state)
+{
+	this->visible = state;
+}
+
+void AbstractScene::setCameraWidth(int newWidth)
+{
+	this->camera.setWidth(newWidth);
+
+	glfwSetWindowSize(window, newWidth, camera.getHeight());
+}
+
+void AbstractScene::setCameraHeight(int newHeight)
+{
+	this->camera.setHeight(newHeight);
+
+	glfwSetWindowSize(window, camera.getWidth(), newHeight);
+}
+
+void AbstractScene::setCameraPosX(int newX)
+{
+	this->camera.setPosX(newX);
+}
+
+void AbstractScene::setCameraPosY(int newY)
+{
+	this->camera.setPosY(newY);
+}
+
+void AbstractScene::setCameraDX(int newDX)
+{
+	this->camera.setDX(newDX);
+}
+
+void AbstractScene::setCameraDY(int newDY)
+{
+	this->camera.setDY(newDY);
+}
+
+void AbstractScene::setSprites(std::vector<AbstractSprite*> newVector)
+{
+	this->Sprites = newVector;
+}
+
+//sets GLFWwindow, then calls setSize in case GLFWwindow is not the right size
+void AbstractScene::setWindow(GLFWwindow * newWindow)
+{
+	window = newWindow;
+	//set window to scene's defined width and height
+	setSize(this->width, this->height);
+	glfwSetWindowSize(window, this->camera.getWidth(), this->camera.getHeight());
+}
+
+AbstractScene::~AbstractScene()
+{
+}

@@ -142,20 +142,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
-    <ClCompile Include="Colliders\boxCollider.cpp" />
-    <ClCompile Include="Colliders\circleCollider.cpp" />
-    <ClCompile Include="Colliders\collider.cpp" />
-    <ClCompile Include="Colliders\staticBoxCollider.cpp" />
-    <ClCompile Include="Colliders\staticCircleCollider.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Colliders\AbstractCollider.cpp" />
+    <ClCompile Include="Colliders\BoxCollider.cpp" />
+    <ClCompile Include="Colliders\CircleCollider.cpp" />
+    <ClCompile Include="Colliders\Edge.cpp" />
+    <ClCompile Include="Colliders\PolyCollider.cpp" />
+    <ClCompile Include="DrawSceneObject.cpp" />
+    <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MovingSceneObject.cpp" />
+    <ClCompile Include="Observers\AbstractObserver.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
     <ClCompile Include="Observers\ColliderObserver.cpp" />
     <ClCompile Include="Observers\CollisionGroupObserver.cpp" />
-    <ClCompile Include="Observers\observer.cpp" />
-    <ClCompile Include="Observers\observerhandler.cpp" />
+    <ClCompile Include="Observers\Observer.cpp" />
+    <ClCompile Include="Observers\ObserverHandler.cpp" />
+    <ClCompile Include="QuadScene.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneDirector.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
+    <ClCompile Include="SensorActuators\AbstractSensor.cpp" />
+    <ClCompile Include="SensorActuators\ActiveActuator.cpp" />
+    <ClCompile Include="SensorActuators\CameraActuator.cpp" />
+    <ClCompile Include="SensorActuators\CheckBoundsSensor.cpp" />
+    <ClCompile Include="SensorActuators\CollisionSensor.cpp" />
+    <ClCompile Include="SensorActuators\KeyboardSensor.cpp" />
+    <ClCompile Include="SensorActuators\MotionActuator.cpp" />
+    <ClCompile Include="SensorActuators\PositionActuator.cpp" />
+    <ClCompile Include="SensorActuators\SceneActuator.cpp" />
+    <ClCompile Include="SensorActuators\VisibilityActuator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -163,31 +183,49 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
-    <ClInclude Include="Colliders\boxCollider.h" />
-    <ClInclude Include="Colliders\circleCollider.h" />
-    <ClInclude Include="Colliders\collider.h" />
-    <ClInclude Include="Colliders\staticBoxCollider.h" />
-    <ClInclude Include="Colliders\staticCircleCollider.h" />
-    <ClInclude Include="Observers\abstractobserver.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Colliders\AbstractCollider.h" />
+    <ClInclude Include="Colliders\BoxCollider.h" />
+    <ClInclude Include="Colliders\CircleCollider.h" />
+    <ClInclude Include="Colliders\Edge.h" />
+    <ClInclude Include="Colliders\PolyCollider.h" />
+    <ClInclude Include="DrawSceneObject.h" />
+    <ClInclude Include="KeyHandler.h" />
+    <ClInclude Include="MovingSceneObject.h" />
+    <ClInclude Include="Observers\AbstractObserver.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />
     <ClInclude Include="Observers\ColliderObserver.h" />
     <ClInclude Include="Observers\CollisionGroupObserver.h" />
-    <ClInclude Include="Observers\observer.h" />
-    <ClInclude Include="Observers\observerhandler.h" />
+    <ClInclude Include="Observers\Observer.h" />
+    <ClInclude Include="Observers\ObserverHandler.h" />
+    <ClInclude Include="QuadScene.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneDirector.h" />
+    <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="SensorActuators\AbstractActuator.h" />
+    <ClInclude Include="SensorActuators\AbstractSensor.h" />
+    <ClInclude Include="SensorActuators\ActiveActuator.h" />
+    <ClInclude Include="SensorActuators\CameraActuator.h" />
+    <ClInclude Include="SensorActuators\CheckBoundsSensor.h" />
+    <ClInclude Include="SensorActuators\CollisionSensor.h" />
+    <ClInclude Include="SensorActuators\KeyboardSensor.h" />
+    <ClInclude Include="SensorActuators\MotionActuator.h" />
+    <ClInclude Include="SensorActuators\PositionActuator.h" />
+    <ClInclude Include="SensorActuators\SceneActuator.h" />
+    <ClInclude Include="SensorActuators\VisibilityActuator.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="sprite_renderer.h" />
-    <ClInclude Include="staticBoxCollider.h" />
-    <ClInclude Include="staticCircleCollider.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\sprite.frag" />
     <None Include="..\shaders\sprite.vs" />
+    <None Include="inline.inl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\textures\awesomeface.png" />

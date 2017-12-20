@@ -1,57 +1,32 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-
+#include "AbstractScene.h"
 #include "ResourceManager.h"
 #include "sprite_renderer.h"
 #include "AbstractSprite.h"
-
-#include "Sound.h"
-#include <cstdlib>
+#include "SceneDirector.h"
 
 #include <vector>
 
-// Represents the current state of the game
-enum GameState {
-	GAME_ACTIVE,
-	GAME_MENU,
-	GAME_WIN
-};
-
-// Game holds all game-related state and functionality.
-// Combines all game-related data into a single class for
-// easy access to each of the components and manageability.
-class Scene
+// Scene holds all sprite set to it, determines when they are drawn and updated.
+class Scene : public AbstractScene
 {
 public:
-
-	// Game state
-	GameState	State;
-	GLboolean	Keys[1024];
-	GLuint	Width, Height;
-	// Constructor/Destructor
-	Scene(GLuint width, GLuint height);
-	void Start();
-	void Stop();
+	Scene() { };
+	Scene(std::string name, GLuint width, GLuint height);
 	~Scene();
-	// Initialize game state (load all shaders/textures/levels)
-	void Init();
-	// GameLoop
-	void ProcessInput(GLfloat dt);
-	void Update(GLfloat dt);
-	void Render();
-	std::vector<AbstractSprite*> getSprite(std::string name);
+	virtual void Init();
+	virtual void Update(GLfloat dt);
+	virtual void Render();
 
-	std::vector<AbstractSprite*> Sprites;
-	GLFWwindow* window;
+	//set's Scene's background, get's image from filename you give to fill the scene
+	void setBackground(char*);
 
-private:
+
+protected:
+	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
-	Sound* crowNoise = new Sound("sound/CrowNoise.wav");
-	Sound* sound2 = new Sound("sound/truth.wav");
-	Sound* sound3 = new Sound("sound/watch.wav");
+	MovingSceneObject background;
 };
 #endif
