@@ -10,6 +10,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Scene.h"
+#include <alut.h>
+#include <al.h>
+#include <alc.h>
 #include "QuadScene.h"
 #include "SceneDirector.h"
 #include "Sprite.h"
@@ -94,6 +97,7 @@ void checkCols(Sprite *s, int w, int h)
 
 int main(int argc, char *argv[])
 {
+	alutInit(NULL, 0);
 	mainScene.Init();
 
 	//ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
@@ -298,5 +302,7 @@ int main(int argc, char *argv[])
 	
 	SceneDirector::getInstance()->Start();
 	
+	alutExit();
+
 	return 0;
 }
