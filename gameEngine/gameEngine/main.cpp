@@ -33,6 +33,7 @@
 #include "SensorActuators\ActiveActuator.h"
 #include "SensorActuators\KeyboardSensor.h"
 #include "SensorActuators\SceneActuator.h"
+#include "SensorActuators\SoundActuator.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -279,12 +280,17 @@ int main(int argc, char *argv[])
 	MotionActuator *m8 = new MotionActuator("m8", colTester7, "flip");
 	MotionActuator *m9 = new MotionActuator("m9", colTester8, "flip");
 
+	SoundActuator *Batman = new SoundActuator("sound/truth.wav");
+
 	t1->addActuator(m3);
 	t1->addActuator(m4);
 	t2->addActuator(m1);
 	t2->addActuator(m5);
 	t3->addActuator(m6);
 	t3->addActuator(m7);
+
+	kLeft->addActuator(Batman);
+
 	testScene.addSensor(t1);
 	testScene.addSensor(t2);
 	

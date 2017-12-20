@@ -144,6 +144,9 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SensorActuators\SoundActuator.cpp">
+      <Filter>Actuators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -259,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuators\SoundActuator.h">
+      <Filter>Actuators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
