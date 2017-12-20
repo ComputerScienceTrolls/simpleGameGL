@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include <math.h>
 #include "MovingSceneObject.h"
 
@@ -24,4 +26,4 @@ private:
 	glm::vec2 Zoom;
 
 };
-
+#endif

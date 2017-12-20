@@ -1,4 +1,3 @@
-#pragma once
 #include "AbstractActuator.h"
 #include "../AbstractScene.h"
 

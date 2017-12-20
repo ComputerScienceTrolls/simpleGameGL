@@ -192,7 +192,6 @@
     <ClInclude Include="Colliders\PolyCollider.h" />
     <ClInclude Include="DrawSceneObject.h" />
     <ClInclude Include="KeyHandler.h" />
-    <ClInclude Include="MovingDrawSceneObject.h" />
     <ClInclude Include="MovingSceneObject.h" />
     <ClInclude Include="Observers\AbstractObserver.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />

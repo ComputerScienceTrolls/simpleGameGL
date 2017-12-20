@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SCENEOBJECT_H
+#define SCENEOBJECT_H
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <string>
@@ -48,3 +50,4 @@ protected:
 	bool active;
 };
 
+#endif

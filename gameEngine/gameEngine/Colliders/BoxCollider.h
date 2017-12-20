@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BOXCOLLIDER_H
+#define BOXCOLLIDER_H
+
 #include "AbstractCollider.h"
 #include "../MovingSceneObject.h"
 #include "../AbstractSprite.h"
@@ -27,4 +29,4 @@ private:
 	bool staticState;
 	AbstractSprite *spriteParent;
 };
-
+#endif

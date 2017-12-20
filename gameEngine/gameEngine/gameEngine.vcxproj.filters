@@ -248,9 +248,6 @@
     <ClInclude Include="DrawSceneObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MovingDrawSceneObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SensorActuators\CameraActuator.h">
       <Filter>Actuators</Filter>
     </ClInclude>

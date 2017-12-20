@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MOVINGSCENEOBJECT_H
+#define MOVINGSCENEOBJECT_H
+
 #include "SceneObject.h"
 
 class MovingSceneObject : public virtual SceneObject
@@ -43,3 +45,4 @@ protected:
 	std::string boundAction;
 };
 
+#endif

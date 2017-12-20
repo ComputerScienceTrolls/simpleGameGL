@@ -1,3 +1,6 @@
+#ifndef SPRITE_H
+#define SPRITE_H
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
@@ -16,7 +19,6 @@
 #include "Colliders/PolyCollider.h"
 #include "AbstractScene.h"
 
-#pragma once
 class Sprite : public AbstractSprite
 {
 public:
@@ -73,3 +75,4 @@ private:
 
 };
 
+#endif

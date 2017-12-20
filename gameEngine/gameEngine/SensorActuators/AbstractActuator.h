@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ABSTRACTACTUATOR_H
+#define ABSTRACTACTUATOR_H
+
 #include <iostream>
 
 class AbstractActuator
@@ -13,4 +15,5 @@ public:
 protected:
 	std::string name;
 };
+#endif
 

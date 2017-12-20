@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DRAWSCENEOBJECT_H
+#define DRAWSCENEOBJECT_H
+
 #include "SceneObject.h"
 
 class DrawSceneObject : public virtual SceneObject
@@ -17,3 +19,4 @@ protected:
 	GLfloat transparency;
 };
 
+#endif
