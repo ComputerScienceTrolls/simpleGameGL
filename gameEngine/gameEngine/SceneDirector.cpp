@@ -26,6 +26,12 @@ SceneDirector::SceneDirector()
 	glewInit();
 	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
+
+	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
+	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 }
 
 /*
@@ -116,6 +122,7 @@ void SceneDirector::addScene(AbstractScene *s)
 	{
 		currentScene = s;
 		currentScene->setWindow(window);
+		currentScene->setRenderer(Renderer);
 	}
 }
 
@@ -171,6 +178,7 @@ void SceneDirector::setScene(AbstractScene *s)
 	currentScene->Stop();
 	currentScene = s;
 	currentScene->setWindow(window);
+	currentScene->setRenderer(Renderer);
 	currentScene->Init();
 	currentScene->reset();
 	currentScene->Start();
@@ -198,6 +206,7 @@ void SceneDirector::setScenePause(AbstractScene * s)
 		currentScene->setActive(false);
 		currentScene = s;
 		currentScene->setWindow(window);
+		currentScene->setRenderer(Renderer);
 		currentScene->Start();
 
 		bool found = false;
@@ -237,7 +246,8 @@ void SceneDirector::nextScene()
 
 		//init new currentScene
 		currentScene->setWindow(window);
-		currentScene->Init();
+		currentScene->setRenderer(Renderer);
+		//currentScene->Init();
 		currentScene->reset();
 		currentScene->Start();
 	}
@@ -271,6 +281,7 @@ void SceneDirector::previousScene()
 
 		//init new currentScene
 		currentScene->setWindow(window);
+		currentScene->setRenderer(Renderer);
 		currentScene->Init();
 		currentScene->reset();
 		currentScene->Start();

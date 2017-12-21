@@ -25,8 +25,8 @@ public:
 
 
 protected:
-	SpriteRenderer  *Renderer;
 	std::map<std::string, AbstractSprite*> spriteMap;
 	MovingSceneObject background;
+	bool initilized;
 };
 #endif

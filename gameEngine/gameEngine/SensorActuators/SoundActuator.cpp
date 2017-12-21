@@ -1,12 +1,9 @@
 #include "SoundActuator.h"
 
-
-
-SoundActuator::SoundActuator(string dir)
+SoundActuator::SoundActuator(std::string dir)
 {
 	sound = new Sound(dir);
 }
-
 
 SoundActuator::~SoundActuator()
 {

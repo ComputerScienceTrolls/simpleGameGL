@@ -126,6 +126,7 @@ int main(int argc, char *argv[])
 	Player->addCircleCollider("test", 50, 0, 0);
 	Player->setCollideDebug(true);
 	Ball->setCollideDebug(true);
+	Player->setBoundAction("STOP");
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
 	//Ball->addBoxCollider("test",50,50,50,100);
@@ -289,7 +290,7 @@ int main(int argc, char *argv[])
 	t3->addActuator(m6);
 	t3->addActuator(m7);
 
-	kLeft->addActuator(Batman);
+	//kLeft->addActuator(Batman);
 
 	testScene.addSensor(t1);
 	testScene.addSensor(t2);

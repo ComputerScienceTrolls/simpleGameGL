@@ -42,8 +42,6 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	initTexture = Texture;
 	initTextureFile = textureFile;
 	initVelocity = Velocity;
-
-	this->setBoundAction("STOP");
 }
 
 //make given pos the center of the sprite, so calc the real pos, setup given texture, setup collider texture, add sprite to scene, set velocity, and init initvalues
@@ -64,54 +62,52 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	this->lastPosition = this->Position;
 
 	BoxCollider *temp = new BoxCollider("default",*this, size.x, size.y);
-temp->setPosition(this->Position);
-glm::vec2 test2 = temp->getPosition();
-colliders_.push_back(temp);
+	temp->setPosition(this->Position);
+	glm::vec2 test2 = temp->getPosition();
+	colliders_.push_back(temp);
 
-//load texture
-ResourceManager::LoadTexture(texture, true, texture);
-this->Texture = ResourceManager::GetTexture(texture);
+	//load texture
+	ResourceManager::LoadTexture(texture, true, texture);
+	this->Texture = ResourceManager::GetTexture(texture);
 
-//texture for collider debug
-ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
-ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	//texture for collider debug
+	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
-scene.addSprite(this);
+	scene.addSprite(this);
 
-/*
-//add Sprite to Scene, get Sprites, add new sprite.
-std::vector<AbstractSprite*> tempSprites = scene.getSprites();
-tempSprites.push_back(this);
+	/*
+	//add Sprite to Scene, get Sprites, add new sprite.
+	std::vector<AbstractSprite*> tempSprites = scene.getSprites();
+	tempSprites.push_back(this);
 
-tempSprites.back()->setPosition(this->Position);
-tempSprites.back()->setCenter(this->Center);
-tempSprites.back()->setSize(this->Size);
-tempSprites.back()->setVelocity(this->Velocity);
-tempSprites.back()->setColor(this->Color);
-tempSprites.back()->setRotation(this->Rotation);
-tempSprites.back()->setTexture(this->Texture);
-tempSprites.back()->collideDebug = this->collideDebug;
+	tempSprites.back()->setPosition(this->Position);
+	tempSprites.back()->setCenter(this->Center);
+	tempSprites.back()->setSize(this->Size);
+	tempSprites.back()->setVelocity(this->Velocity);
+	tempSprites.back()->setColor(this->Color);
+	tempSprites.back()->setRotation(this->Rotation);
+	tempSprites.back()->setTexture(this->Texture);
+	tempSprites.back()->collideDebug = this->collideDebug;
 
-//set new vector back to the scene
-scene.setSprites(tempSprites);
-*/
+	//set new vector back to the scene
+	scene.setSprites(tempSprites);
+	*/
 
-this->active = true;
-this->visible = true;
+	this->active = true;
+	this->visible = true;
 
-//init init vars, for restarting scenes
-initCenter = Center;
-initColor = Color;
-initPosition = Position;
-initRotation = Rotation;
-initSize = Size;
-initTexture = Texture;
-initTextureFile = textureFile;
-initVelocity = Velocity;
+	//init init vars, for restarting scenes
+	initCenter = Center;
+	initColor = Color;
+	initPosition = Position;
+	initRotation = Rotation;
+	initSize = Size;
+	initTexture = Texture;
+	initTextureFile = textureFile;
+	initVelocity = Velocity;
 
-resetCounter = 0;
-
-this->setBoundAction("STOP");
+	resetCounter = 0;
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.

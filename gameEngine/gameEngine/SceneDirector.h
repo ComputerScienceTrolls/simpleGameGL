@@ -49,6 +49,7 @@ private:
 	AbstractScene *currentScene;
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
+	SpriteRenderer *Renderer;
 };
 #include "inline.inl"
 #endif

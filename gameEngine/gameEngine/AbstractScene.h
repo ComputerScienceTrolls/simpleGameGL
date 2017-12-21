@@ -53,6 +53,7 @@ public:
 	virtual void setActive(bool);
 	virtual void setVisible(bool state);
 	virtual void setWindow(GLFWwindow *newWindow);
+	virtual void setRenderer(SpriteRenderer *newRenderer);
 	virtual void setCameraWidth(int);
 	virtual void setCameraHeight(int);
 	virtual void setCameraPosX(int);
@@ -76,7 +77,8 @@ protected:
 	int height;
 	int width;
 	std::string name;
-	GLFWwindow* window;
+	GLFWwindow *window;
+	SpriteRenderer  *Renderer;
 };
 
 #endif

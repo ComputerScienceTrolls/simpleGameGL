@@ -4,13 +4,11 @@
 #include "AbstractActuator.h"
 #include "../Sound.h"
 
-using std::string;
-
 
 class SoundActuator : public AbstractActuator
 {
 public:
-	SoundActuator(string);
+	SoundActuator(std::string);
 	~SoundActuator();
 	void run();
 

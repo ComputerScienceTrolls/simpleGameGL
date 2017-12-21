@@ -268,6 +268,11 @@ void AbstractScene::setWindow(GLFWwindow * newWindow)
 	glfwSetWindowSize(window, this->camera.getWidth(), this->camera.getHeight());
 }
 
+void AbstractScene::setRenderer(SpriteRenderer * newRenderer)
+{
+	this->Renderer = newRenderer;
+}
+
 AbstractScene::~AbstractScene()
 {
 }

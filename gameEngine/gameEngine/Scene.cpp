@@ -6,7 +6,8 @@
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-Scene::Scene(std::string n, GLuint w, GLuint h)
+Scene::Scene(std::string n, GLuint w, GLuint h) :
+	initilized(false)
 {
 	this->name = n;
 	this->width = w;
@@ -21,20 +22,18 @@ Scene::Scene(std::string n, GLuint w, GLuint h)
 //if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
 void Scene::Init()
 {
-	SceneDirector *temp = SceneDirector::getInstance();
-	if (temp->getNumberOfScenes() < 1)
+	if (!initilized)
 	{
-		temp->addScene(this);
+		SceneDirector *temp = SceneDirector::getInstance();
+		if (temp->getNumberOfScenes() < 1)
+		{
+			temp->addScene(this);
+		}
+		glfwSetKeyCallback(window, key_callback);
+		ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+		initilized = true;
 	}
-	glfwSetKeyCallback(window, key_callback);
-	// Load shaders
-	//ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
-	// Configure shaders
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
-	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
-	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
-	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+
 }
 
 //if Scene is active, tell Sprites to update and check Sensors.
