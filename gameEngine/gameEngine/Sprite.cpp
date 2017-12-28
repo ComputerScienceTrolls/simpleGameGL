@@ -115,6 +115,7 @@ void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 {
 	if (visible)
 	{
+		std::cout << "\n" << this->Position.x;
 		renderer.DrawSprite(this->getTexture(), this->Position + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
@@ -254,7 +255,10 @@ void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
 //called every cycle as long sprite is active, sets position and center based on dx and dy. Check bounds
 void Sprite::Update()
 {
+	std::cout << "\nbefore update" << this->Position.x;
 	this->Position.x += this->Velocity.x;
+	std::cout << "\n WUT" << this->Velocity.x;
+	std::cout << "\test update" << this->Position.x;
 	this->Position.y -= this->Velocity.y;
 
 	//update Center
@@ -264,6 +268,8 @@ void Sprite::Update()
 	glm::vec2 diffPos = glm::vec2(0);
 	glm::vec2 diffSize = glm::vec2(0);
 	bool change = false;
+
+	//std::cout << Position.x;
 
 	if (Position != lastPosition)
 	{
@@ -275,6 +281,7 @@ void Sprite::Update()
 	{
 		diffSize = Size - lastSize;
 		//we need to recalc center
+		std::cout << "\nTEST" << this->Position.x;
 		this->Position.x = this->Center.x - this->Size.x / 2;
 		this->Position.y = this->Center.y - this->Size.y / 2;
 		change = true;
@@ -284,12 +291,15 @@ void Sprite::Update()
 	{
 		for (int i = 0; i < colliders_.size(); i++)
 		{
+			//std::cout << diffPos.x;
 			colliders_[i]->changePositionBy(diffPos);
 			colliders_[i]->setSize(colliders_.at(i)->getSize() + diffSize);
 		}
 	}
 
 	lastPosition = Position;
+
+	std::cout << "\nafterupdate" << this->Position.x;
 }
 
 void Sprite::setState(std::string key, bool state)

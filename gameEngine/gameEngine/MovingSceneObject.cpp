@@ -1,4 +1,5 @@
 #include "MovingSceneObject.h"
+#include <iostream>
 
 //pie constant for math
 const double PI = 3.141592653589793238463;
@@ -94,11 +95,11 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 	//since the Position.x starts on the left most of the sprite, we need to calculate and account for it's size
 	double offsetX = 0;
 	double offsetY = 0;
-	if (this->Size.x > 1)
+	if (this->Size.x > 0)
 	{
 		offsetX = this->Size.x;
 	}
-	if (this->Size.y > 1)
+	if (this->Size.y > 0)
 	{
 		offsetY = this->Size.y;
 	}
@@ -216,49 +217,50 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 	else if (this->boundAction == "STOP") {
 		if (offLeft || offRight || offTop || offBottom) {
 			this->setSpeed(0);
+			this->Velocity.x = 0;
+			this->Velocity.y = 0;
 
 			//if user is moving object by positon.x or position.y +=
 			if (offLeft)
 			{
-				this->Position.x = leftBorder;
-
+				this->Position.x = offLeft + .1;
 				//check for corners
 				if (offBottom)
 				{
-					this->Position.y = bottomBorder - offsetY;
+					this->Position.y = bottomBorder - offsetY - .1;
 				}
 				else if (offTop)
 				{
-					this->Position.y = topBorder;
+					this->Position.y = topBorder + .1;
 				}
 			}
 			else if (offRight)
 			{
-				this->Position.x = rightBorder - offsetX;
+				this->Position.x = rightBorder - offsetX - .1;
 
 				//check for corners
 				if (offBottom)
 				{
-					this->Position.y = bottomBorder - offsetY;
+					this->Position.y = bottomBorder - offsetY -.1;
 				}
 				else if (offTop)
 				{
-					this->Position.y = topBorder;
+					this->Position.y = topBorder + .1;
 				}
 			}
 			else if (offBottom)
 			{
-				this->Position.y = bottomBorder - offsetY;
+				this->Position.y = bottomBorder - offsetY + .1;
 
 				//check for corners
 				if (offRight)
 				{
-					this->Position.x = rightBorder - offsetX;
+					this->Position.x = rightBorder - offsetX - .1;
 				}
 			}
 			else if (offTop)
 			{
-				this->Position.y = topBorder;
+				this->Position.y = topBorder + .1;
 			}
 			//check for corners
 			else if (offTop && offRight)
@@ -272,7 +274,7 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 		if (offLeft || offRight || offTop || offBottom) {
 			this->setSpeed(0);
 			this->active = false;
-			setVisible(false);
+			this->setVisible(false);
 		}
 
 	}
