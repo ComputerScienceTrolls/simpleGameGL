@@ -160,6 +160,7 @@
     <ClCompile Include="Observers\CollisionGroupObserver.cpp" />
     <ClCompile Include="Observers\Observer.cpp" />
     <ClCompile Include="Observers\ObserverHandler.cpp" />
+    <ClCompile Include="ParticleGenerator.cpp" />
     <ClCompile Include="QuadScene.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Observers\CollisionGroupObserver.h" />
     <ClInclude Include="Observers\Observer.h" />
     <ClInclude Include="Observers\ObserverHandler.h" />
+    <ClInclude Include="ParticleGenerator.h" />
     <ClInclude Include="QuadScene.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
@@ -228,6 +230,8 @@
     <None Include="..\shaders\sprite.frag" />
     <None Include="..\shaders\sprite.vs" />
     <None Include="inline.inl" />
+    <None Include="shaders\particle.frag" />
+    <None Include="shaders\particle.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\textures\awesomeface.png" />
