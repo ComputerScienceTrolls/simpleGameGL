@@ -14,6 +14,8 @@ Scene::Scene(std::string n, GLuint w, GLuint h) :
 	this->height = h;
 	this->camera.setHeight(h);
 	this->camera.setWidth(w);
+	this->camera.setZoom(glm::vec2(1));
+	this->camera.setRotation(.782);
 
 	this->MovingSceneObjects.push_back(&this->camera);
 	this->MovingSceneObjects.push_back(&this->background);
@@ -68,6 +70,12 @@ void Scene::Render()
 {
 	if (this->visible)
 	{
+		glm::mat4 projection = glm::ortho(0.0f, this->camera.getWidth() * this->camera.getZoom().x, this->camera.getHeight() * this->camera.getZoom().y, 0.0f, -1.0f, 1.0f);
+		projection = glm::translate(projection, glm::vec3(0.5f * this->camera.getWidth(), 0.5f * this->camera.getHeight(), 0.0f)); // Move origin of rotation to center of quad
+		projection = glm::rotate(projection, this->camera.getRotation(), glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
+		projection = glm::translate(projection, glm::vec3(-0.5f * this->camera.getWidth(), -0.5f * this->camera.getHeight(), 0.0f)); // Move origin back
+		ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+
 		Renderer->DrawSprite(ResourceManager::GetTexture("background"), background.getPosition() + this->camera.getPosition(), glm::vec2(this->width, this->height), 0.0f);
 		//give camera's pos so Sprite's can render accordingly
 		for (int i = 0; i < DrawSceneObjects.size(); i++)

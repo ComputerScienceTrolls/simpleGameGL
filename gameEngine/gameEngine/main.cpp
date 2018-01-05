@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
 	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
 	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
-	CameraActuator *cLeft = new CameraActuator("cLeft", mainScene.getCamera(), 180, .1, "force");
+	CameraActuator *cLeft = new CameraActuator("scaleUp", mainScene.getCamera(), .01,"zoomDY");
 	CameraActuator *cRight = new CameraActuator("cRight", mainScene.getCamera(),0,.1,"force");
 	CameraActuator *cDown = new CameraActuator("cDown", mainScene.getCamera(), 270, .1, "force");
 	CameraActuator *cUp = new CameraActuator("cUp", mainScene.getCamera(), 90, .1, "force");
