@@ -70,9 +70,10 @@ void Scene::Render()
 	if (this->visible)
 	{
 		std::cout << "cposX: " << this->camera.getPosition().x << "\n";
+		std::cout << "cposY: " << this->camera.getPosition().y << "\n";
 		glm::mat4 projection;
-		projection = glm::translate(projection, glm::vec3(camera.getPosition(), 0.0f));
 		projection = glm::ortho(0.0f, this->camera.getWidth() * this->camera.getZoom().x, this->camera.getHeight() * this->camera.getZoom().y, 0.0f, -1.0f, 1.0f);
+		projection = glm::translate(projection, glm::vec3(camera.getPosition(), 0.0f));
 		projection = glm::translate(projection, glm::vec3(0.5f * this->camera.getWidth(), 0.5f * this->camera.getHeight(), 0.0f)); // Move origin of rotation to center of quad
 		projection = glm::rotate(projection, this->camera.getRotation(), glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
 		projection = glm::translate(projection, glm::vec3(-0.5f * this->camera.getWidth(), -0.5f * this->camera.getHeight(), 0.0f)); // Move origin back
