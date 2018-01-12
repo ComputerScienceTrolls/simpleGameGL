@@ -151,6 +151,10 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	KeyboardSensor *kg = new KeyboardSensor("space", GLFW_KEY_G, "clicked");
 	KeyboardSensor *kh = new KeyboardSensor("space", GLFW_KEY_H, "clicked");
+	KeyboardSensor *k9 = new KeyboardSensor("n9", GLFW_KEY_KP_9);
+	KeyboardSensor *k7 = new KeyboardSensor("n7", GLFW_KEY_7);
+	KeyboardSensor *k1 = new KeyboardSensor("n7", GLFW_KEY_KP_1);
+	KeyboardSensor *k2 = new KeyboardSensor("n7", GLFW_KEY_KP_2);
 	//CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
@@ -158,12 +162,13 @@ int main(int argc, char *argv[])
 	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
 	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
-	CameraActuator *cLeft = new CameraActuator("scaleUp", mainScene.getCamera(), .01,"zoomDY");
-	CameraActuator *cRight = new CameraActuator("cRight", mainScene.getCamera(),0,.1,"force");
-	CameraActuator *cDown = new CameraActuator("cDown", mainScene.getCamera(), 270, .1, "force");
-	CameraActuator *cUp = new CameraActuator("cUp", mainScene.getCamera(), 90, .1, "force");
-	CameraActuator *z = new CameraActuator("z", mainScene.getCamera(), 2, "zoom");
-	CameraActuator *z2 = new CameraActuator("z2", mainScene.getCamera(), .5, "zoom");
+	CameraActuator *cScaleDown = new CameraActuator("scaleDown", mainScene.getCamera(), .01,"zoomDT");
+	CameraActuator *cLeft = new CameraActuator("cLeft", mainScene.getCamera(), 1, "changeByX");
+	CameraActuator *cRight = new CameraActuator("cRight", mainScene.getCamera(), -1, "changeByX");
+	CameraActuator *cDown = new CameraActuator("cDown", mainScene.getCamera(), -1, "changeByY");
+	CameraActuator *cUp = new CameraActuator("cUp", mainScene.getCamera(), 1, "changeByY");
+	CameraActuator *rotate = new CameraActuator("ro", mainScene.getCamera(), .5, "rotate");
+	CameraActuator *rotateBy = new CameraActuator("r", mainScene.getCamera(), .01, "rotateBy");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
 	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
@@ -176,14 +181,15 @@ int main(int argc, char *argv[])
 	kArrowRight->addActuator(s2);
 	kLeft->addActuator(mLeft);
 	kRight->addActuator(mRight);
-	kg->addActuator(z);
-	kh->addActuator(z2);
+	k9->addActuator(cScaleDown);
 	kUp->addActuator(mUp);
 	kDown->addActuator(mDown);
 	cKeydown->addActuator(cDown);
 	cKeyLeft->addActuator(cLeft);
 	cKeyRight->addActuator(cRight);
 	cKeyUp->addActuator(cUp);
+	k1->addActuator(rotate);
+	k2->addActuator(rotateBy);
 	//t2->addActuator(m2);
 	SceneDirector::getInstance()->addSensor(kSpace);
 	SceneDirector::getInstance()->addSensor(kArrowLeft);
@@ -198,6 +204,9 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(cKeyRight);
 	mainScene.addSensor(kg);
 	mainScene.addSensor(kh);
+	mainScene.addSensor(k9);
+	mainScene.addSensor(k1);
+	mainScene.addSensor(k2);
 	mainScene.addSensor(cKeyLeft);
 	mainScene.addObserver(colTest);
 

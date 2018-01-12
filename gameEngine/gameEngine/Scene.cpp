@@ -15,7 +15,6 @@ Scene::Scene(std::string n, GLuint w, GLuint h) :
 	this->camera.setHeight(h);
 	this->camera.setWidth(w);
 	this->camera.setZoom(glm::vec2(1));
-	this->camera.setRotation(.782);
 
 	this->MovingSceneObjects.push_back(&this->camera);
 	this->MovingSceneObjects.push_back(&this->background);

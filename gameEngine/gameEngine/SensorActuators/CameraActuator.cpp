@@ -32,6 +32,22 @@ void CameraActuator::run()
 	{
 		camera->setDY(DY);
 	}
+	else if (condition == "changeByX")
+	{
+		camera->changeXBy(DT);
+	}
+	else if (condition == "changeByY")
+	{
+		camera->changeYBy(DT);
+	}
+	else if (condition == "rotate")
+	{
+		camera->setRotation(DT);
+	}
+	else if(condition == "rotateBy")
+	{
+		camera->setRotation(camera->getRotation() + DT);
+	}
 	else if (condition == "zoom")
 	{
 		camera->setZoom(glm::vec2(DT));
@@ -50,6 +66,11 @@ void CameraActuator::run()
 	}
 	else if (condition == "zoomDY")
 	{
+		camera->changeZoomByY(DT);
+	}
+	else if (condition == "zoomDT")
+	{
+		camera->changeZoomByX(DT);
 		camera->changeZoomByY(DT);
 	}
 	else if (condition == "bothDt")
