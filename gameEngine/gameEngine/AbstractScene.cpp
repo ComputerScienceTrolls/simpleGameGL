@@ -56,6 +56,12 @@ void AbstractScene::addSprite(AbstractSprite *newSprite)
 	SceneObjects.push_back(newSprite);
 }
 
+void AbstractScene::addParticles(ParticleGenerator *particle)
+{
+	particles.push_back(particle);
+}
+
+
 void AbstractScene::addSensor(AbstractSensor *s)
 {
 	this->sensors.push_back(s);

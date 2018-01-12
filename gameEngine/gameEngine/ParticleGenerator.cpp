@@ -1,28 +1,43 @@
-
 #include "ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(Shader shader, Texture2D texture, GLuint amount)
-	: shader(shader), texture(texture), amount(amount)
+#include "AbstractScene.h"
+using std::cout;
+
+ParticleGenerator::ParticleGenerator(string dir, AbstractScene &scenes, glm::vec2 position)
+	: position(position)
 {
+	amount = 500;
+	velocity.x = 0;
+	velocity.y = 0.5;
+	ResourceManager::LoadTexture(dir.c_str(), GL_TRUE, "particle");
+	this->texture = ResourceManager::GetTexture("particle");
+	ResourceManager::LoadShader("shaders/particle.vs", "shaders/particle.frag", nullptr, "particles");
+	this->shader = ResourceManager::GetShader("particles");
 	this->init();
+	scenes.addParticles(this);
 }
 
-void ParticleGenerator::Update(GLfloat dt, glm::vec2 position, glm::vec2 velocity, GLuint newParticles, glm::vec2 offset)
+void ParticleGenerator::Update(GLfloat dt)
 {
 	// Add new particles 
-	for (GLuint i = 0; i < newParticles; ++i)
+	for (GLuint i = 0; i < 5; ++i)
 	{
 		int unusedParticle = this->firstUnusedParticle();
-		this->respawnParticle(this->particles[unusedParticle], position, velocity, offset);
+		this->respawnParticle(this->particles[unusedParticle], position, velocity);
 	}
 	// Update all particles
 	for (GLuint i = 0; i < this->amount; ++i)
 	{
 		Particle &p = this->particles[i];
 		p.Life -= dt; // reduce life
+		
 		if (p.Life > 0.0f)
-		{	// particle is alive, thus update
+		{	
+			
+			// particle is alive, thus update
 			p.Position -= p.Velocity * dt;
+			
+			
 			p.Color.a -= dt * 2.5;
 		}
 	}
@@ -52,6 +67,8 @@ void ParticleGenerator::Draw()
 
 void ParticleGenerator::init()
 {
+	
+
 	// Set up mesh and attribute properties
 	GLuint VBO;
 	GLfloat particle_quad[] = {
@@ -102,12 +119,18 @@ GLuint ParticleGenerator::firstUnusedParticle()
 	return 0;
 }
 
-void ParticleGenerator::respawnParticle(Particle &particle, glm::vec2 position, glm::vec2 velocity, glm::vec2 offset)
+void ParticleGenerator::respawnParticle(Particle &particle, glm::vec2 position, glm::vec2 velocity)
 {
 	GLfloat random = ((rand() % 100) - 50) / 10.0f;
 	GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-	particle.Position = position + random + offset;
+	particle.Position = position + random;
 	particle.Color = glm::vec4(rColor, rColor, rColor, 1.0f);
 	particle.Life = 1.0f;
 	particle.Velocity = velocity * 0.1f;
+}
+
+
+ParticleGenerator::~ParticleGenerator()
+{
+	cout << "meows\n";
 }

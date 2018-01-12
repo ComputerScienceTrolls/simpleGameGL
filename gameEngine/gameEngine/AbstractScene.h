@@ -6,12 +6,17 @@
 #include "SensorActuators\AbstractSensor.h"
 #include "ResourceManager.h"
 
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include <vector>
 #include "Camera.h"
+
+
+class ParticleGenerator;
+
 
 class AbstractScene
 {
@@ -27,6 +32,7 @@ public:
 	virtual Camera* getCamera();
 
 	virtual void addSprite(AbstractSprite*);
+	virtual void addParticles(ParticleGenerator*);
 	void addSensor(AbstractSensor*);
 	void removeSensor(std::string name);
 	void removeSensor(int index);
@@ -71,6 +77,7 @@ protected:
 	std::vector<DrawSceneObject*> DrawSceneObjects;
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
+	std::vector<ParticleGenerator*> particles;
 	Camera camera;
 	bool active;
 	bool visible;

@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "KeyHandler.h"
+#include "ParticleGenerator.h"
 
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -51,6 +52,12 @@ void Scene::Update(GLfloat dt)
 			}
 		}
 
+		//for each particle group in scene
+		for (int i = 0; i < particles.size(); i++)
+		{
+			particles.at(i)->Update(dt);
+		}
+
 		for (int i = 0; i < sensors.size(); i++)
 		{
 			sensors.at(i)->sense();
@@ -66,6 +73,11 @@ void Scene::Update(GLfloat dt)
 //renders background and all sprites, if visible state is true
 void Scene::Render()
 {
+	for (int i = 0; i < particles.size(); i++)
+	{
+		particles.at(i)->Draw();
+	}
+
 	if (this->visible)
 	{
 		Renderer->DrawSprite(ResourceManager::GetTexture("background"), background.getPosition() + this->camera.getPosition(), glm::vec2(this->width, this->height), 0.0f);
@@ -74,6 +86,8 @@ void Scene::Render()
 		{
 			DrawSceneObjects.at(i)->Draw(*Renderer, this->camera.getPosition());
 		}
+
+
 	}
 }
 

@@ -16,6 +16,7 @@
 #include "QuadScene.h"
 #include "SceneDirector.h"
 #include "Sprite.h"
+#include "ParticleGenerator.h"
 
 #include "SensorActuators\CameraActuator.h"
 
@@ -105,6 +106,8 @@ int main(int argc, char *argv[])
 	//ResourceManager::LoadTexture("textures/face.png",true,"face");
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
+	ParticleGenerator* p = new ParticleGenerator("textures/part.png", mainScene, glm::vec2(50, 50));
+
 	//Sprite *trigger = new Sprite("trigger",mainScene);
 	Ball->removeCollider("default");
 	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 100, 300);
@@ -127,6 +130,7 @@ int main(int argc, char *argv[])
 	Player->setCollideDebug(true);
 	Ball->setCollideDebug(true);
 	Player->setBoundAction("STOP");
+	
 	//Ball->setState("Stuck", true);
 	//Ball->setBoundAction("BOUNCE");
 	//Ball->addBoxCollider("test",50,50,50,100);
@@ -307,6 +311,7 @@ int main(int argc, char *argv[])
 	mainScene.setCameraHeight(500);
 	mainScene.setCameraWidth(800);
 	
+
 	SceneDirector::getInstance()->Start();
 	
 	alutExit();

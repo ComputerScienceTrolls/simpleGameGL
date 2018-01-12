@@ -4,10 +4,14 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "ResourceManager.h"
 
-#include "shader.h"
-#include "texture.h"
+#include <string>
 
+using std::string;
+
+
+class AbstractScene;
 
 // Represents a single particle and its state
 struct Particle {
@@ -25,16 +29,25 @@ struct Particle {
 class ParticleGenerator
 {
 public:
+
 	// Constructor
-	ParticleGenerator(Shader shader, Texture2D texture, GLuint amount);
+	ParticleGenerator(string dir, AbstractScene &scenes, glm::vec2 position);
+
+	~ParticleGenerator();
+
 	// Update all particles
-	void Update(GLfloat dt, glm::vec2 position, glm::vec2 velocity, GLuint newParticles, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
+	void Update(GLfloat dt);
 	// Render all particles
 	void Draw();
 private:
 	// State
 	std::vector<Particle> particles;
 	GLuint amount;
+	glm::vec2 position;
+	glm::vec2 velocity;
+	
+	//AbstractScene* parentScene;
+
 	// Render state
 	Shader shader;
 	Texture2D texture;
@@ -44,7 +57,8 @@ private:
 	// Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle is currently inactive
 	GLuint firstUnusedParticle();
 	// Respawns particle
-	void respawnParticle(Particle &particle, glm::vec2 position, glm::vec2 velocity, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
-};
+	void respawnParticle(Particle &particle, glm::vec2 position, glm::vec2 velocity);
+
+}; 
 
 #endif
