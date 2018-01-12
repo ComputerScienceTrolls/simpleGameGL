@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <string>
+#include <vector>
 #include "sprite_renderer.h"
 
 class SceneObject
@@ -41,13 +42,19 @@ public:
 	virtual void changeXBy(float);
 	virtual void changeYBy(float);
 
+	virtual void setParent(SceneObject*);
+	virtual SceneObject* getParent();
+	virtual void addChildObject(SceneObject*);
+
 	~SceneObject();
 
 protected:
 	glm::vec2 Position, Center, Size;
+	std::vector<SceneObject*> children;
 	GLfloat Rotation;
 	std::string name;
 	bool active;
+	SceneObject *parent;
 };
 
 #endif

@@ -18,6 +18,8 @@ public:
 
 	//get methods
 	virtual glm::vec2 getVelocity();
+	virtual glm::vec2 getLastPosition();
+	virtual glm::vec2 getLastVelocity();
 	virtual int getDX();
 	virtual int getDY();
 	virtual float getSpeed();
@@ -39,7 +41,7 @@ public:
 	~MovingSceneObject();
 
 protected:
-	glm::vec2 Velocity;
+	glm::vec2 Velocity, lastPosition, lastVelocity, lastSize;
 	float speed;
 	float moveAngle;
 	std::string boundAction;

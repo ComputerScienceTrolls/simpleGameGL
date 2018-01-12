@@ -38,6 +38,16 @@ glm::vec2 MovingSceneObject::getVelocity()
 	return this->Velocity;
 }
 
+glm::vec2 MovingSceneObject::getLastPosition()
+{
+	return	this->lastPosition;
+}
+
+glm::vec2 MovingSceneObject::getLastVelocity()
+{
+	return this->lastVelocity;
+}
+
 int MovingSceneObject::getDX()
 {
 	return this->Velocity.x;
@@ -73,6 +83,38 @@ void MovingSceneObject::Update()
 	//update Center
 	this->Center.x += this->Velocity.x;
 	this->Center.y -= this->Velocity.y;
+
+	//SceneObject *parent = this->getParent();
+
+	glm::vec2 diffPos = glm::vec2(0);
+	glm::vec2 diffSize = glm::vec2(0);
+	bool change = false;
+
+	if (Position != lastPosition)
+	{
+		diffPos = Position - lastPosition;
+		change = true;
+	}
+
+	if (Size != lastSize)
+	{
+		diffSize = Size - lastSize;
+		//we need to recalc center
+		this->Position.x = this->Center.x - this->Size.x / 2;
+		this->Position.y = this->Center.y - this->Size.y / 2;
+		change = true;
+	}
+
+	if (change)
+	{
+		for (int i = 0; i < children.size(); i++)
+		{
+			//children[i]->changePositionBy(diffPos);
+			//children[i]->setSize(children.at(i)->getSize() + diffSize);;
+		}
+	}
+
+	lastPosition = Position;
 }
 
 void MovingSceneObject::setBoundAction(std::string newAction)

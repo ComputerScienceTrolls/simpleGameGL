@@ -184,7 +184,7 @@ std::string PolyCollider::getType()
 	return this->type;
 }
 
-void PolyCollider::Draw(SpriteRenderer & renderer , glm::vec2)
+void PolyCollider::Draw(SpriteRenderer & renderer)
 {
 }
 

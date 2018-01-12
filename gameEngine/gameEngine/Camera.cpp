@@ -62,6 +62,7 @@ void Camera::Update()
 	this->Center.y += this->Velocity.y;
 }
 
+
 Camera::~Camera()
 {
 }

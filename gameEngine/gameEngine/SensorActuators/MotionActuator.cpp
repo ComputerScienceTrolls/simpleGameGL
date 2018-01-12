@@ -1,6 +1,6 @@
 #include "MotionActuator.h"
 
-MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, int newDX, int newDY) :
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDX, float newDY) :
 	object(s), DX(newDX), DY(newDY), condition("both")
 {
 	this->name = n;
@@ -12,7 +12,7 @@ MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, double newAn
 	this->name = n;
 }
 
-MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, int newDT, std::string con) :
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDT, std::string con) :
 	object(s), DT(newDT), condition(con)
 {
 	this->name = n;
@@ -56,6 +56,22 @@ void MotionActuator::run()
 	{
 		object->setDX(object->getDX() * DT);
 		object->setDY(object->getDY() * DT);
+	}
+	else if (condition == "changeByX")
+	{
+		object->changeXBy(DT);
+	}
+	else if (condition == "changeByY")
+	{
+		object->changeYBy(DT);
+	}
+	else if (condition == "rotate")
+	{
+		object->setRotation(DT);
+	}
+	else if (condition == "rotateBy")
+	{
+		object->setRotation(object->getRotation() + DT);
 	}
 	else if (condition == "force")
 	{

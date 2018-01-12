@@ -143,6 +143,27 @@ void SceneObject::changeYBy(float dy)
 	this->Position.y += dy;
 }
 
+void SceneObject::setParent(SceneObject *newParent)
+{
+	this->parent = newParent;
+
+	this->parent->addChildObject(this);
+}
+
+SceneObject * SceneObject::getParent()
+{
+	//if no parent exists return nullptr
+	if (!parent)
+		return nullptr;
+	else
+		return parent;
+}
+
+void SceneObject::addChildObject(SceneObject *child)
+{
+	this->children.push_back(child);
+}
+
 SceneObject::~SceneObject()
 {
 }

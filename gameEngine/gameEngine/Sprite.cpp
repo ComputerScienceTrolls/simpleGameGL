@@ -111,12 +111,12 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
-void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
+void Sprite::Draw(SpriteRenderer &renderer)
 {
 	if (visible)
 	{
 		std::cout << "\n" << this->Position.x;
-		renderer.DrawSprite(this->getTexture(), this->Position + camPos, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		renderer.DrawSprite(this->getTexture(), this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 
@@ -124,7 +124,7 @@ void Sprite::Draw(SpriteRenderer &renderer, glm::vec2 camPos)
 	{
 		for (int i = 0; i < colliders_.size(); i++)
 		{
-			colliders_.at(i)->Draw(renderer, camPos);
+			colliders_.at(i)->Draw(renderer);
 		}
 	}
 }
@@ -169,19 +169,6 @@ bool Sprite::collide(AbstractCollider * otherCollider)
 	}
 	return false;
 }
-//set Sprite's dx and dy based on angle and thrust/magnitude
-
-//opposite of calcVector:
-//sets speed and moveAngle based on dx, dy
-
-
-//used throughout speed angle calculations to 
-//recalculate dx and dy based on speed and angle
-
-
-//set new speed and recalc the vector
-
-//set move angle, angle the sprite will move
 
 //add box collider to the sprite. with pos offset from sprite
 void Sprite::addBoxCollider(std::string name, int w, int h, int posX, int posY)
@@ -255,10 +242,7 @@ void Sprite::addPolyCollider(std::string name, std::vector<glm::vec2> verticies)
 //called every cycle as long sprite is active, sets position and center based on dx and dy. Check bounds
 void Sprite::Update()
 {
-	std::cout << "\nbefore update" << this->Position.x;
 	this->Position.x += this->Velocity.x;
-	std::cout << "\n WUT" << this->Velocity.x;
-	std::cout << "\test update" << this->Position.x;
 	this->Position.y -= this->Velocity.y;
 
 	//update Center
@@ -268,8 +252,6 @@ void Sprite::Update()
 	glm::vec2 diffPos = glm::vec2(0);
 	glm::vec2 diffSize = glm::vec2(0);
 	bool change = false;
-
-	//std::cout << Position.x;
 
 	if (Position != lastPosition)
 	{
@@ -295,11 +277,15 @@ void Sprite::Update()
 			colliders_[i]->changePositionBy(diffPos);
 			colliders_[i]->setSize(colliders_.at(i)->getSize() + diffSize);
 		}
+
+		for (int i = 0; i < children.size(); i++)
+		{
+			children[i]->changePositionBy(diffPos);
+			children[i]->setSize(children.at(i)->getSize() + diffSize);;
+		}
 	}
 
 	lastPosition = Position;
-
-	std::cout << "\nafterupdate" << this->Position.x;
 }
 
 void Sprite::setState(std::string key, bool state)

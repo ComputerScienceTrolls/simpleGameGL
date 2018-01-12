@@ -13,7 +13,7 @@ public:
 	AbstractSprite();
 	bool collideDebug;
 	Texture2D	Texture;
-	virtual void Draw(SpriteRenderer &renderer, glm::vec2, glm::vec2) {};
+	virtual void Draw(SpriteRenderer &renderer, glm::vec2) {};
 	//virtual bool checkBounds(double screenWidth, double screenHeight) = 0;
 	virtual void hide() {};
 	virtual void setCollideDebug(bool state) {};

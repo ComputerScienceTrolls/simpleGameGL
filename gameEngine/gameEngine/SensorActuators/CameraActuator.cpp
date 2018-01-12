@@ -10,45 +10,16 @@ CameraActuator::CameraActuator(std::string n, Camera *c, float x, float y, std::
 	camera(c), condition(con), DX(x), DY(y)
 {
 	this->name = n;
-	if (condition == "force")
-	{
-		angle = DX;
-		force = DY;
-	}
+}
+
+CameraActuator::CameraActuator(std::string, Camera *c, SceneObject *s) :
+	camera(c), object(s)
+{
 }
 
 void CameraActuator::run()
 {
-	if (condition == "both")
-	{
-		camera->setPosX(DX);
-		camera->setPosY(DY);
-	}
-	else if (condition == "x")
-	{
-		camera->setPosX(DX);
-	}
-	else if (condition == "y")
-	{
-		camera->setDY(DY);
-	}
-	else if (condition == "changeByX")
-	{
-		camera->changeXBy(DT);
-	}
-	else if (condition == "changeByY")
-	{
-		camera->changeYBy(DT);
-	}
-	else if (condition == "rotate")
-	{
-		camera->setRotation(DT);
-	}
-	else if(condition == "rotateBy")
-	{
-		camera->setRotation(camera->getRotation() + DT);
-	}
-	else if (condition == "zoom")
+	if (condition == "zoom")
 	{
 		camera->setZoom(glm::vec2(DT));
 	}
@@ -73,40 +44,14 @@ void CameraActuator::run()
 		camera->changeZoomByX(DT);
 		camera->changeZoomByY(DT);
 	}
-	else if (condition == "bothDt")
+	else if (condition == "zoomBoth")
 	{
-		camera->setDX(DX);
-		camera->setDY(DY);
+		camera->changeZoomByX(DX);
+		camera->changeZoomByY(DY);
 	}
-	else if (condition == "dx")
+	else if (condition == "followObject")
 	{
-		camera->setDX(DT);
-	}
-	else if (condition == "dy")
-	{
-		camera->setDY(DT);
-	}
-	else if (condition == "flipdt")
-	{
-		camera->setDX(-camera->getDX());
-		camera->setDY(-camera->getDY());
-	}
-	else if (condition == "flipdx")
-	{
-		camera->setPosX(-camera->getPosX());
-	}
-	else if (condition == "flipdy")
-	{
-		camera->setPosY(-camera->getPosX());
-	}
-	else if (condition == "multiply")
-	{
-		camera->setDX(camera->getDX() * DT);
-		camera->setDY(camera->getDY() * DT);
-	}
-	else if (condition == "force")
-	{
-		camera->addForce(angle, force);
+		//camera->setParent()
 	}
 	
 }

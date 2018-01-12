@@ -58,7 +58,6 @@ void ballColl2(Sprite *Ball, Sprite *Player)
 	}
 }
 
-
 void ColSpriteTest(Sprite *Ball, AbstractCollider *test)
 {
 	//check for collidition between ball and paddle
@@ -69,7 +68,6 @@ void ColSpriteTest(Sprite *Ball, AbstractCollider *test)
 		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
 	}
 }
-
 
 void test9()
 {
@@ -162,19 +160,21 @@ int main(int argc, char *argv[])
 	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
 	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
-	CameraActuator *cScaleDown = new CameraActuator("scaleDown", mainScene.getCamera(), .01,"zoomDT");
-	CameraActuator *cLeft = new CameraActuator("cLeft", mainScene.getCamera(), 1, "changeByX");
-	CameraActuator *cRight = new CameraActuator("cRight", mainScene.getCamera(), -1, "changeByX");
-	CameraActuator *cDown = new CameraActuator("cDown", mainScene.getCamera(), -1, "changeByY");
-	CameraActuator *cUp = new CameraActuator("cUp", mainScene.getCamera(), 1, "changeByY");
-	CameraActuator *rotate = new CameraActuator("ro", mainScene.getCamera(), .5, "rotate");
-	CameraActuator *rotateBy = new CameraActuator("r", mainScene.getCamera(), .01, "rotateBy");
+	CameraActuator *cScaleDown = new CameraActuator("scaleDown", mainScene.getCamera(), -.1,"zoomDT");
+	MotionActuator *cLeft = new MotionActuator("cLeft", mainScene.getCamera(), 1, "changeByX");
+	MotionActuator *cRight = new MotionActuator("cRight", mainScene.getCamera(), -1, "changeByX");
+	MotionActuator *cDown = new MotionActuator("cDown", mainScene.getCamera(), -1, "changeByY");
+	MotionActuator *cUp = new MotionActuator("cUp", mainScene.getCamera(), 1, "changeByY");
+	MotionActuator *rotate = new MotionActuator("ro", mainScene.getCamera(), .5, "rotate");
+	MotionActuator *rotateBy = new MotionActuator("r", mainScene.getCamera(), .01, "rotateBy");
 	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
 	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
 	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
 	SceneActuator *s2 = new SceneActuator("scene2",&mainScene, "previous");
 	SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
+
+	//mainScene.getCamera()->setParent(Player);
 
 	kSpace->addActuator(s3);
 	kArrowLeft->addActuator(s1);
