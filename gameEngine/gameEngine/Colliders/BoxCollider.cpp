@@ -10,6 +10,7 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int
 	this->Position = glm::vec2(0,0);
 	this->type = "box";
 	this->transparency = .15;
+	this->setBoundAction("STOP");
 }
 
 //consturctor with a positon offset
@@ -25,6 +26,7 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int 
 	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->type = "box";
 	this->transparency = .15;
+	this->setBoundAction("STOP");
 }
 
 BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
@@ -35,6 +37,7 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
 	this->Size.y = h;
 	this->type = "box";
 	this->transparency = .15;
+	this->setBoundAction("STOP");
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
@@ -53,6 +56,7 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int
 	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->type = "box";
 	this->transparency = .15;
+	this->setBoundAction("STOP");
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
@@ -248,7 +252,7 @@ bool BoxCollider::getStaticState()
 void BoxCollider::Draw(SpriteRenderer & renderer)
 {
 	//if parentSprite exists use it for render calc
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), this->Position, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
+	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), this->transparency);
 }
 
 BoxCollider::~BoxCollider()

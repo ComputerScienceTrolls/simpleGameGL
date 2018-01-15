@@ -84,8 +84,6 @@ void MovingSceneObject::Update()
 	this->Center.x += this->Velocity.x;
 	this->Center.y -= this->Velocity.y;
 
-	//SceneObject *parent = this->getParent();
-
 	glm::vec2 diffPos = glm::vec2(0);
 	glm::vec2 diffSize = glm::vec2(0);
 	bool change = false;
@@ -109,12 +107,13 @@ void MovingSceneObject::Update()
 	{
 		for (int i = 0; i < children.size(); i++)
 		{
-			//children[i]->changePositionBy(diffPos);
-			//children[i]->setSize(children.at(i)->getSize() + diffSize);;
+			children[i]->changePositionBy(diffPos);
+			children[i]->setSize(children.at(i)->getSize() + diffSize);
 		}
 	}
 
 	lastPosition = Position;
+	lastSize = Size;
 }
 
 void MovingSceneObject::setBoundAction(std::string newAction)
@@ -292,7 +291,7 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 			}
 			else if (offBottom)
 			{
-				this->Position.y = bottomBorder - offsetY + .1;
+				this->Position.y = bottomBorder - offsetY - .1;
 
 				//check for corners
 				if (offRight)

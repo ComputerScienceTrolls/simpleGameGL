@@ -29,8 +29,6 @@ public:
 	virtual bool collide(Sprite *otherSprite);
 	virtual bool collide(AbstractCollider *otherCollider);
 	virtual void Update();
-	void setState(std::string key, bool state);
-	bool getState(std::string key);
 	void hide();
 	void setCollideDebug(bool state);
 

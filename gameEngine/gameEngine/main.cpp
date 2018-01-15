@@ -99,38 +99,16 @@ int main(int argc, char *argv[])
 	alutInit(NULL, 0);
 	mainScene.Init();
 
-	//ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
-	//ResourceManager::LoadTexture("textures/face.png",true,"face");
 	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
-	//Sprite *trigger = new Sprite("trigger",mainScene);
-	Ball->removeCollider("default");
 	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 100, 300);
 	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
 
-	test66->addForce(0, 1);
-	//Player->removeCollider("default");
-	//test55->addForce(270, .5);
-	//trigger->addBoxCollider("test", 50, 50,150,250);
-	//trigger->addForce(0, 2);
-	//trigger->addCircleCollider("test2", 50, 10, 40);
-	//Ball->addForce(270, 1);
-	//Player->addForce(270, 1);
-	//trigger->addStaticBoxCollider("test3", 50, 40, 100, 400);
-	//trigger->addStaticCircleCollider("test4", 20, 100, 100);
-	//trigger->addBoxCollider("test5", 600, 4, 0, 550);
-	//trigger->setSpeed(.5);
-	//trigger->setCollideDebug(true);
 	Player->addCircleCollider("test", 50, 0, 0);
 	Player->setCollideDebug(true);
 	Ball->setCollideDebug(true);
 	Player->setBoundAction("STOP");
-	//Ball->setState("Stuck", true);
-	//Ball->setBoundAction("BOUNCE");
-	//Ball->addBoxCollider("test",50,50,50,100);
-	//Ball->addBoxCollider("test", 50, 50, -50, -100);
 
-	//Ball->addCircleCollider("f", 50, 50, 50);
 
 	ObserverHandler *test = ObserverHandler::getInstance();
 	ColliderObserver *colTest = new ColliderObserver("uh", ColSpriteTest, Player, test66);
@@ -174,7 +152,10 @@ int main(int argc, char *argv[])
 	SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 
-	//mainScene.getCamera()->setParent(Player);
+	mainScene.getCamera()->setParent(Player);
+	//Ball->setParent(Player);
+	test55->setParent(Player);
+	//test66->setParent(Player);
 
 	kSpace->addActuator(s3);
 	kArrowLeft->addActuator(s1);

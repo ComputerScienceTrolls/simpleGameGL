@@ -147,6 +147,9 @@
     <ClCompile Include="SensorActuators\SoundActuator.cpp">
       <Filter>Actuators</Filter>
     </ClCompile>
+    <ClCompile Include="SensorActuators\ParentActuator.cpp">
+      <Filter>Actuators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -264,6 +267,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SensorActuators\SoundActuator.h">
+      <Filter>Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuators\ParentActuator.h">
       <Filter>Actuators</Filter>
     </ClInclude>
   </ItemGroup>

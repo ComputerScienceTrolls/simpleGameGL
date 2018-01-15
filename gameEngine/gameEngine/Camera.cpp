@@ -62,6 +62,10 @@ void Camera::Update()
 	this->Center.y += this->Velocity.y;
 }
 
+void Camera::changePositionBy(glm::vec2 dt)
+{
+	this->Position -= dt;
+}
 
 Camera::~Camera()
 {

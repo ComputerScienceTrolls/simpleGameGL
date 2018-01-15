@@ -43,6 +43,7 @@ public:
 	virtual void changeYBy(float);
 
 	virtual void setParent(SceneObject*);
+	virtual void removeChild(SceneObject*);
 	virtual SceneObject* getParent();
 	virtual void addChildObject(SceneObject*);
 

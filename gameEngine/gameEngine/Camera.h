@@ -19,6 +19,8 @@ public:
 
 	//override update because we need to inverse x and y since we're really pushing objects
 	virtual void Update();
+	//override changes of position for same reason
+	virtual void changePositionBy(glm::vec2);
 
 	~Camera();
 

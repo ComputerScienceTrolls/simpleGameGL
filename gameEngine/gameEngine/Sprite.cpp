@@ -263,7 +263,6 @@ void Sprite::Update()
 	{
 		diffSize = Size - lastSize;
 		//we need to recalc center
-		std::cout << "\nTEST" << this->Position.x;
 		this->Position.x = this->Center.x - this->Size.x / 2;
 		this->Position.y = this->Center.y - this->Size.y / 2;
 		change = true;
@@ -273,7 +272,6 @@ void Sprite::Update()
 	{
 		for (int i = 0; i < colliders_.size(); i++)
 		{
-			//std::cout << diffPos.x;
 			colliders_[i]->changePositionBy(diffPos);
 			colliders_[i]->setSize(colliders_.at(i)->getSize() + diffSize);
 		}
@@ -281,21 +279,11 @@ void Sprite::Update()
 		for (int i = 0; i < children.size(); i++)
 		{
 			children[i]->changePositionBy(diffPos);
-			children[i]->setSize(children.at(i)->getSize() + diffSize);;
+			children[i]->setSize(children.at(i)->getSize() + diffSize);
 		}
 	}
 
 	lastPosition = Position;
-}
-
-void Sprite::setState(std::string key, bool state)
-{
-	states.insert_or_assign(key, state);
-}
-
-bool Sprite::getState(std::string key)
-{
-	return states[key];
 }
 
 //hide the sprite, by moving it far far away

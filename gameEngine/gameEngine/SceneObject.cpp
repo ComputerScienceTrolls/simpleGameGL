@@ -150,6 +150,17 @@ void SceneObject::setParent(SceneObject *newParent)
 	this->parent->addChildObject(this);
 }
 
+void SceneObject::removeChild(SceneObject *child)
+{
+	for (int i = 0; i < this->children.size(); i++)
+	{
+		if (children[i] == child)
+		{
+			this->children.erase(children.begin() + i);
+		}
+	}
+}
+
 SceneObject * SceneObject::getParent()
 {
 	//if no parent exists return nullptr

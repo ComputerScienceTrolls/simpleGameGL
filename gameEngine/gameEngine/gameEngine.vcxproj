@@ -173,6 +173,7 @@
     <ClCompile Include="SensorActuators\CollisionSensor.cpp" />
     <ClCompile Include="SensorActuators\KeyboardSensor.cpp" />
     <ClCompile Include="SensorActuators\MotionActuator.cpp" />
+    <ClCompile Include="SensorActuators\ParentActuator.cpp" />
     <ClCompile Include="SensorActuators\PositionActuator.cpp" />
     <ClCompile Include="SensorActuators\SceneActuator.cpp" />
     <ClCompile Include="SensorActuators\SoundActuator.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="SensorActuators\CollisionSensor.h" />
     <ClInclude Include="SensorActuators\KeyboardSensor.h" />
     <ClInclude Include="SensorActuators\MotionActuator.h" />
+    <ClInclude Include="SensorActuators\ParentActuator.h" />
     <ClInclude Include="SensorActuators\PositionActuator.h" />
     <ClInclude Include="SensorActuators\SceneActuator.h" />
     <ClInclude Include="SensorActuators\SoundActuator.h" />
