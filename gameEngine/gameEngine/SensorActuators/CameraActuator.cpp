@@ -12,8 +12,13 @@ CameraActuator::CameraActuator(std::string n, Camera *c, float x, float y, std::
 	this->name = n;
 }
 
-CameraActuator::CameraActuator(std::string, Camera *c, SceneObject *s) :
-	camera(c), object(s)
+CameraActuator::CameraActuator(std::string con, Camera *c, float dis, SceneObject *o) :
+	camera(c), object(o), condition(con)
+{
+}
+
+CameraActuator::CameraActuator(std::string con, Camera *c, float dis, float s, SceneObject *o):
+	camera(c), object(o), condition(con), distance(dis), speed(s)
 {
 }
 
@@ -51,7 +56,7 @@ void CameraActuator::run()
 	}
 	else if (condition == "followObject")
 	{
-		//camera->setParent()
+		camera->followObject(object, distance, speed);
 	}
 	
 }

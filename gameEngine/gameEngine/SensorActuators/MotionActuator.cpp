@@ -18,6 +18,11 @@ MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDT,
 	this->name = n;
 }
 
+MotionActuator::MotionActuator(std::string name, MovingSceneObject *m, float dis, float speed, SceneObject *o, std::string con) :
+	object(m), condition(con), distance(dis), force(speed), anotherObject(o)
+{
+}
+
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, std::string con) :
 	object(s), condition(con)
 {
@@ -76,6 +81,10 @@ void MotionActuator::run()
 	else if (condition == "force")
 	{
 		object->addForce(angle, force);
+	}
+	else if (condition == "followObject")
+	{
+		object->followObject(anotherObject, distance, force);
 	}
 }
 

@@ -33,6 +33,7 @@ public:
 	virtual void addForce(float angle, float mag);
 	virtual void calcSpeedAngle();
 	virtual void calcVector();
+	virtual void followObject(SceneObject* o, float distance, float speed);
 
 	//method for checkbounds so if child has method it will work for it
 	virtual void setVisible(bool) {};

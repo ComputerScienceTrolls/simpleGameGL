@@ -7,7 +7,8 @@ class CameraActuator : public AbstractActuator
 public:
 	CameraActuator(std::string, Camera*, float, std::string);
 	CameraActuator(std::string, Camera*, float, float, std::string con = "both");
-	CameraActuator(std::string, Camera*, SceneObject*);
+	CameraActuator(std::string, Camera*, float, SceneObject*);
+	CameraActuator(std::string, Camera*, float, float, SceneObject*);
 	virtual void run();
 	~CameraActuator();
 
@@ -20,5 +21,7 @@ private:
 	float DY;
 	float force;
 	float angle;
+	float distance;
+	float speed;
 };
 

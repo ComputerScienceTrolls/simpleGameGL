@@ -34,6 +34,7 @@
 #include "SensorActuators\KeyboardSensor.h"
 #include "SensorActuators\SceneActuator.h"
 #include "SensorActuators\SoundActuator.h"
+#include "SensorActuators\AlwaysSensor.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -99,7 +100,7 @@ int main(int argc, char *argv[])
 	alutInit(NULL, 0);
 	mainScene.Init();
 
-	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,500), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,300), glm::vec2(50, 10), "textures/paddle.png");
 	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
 	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 100, 300);
 	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
@@ -131,6 +132,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *k7 = new KeyboardSensor("n7", GLFW_KEY_7);
 	KeyboardSensor *k1 = new KeyboardSensor("n7", GLFW_KEY_KP_1);
 	KeyboardSensor *k2 = new KeyboardSensor("n7", GLFW_KEY_KP_2);
+	AlwaysSensor *A = new AlwaysSensor();
 	//CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
 	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
 	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
@@ -151,10 +153,12 @@ int main(int argc, char *argv[])
 	SceneActuator *s2 = new SceneActuator("scene2",&mainScene, "previous");
 	SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
+	//CameraActuator * c1 = new CameraActuator("followObject", mainScene.getCamera(), 10, 1, Player);
+	MotionActuator *mfollow = new MotionActuator("followObject2", Player, 100, .01, test55, "followObject");
 
-	mainScene.getCamera()->setParent(Player);
+	//mainScene.getCamera()->setParent(Player);
 	//Ball->setParent(Player);
-	test55->setParent(Player);
+	//test55->setParent(Player);
 	//test66->setParent(Player);
 
 	kSpace->addActuator(s3);
@@ -171,6 +175,7 @@ int main(int argc, char *argv[])
 	cKeyUp->addActuator(cUp);
 	k1->addActuator(rotate);
 	k2->addActuator(rotateBy);
+	A->addActuator(mfollow);
 	//t2->addActuator(m2);
 	SceneDirector::getInstance()->addSensor(kSpace);
 	SceneDirector::getInstance()->addSensor(kArrowLeft);
@@ -189,6 +194,7 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(k1);
 	mainScene.addSensor(k2);
 	mainScene.addSensor(cKeyLeft);
+	mainScene.addSensor(A);
 	mainScene.addObserver(colTest);
 
 	//testScene.setBackground("textures/face.png");

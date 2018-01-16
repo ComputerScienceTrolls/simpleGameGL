@@ -353,6 +353,12 @@ void MovingSceneObject::calcVector()
 	this->Velocity.y = this->speed * std::sin(this->moveAngle);
 }
 
+void MovingSceneObject::followObject(SceneObject * o, float distance, float speed)
+{
+	glm::vec2 dir = this->Position - o->getPosition();
+	this->Position += dir * speed;
+}
+
 MovingSceneObject::~MovingSceneObject()
 {
 }

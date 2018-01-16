@@ -168,6 +168,7 @@
     <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
     <ClCompile Include="SensorActuators\AbstractSensor.cpp" />
     <ClCompile Include="SensorActuators\ActiveActuator.cpp" />
+    <ClCompile Include="SensorActuators\AlwaysSensor.cpp" />
     <ClCompile Include="SensorActuators\CameraActuator.cpp" />
     <ClCompile Include="SensorActuators\CheckBoundsSensor.cpp" />
     <ClCompile Include="SensorActuators\CollisionSensor.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="SensorActuators\AbstractActuator.h" />
     <ClInclude Include="SensorActuators\AbstractSensor.h" />
     <ClInclude Include="SensorActuators\ActiveActuator.h" />
+    <ClInclude Include="SensorActuators\AlwaysSensor.h" />
     <ClInclude Include="SensorActuators\CameraActuator.h" />
     <ClInclude Include="SensorActuators\CheckBoundsSensor.h" />
     <ClInclude Include="SensorActuators\CollisionSensor.h" />

@@ -150,6 +150,9 @@
     <ClCompile Include="SensorActuators\ParentActuator.cpp">
       <Filter>Actuators</Filter>
     </ClCompile>
+    <ClCompile Include="SensorActuators\AlwaysSensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -271,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="SensorActuators\ParentActuator.h">
       <Filter>Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorActuators\AlwaysSensor.h">
+      <Filter>Sensors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
