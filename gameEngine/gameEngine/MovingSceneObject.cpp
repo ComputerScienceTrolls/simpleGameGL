@@ -353,10 +353,28 @@ void MovingSceneObject::calcVector()
 	this->Velocity.y = this->speed * std::sin(this->moveAngle);
 }
 
+//pushes object to another specify object if not within the specified distance
 void MovingSceneObject::followObject(SceneObject * o, float distance, float speed)
 {
 	glm::vec2 dir = this->Position - o->getPosition();
-	this->Position += dir * speed;
+	float angle = atan2(-dir.y, -dir.x) - PI / 2;
+	//this->setImageAngle(angle);
+	angle = angle * 180 / PI;
+	speed = speed * 10;
+	this->Velocity = normalize(dir) * speed;
+}
+
+void MovingSceneObject::setImageAngle(float angle)
+{
+	this->setRotation(angle);
+}
+
+//return the normalaized vertex of the given vertex
+glm::vec2 MovingSceneObject::normalize(glm::vec2 v)
+{
+	double mag = std::sqrt(v.x*v.x + v.y*v.y);
+	glm::vec2 temp = { v.x / mag, v.y / mag };
+	return temp;
 }
 
 MovingSceneObject::~MovingSceneObject()

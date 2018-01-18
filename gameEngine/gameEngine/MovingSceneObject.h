@@ -35,9 +35,9 @@ public:
 	virtual void calcVector();
 	virtual void followObject(SceneObject* o, float distance, float speed);
 
-	//method for checkbounds so if child has method it will work for it
 	virtual void setVisible(bool) {};
-	virtual void setImageAngle(bool) {};
+	virtual void setImageAngle(float angle);
+	virtual glm::vec2 normalize(glm::vec2);
 
 	~MovingSceneObject();
 
