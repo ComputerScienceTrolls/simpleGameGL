@@ -354,19 +354,38 @@ void MovingSceneObject::calcVector()
 	this->Velocity.y = this->speed * std::sin(this->moveAngle);
 }
 
+float MovingSceneObject::angleTo(SceneObject *otherObject)
+{
+	//get centers of sprites
+	float myX = this->getPosX() + (this->getWidth() / 2);
+	float myY = this->getPosY() + (this->getHeight() / 2);
+	float otherX = otherObject->getPosX() + (otherObject->getWidth() / 2);
+	float otherY = otherObject->getPosY() + (otherObject->getHeight() / 2);
+
+	//calculate difference
+	float diffX = myX - otherX;
+	float diffY = myY - otherY;
+	float radians = std::atan2(diffY, diffX);
+	radians += PI / 2;
+	//float degrees = radians * 180 / PI;
+	//degrees are offset
+	//degrees += 90;
+
+	//std::cout << "AngleTo: " << degrees;
+	return radians;
+
+}
+
 //pushes object to another specify object if not within the specified distance
 void MovingSceneObject::followObject(SceneObject * o, float distance, float speed)
 {
-	glm::vec2 dir = this->Position - o->getPosition();
-	float angle = atan2(dir.y, dir.x) - PI / 2;
-	this->setImageAngle(angle);
-	angle = angle * 180 / PI;
+	this->setImageAngle(angleTo(o));
 	std::cout << "lastDirx: " << lastDir.x << "\n";
 	//this->Velocity -= lastDir;
 	//this->Velocity += normalize(dir) * speed;
 
 	//lastDir = normalize(dir) * speed;
-	addForce(angle, -speed/1000);
+	//addForce(angleTo(o), -speed/10);
 }
 
 void MovingSceneObject::setImageAngle(float angle)

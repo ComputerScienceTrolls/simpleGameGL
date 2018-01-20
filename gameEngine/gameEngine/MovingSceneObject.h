@@ -33,6 +33,7 @@ public:
 	virtual void addForce(float angle, float mag);
 	virtual void calcSpeedAngle();
 	virtual void calcVector();
+	virtual float angleTo(SceneObject*);
 	virtual void followObject(SceneObject* o, float distance, float speed);
 
 	virtual void setVisible(bool) {};
