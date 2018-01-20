@@ -4,7 +4,8 @@
 //pie constant for math
 const double PI = 3.141592653589793238463;
 
-MovingSceneObject::MovingSceneObject()
+MovingSceneObject::MovingSceneObject() :
+	lastDir(0)
 {
 }
 
@@ -357,11 +358,15 @@ void MovingSceneObject::calcVector()
 void MovingSceneObject::followObject(SceneObject * o, float distance, float speed)
 {
 	glm::vec2 dir = this->Position - o->getPosition();
-	float angle = atan2(-dir.y, -dir.x) - PI / 2;
-	//this->setImageAngle(angle);
+	float angle = atan2(dir.y, dir.x) - PI / 2;
+	this->setImageAngle(angle);
 	angle = angle * 180 / PI;
-	speed = speed * 10;
-	this->Velocity = normalize(dir) * speed;
+	std::cout << "lastDirx: " << lastDir.x << "\n";
+	//this->Velocity -= lastDir;
+	//this->Velocity += normalize(dir) * speed;
+
+	//lastDir = normalize(dir) * speed;
+	addForce(angle, -speed/1000);
 }
 
 void MovingSceneObject::setImageAngle(float angle)

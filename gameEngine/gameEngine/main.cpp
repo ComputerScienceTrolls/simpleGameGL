@@ -154,8 +154,8 @@ int main(int argc, char *argv[])
 	SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
 	//ActiveActuator *a1 = new ActiveActuator(Player, false);
 	//CameraActuator * c1 = new CameraActuator("followObject", mainScene.getCamera(), 10, 1, Player);
-	//MotionActuator *mfollow = new MotionActuator("followObject2", Player, 100, .01, test55, "followObject");
-	Player->followObject(test55, 10, .1);
+	MotionActuator *mfollow = new MotionActuator("followObject2", Player, 100, 1, test55, "followObject");
+	//Player->followObject(test55, 10, .1);
 
 	//mainScene.getCamera()->setParent(Player);
 	//Ball->setParent(Player);
@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
 	cKeyUp->addActuator(cUp);
 	k1->addActuator(rotate);
 	k2->addActuator(rotateBy);
-	//A->addActuator(mfollow);
+	A->addActuator(mfollow);
 	//t2->addActuator(m2);
 	SceneDirector::getInstance()->addSensor(kSpace);
 	SceneDirector::getInstance()->addSensor(kArrowLeft);

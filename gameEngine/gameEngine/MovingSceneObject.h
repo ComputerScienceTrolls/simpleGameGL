@@ -46,6 +46,9 @@ protected:
 	float speed;
 	float moveAngle;
 	std::string boundAction;
+
+private:
+	glm::vec2 lastDir;
 };
 
 #endif
