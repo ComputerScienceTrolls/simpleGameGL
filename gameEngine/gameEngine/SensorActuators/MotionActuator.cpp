@@ -73,14 +73,24 @@ void MotionActuator::run()
 	else if (condition == "rotate")
 	{
 		object->setRotation(DT);
+		object->setMoveAngle(DT);
 	}
 	else if (condition == "rotateBy")
 	{
 		object->setRotation(object->getRotation() + DT);
+		object->setMoveAngle(object->getMoveAngle() + DT);
 	}
 	else if (condition == "force")
 	{
 		object->addForce(angle, force);
+	}
+	else if (condition == "forceForward")
+	{
+		std::cout << "\nmoveAngle: " << object->getMoveAngle();
+		std::cout << "\nangle:" << angle;
+		float degrees = object->getRotation() * (180/ 3.141592653589793238463) - 90;
+		std::cout << "\ndegrees: " << degrees;
+		object->addForce(angle + degrees, force);
 	}
 	else if (condition == "followObject")
 	{

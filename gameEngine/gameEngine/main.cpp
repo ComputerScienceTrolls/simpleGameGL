@@ -8,6 +8,7 @@
 #include "QuadScene.h"
 #include "SceneDirector.h"
 #include "Sprite.h"
+#include "RocketSprite.h"
 
 #include "SensorActuators\CameraActuator.h"
 
@@ -93,7 +94,12 @@ int main(int argc, char *argv[])
 	mainScene.Init();
 
 	//set up sprites
-	Sprite *Player = new Sprite("Rocket",mainScene, glm::vec2(150,300), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *Player = new Sprite("",mainScene, glm::vec2(150,300), glm::vec2(50, 10), "textures/paddle.png");
+	Sprite *rs2 = new Sprite("ni", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/RedRocket.png", glm::vec2(0,-1));
+	rs2->setRotation(3.14/2);
+	rs2->setBoundAction("STOP");
+	RocketSprite *rs = new RocketSprite("Rocket", mainScene);
+	rs->setCollideDebug(true);
 	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 100, 300);
 	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
 
@@ -105,18 +111,24 @@ int main(int argc, char *argv[])
 	Player->setBoundAction("STOP");
 
 	//set up keyboard Sensors
-	KeyboardSensor *kArrowLeft = new KeyboardSensor("left",GLFW_KEY_LEFT);
-	KeyboardSensor *kArrowRight = new KeyboardSensor("right",GLFW_KEY_RIGHT);
-	KeyboardSensor *kArrowUp = new KeyboardSensor("up",GLFW_KEY_UP);
-	KeyboardSensor *kArrowDown = new KeyboardSensor("down",GLFW_KEY_DOWN);
+	KeyboardSensor *ka = new KeyboardSensor("left",GLFW_KEY_A);
+	KeyboardSensor *kd = new KeyboardSensor("right", GLFW_KEY_D);
+	KeyboardSensor *kw = new KeyboardSensor("up", GLFW_KEY_W);
+	KeyboardSensor *ks = new KeyboardSensor("down", GLFW_KEY_S);
+	KeyboardSensor *kj = new KeyboardSensor("rleft", GLFW_KEY_J);
+	KeyboardSensor *kl = new KeyboardSensor("rright", GLFW_KEY_L);
+	KeyboardSensor *ki = new KeyboardSensor("rup", GLFW_KEY_I);
+	KeyboardSensor *kk = new KeyboardSensor("rdown", GLFW_KEY_K);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	
 	
 	//set up movement for player
-	MotionActuator *rLeft = new MotionActuator("rotateLeft", Player, .01, "rotateBy");
-	MotionActuator *rRight = new MotionActuator("rotateRight", Player, .01, "rotateBy");
-	MotionActuator *mUp = new MotionActuator("", Player, 90, .1, "force");
-	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
+	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.01, "rotateBy");
+	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, .01, "rotateBy");
+	MotionActuator *mUp = new MotionActuator("mup", rs2, 90, .1, "forceForward");
+	MotionActuator *mLeft = new MotionActuator("mleft", rs2, 180, .1, "force");
+	MotionActuator *mRight = new MotionActuator("mright", rs2, 0, .1, "force");
+	MotionActuator *mDown = new MotionActuator("motion5", rs2, 270, .1, "force");
 	
 	
 	//set up sound 
@@ -131,19 +143,25 @@ int main(int argc, char *argv[])
 	
 	//add actuators to the sensor
 	//kSpace->addActuator(s3);
-	//kArrowLeft->addActuator(s1);
-	//kArrowRight->addActuator(s2);
-	//kArrowUp->addActuator(mLeft);
-	//kArrowDown->addActuator(mRight);
-	//SceneDirector::getInstance()->addSensor(kSpace);
-	//SceneDirector::getInstance()->addSensor(kArrowLeft);
-	//SceneDirector::getInstance()->addSensor(kArrowRight);
+	ka->addActuator(mLeft);
+	kd->addActuator(mRight);
+	//ks->addActuator(s1);
+	kw->addActuator(mUp);
+	kj->addActuator(rLeft);
+	kl->addActuator(rRight);
+	//kk->addActuator(s1);
+	//ki->addActuator(s1);
+
 	
 	//add sensors to scene 1
-	mainScene.addSensor(kArrowLeft);
-	mainScene.addSensor(kArrowRight);
-	mainScene.addSensor(kArrowUp);
-	mainScene.addSensor(kArrowDown);
+	mainScene.addSensor(ka);
+	mainScene.addSensor(kd);
+	mainScene.addSensor(kw);
+	mainScene.addSensor(ks);
+	mainScene.addSensor(kj);
+	mainScene.addSensor(kl);
+	mainScene.addSensor(ki);
+	mainScene.addSensor(kk);
 	mainScene.addSensor(kSpace);
 	//mainScene.addObserver(colTest);
 	
@@ -158,7 +176,7 @@ int main(int argc, char *argv[])
 
 
 	//set camera witdth and height
-	mainScene.setCameraHeight(500);
+	mainScene.setCameraHeight(600);
 	mainScene.setCameraWidth(800);
 
 	//start game 

@@ -328,6 +328,7 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 
 void MovingSceneObject::addForce(float angle, float thrust)
 {
+	//std::cout << "\nangle: " << angle;
 	//input angle is in degrees - convert to radians    
 	angle = angle * PI / 180;
 
@@ -344,6 +345,7 @@ void MovingSceneObject::addForce(float angle, float thrust)
 
 void MovingSceneObject::calcSpeedAngle()
 {
+	std::cout << "\nvelX: " << this->Velocity.x;
 	this->speed = std::sqrt((this->Velocity.x * this->Velocity.y) + (this->Velocity.x * this->Velocity.y));
 	this->moveAngle = std::atan2(this->Velocity.y, this->Velocity.x);
 }

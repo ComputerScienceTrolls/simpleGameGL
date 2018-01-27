@@ -162,6 +162,7 @@
     <ClCompile Include="Observers\ObserverHandler.cpp" />
     <ClCompile Include="QuadScene.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="RocketSprite.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
     <ClCompile Include="SceneObject.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Observers\ObserverHandler.h" />
     <ClInclude Include="QuadScene.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RocketSprite.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneDirector.h" />
     <ClInclude Include="SceneObject.h" />

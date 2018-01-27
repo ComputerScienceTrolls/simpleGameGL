@@ -153,6 +153,9 @@
     <ClCompile Include="SensorActuators\AlwaysSensor.cpp">
       <Filter>Sensors</Filter>
     </ClCompile>
+    <ClCompile Include="RocketSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="SensorActuators\AlwaysSensor.h">
       <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketSprite.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

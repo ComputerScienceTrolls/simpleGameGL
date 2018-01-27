@@ -69,8 +69,8 @@ void Scene::Render()
 {
 	if (this->visible)
 	{
-		std::cout << "cposX: " << this->camera.getPosition().x << "\n";
-		std::cout << "cposY: " << this->camera.getPosition().y << "\n";
+		//std::cout << "cposX: " << this->camera.getPosition().x << "\n";
+		//std::cout << "cposY: " << this->camera.getPosition().y << "\n";
 		glm::mat4 projection;
 		projection = glm::ortho(0.0f, this->camera.getWidth() * this->camera.getZoom().x, this->camera.getHeight() * this->camera.getZoom().y, 0.0f, -1.0f, 1.0f);
 		projection = glm::translate(projection, glm::vec3(camera.getPosition(), 0.0f));
