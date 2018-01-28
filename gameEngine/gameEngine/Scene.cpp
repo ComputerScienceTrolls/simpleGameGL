@@ -88,6 +88,7 @@ void Scene::Render()
 	}
 }
 
+
 //event called every time a key is pressed, check for exit, update KeyHandler singleton keys.
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {

@@ -28,6 +28,7 @@
 #include "SensorActuators\SceneActuator.h"
 #include "SensorActuators\SoundActuator.h"
 #include "SensorActuators\AlwaysSensor.h"
+#include "SensorActuators\TimesActuator.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -100,7 +101,8 @@ int main(int argc, char *argv[])
 	rocketGoal->setRotation(3.14/2);
 	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(5, 10), "textures/paddle.png");
 	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
-	Sprite *health[5] = { new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
+	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), "textures/fuel_block.png"),
+		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
 		new Sprite("health2", mainScene, glm::vec2(95, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//95
 		new Sprite("health3", mainScene, glm::vec2(145, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//145
 		new Sprite("health4", mainScene, glm::vec2(190, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//190
@@ -148,7 +150,7 @@ int main(int argc, char *argv[])
 	//set up keyboard Sensors
 	KeyboardSensor *ka = new KeyboardSensor("left",GLFW_KEY_A);
 	KeyboardSensor *kd = new KeyboardSensor("right", GLFW_KEY_D);
-	KeyboardSensor *kw = new KeyboardSensor("up", GLFW_KEY_W);
+	KeyboardSensor *kw = new KeyboardSensor("up", GLFW_KEY_W, "clicked");
 	KeyboardSensor *ks = new KeyboardSensor("down", GLFW_KEY_S);
 	KeyboardSensor *kj = new KeyboardSensor("rleft", GLFW_KEY_J);
 	KeyboardSensor *kl = new KeyboardSensor("rright", GLFW_KEY_L);
@@ -180,15 +182,41 @@ int main(int argc, char *argv[])
 	//set up actuators
 	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.1, "rotateBy");
 	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, .1, "rotateBy");
-	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .1, "forceForward");
+	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
 	MotionActuator *mLeft = new MotionActuator("mleft", rs2, 180, .1, "force");
 	MotionActuator *mRight = new MotionActuator("mright", rs2, 0, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", rs2, 270, .1, "force");
 	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
 	PositionActuator *rocketFront = new PositionActuator("rocketFront", wave, spawnObject);
 	VisibilityActuator *waveVisible = new VisibilityActuator("visbleWave", wave, true);
-	VisibilityActuator *v1 = new VisibilityActuator("visible1", health[0], false);
+	VisibilityActuator *v[6] = { new VisibilityActuator("visible1", health[5], false),
+		new VisibilityActuator("visible2", health[4], false),
+		new VisibilityActuator("visible3", health[3], false),
+		new VisibilityActuator("visible4", health[2], false),
+		new VisibilityActuator("visible5", health[1], false),
+		new VisibilityActuator("visible6", health[0], false)
+		
+	};
+	VisibilityActuator *v2[5] = { new VisibilityActuator("visible6", health[5], true),
+		new VisibilityActuator("visible7", health[4], true),
+		new VisibilityActuator("visible8", health[3], true),
+		new VisibilityActuator("visible9", health[2], true),
+		new VisibilityActuator("visible10", health[1], true)
+	};
 	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
+	TimesActuator *t = new TimesActuator("health", &mainScene, 6,"reset");
+	t->addActuator(v[0]);
+	t->addActuator(v[1]);
+	t->addActuator(v[2]);
+	t->addActuator(v[3]);
+	t->addActuator(v[4]);
+	t->addActuator(v[5]);
+	t->addActuator(v2[0]);
+	t->addActuator(v2[1]);
+	t->addActuator(v2[2]);
+	t->addActuator(v2[3]);
+	t->addActuator(v2[4]);
+
 	
 	
 	//set up sound 
@@ -210,6 +238,7 @@ int main(int argc, char *argv[])
 	kd->addActuator(mRight);
 	//ks->addActuator(s1);
 	kw->addActuator(mUp);
+	kw->addActuator(t);
 	kj->addActuator(rLeft);
 	kl->addActuator(rRight);
 	//kk->addActuator(s1);
