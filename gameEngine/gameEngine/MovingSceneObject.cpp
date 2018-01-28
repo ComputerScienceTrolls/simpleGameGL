@@ -348,7 +348,7 @@ void MovingSceneObject::calcSpeedAngle()
 {
 	//std::cout << "\nvelX: " << this->Velocity.x;
 	this->speed = std::sqrt((this->Velocity.x * this->Velocity.y) + (this->Velocity.x * this->Velocity.y));
-	//this->moveAngle = std::atan2(this->Velocity.y, this->Velocity.x);
+	this->moveAngle = std::atan2(this->Velocity.y, this->Velocity.x);
 }
 
 void MovingSceneObject::calcVector()

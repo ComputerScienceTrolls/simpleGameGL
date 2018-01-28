@@ -94,13 +94,13 @@ int main(int argc, char *argv[])
 	mainScene.Init();
 
 	//set up sprites
-	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/RedRocket.png", glm::vec2(0,-1));
+	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/RedRocket.png");
 	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(5, 10), "textures/paddle.png");
 	SceneObject *spawnObject = new SceneObject();
 	spawnObject->setParent(rs2);
-	spawnObject->setPosition(glm::vec2(175,335));
+	spawnObject->setPosition(glm::vec2(175,316));
 	wave->setVisible(false);
-	wave->setActive(false);
+	//wave->setActive(false);
 	//rs2->setRotation(3.14/2);
 	rs2->setBoundAction("STOP");
 	RocketSprite *rs = new RocketSprite("Rocket", mainScene);
@@ -134,7 +134,10 @@ int main(int argc, char *argv[])
 	MotionActuator *mLeft = new MotionActuator("mleft", rs2, 180, .1, "force");
 	MotionActuator *mRight = new MotionActuator("mright", rs2, 0, .1, "force");
 	MotionActuator *mDown = new MotionActuator("motion5", rs2, 270, .1, "force");
+	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
 	PositionActuator *rocketFront = new PositionActuator("rocketFront", wave, spawnObject);
+	VisibilityActuator *waveVisible = new VisibilityActuator("visbleWave", wave, true);
+	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
 	
 	
 	//set up sound 
@@ -148,7 +151,10 @@ int main(int argc, char *argv[])
 	
 	
 	//add actuators to the sensor
-	//kSpace->addActuator(s3);
+	kSpace->addActuator(clearWaveMotion);
+	kSpace->addActuator(rocketFront);
+	kSpace->addActuator(waveVisible);
+	kSpace->addActuator(waveMotion);
 	ka->addActuator(mLeft);
 	kd->addActuator(mRight);
 	//ks->addActuator(s1);

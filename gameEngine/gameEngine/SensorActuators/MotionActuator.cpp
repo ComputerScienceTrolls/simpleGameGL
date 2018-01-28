@@ -24,6 +24,11 @@ MotionActuator::MotionActuator(std::string name, MovingSceneObject *m, float dis
 {
 }
 
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *o, float s, SceneObject *ao):
+	force(s), anotherObject(ao), object(o), condition("forceTowards")
+{
+}
+
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, std::string con) :
 	object(s), condition(con)
 {
@@ -95,6 +100,11 @@ void MotionActuator::run()
 	else if (condition == "followObject")
 	{
 		object->followObject(anotherObject, distance, force);
+	}
+	else if (condition == "forceTowards")
+	{
+		float degrees = anotherObject->getRotation() * (180 / 3.141592653589793238463);
+		object->addForce(degrees + 180, force);
 	}
 }
 
