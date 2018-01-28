@@ -96,6 +96,15 @@ int main(int argc, char *argv[])
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/RedRocket.png");
 	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(5, 10), "textures/paddle.png");
+	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
+	Sprite *health[5] = { new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
+		new Sprite("health2", mainScene, glm::vec2(95, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//95
+		new Sprite("health3", mainScene, glm::vec2(145, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//145
+		new Sprite("health4", mainScene, glm::vec2(190, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//190
+		new Sprite("health5", mainScene, glm::vec2(235, 550), glm::vec2(52, 30), "textures/fuel_block.png")
+	};
+	
+	
 	SceneObject *spawnObject = new SceneObject();
 	spawnObject->setParent(rs2);
 	spawnObject->setPosition(glm::vec2(175,316));
@@ -127,7 +136,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	
 	
-	//set up movement for player
+	//set up actuators
 	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.01, "rotateBy");
 	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, .01, "rotateBy");
 	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .1, "forceForward");
@@ -137,6 +146,7 @@ int main(int argc, char *argv[])
 	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
 	PositionActuator *rocketFront = new PositionActuator("rocketFront", wave, spawnObject);
 	VisibilityActuator *waveVisible = new VisibilityActuator("visbleWave", wave, true);
+	VisibilityActuator *v1 = new VisibilityActuator("visible1", health[0], false);
 	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
 	
 	
