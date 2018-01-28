@@ -1,4 +1,5 @@
 #include "MotionActuator.h"
+#include <math.h>
 
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDX, float newDY) :
 	object(s), DX(newDX), DY(newDY), condition("both")
@@ -86,11 +87,10 @@ void MotionActuator::run()
 	}
 	else if (condition == "forceForward")
 	{
-		std::cout << "\nmoveAngle: " << object->getMoveAngle();
-		std::cout << "\nangle:" << angle;
-		float degrees = object->getRotation() * (180/ 3.141592653589793238463) - 90;
+		float degrees = object->getRotation() * (180/ 3.141592653589793238463) - 180;
 		std::cout << "\ndegrees: " << degrees;
-		object->addForce(angle + degrees, force);
+		object->addForce(degrees, force);
+		
 	}
 	else if (condition == "followObject")
 	{
