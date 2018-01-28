@@ -49,13 +49,15 @@ glm::vec2 MovingSceneObject::getLastVelocity()
 	return this->lastVelocity;
 }
 
-int MovingSceneObject::getDX()
+float MovingSceneObject::getDX()
 {
+	//std::cout << "\nVelX: " << this->Velocity.x;
 	return this->Velocity.x;
 }
 
-int MovingSceneObject::getDY()
+float MovingSceneObject::getDY()
 {
+	std::cout << "\nVelY: " << this->Velocity.y;
 	return this->Velocity.y;
 }
 

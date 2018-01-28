@@ -29,6 +29,12 @@ MotionActuator::MotionActuator(std::string n, MovingSceneObject *o, float s, Sce
 {
 }
 
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, SceneObject *ao) :
+	object(s), anotherObject(ao), condition("angleTo")
+{
+	this->name = n;
+}
+
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, std::string con) :
 	object(s), condition(con)
 {
@@ -57,6 +63,7 @@ void MotionActuator::run()
 	}
 	else if (condition == "flipx")
 	{
+		std::cout << "\nobjectDX: " << object->getDX();
 		object->setDX(-object->getDX());
 	}
 	else if (condition == "flipy")
@@ -85,6 +92,10 @@ void MotionActuator::run()
 	{
 		object->setRotation(object->getRotation() + DT);
 		object->setMoveAngle(object->getMoveAngle() + DT);
+	}
+	else if (condition == "angleTo")
+	{
+		object->setRotation(anotherObject->getRotation());
 	}
 	else if (condition == "force")
 	{

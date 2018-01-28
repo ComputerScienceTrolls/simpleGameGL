@@ -30,6 +30,7 @@ CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s1, Scene *sc, b
 
 void CollisionSensor::sense()
 {
+	/*
 	//if all in scene, check collider for all
 	if (allInScene)
 	{
@@ -50,6 +51,7 @@ void CollisionSensor::sense()
 			}
 		}
 	}
+	*/
 	//if oneshot set to true, only run act once until sense not true
 	bool tapped = true;
 	if (oneShot)
@@ -60,6 +62,10 @@ void CollisionSensor::sense()
 			{
 				if (oneS->collide(twoS))
 				{
+					if (this->name == "w1")
+					{
+						std::cout << "wut: " << oneS->getPosX();
+					}
 					tapped = false;
 					for (int i = 0; i < actuators.size(); i++)
 					{
