@@ -179,6 +179,7 @@
     <ClCompile Include="SensorActuators\PositionActuator.cpp" />
     <ClCompile Include="SensorActuators\SceneActuator.cpp" />
     <ClCompile Include="SensorActuators\SoundActuator.cpp" />
+    <ClCompile Include="SensorActuators\TimesActuator.cpp" />
     <ClCompile Include="SensorActuators\VisibilityActuator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="SensorActuators\PositionActuator.h" />
     <ClInclude Include="SensorActuators\SceneActuator.h" />
     <ClInclude Include="SensorActuators\SoundActuator.h" />
+    <ClInclude Include="SensorActuators\TimesActuator.h" />
     <ClInclude Include="SensorActuators\VisibilityActuator.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sound.h" />
