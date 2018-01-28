@@ -31,7 +31,7 @@ void Scene::Init()
 			temp->addScene(this);
 		}
 		glfwSetKeyCallback(window, key_callback);
-		ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+		ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
 		initilized = true;
 	}
 
