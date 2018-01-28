@@ -22,6 +22,12 @@ void AbstractScene::Stop()
 	this->visible = false;
 }
 
+//set new background with given file
+void AbstractScene::setBackground(const char* newBackground)
+{
+	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
+}
+
 //tell every Sprite to reset their inital texture, currently not working
 void AbstractScene::reset()
 {

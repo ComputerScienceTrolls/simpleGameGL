@@ -136,6 +136,11 @@ AbstractScene* SceneDirector::getScene(int i)
 	return scenes.at(i);
 }
 
+void SceneDirector::setSceneBackground(std::string n)
+{
+	currentScene->setBackground(n.c_str());
+}
+
 void SceneDirector::removeScene(std::string n)
 {
 	//get index of collider

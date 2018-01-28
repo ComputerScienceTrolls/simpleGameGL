@@ -104,11 +104,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 }
 
-//set new background with given file
-void Scene::setBackground(char* newBackground)
-{
-	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
-}
+
 
 
 Scene::~Scene()

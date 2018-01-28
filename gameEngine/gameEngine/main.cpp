@@ -39,52 +39,6 @@ Scene mainScene("main",800, 600);
 Scene scene2 ("level2", 800, 600);
 Scene scene3("levels3", 800, 600);
 
-void ballColl2(Sprite *Ball, Sprite *Player)
-{
-	//check for collidition between ball and paddle
-	if (Ball->collide(Player))
-	{
-		//Player->setDX(-Player->getDX());
-		std::cout << "collision";
-		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-	}
-}
-
-void ColSpriteTest(Sprite *Ball, AbstractCollider *test)
-{
-	//check for collidition between ball and paddle
-	if (test->collide(Ball))
-	{
-		//Player->setDX(-Player->getDX());
-		std::cout << "collision";
-		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-	}
-}
-
-void test9()
-{
-	std::cout << "test\n";
-}
-
-void ballColl3(Sprite *Player, std::string name)
-{
-	//get all instances of name and check for collision with given sprite
-	std::vector<AbstractSprite*> tempVec = mainScene.getSprite(name);
-	for (int i = 0; i < tempVec.size(); i++)
-	{
-		if (Player->collide(tempVec.at(i)))
-		{
-			//Player->setDX(-Player->getDX());
-			std::cout << "collision";
-			//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-		}
-	}
-}
-
-void checkCols(Sprite *s, int w, int h)
-{
-	s->checkBounds(w, h);
-}
 
 int main(int argc, char *argv[])
 {
@@ -94,6 +48,7 @@ int main(int argc, char *argv[])
 	//initiate main scene
 	mainScene.Init();
 
+	
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rs2->setRotation(3.14 / 2);
@@ -176,7 +131,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *ki = new KeyboardSensor("rup", GLFW_KEY_I);
 	KeyboardSensor *kk = new KeyboardSensor("rdown", GLFW_KEY_K);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
-	
+	AlwaysSensor *A = new AlwaysSensor();
 	//CollisionSensor *waveCol = new CollisionSensor("waveCol", wave, , true);
 	
 	//motion acts for rocks col
@@ -239,9 +194,6 @@ int main(int argc, char *argv[])
 	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.1, "rotateBy");
 	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, .1, "rotateBy");
 	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
-	MotionActuator *mLeft = new MotionActuator("mleft", rs2, 180, .1, "force");
-	MotionActuator *mRight = new MotionActuator("mright", rs2, 0, .1, "force");
-	MotionActuator *mDown = new MotionActuator("motion5", rs2, 270, .1, "force");
 	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
 	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rs2);
 	PositionActuator *rocketFront = new PositionActuator("rocketFront", wave, spawnObject);
@@ -249,6 +201,14 @@ int main(int argc, char *argv[])
 	ActiveActuator *waveActiveTrue = new ActiveActuator("activeWave", wave, true);
 	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
+	
+	//set up sound 
+	SoundActuator *shootSound = new SoundActuator("sound/shoot.wav", "");
+	SoundActuator *moveSound = new SoundActuator("sound/movement.wav","");
+	SoundActuator *music = new SoundActuator("sound/music.wav", "looping");
+
+
+	
 
 	VisibilityActuator *v[6] = { new VisibilityActuator("visible1", health[5], false),
 		new VisibilityActuator("visible2", health[4], false),
@@ -279,14 +239,6 @@ int main(int argc, char *argv[])
 	t->addActuator(v2[4]);
 	
 	
-	//set up sound 
-	 //SoundActuator *Batman = new SoundActuator("sound/truth.wav");
-
-	
-	//will need later to change scenes
-	//SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
-	//SceneActuator *s2 = new SceneActuator("scene2",&mainScene, "previous");
-	//SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
 	
 	
 	//add actuators to the sensor
@@ -296,16 +248,17 @@ int main(int argc, char *argv[])
 	kSpace->addActuator(rocketFront);
 	kSpace->addActuator(rotWaveMotion);
 	kSpace->addActuator(waveMotion);
-	ka->addActuator(mLeft);
-	kd->addActuator(mRight);
+	kSpace->addActuator(shootSound);
 	//ks->addActuator(s1);
 	kw->addActuator(mUp);
 	kw->addActuator(t);
+	kw->addActuator(moveSound);
 	kj->addActuator(rLeft);
 	kl->addActuator(rRight);
 	//kk->addActuator(s1);
 	//ki->addActuator(s1);
 	goal1->addActuator(sceneAct1);
+	A->addActuator(music);
 	
 	//add sensors to scene 1
 	mainScene.addSensor(ka);

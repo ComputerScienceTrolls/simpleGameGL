@@ -13,6 +13,8 @@ Sound::Sound(string dir)
 
 	alSourcei(Source, AL_BUFFER, Buffer);
 
+	playing = false;
+
 	//pop up message box if there is something wrong
 	if (alGetError() != AL_NO_ERROR)
 		MessageBox(NULL, errorMessage.c_str(), "Error Message", MB_OK);
@@ -41,6 +43,7 @@ Sound::~Sound()
 void Sound::play()
 {
 	alSourcePlay(Source);
+	
 }
 
 
@@ -69,5 +72,11 @@ void Sound::changeVolume(ALfloat volume)
 
 void Sound::isLooping(ALboolean isLooping)
 {
+	playing = true;
 	alSourcei(Source, AL_LOOPING, isLooping);
+}
+
+bool Sound::isPlaying()
+{
+	return playing;
 }
