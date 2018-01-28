@@ -21,6 +21,12 @@ PositionActuator::PositionActuator(std::string n, AbstractSprite *s, std::string
 	this->name = n;
 }
 
+PositionActuator::PositionActuator(std::string n, SceneObject *o, SceneObject *t) :
+	one(o), two(t), condition("set")
+{
+	this->name = n;
+}
+
 //run based on given or defaulted conditon, if both x and y given assume set to that new pos, if only x or y set it while retaining other not given axis, if flip condition set vertex to negative, always ending up offscreen
 void PositionActuator::run()
 {
@@ -39,6 +45,11 @@ void PositionActuator::run()
 	else if (condition == "flip")
 	{
 		sprite->setPosition(glm::vec2(-sprite->getPosition().x, -sprite->getPosition().y));
+	}
+	else if (condition == "set")
+	{
+		one->setPosX(two->getPosX() + two->getWidth()/2);
+		one->setPosY(two->getPosY() + two->getHeight()/2);
 	}
 }
 
