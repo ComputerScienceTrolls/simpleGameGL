@@ -126,6 +126,8 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kk = new KeyboardSensor("rdown", GLFW_KEY_K);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	
+	CollisionSensor *waveCol = new CollisionSensor("waveCol", wave, &mainScene, true);
+	
 	
 	//set up movement for player
 	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.01, "rotateBy");

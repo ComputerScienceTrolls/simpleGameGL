@@ -36,6 +36,7 @@ public:
 	virtual void addSceneObject(SceneObject*);
 	virtual void addMovingObject(MovingSceneObject*);
 	virtual void addDrawObject(DrawSceneObject*);
+	virtual void addCollider(AbstractCollider*);
 
 	virtual int getWidth();
 	virtual int getHeight();
@@ -45,6 +46,7 @@ public:
 	virtual GLFWwindow* getWindow();
 	virtual std::vector<AbstractSprite*> getSprites();
 	std::vector<AbstractSprite*> getSprite(std::string name);
+	virtual std::vector<AbstractCollider*> getColliders();
 
 	virtual void setSize(int, int);
 	virtual void setWidth(int);
@@ -70,6 +72,7 @@ protected:
 	std::vector<MovingSceneObject*> MovingSceneObjects;
 	std::vector<DrawSceneObject*> DrawSceneObjects;
 	std::vector<AbstractSensor*> sensors;
+	std::vector<AbstractCollider*> Colliders;
 	std::vector<AbstractObserver*> observers;
 	Camera camera;
 	bool active;

@@ -13,7 +13,7 @@
 #include "Edge.h"
 
 class AbstractSprite;
-class AbstractCollider : virtual public SceneObject
+class AbstractCollider : virtual public MovingSceneObject, virtual public DrawSceneObject
 {
 	class SpriteRender;
 public:
@@ -25,8 +25,8 @@ public:
 	virtual glm::vec2 getSpritePos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
 
-	virtual void Draw(SpriteRenderer &renderer) = 0;
-	virtual void Update() {};
+	//virtual void Draw(SpriteRenderer &renderer) = 0;
+	//virtual void Update() {};
 
 	//needed for poly collider
 	virtual std::vector<double> project(glm::vec2) { return std::vector<double>(); }

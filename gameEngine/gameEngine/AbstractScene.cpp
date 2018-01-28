@@ -48,6 +48,11 @@ std::vector<AbstractSprite*> AbstractScene::getSprite(std::string name)
 	return tempVec;
 }
 
+std::vector<AbstractCollider*> AbstractScene::getColliders()
+{
+	return this->Colliders;
+}
+
 void AbstractScene::addSprite(AbstractSprite *newSprite)
 {
 	Sprites.push_back(newSprite);
@@ -150,6 +155,14 @@ void AbstractScene::addMovingObject(MovingSceneObject *m)
 void AbstractScene::addDrawObject(DrawSceneObject *d)
 {
 	this->DrawSceneObjects.push_back(d);
+}
+
+void AbstractScene::addCollider(AbstractCollider *c)
+{
+	this->Colliders.push_back(c);
+	this->MovingSceneObjects.push_back(c);
+	this->DrawSceneObjects.push_back(c);
+	this->SceneObjects.push_back(c);
 }
 
 int AbstractScene::getWidth()
