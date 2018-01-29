@@ -22,6 +22,12 @@ void AbstractScene::Stop()
 	this->visible = false;
 }
 
+//set new background with given file
+void AbstractScene::setBackground(const char* newBackground)
+{
+	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
+}
+
 //tell every Sprite to reset their inital texture, currently not working
 void AbstractScene::reset()
 {
@@ -46,6 +52,11 @@ std::vector<AbstractSprite*> AbstractScene::getSprite(std::string name)
 			tempVec.push_back(Sprites[i]);
 	}
 	return tempVec;
+}
+
+std::vector<AbstractCollider*> AbstractScene::getColliders()
+{
+	return this->Colliders;
 }
 
 void AbstractScene::addSprite(AbstractSprite *newSprite)
@@ -150,6 +161,14 @@ void AbstractScene::addMovingObject(MovingSceneObject *m)
 void AbstractScene::addDrawObject(DrawSceneObject *d)
 {
 	this->DrawSceneObjects.push_back(d);
+}
+
+void AbstractScene::addCollider(AbstractCollider *c)
+{
+	this->Colliders.push_back(c);
+	this->MovingSceneObjects.push_back(c);
+	this->DrawSceneObjects.push_back(c);
+	this->SceneObjects.push_back(c);
 }
 
 int AbstractScene::getWidth()

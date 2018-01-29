@@ -22,6 +22,7 @@
 class Sprite : public AbstractSprite
 {
 public:
+	Sprite();
 	Sprite(std::string n, AbstractScene &scene);
 	Sprite(std::string name, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
 	virtual void Draw(SpriteRenderer &renderer);
@@ -30,7 +31,7 @@ public:
 	virtual bool collide(AbstractCollider *otherCollider);
 	virtual void Update();
 	void hide();
-	void setCollideDebug(bool state);
+	virtual void setCollideDebug(bool state);
 
 	virtual Texture2D getTexture();
 	virtual glm::vec3 getColor();
@@ -51,14 +52,17 @@ public:
 	virtual void reInit();
 	~Sprite();
 
-private:
-	AbstractCollider *collider_;
-	std::vector<AbstractCollider*> colliders_;
-	bool collideDebug;
-	glm::vec2   initPosition, initSize, initVelocity, initCenter;
+protected:
 	glm::vec2	lastPosition, lastSize;
 	float lastRotation;
+	AbstractCollider *collider_;
+	std::vector<AbstractCollider*> colliders_;
 	Texture2D	Texture;
+	bool collideDebug;
+	bool visible;
+
+private:
+	glm::vec2   initPosition, initSize, initVelocity, initCenter;
 	char* textureFile;
 	glm::vec3   Color;
 	Texture2D	initTexture;
@@ -68,7 +72,6 @@ private:
 	std::map<std::string , bool> states;
 	GLfloat transparency;
 	AbstractScene *parentScene;
-	bool visible;
 	int resetCounter;
 
 };

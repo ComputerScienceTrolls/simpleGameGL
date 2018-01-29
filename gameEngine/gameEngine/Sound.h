@@ -18,6 +18,7 @@ public:
 	void play();
 	void pause();
 	void stop();
+	bool isPlaying();
 	void isLooping(ALboolean);
 	void changePitch(ALfloat);
 	void changeVolume(ALfloat);
@@ -31,6 +32,7 @@ private:
 	// Sources are points of emitting sound.
 	ALuint Source;
 
+	bool playing;
 	/*
 	* These are 3D cartesian vector coordinates. A structure or class would be
 	* a more flexible of handling these, but for the sake of simplicity we will

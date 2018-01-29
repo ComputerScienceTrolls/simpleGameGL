@@ -31,7 +31,7 @@ void Scene::Init()
 			temp->addScene(this);
 		}
 		glfwSetKeyCallback(window, key_callback);
-		ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
+		ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
 		initilized = true;
 	}
 
@@ -69,8 +69,8 @@ void Scene::Render()
 {
 	if (this->visible)
 	{
-		std::cout << "cposX: " << this->camera.getPosition().x << "\n";
-		std::cout << "cposY: " << this->camera.getPosition().y << "\n";
+		//std::cout << "cposX: " << this->camera.getPosition().x << "\n";
+		//std::cout << "cposY: " << this->camera.getPosition().y << "\n";
 		glm::mat4 projection;
 		projection = glm::ortho(0.0f, this->camera.getWidth() * this->camera.getZoom().x, this->camera.getHeight() * this->camera.getZoom().y, 0.0f, -1.0f, 1.0f);
 		projection = glm::translate(projection, glm::vec3(camera.getPosition(), 0.0f));
@@ -88,6 +88,7 @@ void Scene::Render()
 	}
 }
 
+
 //event called every time a key is pressed, check for exit, update KeyHandler singleton keys.
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -103,11 +104,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 }
 
-//set new background with given file
-void Scene::setBackground(char* newBackground)
-{
-	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
-}
+
 
 
 Scene::~Scene()

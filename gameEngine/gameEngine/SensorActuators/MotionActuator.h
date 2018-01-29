@@ -9,6 +9,8 @@ public:
 	MotionActuator(std::string name, MovingSceneObject*, double newAngle, double newForce, std::string condition = "force");
 	MotionActuator(std::string name, MovingSceneObject*, float newDX, std::string condition);
 	MotionActuator(std::string name, MovingSceneObject*, float distance, float speed, SceneObject* o, std::string condition = "followObject");
+	MotionActuator(std::string name, MovingSceneObject*, float speed, SceneObject*);
+	MotionActuator(std::string name, MovingSceneObject*, SceneObject*);
 	MotionActuator(std::string name, MovingSceneObject*, std::string condition);
 	void run();
 	~MotionActuator();

@@ -20,8 +20,8 @@ public:
 	virtual glm::vec2 getVelocity();
 	virtual glm::vec2 getLastPosition();
 	virtual glm::vec2 getLastVelocity();
-	virtual int getDX();
-	virtual int getDY();
+	virtual float getDX();
+	virtual float getDY();
 	virtual float getSpeed();
 	virtual float getMoveAngle();
 	virtual std::string getBoundAction();

@@ -49,13 +49,15 @@ glm::vec2 MovingSceneObject::getLastVelocity()
 	return this->lastVelocity;
 }
 
-int MovingSceneObject::getDX()
+float MovingSceneObject::getDX()
 {
+	//std::cout << "\nVelX: " << this->Velocity.x;
 	return this->Velocity.x;
 }
 
-int MovingSceneObject::getDY()
+float MovingSceneObject::getDY()
 {
+	std::cout << "\nVelY: " << this->Velocity.y;
 	return this->Velocity.y;
 }
 
@@ -328,15 +330,17 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 
 void MovingSceneObject::addForce(float angle, float thrust)
 {
+	//std::cout << "\nangle: " << angle;
 	//input angle is in degrees - convert to radians    
-	angle = angle * PI / 180;
+	angle = angle * (PI / 180);
 
 	//calculate dx and dy
+
 	double newDX = thrust * std::cos(angle);
 	double newDY = thrust * std::sin(angle);
 
 	this->Velocity.x += newDX;
-	this->Velocity.y += newDY;
+	this->Velocity.y -= newDY;
 
 	//ensure speed and angle are updated
 	this->calcSpeedAngle();
@@ -344,6 +348,7 @@ void MovingSceneObject::addForce(float angle, float thrust)
 
 void MovingSceneObject::calcSpeedAngle()
 {
+	//std::cout << "\nvelX: " << this->Velocity.x;
 	this->speed = std::sqrt((this->Velocity.x * this->Velocity.y) + (this->Velocity.x * this->Velocity.y));
 	this->moveAngle = std::atan2(this->Velocity.y, this->Velocity.x);
 }

@@ -1,11 +1,3 @@
-/*******************************************************************
-** This code is part of Breakout.
-**
-** Breakout is free software: you can redistribute it and/or modify
-** it under the terms of the CC BY 4.0 license as published by
-** Creative Commons, either version 4 of the License, or (at your
-** option) any later version.
-******************************************************************/
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -16,6 +8,7 @@
 #include "QuadScene.h"
 #include "SceneDirector.h"
 #include "Sprite.h"
+#include "RocketSprite.h"
 
 #include "SensorActuators\CameraActuator.h"
 
@@ -35,277 +28,285 @@
 #include "SensorActuators\SceneActuator.h"
 #include "SensorActuators\SoundActuator.h"
 #include "SensorActuators\AlwaysSensor.h"
+#include "SensorActuators\TimesActuator.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-Scene mainScene("main",2000, 600);
-Scene testScene("test",700, 700);
-Scene testScene2("test",700, 700);
-Scene testScene3("test",700, 700);
-Scene testScene4("test",700, 700);
-Scene testScene5("test",100, 100);
+Scene mainScene("main",800, 600);
+Scene scene2 ("level2", 800, 600);
+Scene scene3("levels3", 800, 600);
 
-void ballColl2(Sprite *Ball, Sprite *Player)
-{
-	//check for collidition between ball and paddle
-	if (Ball->collide(Player))
-	{
-		//Player->setDX(-Player->getDX());
-		std::cout << "collision";
-		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-	}
-}
-
-void ColSpriteTest(Sprite *Ball, AbstractCollider *test)
-{
-	//check for collidition between ball and paddle
-	if (test->collide(Ball))
-	{
-		//Player->setDX(-Player->getDX());
-		std::cout << "collision";
-		//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-	}
-}
-
-void test9()
-{
-	std::cout << "test\n";
-}
-
-void ballColl3(Sprite *Player, std::string name)
-{
-	//get all instances of name and check for collision with given sprite
-	std::vector<AbstractSprite*> tempVec = mainScene.getSprite(name);
-	for (int i = 0; i < tempVec.size(); i++)
-	{
-		if (Player->collide(tempVec.at(i)))
-		{
-			//Player->setDX(-Player->getDX());
-			std::cout << "collision";
-			//spriteMap["Paddle"]->setDX(-(spriteMap["Paddle"]->getDX()));
-		}
-	}
-}
-
-void checkCols(Sprite *s, int w, int h)
-{
-	s->checkBounds(w, h);
-}
 
 int main(int argc, char *argv[])
 {
+	//initiate openAl component
 	alutInit(NULL, 0);
+	
+	//initiate main scene
 	mainScene.Init();
 
-	Sprite *Player = new Sprite("Paddle",mainScene, glm::vec2(150,300), glm::vec2(50, 10), "textures/paddle.png");
-	Sprite *Ball = new Sprite("Ball",mainScene, glm::vec2(300,340), glm::vec2(60,60), "textures/greenCircle.png");
-	BoxCollider *test55 = new BoxCollider("test44", mainScene, 50, 50, 100, 300);
-	CircleCollider *test66 = new CircleCollider("test66", mainScene, 50, 200, 200);
-
-	Player->addCircleCollider("test", 50, 0, 0);
-	Player->setCollideDebug(true);
-	Ball->setCollideDebug(true);
-	Player->setBoundAction("STOP");
-
-
-	ObserverHandler *test = ObserverHandler::getInstance();
-	ColliderObserver *colTest = new ColliderObserver("uh", ColSpriteTest, Player, test66);
-	Observer *simplyObserver = new Observer("observer1", test9);
 	
-	KeyboardSensor *kLeft = new KeyboardSensor("kleft", GLFW_KEY_A);
-	KeyboardSensor *kRight = new KeyboardSensor("kright", GLFW_KEY_D);
-	KeyboardSensor *kUp = new KeyboardSensor("kup", GLFW_KEY_W);
-	KeyboardSensor *kDown = new KeyboardSensor("kdown", GLFW_KEY_S);
-	KeyboardSensor *kArrowLeft = new KeyboardSensor("left",GLFW_KEY_LEFT);
-	KeyboardSensor *kArrowRight = new KeyboardSensor("right",GLFW_KEY_RIGHT);
-	KeyboardSensor *cKeyLeft = new KeyboardSensor("cleft", GLFW_KEY_KP_4);
-	KeyboardSensor *cKeyRight = new KeyboardSensor("cright", GLFW_KEY_KP_6);
-	KeyboardSensor *cKeyUp = new KeyboardSensor("cup", GLFW_KEY_KP_8);
-	KeyboardSensor *cKeydown = new KeyboardSensor("cdown", GLFW_KEY_KP_5);
+	//set up sprites
+	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
+	rs2->setRotation(3.14 / 2);
+	rs2->setCollideDebug(true);
+	Sprite *rocketGoal = new Sprite("rocketGoal", mainScene, glm::vec2(750, 25), glm::vec2(50, 35), "textures/Rocket001_off.png");
+	rocketGoal->setRotation(3.14/2);
+	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(20, 40), "textures/fullSignal.png");
+	//wave->removeCollider("default");
+	wave->hide();
+	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
+	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), "textures/fuel_block.png"),
+		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
+		new Sprite("health2", mainScene, glm::vec2(95, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//95
+		new Sprite("health3", mainScene, glm::vec2(145, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//145
+		new Sprite("health4", mainScene, glm::vec2(190, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//190
+		new Sprite("health5", mainScene, glm::vec2(235, 550), glm::vec2(52, 30), "textures/fuel_block.png")
+	};
+	Sprite *Rocks[8] = { new Sprite("Rock1", mainScene, glm::vec2(50, 50), glm::vec2(100, 100), "textures/rock.png"),
+		new Sprite("Rock2", mainScene, glm::vec2(50, 160), glm::vec2(100, 100), "textures/rock2.png"),
+		new Sprite("Rock3", mainScene, glm::vec2(50, 270), glm::vec2(100, 100), "textures/rock3.png"),
+		new Sprite("Rock4", mainScene, glm::vec2(50, 380), glm::vec2(100, 100), "textures/rock.png"),
+		new Sprite("Rock5", mainScene, glm::vec2(50, 490), glm::vec2(100, 100), "textures/rock3.png"),
+		new Sprite("Rock6", mainScene, glm::vec2(270, 50), glm::vec2(335, 100), "textures/rock3.png"),
+		new Sprite("Rock7", mainScene, glm::vec2(350, 260), glm::vec2(110, 300), "textures/rock2.png"),
+		new Sprite("Rock8", mainScene, glm::vec2(350, 425), glm::vec2(40, 20), "textures/rock.png")
+
+	};
+	Rocks[2]->setRotation(3.14);
+	
+	for (int i = 0; i < 8; i++)
+	{
+		Rocks[i]->setCollideDebug(true);
+	}
+	
+	SceneObject *spawnObject = new SceneObject();
+	spawnObject->setParent(rs2);
+	spawnObject->setPosition(glm::vec2(rs2->getCenter().x, rs2->getCenter().y));
+	wave->setVisible(false);
+	//wave->setActive(false);
+	//rs2->setRotation(3.14/2);
+	rs2->setBoundAction("STOP");
+
+	//set up colliders for sprites
+	//wave->addCircleCollider("test", 10, 0, 0);
+	wave->setCollideDebug(true);
+	
+	//set up bound actions for sprites
+	rs2->setBoundAction("STOP");
+
+	//collision sensors
+	CollisionSensor *goal1 = new CollisionSensor("goal1", wave, rocketGoal, true);
+	CollisionSensor *RocksCol[8] = { new CollisionSensor("c1", rs2, Rocks[0], true),
+		new CollisionSensor("c2", rs2, Rocks[1], true),
+		new CollisionSensor("c3", rs2, Rocks[2], true),
+		new CollisionSensor("c4", rs2, Rocks[3], true),
+		new CollisionSensor("c5", rs2, Rocks[4], true),
+		new CollisionSensor("c6", rs2, Rocks[5], true),
+		new CollisionSensor("c7", rs2, Rocks[6], true),
+		new CollisionSensor("c8", rs2, Rocks[7], true)
+	};
+
+	CollisionSensor *RocksWaveCol[8] = { new CollisionSensor("w1", wave, Rocks[0], true),
+		new CollisionSensor("c2", wave, Rocks[1], true),
+		new CollisionSensor("c3", wave, Rocks[2], true),
+		new CollisionSensor("c4", wave, Rocks[3], true),
+		new CollisionSensor("c5", wave, Rocks[4], true),
+		new CollisionSensor("c6", wave, Rocks[5], true),
+		new CollisionSensor("c7", wave, Rocks[6], true),
+		new CollisionSensor("c8", wave, Rocks[7], true)
+	};
+
+
+	//set up keyboard Sensors
+	KeyboardSensor *ka = new KeyboardSensor("left",GLFW_KEY_A);
+	KeyboardSensor *kd = new KeyboardSensor("right", GLFW_KEY_D);
+	KeyboardSensor *kw = new KeyboardSensor("up", GLFW_KEY_W, "clicked");
+	KeyboardSensor *ks = new KeyboardSensor("down", GLFW_KEY_S);
+	KeyboardSensor *kj = new KeyboardSensor("rleft", GLFW_KEY_J);
+	KeyboardSensor *kl = new KeyboardSensor("rright", GLFW_KEY_L);
+	KeyboardSensor *ki = new KeyboardSensor("rup", GLFW_KEY_I);
+	KeyboardSensor *kk = new KeyboardSensor("rdown", GLFW_KEY_K);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
-	KeyboardSensor *kg = new KeyboardSensor("space", GLFW_KEY_G, "clicked");
-	KeyboardSensor *kh = new KeyboardSensor("space", GLFW_KEY_H, "clicked");
-	KeyboardSensor *k9 = new KeyboardSensor("n9", GLFW_KEY_KP_9);
-	KeyboardSensor *k7 = new KeyboardSensor("n7", GLFW_KEY_7);
-	KeyboardSensor *k1 = new KeyboardSensor("n7", GLFW_KEY_KP_1);
-	KeyboardSensor *k2 = new KeyboardSensor("n7", GLFW_KEY_KP_2);
 	AlwaysSensor *A = new AlwaysSensor();
-	//CollisionSensor *t2 = new CollisionSensor("colSensor1", Player, trigger);
-	//CheckBoundsSensor *t2 = new CheckBoundsSensor(Player, 800, 600);
-	MotionActuator *m2 = new MotionActuator("motion1", Player,"flip");
-	MotionActuator *mLeft = new MotionActuator("motion2", Player, 180, .1, "force");
-	MotionActuator *mRight = new MotionActuator("motion3", Player, 0, .1, "force");
-	MotionActuator *mUp = new MotionActuator("motion4", Player, 90, .1, "force");
-	MotionActuator *mDown = new MotionActuator("motion5", Player, 270, .1, "force");
-	CameraActuator *cScaleDown = new CameraActuator("scaleDown", mainScene.getCamera(), -.1,"zoomDT");
-	MotionActuator *cLeft = new MotionActuator("cLeft", mainScene.getCamera(), 1, "changeByX");
-	MotionActuator *cRight = new MotionActuator("cRight", mainScene.getCamera(), -1, "changeByX");
-	MotionActuator *cDown = new MotionActuator("cDown", mainScene.getCamera(), -1, "changeByY");
-	MotionActuator *cUp = new MotionActuator("cUp", mainScene.getCamera(), 1, "changeByY");
-	MotionActuator *rotate = new MotionActuator("ro", mainScene.getCamera(), .5, "rotate");
-	MotionActuator *rotateBy = new MotionActuator("r", mainScene.getCamera(), .01, "rotateBy");
-	//PositionActuator *p1 = new PositionActuator(Player, 50,50);
-	VisibilityActuator *v1 = new VisibilityActuator("visible1",Player, false);
-	SceneActuator *s1 = new SceneActuator("scene1",&testScene, "next");
-	SceneActuator *s2 = new SceneActuator("scene2",&mainScene, "previous");
-	SceneActuator *s3 = new SceneActuator("scene3",&mainScene, "togglePause");
-	//ActiveActuator *a1 = new ActiveActuator(Player, false);
-	//CameraActuator * c1 = new CameraActuator("followObject", mainScene.getCamera(), 10, 1, Player);
-	MotionActuator *mfollow = new MotionActuator("followObject2", Player, 100, 1, test55, "followObject");
-	//Player->followObject(test55, 10, .1);
-
-	//mainScene.getCamera()->setParent(Player);
-	//Ball->setParent(Player);
-	//test55->setParent(Player);
-	//test66->setParent(Player);
-
-	kSpace->addActuator(s3);
-	kArrowLeft->addActuator(s1);
-	kArrowRight->addActuator(s2);
-	kLeft->addActuator(mLeft);
-	kRight->addActuator(mRight);
-	k9->addActuator(cScaleDown);
-	kUp->addActuator(mUp);
-	kDown->addActuator(mDown);
-	cKeydown->addActuator(cDown);
-	cKeyLeft->addActuator(cLeft);
-	cKeyRight->addActuator(cRight);
-	cKeyUp->addActuator(cUp);
-	k1->addActuator(rotate);
-	k2->addActuator(rotateBy);
-	A->addActuator(mfollow);
-	//t2->addActuator(m2);
-	SceneDirector::getInstance()->addSensor(kSpace);
-	SceneDirector::getInstance()->addSensor(kArrowLeft);
-	SceneDirector::getInstance()->addSensor(kArrowRight);
-	mainScene.addSensor(kLeft);
-	mainScene.addSensor(kRight);
-	mainScene.addSensor(kUp);
-	mainScene.addSensor(kDown);
-	//mainScene.addSensor(t2);
-	mainScene.addSensor(cKeydown);
-	mainScene.addSensor(cKeyUp);
-	mainScene.addSensor(cKeyRight);
-	mainScene.addSensor(kg);
-	mainScene.addSensor(kh);
-	mainScene.addSensor(k9);
-	mainScene.addSensor(k1);
-	mainScene.addSensor(k2);
-	mainScene.addSensor(cKeyLeft);
-	mainScene.addSensor(A);
-	mainScene.addObserver(colTest);
-
-	//testScene.setBackground("textures/face.png");
-	/*
-	for (int i = 0; i < 5; i++)
-	{
-		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i*70), 300 + (i*70)), glm::vec2(10 * i, 10 * i), "textures/face.png",glm::vec3(1.0f),glm::vec2(i,i));
-		//ColliderObserver *temp = new ColliderObserver(ballColl2, Player, Ball);
-		//CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
-		temp2->addForce((i * 1), i);
-		temp2->setBoundAction("BOUNCE");
-		CollisionSensor *t1 = new CollisionSensor(Player, temp2);
-		MotionActuator *m1 = new MotionActuator(Player, "flip");
-		t1->addActuator(m1);
-		mainScene.addSensor(t1);
-		//test->addObserver(*temp);
-	}
-	*/
-	//ColliderObserver *temp = new ColliderObserver("ballCol", ballColl2, Player, Ball);
-	//mainScene.addObserver(temp);
-	//mainScene.removeObserver("ballCol");
-
+	//CollisionSensor *waveCol = new CollisionSensor("waveCol", wave, , true);
 	
-	/*
-	for (int i = 0; i < 50; i++)
-	{
-		Sprite *temp2 = new Sprite("Ball", mainScene, glm::vec2(350 + (i * 10), 300 + (i * 10)), glm::vec2(i, i), "textures/face.png", glm::vec3(1.0f), glm::vec2(i, i));
-		//ColliderObserver *temp = new ColliderObserver(ballColl2, temp2, Player);
-		//CheckBoundsObserver *temp3 = new CheckBoundsObserver(checkCols, temp2, mainScene.Width, mainScene.Height);
-		temp2->addForce((i * 1), i);
-		temp2->setBoundAction("BOUNCE");
-		//test->addObserver(*temp);
-	}
+	//motion acts for rocks col
+	MotionActuator *RocksMot[8] = {
+		new MotionActuator("rock1", rs2,"flipx"),
+		new MotionActuator("rock1", rs2,"flipx"),
+		new MotionActuator("rock1", rs2,"flipx"),
+		new MotionActuator("rock1", rs2,"flipx"),
+		new MotionActuator("rock1", rs2,"flipx"),
+		new MotionActuator("rock1", rs2,"flipy"),
+		new MotionActuator("rock1", rs2,"flipx"),
+		new MotionActuator("rock1", rs2,"flipy")
+	};
+
+	ActiveActuator *waveActive = new ActiveActuator("wave", wave, false);
+	VisibilityActuator *waveVisible = new VisibilityActuator("wave", wave, false);
+	PositionActuator *waveAfterHit = new PositionActuator("waveMove", wave, 10000, 10000);
+
+
+	RocksCol[0]->addActuator(RocksMot[0]);
+	RocksCol[1]->addActuator(RocksMot[1]);
+	RocksCol[2]->addActuator(RocksMot[2]);
+	RocksCol[3]->addActuator(RocksMot[3]);
+	RocksCol[4]->addActuator(RocksMot[4]);
+	RocksCol[5]->addActuator(RocksMot[5]);
+	RocksCol[6]->addActuator(RocksMot[6]);
+	RocksCol[7]->addActuator(RocksMot[7]);
+
+	RocksWaveCol[0]->addActuator(waveVisible);
+	RocksWaveCol[1]->addActuator(waveVisible);
+	RocksWaveCol[2]->addActuator(waveVisible);
+	RocksWaveCol[3]->addActuator(waveVisible);
+	RocksWaveCol[4]->addActuator(waveVisible);
+	RocksWaveCol[5]->addActuator(waveVisible);
+	RocksWaveCol[6]->addActuator(waveVisible);
+	RocksWaveCol[7]->addActuator(waveVisible);
+
+	/*RocksWaveCol[0]->addActuator(waveActive);
+	RocksWaveCol[1]->addActuator(waveActive);
+	RocksWaveCol[2]->addActuator(waveActive);
+	RocksWaveCol[3]->addActuator(waveActive);
+	RocksWaveCol[4]->addActuator(waveActive);
+	RocksWaveCol[5]->addActuator(waveActive);
+	RocksWaveCol[6]->addActuator(waveActive);
+	RocksWaveCol[7]->addActuator(waveActive);
 	*/
 
-	//col test scene
-	Sprite *colTester1 = new Sprite("colTester1", testScene, glm::vec2(100, 100), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, -1));
-	Sprite *colTester2 = new Sprite("colTester2", testScene, glm::vec2(500, 500), glm::vec2(50, 10), "textures/paddle.png", glm::vec2(0, 1));
-	BoxCollider *colTester3 = new BoxCollider("colTester3", testScene, 50, 50, 500, 100);
-	CircleCollider *colTester4 = new CircleCollider("colTester4", testScene, 50, 100, 500);
-	BoxCollider *colTester5 = new BoxCollider("colTester5", testScene, 25, 25, 300, 100);
-	BoxCollider *colTester6 = new BoxCollider("colTester6", testScene, 25, 25, 300, 300);
-	CircleCollider *colTester7 = new CircleCollider("colTester7", testScene, 25, 200, 100);
-	CircleCollider *colTester8 = new CircleCollider("colTester8", testScene, 25, 200, 200);
+	RocksWaveCol[0]->addActuator(waveAfterHit);
+	RocksWaveCol[1]->addActuator(waveAfterHit);
+	RocksWaveCol[2]->addActuator(waveAfterHit);
+	RocksWaveCol[3]->addActuator(waveAfterHit);
+	RocksWaveCol[4]->addActuator(waveAfterHit);
+	RocksWaveCol[5]->addActuator(waveAfterHit);
+	RocksWaveCol[6]->addActuator(waveAfterHit);
+	RocksWaveCol[7]->addActuator(waveAfterHit);
 
-	colTester1->setBoundAction("BOUNCE");
-	colTester2->setBoundAction("BOUNCE");
-	colTester3->setBoundAction("BOUNCE");
-	colTester4->setBoundAction("BOUNCE");
-	colTester5->setBoundAction("BOUNCE");
-	colTester6->setBoundAction("BOUNCE");
-	colTester7->setBoundAction("BOUNCE");
-	colTester8->setBoundAction("BOUNCE");
 
-	colTester3->setCenter(glm::vec2(500, 100));
-	colTester4->setCenter(glm::vec2(100, 500));
-	colTester2->removeCollider("default");
-	colTester2->setCenter(glm::vec2(500, 500));
-	colTester2->setCollideDebug(true);
-	colTester2->addCircleCollider("tester2", 50, 0, 0);
-	colTester3->addForce(270, 1);
-	colTester1->setCollideDebug(true);
-	colTester1->setCenter(glm::vec2(100, 100));
-	colTester4->addForce(90, 1);
-	colTester5->addForce(270, 1);
-	colTester6->addForce(90, 1);
-	colTester7->addForce(270, 1);
-	colTester8->addForce(90, 1);
 
-	CollisionSensor *t1 = new CollisionSensor("colSensor1", colTester2, colTester3, true);
-	CollisionSensor *t2 = new CollisionSensor("colSensor2", colTester1, colTester4, true);
-	CollisionSensor *t3 = new CollisionSensor("colSensor3", colTester5, colTester6, true);
-	CollisionSensor *t4 = new CollisionSensor("colSensor4", colTester7, colTester8, true);
-	MotionActuator *m1 = new MotionActuator("m1", colTester1, "flip");
-	MotionActuator *m3 = new MotionActuator("m2", colTester2, "flip");
-	MotionActuator *m4 = new MotionActuator("m3", colTester3, "flip");
-	MotionActuator *m5 = new MotionActuator("m4", colTester4, "flip");
-	MotionActuator *m6 = new MotionActuator("m6", colTester5, "flip");
-	MotionActuator *m7 = new MotionActuator("m7", colTester6, "flip");
-	MotionActuator *m8 = new MotionActuator("m8", colTester7, "flip");
-	MotionActuator *m9 = new MotionActuator("m9", colTester8, "flip");
-
-	SoundActuator *Batman = new SoundActuator("sound/truth.wav");
-
-	t1->addActuator(m3);
-	t1->addActuator(m4);
-	t2->addActuator(m1);
-	t2->addActuator(m5);
-	t3->addActuator(m6);
-	t3->addActuator(m7);
-
-	//kLeft->addActuator(Batman);
-
-	testScene.addSensor(t1);
-	testScene.addSensor(t2);
+	//set up actuators
+	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.1, "rotateBy");
+	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, .1, "rotateBy");
+	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
+	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
+	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rs2);
+	PositionActuator *rocketFront = new PositionActuator("rocketFront", wave, spawnObject);
+	VisibilityActuator *waveVisibleTrue = new VisibilityActuator("visbleWave", wave, true);
+	ActiveActuator *waveActiveTrue = new ActiveActuator("activeWave", wave, true);
+	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
+	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
-	//test->addObserver(*colTest);
-	SceneDirector::getInstance()->addScene(&testScene);
-	SceneDirector::getInstance()->addScene(&testScene2);
-	SceneDirector::getInstance()->addScene(&testScene3);
-	SceneDirector::getInstance()->addScene(&testScene4);
-	SceneDirector::getInstance()->addScene(&testScene5);
+	//set up sound 
+	SoundActuator *shootSound = new SoundActuator("sound/shoot.wav", "");
+	SoundActuator *moveSound = new SoundActuator("sound/movement.wav","");
+	SoundActuator *music = new SoundActuator("sound/music.wav", "looping");
 
-	QuadScene quadScene("test", 100, 100, Player, 4);
-	SceneDirector::getInstance()->addScene(&quadScene);
-	mainScene.setCameraHeight(500);
+
+	
+
+	VisibilityActuator *v[6] = { new VisibilityActuator("visible1", health[5], false),
+		new VisibilityActuator("visible2", health[4], false),
+		new VisibilityActuator("visible3", health[3], false),
+		new VisibilityActuator("visible4", health[2], false),
+		new VisibilityActuator("visible5", health[1], false),
+		new VisibilityActuator("visible6", health[0], false)
+		
+	};
+	VisibilityActuator *v2[5] = { new VisibilityActuator("visible6", health[5], true),
+		new VisibilityActuator("visible7", health[4], true),
+		new VisibilityActuator("visible8", health[3], true),
+		new VisibilityActuator("visible9", health[2], true),
+		new VisibilityActuator("visible10", health[1], true)
+	};
+	//MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
+	TimesActuator *t = new TimesActuator("health", &mainScene, 6,"reset");
+	t->addActuator(v[0]);
+	t->addActuator(v[1]);
+	t->addActuator(v[2]);
+	t->addActuator(v[3]);
+	t->addActuator(v[4]);
+	t->addActuator(v[5]);
+	t->addActuator(v2[0]);
+	t->addActuator(v2[1]);
+	t->addActuator(v2[2]);
+	t->addActuator(v2[3]);
+	t->addActuator(v2[4]);
+	
+	
+	
+	
+	//add actuators to the sensor
+	kSpace->addActuator(waveVisibleTrue);
+	kSpace->addActuator(waveActiveTrue);
+	kSpace->addActuator(clearWaveMotion);
+	kSpace->addActuator(rocketFront);
+	kSpace->addActuator(rotWaveMotion);
+	kSpace->addActuator(waveMotion);
+	kSpace->addActuator(shootSound);
+	//ks->addActuator(s1);
+	kw->addActuator(mUp);
+	kw->addActuator(t);
+	kw->addActuator(moveSound);
+	kj->addActuator(rLeft);
+	kl->addActuator(rRight);
+	//kk->addActuator(s1);
+	//ki->addActuator(s1);
+	goal1->addActuator(sceneAct1);
+	A->addActuator(music);
+	
+	//add sensors to scene 1
+	mainScene.addSensor(ka);
+	mainScene.addSensor(kd);
+	mainScene.addSensor(kw);
+	mainScene.addSensor(ks);
+	mainScene.addSensor(kj);
+	mainScene.addSensor(kl);
+	mainScene.addSensor(ki);
+	mainScene.addSensor(kk);
+	mainScene.addSensor(kSpace);
+	mainScene.addSensor(RocksCol[0]);
+	mainScene.addSensor(RocksCol[1]);
+	mainScene.addSensor(RocksCol[2]);
+	mainScene.addSensor(RocksCol[3]);
+	mainScene.addSensor(RocksCol[4]);
+	mainScene.addSensor(RocksCol[5]);
+	mainScene.addSensor(RocksCol[6]);
+	mainScene.addSensor(RocksCol[7]);
+
+	mainScene.addSensor(RocksWaveCol[0]);
+	mainScene.addSensor(RocksWaveCol[1]);
+	mainScene.addSensor(RocksWaveCol[2]);
+	mainScene.addSensor(RocksWaveCol[3]);
+	mainScene.addSensor(RocksWaveCol[4]);
+	mainScene.addSensor(RocksWaveCol[5]);
+	mainScene.addSensor(RocksWaveCol[6]);
+	mainScene.addSensor(RocksWaveCol[7]);
+
+	SceneDirector::getInstance()->addSensor(goal1);
+	//add sensors to scene 2
+	
+	
+	//add sensors to scene 3
+
+	//add scenes to the scene director
+	SceneDirector::getInstance()->addScene(&scene2);
+	SceneDirector::getInstance()->addScene(&scene3);
+
+
+	//set camera witdth and height
+	mainScene.setCameraHeight(600);
 	mainScene.setCameraWidth(800);
-	
+
+	//start game 
 	SceneDirector::getInstance()->Start();
 	
+	//delete items that are on heap that is used by openal
 	alutExit();
 
 	return 0;

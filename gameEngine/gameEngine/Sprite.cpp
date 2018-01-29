@@ -3,6 +3,10 @@
 //pie constant for math
 const double PI = 3.141592653589793238463;
 
+Sprite::Sprite()
+{
+}
+
 //empty sprite
 Sprite::Sprite(std::string n, AbstractScene &scene)
 	: parentScene(&scene), Color(1.0f), Texture(), collideDebug(false), transparency(1)
@@ -115,7 +119,7 @@ void Sprite::Draw(SpriteRenderer &renderer)
 {
 	if (visible)
 	{
-		std::cout << "\n" << this->Position.x;
+		//std::cout << "\n" << this->Position.x;
 		renderer.DrawSprite(this->getTexture(), this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
@@ -134,7 +138,7 @@ bool Sprite::collide(AbstractSprite* otherSprite)
 {
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
-		AbstractCollider* test = otherSprite->getColliders().at(i);
+		//AbstractCollider* test = otherSprite->getColliders().at(i);
 		if (this->colliders_.at(i)->collide(otherSprite->getColliders()))
 		{
 			return true;

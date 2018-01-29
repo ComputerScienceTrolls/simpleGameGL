@@ -20,8 +20,6 @@ public:
 	virtual void Update(GLfloat dt);
 	virtual void Render();
 
-	//set's Scene's background, get's image from filename you give to fill the scene
-	void setBackground(char*);
 
 
 protected:

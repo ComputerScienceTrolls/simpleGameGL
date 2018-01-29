@@ -36,6 +36,7 @@ void SceneActuator::run()
 	else if (condition == "next")
 	{
 		SceneDirector::getInstance()->nextScene();
+		SceneDirector::getInstance()->setSceneBackground("textures/BG.png");
 	}
 	else if (condition == "previous")
 	{

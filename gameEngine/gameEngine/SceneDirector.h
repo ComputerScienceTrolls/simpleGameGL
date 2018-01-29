@@ -11,6 +11,9 @@
 
 #include "SensorActuators\AbstractSensor.h"
 #include "Observers\AbstractObserver.h"
+#include <string>
+
+using std::string;
 
 class SceneDirector
 {
@@ -39,6 +42,7 @@ public:
 	void checkSensors();
 	void pauseScene(AbstractScene *s);
 	void unpauseScene(AbstractScene *s);
+	void setSceneBackground(string);
 	~SceneDirector();
 
 private:

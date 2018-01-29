@@ -1,4 +1,5 @@
 #include "MotionActuator.h"
+#include <math.h>
 
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDX, float newDY) :
 	object(s), DX(newDX), DY(newDY), condition("both")
@@ -21,6 +22,17 @@ MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDT,
 MotionActuator::MotionActuator(std::string name, MovingSceneObject *m, float dis, float speed, SceneObject *o, std::string con) :
 	object(m), condition(con), distance(dis), force(speed), anotherObject(o)
 {
+}
+
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *o, float s, SceneObject *ao):
+	force(s), anotherObject(ao), object(o), condition("forceTowards")
+{
+}
+
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, SceneObject *ao) :
+	object(s), anotherObject(ao), condition("angleTo")
+{
+	this->name = n;
 }
 
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, std::string con) :
@@ -51,6 +63,7 @@ void MotionActuator::run()
 	}
 	else if (condition == "flipx")
 	{
+		std::cout << "\nobjectDX: " << object->getDX();
 		object->setDX(-object->getDX());
 	}
 	else if (condition == "flipy")
@@ -73,18 +86,36 @@ void MotionActuator::run()
 	else if (condition == "rotate")
 	{
 		object->setRotation(DT);
+		object->setMoveAngle(DT);
 	}
 	else if (condition == "rotateBy")
 	{
 		object->setRotation(object->getRotation() + DT);
+		object->setMoveAngle(object->getMoveAngle() + DT);
+	}
+	else if (condition == "angleTo")
+	{
+		object->setRotation(anotherObject->getRotation());
 	}
 	else if (condition == "force")
 	{
 		object->addForce(angle, force);
 	}
+	else if (condition == "forceForward")
+	{
+		float degrees = object->getRotation() * (180/ 3.141592653589793238463) - 180;
+		std::cout << "\ndegrees: " << degrees;
+		object->addForce(degrees, force);
+		
+	}
 	else if (condition == "followObject")
 	{
 		object->followObject(anotherObject, distance, force);
+	}
+	else if (condition == "forceTowards")
+	{
+		float degrees = anotherObject->getRotation() * (180 / 3.141592653589793238463);
+		object->addForce(degrees + 180, force);
 	}
 }
 
