@@ -1,5 +1,5 @@
 #include "Sound.h"
-
+#include <iostream>
 
 
 Sound::Sound(string dir)
@@ -17,7 +17,7 @@ Sound::Sound(string dir)
 
 	//pop up message box if there is something wrong
 	if (alGetError() != AL_NO_ERROR)
-		MessageBox(NULL, errorMessage.c_str(), "Error Message", MB_OK);
+		std::cout << errorMessage.c_str();
 
 	//Set default values for sound file
 	alSourcei(Source, AL_BUFFER, Buffer);

@@ -2,8 +2,8 @@
 #define ABSTRACT_SCENE_H
 
 #include "AbstractSprite.h"
-#include "Observers\AbstractObserver.h"
-#include "SensorActuators\AbstractSensor.h"
+#include "Observers/AbstractObserver.h"
+#include "SensorActuators/AbstractSensor.h"
 #include "ResourceManager.h"
 
 #include <GL/glew.h>

@@ -120,7 +120,8 @@ void Sprite::Draw(SpriteRenderer &renderer)
 	if (visible)
 	{
 		//std::cout << "\n" << this->Position.x;
-		renderer.DrawSprite(this->getTexture(), this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		Texture2D tempTexture = this->getTexture();
+		renderer.DrawSprite(tempTexture, this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 

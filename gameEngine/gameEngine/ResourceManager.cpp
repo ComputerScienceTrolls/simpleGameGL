@@ -12,7 +12,7 @@
 #include <sstream>
 #include <fstream>
 
-#include <soil2.h>
+#include <SOIL2.h>
 
 // Instantiate static variables
 std::map<std::string, Texture2D>    ResourceManager::Textures;

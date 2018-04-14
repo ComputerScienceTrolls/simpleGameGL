@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "texture.h"
+#include "Texture.h"
 #include "sprite_renderer.h"
 #include "ResourceManager.h"
 #include <math.h>

@@ -10,25 +10,25 @@
 #include "Sprite.h"
 #include "RocketSprite.h"
 
-#include "SensorActuators\CameraActuator.h"
+#include "SensorActuators/CameraActuator.h"
 
-#include "Observers/observerhandler.h"
+#include "Observers/ObserverHandler.h"
 #include "Observers/Observer.h"
 #include "Observers/ColliderObserver.h"
 #include "Observers/CheckBoundsObserver.h"
 #include "Observers/CollisionGroupObserver.h"
 
-#include "SensorActuators\MotionActuator.h"
-#include "SensorActuators\PositionActuator.h"
-#include "SensorActuators\CollisionSensor.h"
-#include "SensorActuators\CheckBoundsSensor.h"
-#include "SensorActuators\VisibilityActuator.h"
-#include "SensorActuators\ActiveActuator.h"
-#include "SensorActuators\KeyboardSensor.h"
-#include "SensorActuators\SceneActuator.h"
-#include "SensorActuators\SoundActuator.h"
-#include "SensorActuators\AlwaysSensor.h"
-#include "SensorActuators\TimesActuator.h"
+#include "SensorActuators/MotionActuator.h"
+#include "SensorActuators/PositionActuator.h"
+#include "SensorActuators/CollisionSensor.h"
+#include "SensorActuators/CheckBoundsSensor.h"
+#include "SensorActuators/VisibilityActuator.h"
+#include "SensorActuators/ActiveActuator.h"
+#include "SensorActuators/KeyboardSensor.h"
+#include "SensorActuators/SceneActuator.h"
+#include "SensorActuators/SoundActuator.h"
+#include "SensorActuators/AlwaysSensor.h"
+#include "SensorActuators/TimesActuator.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;

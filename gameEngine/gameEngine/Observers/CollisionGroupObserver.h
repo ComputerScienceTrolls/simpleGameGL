@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractobserver.h"
+#include "AbstractObserver.h"
 #include "../Sprite.h"
 
 class CollisionGroupObserver : public AbstractObserver

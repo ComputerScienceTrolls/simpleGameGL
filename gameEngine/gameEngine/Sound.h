@@ -4,7 +4,7 @@
 #include "alut.h"
 #include "al.h"
 #include "alc.h"
-#include <windows.h>
+//#include <windows.h>
 #include <string>
 
 using std::string;

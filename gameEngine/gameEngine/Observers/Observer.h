@@ -1,7 +1,7 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-#include "abstractobserver.h"
+#include "AbstractObserver.h"
 
 class Observer : public AbstractObserver
 {

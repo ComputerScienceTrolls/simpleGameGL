@@ -9,8 +9,8 @@
 #include <glm/glm.hpp>
 #include "ResourceManager.h"
 
-#include "SensorActuators\AbstractSensor.h"
-#include "Observers\AbstractObserver.h"
+#include "SensorActuators/AbstractSensor.h"
+#include "Observers/AbstractObserver.h"
 #include <string>
 
 using std::string;

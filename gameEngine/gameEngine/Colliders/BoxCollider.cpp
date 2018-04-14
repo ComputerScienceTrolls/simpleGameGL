@@ -252,7 +252,8 @@ bool BoxCollider::getStaticState()
 void BoxCollider::Draw(SpriteRenderer & renderer)
 {
 	//if parentSprite exists use it for render calc
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreen"), this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), this->transparency);
+	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");
+	renderer.DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), this->transparency);
 }
 
 BoxCollider::~BoxCollider()

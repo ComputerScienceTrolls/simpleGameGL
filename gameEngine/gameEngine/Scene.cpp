@@ -78,8 +78,9 @@ void Scene::Render()
 		projection = glm::rotate(projection, this->camera.getRotation(), glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
 		projection = glm::translate(projection, glm::vec3(-0.5f * this->camera.getWidth(), -0.5f * this->camera.getHeight(), 0.0f)); // Move origin back
 		ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-
-		Renderer->DrawSprite(ResourceManager::GetTexture("background"), background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
+		
+		Texture2D tempTexture = ResourceManager::GetTexture("background");
+		Renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
 		//give camera's pos so Sprite's can render accordingly
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{

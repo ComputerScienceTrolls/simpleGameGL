@@ -203,7 +203,8 @@ float CircleCollider::getRadius()
 void CircleCollider::Draw(SpriteRenderer & renderer)
 {
 	//if spriteParent exists use it for rendering
-	renderer.DrawSprite(ResourceManager::GetTexture("debugGreenCircle"), this->Position, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
+	Texture2D tempTexture = ResourceManager::GetTexture("debugGreenCircle");
+	renderer.DrawSprite(tempTexture, this->Position, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 CircleCollider::~CircleCollider()

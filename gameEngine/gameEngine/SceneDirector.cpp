@@ -26,8 +26,10 @@ SceneDirector::SceneDirector()
 	glewInit();
 	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
-
-	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+	
+	Shader temp1 = ResourceManager::GetShader("sprite");
+	Renderer = new SpriteRenderer(temp1);
+	//Renderer = temp;
 
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
