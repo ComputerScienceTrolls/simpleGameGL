@@ -59,6 +59,12 @@ int main(int argc, char *argv[])
 	//wave->removeCollider("default");
 	wave->hide();
 	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
+
+	for (unsigned int i = 0; i < 1000; i++)
+	{
+		Sprite *temp = new Sprite("test", mainScene, glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(0, (i/10) + .01));
+	}
+
 	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), "textures/fuel_block.png"),
 		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
 		new Sprite("health2", mainScene, glm::vec2(95, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//95

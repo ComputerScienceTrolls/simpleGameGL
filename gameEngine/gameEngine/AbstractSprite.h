@@ -42,7 +42,6 @@ public:
 protected:
 	glm::vec3   Color;
 	float imgAngle;
-	virtual void setCollideDebug(bool state) {};
 };
 
 #endif

@@ -16,7 +16,7 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 	}
 	else
 	{
-		for (int i = 0; i < vecs.size(); i++)
+		for (unsigned int i = 0; i < vecs.size(); i++)
 		{
 			if (vecs.at(i).x < minX)
 			{
@@ -51,7 +51,7 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 		}
 
 		//store vectrices with the offset of the parent's pos, so we know it's true positon for collision
-		for (int i = 0; i < vecs.size(); i++)
+		for (unsigned int i = 0; i < vecs.size(); i++)
 		{
 			vectrices.push_back(vecs.at(i) + spriteParent->getPosition());
 		}
@@ -65,7 +65,7 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 //update every vertex based on the sprite's pos
 void PolyCollider::updateVecs()
 {
-	for (int i = 0; i < edges.size(); i++)
+	for (unsigned int i = 0; i < edges.size(); i++)
 	{
 		int tempX = edges[i]->getPoint1().x + spriteParent->getPosition().x;
 		int tempY = edges[i]->getPoint1().y + spriteParent->getPosition().y;
@@ -79,7 +79,7 @@ void PolyCollider::updateVecs()
 		edges[i]->updateDir();
 	}
 
-	for (int i = 0; i < vectrices.size(); i++)
+	for (unsigned int i = 0; i < vectrices.size(); i++)
 	{
 		vectrices[i] = offsetVectrices.at(i) + spriteParent->getPosition();
 	}
@@ -90,13 +90,13 @@ bool PolyCollider::collide(std::vector<AbstractCollider*> otherColliders)
 {
 	//we need to update the vecs based on each sprite's position
 	updateVecs();
-	for (int i = 0; i < otherColliders.size(); i++)
+	for (unsigned int i = 0; i < otherColliders.size(); i++)
 	{
 		if (otherColliders.at(i)->getType() == "Poly")
 		{
 			//we need to update otherCollidiers vecs based on it's sprite's position
 			otherColliders.at(i)->updateVecs();
-			for (int j = 0; j < this->vectrices.size(); j++)
+			for (unsigned int j = 0; j < this->vectrices.size(); j++)
 			{
 				//get dir of the current edge
 				glm::vec2 tempDir = this->edges[j]->getDir();
@@ -114,7 +114,7 @@ bool PolyCollider::collide(std::vector<AbstractCollider*> otherColliders)
 			}
 
 			//now do it the other way
-			for (int j = 0; j < otherColliders.at(i)->getVerticies().size(); j++)
+			for (unsigned int j = 0; j < otherColliders.at(i)->getVerticies().size(); j++)
 			{
 				glm::vec2 tempDir = otherColliders.at(i)->getEdges().at(j)->getDir();
 				tempDir = getNormal(tempDir);
@@ -184,8 +184,11 @@ std::string PolyCollider::getType()
 	return this->type;
 }
 
+//not sure how to draw lines yet, need to figure out before trying to draw but need to implement pure virtual function
 void PolyCollider::Draw(SpriteRenderer & renderer)
 {
+	//line just to prevent warning of unused var
+	renderer = renderer;
 }
 
 //create an edge from two given vertexs.
@@ -207,7 +210,7 @@ std::vector<double> PolyCollider::project(glm::vec2 axis)
 	//min and max are the start and finish points
 	double max = min;
 
-	for (int i = 0; i < vectrices.size(); i++)
+	for (unsigned int i = 0; i < vectrices.size(); i++)
 	{
 		//find the projection of every point on the polygon onto the line.
 		double proj = getDot(vectrices.at(i), axis);

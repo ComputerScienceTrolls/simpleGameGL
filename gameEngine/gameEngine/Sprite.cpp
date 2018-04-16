@@ -70,33 +70,30 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	glm::vec2 test2 = temp->getPosition();
 	colliders_.push_back(temp);
 
-	//load texture
-	ResourceManager::LoadTexture(texture, true, texture);
-	this->Texture = ResourceManager::GetTexture(texture);
+	//see if texture is already loaded
+	//std::cout << ResourceManager::Textures["wut"].Image_Format << "\n";
+	if (ResourceManager::Textures[texture].Image_Format != 6407)
+	{
+		std::cout << "using already loaded Texture";
+		this->Texture = ResourceManager::GetTexture(texture);
+	}
+	else
+	{
+		std::cout << "loaded new Texture\n";
+		//load texture
+		ResourceManager::LoadTexture(texture, true, texture);
+		this->Texture = ResourceManager::GetTexture(texture);
+	}
 
-	//texture for collider debug
-	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
-	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures[texture].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 
 	scene.addSprite(this);
-
-	/*
-	//add Sprite to Scene, get Sprites, add new sprite.
-	std::vector<AbstractSprite*> tempSprites = scene.getSprites();
-	tempSprites.push_back(this);
-
-	tempSprites.back()->setPosition(this->Position);
-	tempSprites.back()->setCenter(this->Center);
-	tempSprites.back()->setSize(this->Size);
-	tempSprites.back()->setVelocity(this->Velocity);
-	tempSprites.back()->setColor(this->Color);
-	tempSprites.back()->setRotation(this->Rotation);
-	tempSprites.back()->setTexture(this->Texture);
-	tempSprites.back()->collideDebug = this->collideDebug;
-
-	//set new vector back to the scene
-	scene.setSprites(tempSprites);
-	*/
 
 	this->active = true;
 	this->visible = true;
@@ -119,7 +116,6 @@ void Sprite::Draw(SpriteRenderer &renderer)
 {
 	if (visible)
 	{
-		//std::cout << "\n" << this->Position.x;
 		Texture2D tempTexture = this->getTexture();
 		renderer.DrawSprite(tempTexture, this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
