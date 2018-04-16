@@ -1,21 +1,21 @@
 #include "PositionActuator.h"
 
 //constructor with a given x and y
-PositionActuator::PositionActuator(std::string n, AbstractSprite *s, int newX, int newY) :
+PositionActuator::PositionActuator(std::string n, Sprite *s, int newX, int newY) :
 	sprite(s), x(newX), y(newY), condition("both")
 {
 	this->name = n;
 }
 
 //constructor with a change and condition
-PositionActuator::PositionActuator(std::string n, AbstractSprite *s, int newD, std::string con) :
+PositionActuator::PositionActuator(std::string n, Sprite *s, int newD, std::string con) :
 	sprite(s), d(newD), condition(con)
 {
 	this->name = n;
 }
 
 //constructor with only a condition
-PositionActuator::PositionActuator(std::string n, AbstractSprite *s, std::string con) :
+PositionActuator::PositionActuator(std::string n, Sprite *s, std::string con) :
 	sprite(s), condition(con)
 {
 	this->name = n;
@@ -23,6 +23,18 @@ PositionActuator::PositionActuator(std::string n, AbstractSprite *s, std::string
 
 PositionActuator::PositionActuator(std::string n, SceneObject *o, SceneObject *t) :
 	one(o), two(t), condition("set")
+{
+	this->name = n;
+}
+
+PositionActuator::PositionActuator(std::string n, ObjectPool<SceneObject> *objectPool, SceneObject *s) :
+	OPSO(objectPool), two(s), condition("objectPoolSet")
+{
+	this->name = n;
+}
+
+PositionActuator::PositionActuator(std::string n, ObjectPool<Sprite> *objectPool, SceneObject *s) :
+	OPS(objectPool), two(s), condition("objectPoolSet")
 {
 	this->name = n;
 }
@@ -50,6 +62,20 @@ void PositionActuator::run()
 	{
 		one->setPosX(two->getPosX() + two->getWidth()/2);
 		one->setPosY(two->getPosY() + two->getHeight()/2);
+	}
+	else if (condition == "objectPoolSet")
+	{
+		SceneObject *object = new SceneObject();
+		if (OPS)
+			object = OPS->getObject();
+		else if (OPSO)
+			object = OPS->getObject();
+		else
+			std::cout << "\n error in Position Actuator, no suitiable Object Pool detected";
+
+		object->setPosX(two->getPosX() + two->getWidth() / 2);
+		object->setPosY(two->getPosY() + two->getHeight() / 2);
+		
 	}
 }
 

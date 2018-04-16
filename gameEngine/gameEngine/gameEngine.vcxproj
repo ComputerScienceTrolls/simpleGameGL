@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A6DB5E0D-10DC-43AF-8FB7-92954AD092D4}</ProjectGuid>
     <RootNamespace>gameEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -154,6 +154,7 @@
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingSceneObject.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Observers\AbstractObserver.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
     <ClCompile Include="Observers\ColliderObserver.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="DrawSceneObject.h" />
     <ClInclude Include="KeyHandler.h" />
     <ClInclude Include="MovingSceneObject.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Observers\AbstractObserver.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />
     <ClInclude Include="Observers\ColliderObserver.h" />

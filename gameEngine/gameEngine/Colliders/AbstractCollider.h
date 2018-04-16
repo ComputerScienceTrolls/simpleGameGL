@@ -39,7 +39,7 @@ public:
 
 	//only in Abstract Collider
 	virtual std::string getType();
-	virtual std::string getName();
+
 	~AbstractCollider();
 
 protected:

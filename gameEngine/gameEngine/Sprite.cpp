@@ -7,6 +7,41 @@ Sprite::Sprite()
 {
 }
 
+Sprite::Sprite(Sprite * copySprite)
+{
+	this->parentScene = copySprite->parentScene;
+	this->Color = copySprite->Color;
+	this->Texture = copySprite->Texture;
+	this->collideDebug = copySprite->collideDebug;
+	this->transparency = copySprite->transparency;
+	this->name = copySprite->name;
+	this->Center = copySprite->Center;
+	this->Size = copySprite->Size;
+	this->lastSize = copySprite->Size;
+	this->Position = copySprite->Position;
+	this->lastPosition = copySprite->lastPosition;
+	this->Velocity = copySprite->Velocity;
+	this->Rotation = copySprite->Rotation;
+	this->lastRotation = copySprite->lastRotation;
+	this->speed = copySprite->speed;
+	this->moveAngle = copySprite->moveAngle;
+	this->imgAngle = copySprite->imgAngle;
+	
+	this->active = copySprite->active;
+	this->visible = copySprite->visible;
+
+	this->initCenter = copySprite->initCenter;
+	this->initColor = copySprite->initColor;
+	this->initPosition = copySprite->initPosition;
+	this->initRotation = copySprite->initRotation;
+	this->initSize = copySprite->initSize;
+	this->initTexture = copySprite->initTexture;
+	this->initTextureFile = copySprite->initTextureFile;
+	this->Velocity = copySprite->Velocity;
+
+	this->parentScene->addSprite(this);
+}
+
 //empty sprite
 Sprite::Sprite(std::string n, AbstractScene &scene)
 	: parentScene(&scene), Color(1.0f), Texture(), collideDebug(false), transparency(1)
@@ -65,9 +100,8 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	
 	this->lastPosition = this->Position;
 
-	BoxCollider *temp = new BoxCollider("default",*this, size.x, size.y);
+	BoxCollider *temp = new BoxCollider("default",*this, (int)size.x, (int)size.y);
 	temp->setPosition(this->Position);
-	glm::vec2 test2 = temp->getPosition();
 	colliders_.push_back(temp);
 
 	//see if texture is already loaded
@@ -86,7 +120,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	}
 
 	//make sure collider textures are not already loaded
-	if (ResourceManager::Textures[texture].Image_Format == 6407)
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
 	{
 		//texture for collider debug
 		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
@@ -217,19 +251,19 @@ void Sprite::setVisible(bool newVisible)
 }
 
 //add circle collider to sprite, auto recenter circle before placing
-void Sprite::addCircleCollider(std::string name, double r, int posX, int posY)
+void Sprite::addCircleCollider(std::string name, float r, int posX, int posY)
 {
-	double r2 = r * 2;
+	float r2 = r * 2;
 	//if doesn't fit to sprite, we need to recenter the circle
 	int diffY = 0;
 	int diffX = 0;
 	if (r2 != this->getSize().x || r2 != this->getSize().y)
 	{
 		//get x and y offset
-		diffX = r - this->getSize().x/2;
-		diffY = r - this->getSize().y/2;
+		diffX = int(r - this->getSize().x/2);
+		diffY = int(r - this->getSize().y/2);
 	}
-	CircleCollider *temp = new CircleCollider(name, *this, r, this->Position.x + posX - diffX, this->Position.y + posY - diffY);
+	CircleCollider *temp = new CircleCollider(name, *this, r, (int)this->Position.x + posX - diffX, (int)this->Position.y + posY - diffY);
 	this->colliders_.push_back(temp);
 }
 

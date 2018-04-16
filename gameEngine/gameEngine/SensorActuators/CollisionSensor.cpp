@@ -64,7 +64,7 @@ void CollisionSensor::sense()
 				{
 					if (this->name == "w1")
 					{
-						std::cout << "wut: " << oneS->getPosX();
+						//std::cout << "wut: " << oneS->getPosX();
 					}
 					tapped = false;
 					for (int i = 0; i < actuators.size(); i++)

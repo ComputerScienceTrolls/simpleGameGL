@@ -63,7 +63,7 @@ void MotionActuator::run()
 	}
 	else if (condition == "flipx")
 	{
-		std::cout << "\nobjectDX: " << object->getDX();
+		//std::cout << "\nobjectDX: " << object->getDX();
 		object->setDX(-object->getDX());
 	}
 	else if (condition == "flipy")
@@ -104,7 +104,7 @@ void MotionActuator::run()
 	else if (condition == "forceForward")
 	{
 		float degrees = object->getRotation() * (180/ 3.141592653589793238463) - 180;
-		std::cout << "\ndegrees: " << degrees;
+		//std::cout << "\ndegrees: " << degrees;
 		object->addForce(degrees, force);
 		
 	}

@@ -159,6 +159,9 @@
     <ClCompile Include="SensorActuators\TimesActuator.cpp">
       <Filter>Actuators</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="SensorActuators\TimesActuator.h">
       <Filter>Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

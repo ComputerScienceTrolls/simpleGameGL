@@ -57,7 +57,7 @@ float MovingSceneObject::getDX()
 
 float MovingSceneObject::getDY()
 {
-	std::cout << "\nVelY: " << this->Velocity.y;
+	//std::cout << "\nVelY: " << this->Velocity.y;
 	return this->Velocity.y;
 }
 

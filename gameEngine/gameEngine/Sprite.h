@@ -23,6 +23,7 @@ class Sprite : public AbstractSprite
 {
 public:
 	Sprite();
+	Sprite(Sprite* copySprite);
 	Sprite(std::string n, AbstractScene &scene);
 	Sprite(std::string name, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f));
 	virtual void Draw(SpriteRenderer &renderer);
@@ -43,7 +44,7 @@ public:
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void addBoxCollider(std::string name, int w, int h);
-	virtual void addCircleCollider(std::string name, double r, int posX, int posY);
+	virtual void addCircleCollider(std::string name, float r, int posX, int posY);
 	virtual void addPolyCollider(std::string name, std::vector<glm::vec2> verticies);
 	virtual void removeCollider(std::string name);
 	virtual void setVisible(bool);

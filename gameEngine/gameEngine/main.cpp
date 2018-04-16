@@ -10,6 +10,8 @@
 #include "Sprite.h"
 #include "RocketSprite.h"
 
+#include "ObjectPool.h"
+
 #include "SensorActuators/CameraActuator.h"
 
 #include "Observers/ObserverHandler.h"
@@ -53,17 +55,14 @@ int main(int argc, char *argv[])
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rs2->setRotation(3.14 / 2);
 	rs2->setCollideDebug(true);
+	Sprite *rCopy = new Sprite(rs2);
+	rCopy->setPosX(200);
 	Sprite *rocketGoal = new Sprite("rocketGoal", mainScene, glm::vec2(750, 25), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rocketGoal->setRotation(3.14/2);
 	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(20, 40), "textures/fullSignal.png");
 	//wave->removeCollider("default");
 	wave->hide();
 	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
-
-	for (unsigned int i = 0; i < 1000; i++)
-	{
-		Sprite *temp = new Sprite("test", mainScene, glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(0, (i/10) + .01));
-	}
 
 	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), "textures/fuel_block.png"),
 		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
@@ -82,6 +81,42 @@ int main(int argc, char *argv[])
 		new Sprite("Rock8", mainScene, glm::vec2(350, 425), glm::vec2(40, 20), "textures/rock.png")
 
 	};
+
+	/*
+	for (unsigned int i = 0; i < 5000; i++)
+	{
+		Sprite *temp = new Sprite("test", mainScene, glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+		
+		temp->setBoundAction("BOUNCE");
+		
+		CollisionSensor *temp2 = new CollisionSensor("signals", temp, Rocks[0], true);
+		CollisionSensor *temp3 = new CollisionSensor("signals", temp, Rocks[1], true);
+		CollisionSensor *temp4 = new CollisionSensor("signals", temp, Rocks[2], true);
+		CollisionSensor *temp5 = new CollisionSensor("signals", temp, Rocks[3], true);
+		CollisionSensor *temp6 = new CollisionSensor("signals", temp, Rocks[4], true);
+		CollisionSensor *temp7 = new CollisionSensor("signals", temp, Rocks[5], true);
+		CollisionSensor *temp8 = new CollisionSensor("signals", temp, Rocks[6], true);
+		MotionActuator *temp9 = new MotionActuator("signalsMot", temp, "flipy");
+		
+		temp2->addActuator(temp9);
+		temp3->addActuator(temp9);
+		temp4->addActuator(temp9);
+		temp5->addActuator(temp9);
+		temp6->addActuator(temp9);
+		temp7->addActuator(temp9);
+		temp8->addActuator(temp9);
+
+		mainScene.addSensor(temp2);
+		mainScene.addSensor(temp3);
+		mainScene.addSensor(temp4);
+		mainScene.addSensor(temp5);
+		mainScene.addSensor(temp6);
+		mainScene.addSensor(temp7);
+		mainScene.addSensor(temp8);
+		
+	}
+	*/
+
 	Rocks[2]->setRotation(3.14);
 	
 	for (int i = 0; i < 8; i++)
@@ -90,6 +125,7 @@ int main(int argc, char *argv[])
 	}
 	
 	SceneObject *spawnObject = new SceneObject();
+	ObjectPool<Sprite> *bulletPool = new ObjectPool<Sprite>(wave, 1000);
 	spawnObject->setParent(rs2);
 	spawnObject->setPosition(glm::vec2(rs2->getCenter().x, rs2->getCenter().y));
 	wave->setVisible(false);
@@ -202,7 +238,7 @@ int main(int argc, char *argv[])
 	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
 	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
 	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rs2);
-	PositionActuator *rocketFront = new PositionActuator("rocketFront", wave, spawnObject);
+	PositionActuator *rocketFront = new PositionActuator("rocketFront", bulletPool, spawnObject);
 	VisibilityActuator *waveVisibleTrue = new VisibilityActuator("visbleWave", wave, true);
 	ActiveActuator *waveActiveTrue = new ActiveActuator("activeWave", wave, true);
 	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
