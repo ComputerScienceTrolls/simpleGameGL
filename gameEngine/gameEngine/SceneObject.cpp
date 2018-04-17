@@ -4,6 +4,22 @@ SceneObject::SceneObject()
 {
 }
 
+SceneObject::SceneObject(SceneObject * copy)
+{
+	this->name = copy->name;
+	this->active = copy->active;
+	this->Center = copy->Center;
+
+	for (unsigned int i = 0; i < copy->children.size(); i++)
+	{
+		this->children.push_back(new SceneObject(copy->children[i]));
+	}
+
+	this->Position = copy->Position;
+	this->Rotation = copy->Rotation;
+	this->Size = copy->Size;
+}
+
 void SceneObject::setPosition(glm::vec2 newPosition)
 {
 	this->Position = newPosition;

@@ -9,12 +9,11 @@ class ObjectPool
 public:
 	ObjectPool() {};
 	ObjectPool(T* objectToStore, int numberOfObjectsInPool);
-	//ObjectPool(T* objectToStore, int numberOfObjectsInPool);
 	T* getObject();
 	T* getCurrentObject();
 	~ObjectPool() {};
 
-private:
+protected:
 	typedef T type;
 	std::vector<typedef T*> pool;
 	int index;
@@ -33,7 +32,7 @@ ObjectPool<T>::ObjectPool(T *object, int numberOfObjectsInPool) :
 template <typename T>
 T* ObjectPool<T>::getObject()
 {
-	if (index >= pool.size())
+	if ((index + 1) >= pool.size())
 	{
 		index = -1;
 	}

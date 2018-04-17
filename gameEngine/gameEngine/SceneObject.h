@@ -11,6 +11,7 @@ class SceneObject
 {
 public:
 	SceneObject();
+	SceneObject(SceneObject* copy);
 
 	//set methods
 	virtual void setPosition(glm::vec2);

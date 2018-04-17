@@ -155,6 +155,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingSceneObject.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="ObjectPoolSpawner.cpp" />
     <ClCompile Include="Observers\AbstractObserver.cpp" />
     <ClCompile Include="Observers\CheckBoundsObserver.cpp" />
     <ClCompile Include="Observers\ColliderObserver.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="KeyHandler.h" />
     <ClInclude Include="MovingSceneObject.h" />
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="ObjectPoolSpawner.h" />
     <ClInclude Include="Observers\AbstractObserver.h" />
     <ClInclude Include="Observers\CheckBoundsObserver.h" />
     <ClInclude Include="Observers\ColliderObserver.h" />

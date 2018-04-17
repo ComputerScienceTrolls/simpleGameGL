@@ -162,6 +162,9 @@
     <ClCompile Include="ObjectPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectPoolSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -294,6 +297,9 @@
       <Filter>Actuators</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPoolSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

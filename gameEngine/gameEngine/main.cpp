@@ -31,6 +31,7 @@
 #include "SensorActuators/SoundActuator.h"
 #include "SensorActuators/AlwaysSensor.h"
 #include "SensorActuators/TimesActuator.h"
+#include "ObjectPoolSpawner.h"
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -238,7 +239,8 @@ int main(int argc, char *argv[])
 	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
 	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
 	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rs2);
-	PositionActuator *rocketFront = new PositionActuator("rocketFront", bulletPool, spawnObject);
+	//PositionActuator *rocketFront = new PositionActuator("rocketFront", bulletPool, spawnObject);
+	ObjectPoolSpawner *rocketBullets = new ObjectPoolSpawner("test", wave, 2, spawnObject);
 	VisibilityActuator *waveVisibleTrue = new VisibilityActuator("visbleWave", wave, true);
 	ActiveActuator *waveActiveTrue = new ActiveActuator("activeWave", wave, true);
 	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
@@ -287,7 +289,7 @@ int main(int argc, char *argv[])
 	kSpace->addActuator(waveVisibleTrue);
 	kSpace->addActuator(waveActiveTrue);
 	kSpace->addActuator(clearWaveMotion);
-	kSpace->addActuator(rocketFront);
+	kSpace->addActuator(rocketBullets);
 	kSpace->addActuator(rotWaveMotion);
 	kSpace->addActuator(waveMotion);
 	kSpace->addActuator(shootSound);
