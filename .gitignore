@@ -48,3 +48,6 @@ x64
 Debug
 /gameEngine/x64/Release/gameEngine.ipdb
 /gameEngine/x64/Release/gameEngine.iobj
+*.vcxproj
+*.iobj
+*.ipdb
