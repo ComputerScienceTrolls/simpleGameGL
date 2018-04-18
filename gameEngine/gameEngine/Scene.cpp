@@ -49,6 +49,15 @@ void Scene::Update(GLfloat dt)
 			{
 				MovingSceneObjects.at(i)->checkBounds(this->width, this->height);
 				MovingSceneObjects.at(i)->Update();
+
+				if (MovingSceneObjects.at(i)->getDebug())
+				{
+					std::cout << "Name:" << MovingSceneObjects.at(i)->getName() << std::endl;
+					std::cout << "Bound Action:" << MovingSceneObjects.at(i)->getBoundAction() << std::endl;
+					std::cout << "Pos:" << MovingSceneObjects.at(i)->getPosition().x << ", " << MovingSceneObjects.at(i)->getPosition().y << std::endl;
+					std::cout << "Size:" << MovingSceneObjects.at(i)->getSize().x << ", " << MovingSceneObjects.at(i)->getSize().y << std::endl;
+					std::cout << "Rotation:" << MovingSceneObjects.at(i)->getRotation() << std::endl;
+				}
 			}
 		}
 

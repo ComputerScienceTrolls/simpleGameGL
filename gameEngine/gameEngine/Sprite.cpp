@@ -18,9 +18,11 @@ Sprite::Sprite(Sprite * copySprite)
 	this->Center = copySprite->Center;
 	this->Size = copySprite->Size;
 	this->lastSize = copySprite->Size;
-	this->Position = copySprite->Position;
+	this->setPosition(copySprite->Position);
+	std::cout << "ummm" << copySprite->Position.x;
 	this->lastPosition = copySprite->lastPosition;
 	this->Velocity = copySprite->Velocity;
+	std::cout << "uhhh" << copySprite->Velocity.x;
 	this->Rotation = copySprite->Rotation;
 	this->lastRotation = copySprite->lastRotation;
 	this->speed = copySprite->speed;
@@ -29,6 +31,9 @@ Sprite::Sprite(Sprite * copySprite)
 	
 	this->active = copySprite->active;
 	this->visible = copySprite->visible;
+
+	std::cout << "dunno " << copySprite->active;
+	std::cout << "dunno " << copySprite->visible;
 
 	this->initCenter = copySprite->initCenter;
 	this->initColor = copySprite->initColor;
@@ -324,8 +329,9 @@ void Sprite::Update()
 //hide the sprite, by moving it far far away
 void Sprite::hide()
 {
-	this->Position.x = 10000;
-	this->Position.y = 10000;
+	this->name;
+	this->Position.x = 10001;
+	this->Position.y = 10001;
 }
 
 //reset Sprite's inital values

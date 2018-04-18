@@ -15,6 +15,7 @@ public:
 	virtual void setSpeed(float);
 	virtual void setMoveAngle(float);
 	virtual void setBoundAction(std::string newAction);
+	virtual void setDebugMode(bool);
 
 	//get methods
 	virtual glm::vec2 getVelocity();
@@ -25,6 +26,7 @@ public:
 	virtual float getSpeed();
 	virtual float getMoveAngle();
 	virtual std::string getBoundAction();
+	virtual bool getDebug();
 	
 	virtual void Update();
 	bool checkBounds(double screenWidth, double screenHeight);
@@ -50,6 +52,7 @@ protected:
 
 private:
 	glm::vec2 lastDir;
+	bool debug;
 };
 
 #endif

@@ -5,7 +5,7 @@
 const double PI = 3.141592653589793238463;
 
 MovingSceneObject::MovingSceneObject() :
-	lastDir(0)
+	lastDir(0), debug(false)
 {
 }
 
@@ -76,6 +76,11 @@ float MovingSceneObject::getMoveAngle()
 std::string MovingSceneObject::getBoundAction()
 {
 	return this->boundAction;
+}
+
+bool MovingSceneObject::getDebug()
+{
+	return debug;
 }
 
 void MovingSceneObject::Update()
@@ -404,6 +409,11 @@ glm::vec2 MovingSceneObject::normalize(glm::vec2 v)
 	double mag = std::sqrt(v.x*v.x + v.y*v.y);
 	glm::vec2 temp = { v.x / mag, v.y / mag };
 	return temp;
+}
+
+void MovingSceneObject::setDebugMode(bool newState)
+{
+	debug = newState;
 }
 
 MovingSceneObject::~MovingSceneObject()

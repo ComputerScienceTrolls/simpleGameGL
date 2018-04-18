@@ -51,6 +51,7 @@ public:
 
 	virtual void reset();
 	virtual void reInit();
+
 	~Sprite();
 
 protected:

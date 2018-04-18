@@ -22,7 +22,9 @@ ObjectPoolSpawner::ObjectPoolSpawner(std::string name, Sprite *object, int numbe
 	std::vector<Sprite*> test;
 	for (int i = 0; i< numberOfObjectsInPool; i++)
 	{
-		test.push_back(new Sprite(object));
+		Sprite* temp = new Sprite(object);
+		temp->setDebugMode(true);
+		test.push_back(temp);
 	}
 	pool.push_back(object);
 	for (int i = 1; i< numberOfObjectsInPool; i++)
