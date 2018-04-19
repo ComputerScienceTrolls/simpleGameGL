@@ -102,8 +102,8 @@ void MotionActuator::run()
 	}
 	else if (condition == "forceForward")
 	{
-		float degrees = object->getRotation() * float((180/ 3.141592653589793238463) - 180);
-		object->addForce(degrees, force);
+		double degrees = object->getRotation() * (180 / 3.141592653589793238463) - 180;
+		object->addForce(float(degrees), force);
 	}
 	else if (condition == "followObject")
 	{
