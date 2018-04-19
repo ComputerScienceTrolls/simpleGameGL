@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rs2->setRotation(float(3.14 / 2));
+
 	rs2->setCollideDebug(true);
 	Sprite *rCopy = new Sprite(rs2);
 	rCopy->setPosX(200);
