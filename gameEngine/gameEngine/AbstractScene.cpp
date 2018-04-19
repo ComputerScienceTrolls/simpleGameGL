@@ -243,34 +243,34 @@ void AbstractScene::setVisible(bool state)
 
 void AbstractScene::setCameraWidth(int newWidth)
 {
-	this->camera.setWidth(newWidth);
+	this->camera.setWidth(float(newWidth));
 
-	glfwSetWindowSize(window, newWidth, camera.getHeight());
+	glfwSetWindowSize(window, newWidth, int(camera.getHeight()));
 }
 
 void AbstractScene::setCameraHeight(int newHeight)
 {
-	this->camera.setHeight(newHeight);
+	this->camera.setHeight(float(newHeight));
 
-	glfwSetWindowSize(window, camera.getWidth(), newHeight);
+	glfwSetWindowSize(window, int(camera.getWidth()), newHeight);
 }
 
-void AbstractScene::setCameraPosX(int newX)
+void AbstractScene::setCameraPosX(float newX)
 {
 	this->camera.setPosX(newX);
 }
 
-void AbstractScene::setCameraPosY(int newY)
+void AbstractScene::setCameraPosY(float newY)
 {
 	this->camera.setPosY(newY);
 }
 
-void AbstractScene::setCameraDX(int newDX)
+void AbstractScene::setCameraDX(float newDX)
 {
 	this->camera.setDX(newDX);
 }
 
-void AbstractScene::setCameraDY(int newDY)
+void AbstractScene::setCameraDY(float newDY)
 {
 	this->camera.setDY(newDY);
 }
@@ -286,7 +286,7 @@ void AbstractScene::setWindow(GLFWwindow * newWindow)
 	window = newWindow;
 	//set window to scene's defined width and height
 	setSize(this->width, this->height);
-	glfwSetWindowSize(window, this->camera.getWidth(), this->camera.getHeight());
+	glfwSetWindowSize(window, int(this->camera.getWidth()), int(this->camera.getHeight()));
 }
 
 void AbstractScene::setRenderer(SpriteRenderer * newRenderer)

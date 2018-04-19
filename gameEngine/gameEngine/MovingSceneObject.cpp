@@ -129,12 +129,12 @@ void MovingSceneObject::setBoundAction(std::string newAction)
 	this->boundAction = newAction;
 }
 
-bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
+bool MovingSceneObject::checkBounds(int screenWidth, int screenHeight)
 {
-	double rightBorder = screenWidth;
-	double leftBorder = 0;
-	double topBorder = 0;
-	double bottomBorder = screenHeight;
+	int rightBorder = screenWidth;
+	int leftBorder = 0;
+	int topBorder = 0;
+	int bottomBorder = screenHeight;
 
 	bool offRight = false;
 	bool offLeft = false;
@@ -142,8 +142,8 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 	bool offBottom = false;
 
 	//since the Position.x starts on the left most of the sprite, we need to calculate and account for it's size
-	double offsetX = 0;
-	double offsetY = 0;
+	float offsetX = 0;
+	float offsetY = 0;
 	if (this->Size.x > 0)
 	{
 		offsetX = this->Size.x;
@@ -153,19 +153,23 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 		offsetY = this->Size.y;
 	}
 
-	if (this->Position.x > rightBorder - offsetX) {
+	if (this->Position.x > float(rightBorder) - offsetX)
+	{
 		offRight = true;
 	}
 
-	if (this->Position.x < leftBorder) {
+	if (this->Position.x < float(leftBorder))
+	{
 		offLeft = true;
 	}
 
-	if (this->Position.y > bottomBorder - offsetY) {
+	if (this->Position.y > float(bottomBorder) - offsetY)
+	{
 		offBottom = true;
 	}
 
-	if (this->Position.y < 0) {
+	if (this->Position.y < 0)
+	{
 		offTop = true;
 	}
 	//if all are false, return false
@@ -176,19 +180,19 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 
 	if (this->boundAction == "WRAP") {
 		if (offRight) {
-			this->Position.x = leftBorder;
+			this->Position.x = float(leftBorder);
 		} // end if
 
 		if (offBottom) {
-			this->Position.y = topBorder;
+			this->Position.y = float(topBorder);
 		} // end if
 
 		if (offLeft) {
-			this->Position.x = rightBorder;
+			this->Position.x = float(rightBorder);
 		} // end if
 
 		if (offTop) {
-			this->Position.y = bottomBorder;
+			this->Position.y = float(bottomBorder);
 		}
 	}
 	else if (this->boundAction == "BOUNCE") {
@@ -213,51 +217,51 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 				//if user is moving object by positon.x or position.y +=
 				if (offLeft)
 				{
-					this->Position.x = leftBorder;
+					this->Position.x = float(leftBorder);
 
 					//check for corners
 					if (offBottom)
 					{
-						this->Position.y = bottomBorder - offsetY;
+						this->Position.y = float(bottomBorder) - offsetY;
 					}
 					else if (offTop)
 					{
-						this->Position.y = topBorder;
+						this->Position.y = float(topBorder);
 					}
 				}
 				else if (offRight)
 				{
-					this->Position.x = rightBorder - offsetX;
+					this->Position.x = float(rightBorder) - offsetX;
 
 					//check for corners
 					if (offBottom)
 					{
-						this->Position.y = bottomBorder - offsetY;
+						this->Position.y = float(bottomBorder) - offsetY;
 					}
 					else if (offTop)
 					{
-						this->Position.y = topBorder;
+						this->Position.y = float(topBorder);
 					}
 				}
 				else if (offBottom)
 				{
-					this->Position.y = bottomBorder - offsetY;
+					this->Position.y = float(bottomBorder) - offsetY;
 
 					//check for corners
 					if (offRight)
 					{
-						this->Position.x = rightBorder - offsetX;
+						this->Position.x = float(rightBorder) - offsetX;
 					}
 				}
 				else if (offTop)
 				{
-					this->Position.y = topBorder;
+					this->Position.y = float(topBorder);
 				}
 				//check for corners
 				else if (offTop && offRight)
 				{
-					this->Position.y = topBorder;
-					this->Position.x = rightBorder - offsetX;
+					this->Position.y = float(topBorder);
+					this->Position.x = float(rightBorder) - offsetX;
 				}
 			}
 		}
@@ -272,50 +276,50 @@ bool MovingSceneObject::checkBounds(double screenWidth, double screenHeight)
 			//if user is moving object by positon.x or position.y +=
 			if (offLeft)
 			{
-				this->Position.x = offLeft + .1;
+				this->Position.x = offLeft + float(.1);
 				//check for corners
 				if (offBottom)
 				{
-					this->Position.y = bottomBorder - offsetY - .1;
+					this->Position.y = bottomBorder - offsetY - float(.1);
 				}
 				else if (offTop)
 				{
-					this->Position.y = topBorder + .1;
+					this->Position.y = topBorder + float(.1);
 				}
 			}
 			else if (offRight)
 			{
-				this->Position.x = rightBorder - offsetX - .1;
+				this->Position.x = rightBorder - offsetX - float(.1);
 
 				//check for corners
 				if (offBottom)
 				{
-					this->Position.y = bottomBorder - offsetY -.1;
+					this->Position.y = bottomBorder - offsetY - float(.1);
 				}
 				else if (offTop)
 				{
-					this->Position.y = topBorder + .1;
+					this->Position.y = topBorder + float(.1);
 				}
 			}
 			else if (offBottom)
 			{
-				this->Position.y = bottomBorder - offsetY - .1;
+				this->Position.y = bottomBorder - offsetY - float(.1);
 
 				//check for corners
 				if (offRight)
 				{
-					this->Position.x = rightBorder - offsetX - .1;
+					this->Position.x = rightBorder - offsetX - float(.1);
 				}
 			}
 			else if (offTop)
 			{
-				this->Position.y = topBorder + .1;
+				this->Position.y = topBorder + float(.1);
 			}
 			//check for corners
 			else if (offTop && offRight)
 			{
-				this->Position.y = topBorder;
-				this->Position.x = rightBorder - offsetX;
+				this->Position.y = float(topBorder);
+				this->Position.x = float(rightBorder) - offsetX;
 			}
 		}
 	}
@@ -337,12 +341,12 @@ void MovingSceneObject::addForce(float angle, float thrust)
 {
 	//std::cout << "\nangle: " << angle;
 	//input angle is in degrees - convert to radians    
-	angle = angle * (PI / 180);
+	angle = angle * (float(PI) / 180);
 
 	//calculate dx and dy
 
-	double newDX = thrust * std::cos(angle);
-	double newDY = thrust * std::sin(angle);
+	float newDX = thrust * std::cos(angle);
+	float newDY = thrust * std::sin(angle);
 
 	this->Velocity.x += newDX;
 	this->Velocity.y -= newDY;
@@ -376,7 +380,7 @@ float MovingSceneObject::angleTo(SceneObject *otherObject)
 	float diffX = myX - otherX;
 	float diffY = myY - otherY;
 	float radians = std::atan2(diffY, diffX);
-	radians += PI / 2;
+	radians += float(PI) / 2;
 	//float degrees = radians * 180 / PI;
 	//degrees are offset
 	//degrees += 90;

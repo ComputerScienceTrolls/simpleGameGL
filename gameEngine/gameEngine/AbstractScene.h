@@ -61,10 +61,10 @@ public:
 	virtual void setRenderer(SpriteRenderer *newRenderer);
 	virtual void setCameraWidth(int);
 	virtual void setCameraHeight(int);
-	virtual void setCameraPosX(int);
-	virtual void setCameraPosY(int);
-	virtual void setCameraDX(int);
-	virtual void setCameraDY(int);
+	virtual void setCameraPosX(float);
+	virtual void setCameraPosY(float);
+	virtual void setCameraDX(float);
+	virtual void setCameraDY(float);
 	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
 	~AbstractScene();

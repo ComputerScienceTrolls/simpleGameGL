@@ -6,10 +6,10 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 	this->name = n;
 	this->type = "Poly";
 	//get the vertex that is the most left, right, up, and down so we can get the poly con's "size" and box
-	int minX = 10000;
-	int maxX = 0;
-	int minY = 10000;
-	int maxY = 0;
+	float minX = 10000;
+	float maxX = 0;
+	float minY = 10000;
+	float maxY = 0;
 	if (vecs.size() < 2)
 	{
 		std::cout << "cannot create a poly collider with only 1 vector";
@@ -67,8 +67,8 @@ void PolyCollider::updateVecs()
 {
 	for (unsigned int i = 0; i < edges.size(); i++)
 	{
-		int tempX = edges[i]->getPoint1().x + spriteParent->getPosition().x;
-		int tempY = edges[i]->getPoint1().y + spriteParent->getPosition().y;
+		float tempX = edges[i]->getPoint1().x + spriteParent->getPosition().x;
+		float tempY = edges[i]->getPoint1().y + spriteParent->getPosition().y;
 
 		edges[i]->setPoint1Pos(glm::vec2(tempX, tempY));
 

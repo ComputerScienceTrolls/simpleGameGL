@@ -29,7 +29,7 @@ public:
 	virtual bool getDebug();
 	
 	virtual void Update();
-	bool checkBounds(double screenWidth, double screenHeight);
+	bool checkBounds(int screenWidth, int screenHeight);
 
 	//moving methods
 	virtual void addForce(float angle, float mag);

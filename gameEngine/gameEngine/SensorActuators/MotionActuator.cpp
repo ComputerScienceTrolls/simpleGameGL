@@ -7,7 +7,7 @@ MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDX,
 	this->name = n;
 }
 
-MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, double newAngle, double newForce, std::string con) :
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newAngle, float newForce, std::string con) :
 	object(s), force(newForce), angle(newAngle), condition(con)
 {
 	this->name = n;
@@ -63,7 +63,6 @@ void MotionActuator::run()
 	}
 	else if (condition == "flipx")
 	{
-		//std::cout << "\nobjectDX: " << object->getDX();
 		object->setDX(-object->getDX());
 	}
 	else if (condition == "flipy")
@@ -103,10 +102,8 @@ void MotionActuator::run()
 	}
 	else if (condition == "forceForward")
 	{
-		float degrees = object->getRotation() * (180/ 3.141592653589793238463) - 180;
-		//std::cout << "\ndegrees: " << degrees;
+		float degrees = object->getRotation() * float((180/ 3.141592653589793238463) - 180);
 		object->addForce(degrees, force);
-		
 	}
 	else if (condition == "followObject")
 	{
@@ -114,7 +111,7 @@ void MotionActuator::run()
 	}
 	else if (condition == "forceTowards")
 	{
-		float degrees = anotherObject->getRotation() * (180 / 3.141592653589793238463);
+		float degrees = anotherObject->getRotation() * float((180 / 3.141592653589793238463));
 		object->addForce(degrees + 180, force);
 	}
 }

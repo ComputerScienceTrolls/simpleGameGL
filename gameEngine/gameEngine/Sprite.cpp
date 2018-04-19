@@ -268,7 +268,7 @@ void Sprite::addCircleCollider(std::string name, float r, int posX, int posY)
 		diffX = int(r - this->getSize().x/2);
 		diffY = int(r - this->getSize().y/2);
 	}
-	CircleCollider *temp = new CircleCollider(name, *this, r, (int)this->Position.x + posX - diffX, (int)this->Position.y + posY - diffY);
+	CircleCollider *temp = new CircleCollider(name, *this, r, this->Position.x + posX - diffX, this->Position.y + posY - diffY);
 	this->colliders_.push_back(temp);
 }
 

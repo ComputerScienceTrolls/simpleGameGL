@@ -12,8 +12,8 @@ Scene::Scene(std::string n, GLuint w, GLuint h) :
 	this->name = n;
 	this->width = w;
 	this->height = h;
-	this->camera.setHeight(h);
-	this->camera.setWidth(w);
+	this->camera.setHeight(float(h));
+	this->camera.setWidth(float(w));
 	this->camera.setZoom(glm::vec2(1));
 
 	this->MovingSceneObjects.push_back(&this->camera);
