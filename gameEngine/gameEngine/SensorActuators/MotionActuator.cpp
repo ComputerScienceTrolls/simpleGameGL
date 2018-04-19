@@ -19,14 +19,22 @@ MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, float newDT,
 	this->name = n;
 }
 
-MotionActuator::MotionActuator(std::string name, MovingSceneObject *m, float dis, float speed, SceneObject *o, std::string con) :
+MotionActuator::MotionActuator(std::string n, MovingSceneObject *m, float dis, float speed, SceneObject *o, std::string con) :
 	object(m), condition(con), distance(dis), force(speed), anotherObject(o)
 {
+	this->name = n;
 }
 
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *o, float s, SceneObject *ao):
 	force(s), anotherObject(ao), object(o), condition("forceTowards")
 {
+	this->name = n;
+}
+
+MotionActuator::MotionActuator(std::string n, ObjectPoolSpawner *op, float speed, SceneObject *ao):
+	force(speed), anotherObject(ao), objectPool(op), condition("forceTowardsPool")
+{
+	this->name = n;
 }
 
 MotionActuator::MotionActuator(std::string n, MovingSceneObject *s, SceneObject *ao) :
@@ -116,6 +124,11 @@ void MotionActuator::run()
 	{
 		float degrees = anotherObject->getRotation() * (180 / 3.141592653589793238463);
 		object->addForce(degrees + 180, force);
+	}
+	else if (condition == "forceTowardsPool")
+	{
+		float degrees = anotherObject->getRotation() * (180 / 3.141592653589793238463);
+		dynamic_cast<AbstractSprite*>(objectPool->getCurrentObject())->addForce(degrees + 180, force);
 	}
 }
 

@@ -40,6 +40,8 @@ void ObjectPoolSpawner::run()
 	//std::cout << temp->getPosition().x << "\n";
 	std::cout << SO->getPosition().x << "\n";
 	temp->setPosition(SO->getPosition());
+	temp->setVisible(true);
+	temp->setActive(true);
 	std::cout << "wut " << temp->getPosX() << "\n";
 }
 

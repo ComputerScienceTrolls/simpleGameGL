@@ -243,7 +243,7 @@ int main(int argc, char *argv[])
 	ObjectPoolSpawner *rocketBullets = new ObjectPoolSpawner("test", wave, 2, spawnObject);
 	VisibilityActuator *waveVisibleTrue = new VisibilityActuator("visbleWave", wave, true);
 	ActiveActuator *waveActiveTrue = new ActiveActuator("activeWave", wave, true);
-	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
+	MotionActuator *waveMotion = new MotionActuator("waveMotion", rocketBullets, 10, rs2);
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
 	//set up sound 
