@@ -41,7 +41,7 @@ void ObserverHandler::NotifyObservers()
 }
 
 //return number of registered observers
-int ObserverHandler::getNumberOfObservers()
+size_t ObserverHandler::getNumberOfObservers()
 {
 	return observers_.size();
 }

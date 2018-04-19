@@ -5,11 +5,11 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int
 	spriteParent(&parent)
 {
 	this->name = newName;
-	this->Size.x = w;
-	this->Size.y = h;
+	this->Size.x = float(w);
+	this->Size.y = float(h);
 	this->Position = glm::vec2(0,0);
 	this->type = "box";
-	this->transparency = .15;
+	this->transparency = float(.15);
 	this->setBoundAction("STOP");
 }
 
@@ -18,14 +18,14 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int 
 	spriteParent(&parent)
 {
 	this->name = newName;
-	this->Size.x = w;
-	this->Size.y = h;
-	this->Center.x = posX;
-	this->Center.y = posY;
+	this->Size.x = float(w);
+	this->Size.y = float(h);
+	this->Center.x = float(posX);
+	this->Center.y = float(posY);
 	this->Position.x = this->Center.x - this->Size.x / 2;
 	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->type = "box";
-	this->transparency = .15;
+	this->transparency = float(.15);
 	this->setBoundAction("STOP");
 }
 
@@ -33,10 +33,10 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
 {
 	this->name = n;
 	this->active = true;
-	this->Size.x = w;
-	this->Size.y = h;
+	this->Size.x = float(w);
+	this->Size.y = float(h);
 	this->type = "box";
-	this->transparency = .15;
+	this->transparency = float(.15);
 	this->setBoundAction("STOP");
 
 	parent.addMovingObject(this);
@@ -48,14 +48,14 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int
 {
 	this->name = n;
 	this->active = true;
-	this->Size.x = w;
-	this->Size.y = h;
-	this->Center.x = posX;
-	this->Center.y = posY;
+	this->Size.x = float(w);
+	this->Size.y = float(h);
+	this->Center.x = float(posX);
+	this->Center.y = float(posY);
 	this->Position.x = this->Center.x - this->Size.x / 2;
 	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->type = "box";
-	this->transparency = .15;
+	this->transparency = GLfloat(.15);
 	this->setBoundAction("STOP");
 
 	parent.addMovingObject(this);

@@ -5,10 +5,9 @@
 #include <alut.h>
 #include <al.h>
 #include <alc.h>
-#include "QuadScene.h"
+
 #include "SceneDirector.h"
 #include "Sprite.h"
-#include "RocketSprite.h"
 
 #include "ObjectPool.h"
 
@@ -54,12 +53,12 @@ int main(int argc, char *argv[])
 	
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
-	rs2->setRotation(3.14 / 2);
+	rs2->setRotation(float(3.14 / 2));
 	rs2->setCollideDebug(true);
 	Sprite *rCopy = new Sprite(rs2);
 	rCopy->setPosX(200);
 	Sprite *rocketGoal = new Sprite("rocketGoal", mainScene, glm::vec2(750, 25), glm::vec2(50, 35), "textures/Rocket001_off.png");
-	rocketGoal->setRotation(3.14/2);
+	rocketGoal->setRotation(float(3.14/2));
 	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(20, 40), "textures/fullSignal.png");
 	//wave->removeCollider("default");
 	wave->hide();
@@ -118,7 +117,7 @@ int main(int argc, char *argv[])
 	}
 	*/
 
-	Rocks[2]->setRotation(3.14);
+	Rocks[2]->setRotation(float(3.14));
 	
 	for (int i = 0; i < 8; i++)
 	{
@@ -234,8 +233,8 @@ int main(int argc, char *argv[])
 
 
 	//set up actuators
-	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.1, "rotateBy");
-	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, .1, "rotateBy");
+	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, float(-.1), "rotateBy");
+	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, float(.1), "rotateBy");
 	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
 	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
 	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rs2);
