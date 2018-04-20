@@ -19,17 +19,15 @@ ObjectPoolActuator::ObjectPoolActuator(std::string name, Sprite *object, int num
 	this->name = name;
 	this->index = -1;
 
-	std::vector<Sprite*> test;
-	for (int i = 0; i< numberOfObjectsInPool; i++)
-	{
-		Sprite* temp = new Sprite(object);
-		//temp->setDebugMode(true);
-		test.push_back(temp);
-	}
-	pool.push_back(object);
+	std::vector<Sprite*> sprites;
+	object->setBoundAction("DIE");
+	sprites.push_back(object);
 	for (int i = 1; i< numberOfObjectsInPool; i++)
 	{
-		pool.push_back(test.at(1));
+		Sprite* temp = new Sprite(object);
+		//for better performance, assume object wants to be deactived once off screen.
+		temp->setBoundAction("DIE");
+		pool.push_back(temp);
 	}
 }
 
@@ -40,16 +38,15 @@ ObjectPoolActuator::ObjectPoolActuator(std::string name, Sprite * object, int nu
 	this->index = -1;
 	this->force = f;
 
-	std::vector<Sprite*> test;
-	for (int i = 0; i< numberOfObjectsInPool; i++)
-	{
-		Sprite* temp = new Sprite(object);
-		test.push_back(temp);
-	}
-	pool.push_back(object);
+	std::vector<Sprite*> sprites;
+	object->setBoundAction("DIE");
+	sprites.push_back(object);
 	for (int i = 1; i< numberOfObjectsInPool; i++)
 	{
-		pool.push_back(test.at(i));
+		Sprite* temp = new Sprite(object);
+		//for better performance, assume object wants to be deactived once off screen.
+		temp->setBoundAction("DIE");
+		pool.push_back(temp);
 	}
 }
 
@@ -67,7 +64,6 @@ void ObjectPoolActuator::run()
 		temp->setPosition(SO->getPosition());
 		temp->setVisible(true);
 		temp->setActive(true);
-		std::cout << "wut " << temp->getPosX() << "\n";
 	}
 	else if (condition == "spriteSpawnForce")
 	{

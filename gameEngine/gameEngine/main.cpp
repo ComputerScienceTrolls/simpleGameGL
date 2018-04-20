@@ -85,13 +85,14 @@ int main(int argc, char *argv[])
 
 	};
 
-	/*
+
 	std::thread th([]()
 	{
 		std::vector<AbstractSprite*> sprites;
 		for (unsigned int i = 0; i < 200; i++)
 		{
 			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.1 *i, .01 *i));
+			temp->setBoundAction("DIE");
 			sprites.push_back(temp);
 		}
 		mainScene.loadSprites(sprites);
@@ -103,6 +104,7 @@ int main(int argc, char *argv[])
 		for (unsigned int i = 0; i < 198; i++)
 		{
 			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .1 *i));
+			temp->setBoundAction("DIE");
 			sprites.push_back(temp);
 		}
 		mainScene.loadSprites(sprites);
@@ -114,6 +116,7 @@ int main(int argc, char *argv[])
 		for (unsigned int i = 0; i < 20; i++)
 		{
 			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			temp->setBoundAction("DIE");
 			sprites.push_back(temp);
 		}
 		mainScene.loadSprites(sprites);
@@ -125,6 +128,7 @@ int main(int argc, char *argv[])
 		for (unsigned int i = 0; i < 20; i++)
 		{
 			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			temp->setBoundAction("DIE");
 			sprites.push_back(temp);
 		}
 		mainScene.loadSprites(sprites);
@@ -136,6 +140,7 @@ int main(int argc, char *argv[])
 		for (unsigned int i = 0; i < 20; i++)
 		{
 			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			temp->setBoundAction("DIE");
 			sprites.push_back(temp);
 		}
 		mainScene.loadSprites(sprites);
@@ -148,6 +153,7 @@ int main(int argc, char *argv[])
 		for (unsigned int i = 0; i < 20; i++)
 		{
 			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			temp->setBoundAction("DIE");
 			sprites.push_back(temp);
 		}
 		mainScene.loadSprites(sprites);
@@ -158,12 +164,13 @@ int main(int argc, char *argv[])
 	th2.detach();
 	th3.detach();
 	th4.detach(); 
-	*/
+
 	
 	std::vector<AbstractSprite*> sprites;
 	for (unsigned int i = 0; i < 150; i++)
 	{
 		Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(-.01 *i, -.01 *i));
+		temp->setBoundAction("DIE");
 		sprites.push_back(temp);
 	}
 	mainScene.loadSprites(sprites);
