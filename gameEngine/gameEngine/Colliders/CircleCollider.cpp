@@ -12,11 +12,11 @@ CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r
 	this->Size.y = r*2;
 	this->type = "circle";
 	this->active = true;
-	this->transparency = .15;
+	this->transparency = float(.15);
 }
 
 //consturctor with a position offset from it's sprite
-CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r, int posX, int posY) :
+CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r, float posX, float posY) :
 	spriteParent(&parent), radius(r)
 {
 	this->Center.x = posX;
@@ -27,7 +27,7 @@ CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r
 	this->Size.y = r*2;
 	this->type = "circle";
 	this->active = true;
-	this->transparency = .15;
+	this->transparency = float(.15);
 }
 
 CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r) :
@@ -42,24 +42,24 @@ CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r) :
 	this->Size.y = r * 2;
 	this->type = "circle";
 	this->active = true;
-	this->transparency = .15;
+	this->transparency = float(.15);
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
 	parent.addSceneObject(this);
 }
 
-CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r, int posX, int posY) :
+CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r, float posX, float posY) :
 	radius(r)
 {
 	this->name = n;
 	this->type = "circle";
 	this->Size.x = r * 2;
 	this->Size.y = r * 2;
-	this->Position.x = posX;
-	this->Position.y = posY;
+	this->Position.x = float(posX);
+	this->Position.y = float(posY);
 	this->active = true;
-	this->transparency = .15;
+	this->transparency = float(.15);
 
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
@@ -96,10 +96,10 @@ bool CircleCollider::collide(std::vector<AbstractCollider*> otherColliders)
 		//if other collider is a circle and static is false
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
-			int diffX = (this->getPosX()) - (otherColliders.at(i)->getPosX());
-			int diffY = (this->getPosY()) - (otherColliders.at(i)->getPosY());
+			float diffX = (this->getPosX()) - (otherColliders.at(i)->getPosX());
+			float diffY = (this->getPosY()) - (otherColliders.at(i)->getPosY());
 
-			int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
+			double dist = std::sqrt((diffX * diffX) + (diffY * diffY));
 			if (dist <= (this->getRadius() + otherColliders.at(i)->getRadius()))
 				return true;
 			else
@@ -137,10 +137,10 @@ bool CircleCollider::collide(AbstractCollider * otherCollider)
 	//if other collider is a circle and static is false
 	else if (otherCollider->getType() == "circle")
 	{
-		int diffX = (this->getSpriteCenterPos().x + this->getPosX()) - (otherCollider->getSpriteCenterPos().x + otherCollider->getPosX());
-		int diffY = (this->getSpriteCenterPos().y + this->getPosY()) - (otherCollider->getSpriteCenterPos().y + otherCollider->getPosY());
+		float diffX = (this->getSpriteCenterPos().x + this->getPosX()) - (otherCollider->getSpriteCenterPos().x + otherCollider->getPosX());
+		float diffY = (this->getSpriteCenterPos().y + this->getPosY()) - (otherCollider->getSpriteCenterPos().y + otherCollider->getPosY());
 
-		int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
+		double dist = std::sqrt((diffX * diffX) + (diffY * diffY));
 		if (dist <= (this->getRadius() + otherCollider->getRadius()))
 			return true;
 		else
@@ -182,10 +182,10 @@ bool CircleCollider::collide(AbstractSprite * otherSprite)
 		//if other collider is a circle and static is false
 		else if (otherColliders.at(i)->getType() == "circle")
 		{
-			int diffX = this->getPosX() - otherColliders.at(i)->getPosX();
-			int diffY = this->getPosY() - otherColliders.at(i)->getPosY();
+			float diffX = this->getPosX() - otherColliders.at(i)->getPosX();
+			float diffY = this->getPosY() - otherColliders.at(i)->getPosY();
 
-			int dist = std::sqrt((diffX * diffX) + (diffY * diffY));
+			double dist = std::sqrt((diffX * diffX) + (diffY * diffY));
 			if (dist <= (this->getRadius() + otherColliders.at(i)->getRadius()))
 				return true;
 			else

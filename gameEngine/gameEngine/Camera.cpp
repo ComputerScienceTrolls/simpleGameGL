@@ -1,18 +1,19 @@
 #include "Camera.h"
+#include <math.h>
 
 Camera::Camera(int w, int h)
 {
-	this->Size.x = w;
-	this->Size.y = h;
+	this->Size.x = float(w);
+	this->Size.y = float(h);
 	this->active = true;
 	this->Zoom.x = 1;
 	this->Zoom.y = 1;
 }
 
-Camera::Camera(int w, int h, int x, int y)
+Camera::Camera(int w, int h, float x, float y)
 {
-	this->Size.x = w;
-	this->Size.y = h;
+	this->Size.x = float(w);
+	this->Size.y = float(h);
 	this->Position.x = x;
 	this->Position.y = y;
 	this->Velocity.x = 0;
@@ -50,6 +51,16 @@ void Camera::changeZoomByY(float dy)
 glm::vec2 Camera::getZoom()
 {
 	return this->Zoom;
+}
+
+float Camera::getWidth()
+{
+	return round(SceneObject::getWidth());
+}
+
+float Camera::getHeight()
+{
+	return round(SceneObject::getHeight());
 }
 
 void Camera::Update()

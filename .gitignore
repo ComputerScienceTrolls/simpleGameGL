@@ -51,3 +51,4 @@ Debug
 *.vcxproj
 *.iobj
 *.ipdb
+gameEngine/gameEngine/gameEngine.vcxproj

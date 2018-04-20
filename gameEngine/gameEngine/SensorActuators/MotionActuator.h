@@ -7,7 +7,7 @@ class MotionActuator : public AbstractActuator
 {
 public:
 	MotionActuator(std::string name, MovingSceneObject*, float newDX, float newDY);
-	MotionActuator(std::string name, MovingSceneObject*, double newAngle, double newForce, std::string condition = "force");
+	MotionActuator(std::string name, MovingSceneObject*, float newAngle, float newForce, std::string condition = "force");
 	MotionActuator(std::string name, MovingSceneObject*, float newDX, std::string condition);
 	MotionActuator(std::string name, MovingSceneObject*, float distance, float speed, SceneObject* o, std::string condition = "followObject");
 	MotionActuator(std::string name, MovingSceneObject*, float speed, SceneObject*);
@@ -22,8 +22,8 @@ private:
 	float DX;
 	float DY;
 	float DT;
-	double force;
-	double angle;
+	float force;
+	float angle;
 	float distance;
 	SceneObject *anotherObject;
 	ObjectPoolSpawner *objectPool;

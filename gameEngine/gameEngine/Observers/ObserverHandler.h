@@ -12,7 +12,7 @@ public:
     void addObserver(AbstractObserver &obs);
     void removeObserver(AbstractObserver & obs);
     void NotifyObservers();
-	int getNumberOfObservers();
+	size_t getNumberOfObservers();
 	~ObserverHandler();
 
 private:

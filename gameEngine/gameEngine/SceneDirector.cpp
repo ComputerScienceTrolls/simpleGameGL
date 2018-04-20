@@ -319,9 +319,9 @@ void SceneDirector::Start()
 	while (!glfwWindowShouldClose(window))
 	{
 		// Calculate delta time
-		GLfloat currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
+		double currentFrame = glfwGetTime();
+		deltaTime = float(currentFrame) - lastFrame;
+		lastFrame = float(currentFrame);
 		glfwPollEvents();
 
 		// Update Game state
@@ -422,7 +422,7 @@ void SceneDirector::removeObserver(int index)
 	}
 }
 
-int SceneDirector::getNumberOfScenes()
+size_t SceneDirector::getNumberOfScenes()
 {
 	return scenes.size();
 }

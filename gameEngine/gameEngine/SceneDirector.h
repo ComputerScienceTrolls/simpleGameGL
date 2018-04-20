@@ -28,7 +28,7 @@ public:
 	void setScenePause(AbstractScene *s);
 	void nextScene();
 	void previousScene();
-	int getNumberOfScenes();
+	size_t getNumberOfScenes();
 	AbstractScene* getCurrentScene();
 	void Start();
 	void Update(float delta);
