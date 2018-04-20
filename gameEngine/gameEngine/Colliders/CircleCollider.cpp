@@ -13,6 +13,14 @@ CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r
 	this->type = "circle";
 	this->active = true;
 	this->transparency = float(.15);
+	
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 //consturctor with a position offset from it's sprite
@@ -28,6 +36,14 @@ CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r
 	this->type = "circle";
 	this->active = true;
 	this->transparency = float(.15);
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r) :
@@ -47,6 +63,14 @@ CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r) :
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
 	parent.addSceneObject(this);
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r, float posX, float posY) :
@@ -64,6 +88,14 @@ CircleCollider::CircleCollider(std::string n, AbstractScene &parent, float r, fl
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
 	parent.addSceneObject(this);
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 bool CircleCollider::collide(std::vector<AbstractCollider*> otherColliders)

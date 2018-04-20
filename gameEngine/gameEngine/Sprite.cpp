@@ -19,10 +19,8 @@ Sprite::Sprite(Sprite * copySprite)
 	this->Size = copySprite->Size;
 	this->lastSize = copySprite->Size;
 	this->setPosition(copySprite->Position);
-	std::cout << "ummm" << copySprite->Position.x;
 	this->lastPosition = copySprite->lastPosition;
 	this->Velocity = copySprite->Velocity;
-	std::cout << "uhhh" << copySprite->Velocity.x;
 	this->Rotation = copySprite->Rotation;
 	this->lastRotation = copySprite->lastRotation;
 	this->speed = copySprite->speed;
@@ -31,9 +29,6 @@ Sprite::Sprite(Sprite * copySprite)
 	
 	this->active = copySprite->active;
 	this->visible = copySprite->visible;
-
-	std::cout << "dunno " << copySprite->active;
-	std::cout << "dunno " << copySprite->visible;
 
 	this->initCenter = copySprite->initCenter;
 	this->initColor = copySprite->initColor;
@@ -64,13 +59,10 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	this->speed = 10;
 	this->moveAngle = 0;
 	this->imgAngle = 0;
+
 	//give default box collider
 	BoxCollider *temp = new BoxCollider("default",*this, 1, 1);
 	colliders_.push_back(temp);
-
-	//texture for collider debug
-	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
-	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
 
 	scene.addSprite(this);
 
@@ -110,29 +102,68 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	colliders_.push_back(temp);
 
 	//see if texture is already loaded
-	//std::cout << ResourceManager::Textures["wut"].Image_Format << "\n";
 	if (ResourceManager::Textures[texture].Image_Format != 6407)
 	{
-		std::cout << "using already loaded Texture";
 		this->Texture = ResourceManager::GetTexture(texture);
 	}
 	else
 	{
-		std::cout << "loaded new Texture\n";
 		//load texture
 		ResourceManager::LoadTexture(texture, true, texture);
 		this->Texture = ResourceManager::GetTexture(texture);
 	}
 
-	//make sure collider textures are not already loaded
-	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
-	{
-		//texture for collider debug
-		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
-		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
-	}
-
 	scene.addSprite(this);
+
+	this->active = true;
+	this->visible = true;
+
+	//init init vars, for restarting scenes
+	initCenter = Center;
+	initColor = Color;
+	initPosition = Position;
+	initRotation = Rotation;
+	initSize = Size;
+	initTexture = Texture;
+	initTextureFile = textureFile;
+	initVelocity = Velocity;
+
+	resetCounter = 0;
+}
+
+//constructor with no scene give, sprite will not be updated or drawn until given to a scene
+Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, glm::vec2 velocity, glm::vec3 color)
+	: textureFile(texture), Color(color), collideDebug(false), transparency(1)
+{
+	this->name = n;
+	this->Center = pos;
+	this->Size = size;
+	this->lastSize = this->Size;
+	this->Velocity = velocity;
+	this->Rotation = 0;
+	this->lastRotation = this->Rotation;
+	//center the postion based on the height and width of the sprite
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
+
+	this->lastPosition = this->Position;
+
+	BoxCollider *temp = new BoxCollider("default", *this, (int)size.x, (int)size.y);
+	temp->setPosition(this->Position);
+	colliders_.push_back(temp);
+
+	//see if texture is already loaded
+	if (ResourceManager::Textures[texture].Image_Format != 6407)
+	{
+		//std::cout << "using already loaded Texture";
+		this->Texture = ResourceManager::GetTexture(texture);
+	}
+	else
+	{
+		//load texture
+		ResourceManager::LoadTexture(texture, true, texture);
+		this->Texture = ResourceManager::GetTexture(texture);
+	}
 
 	this->active = true;
 	this->visible = true;

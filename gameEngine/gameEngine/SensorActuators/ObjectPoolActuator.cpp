@@ -1,0 +1,96 @@
+#include "ObjectPoolActuator.h"
+
+ObjectPoolActuator::ObjectPoolActuator(std::string name, SceneObject *object, int numberOfObjectsInPool, SceneObject *so, std::string con) :
+	SO(so), condition(con), force(-1)
+{
+	this->name = name;
+	this->index = -1;
+
+	pool.push_back(object);
+	for (int i = 1; i< numberOfObjectsInPool; i++)
+	{
+		pool.push_back(new SceneObject(object));
+	}
+}
+
+ObjectPoolActuator::ObjectPoolActuator(std::string name, Sprite *object, int numberOfObjectsInPool, SceneObject * so, std::string con) :
+	SO(so), condition(con), force(-1)
+{
+	this->name = name;
+	this->index = -1;
+
+	std::vector<Sprite*> test;
+	for (int i = 0; i< numberOfObjectsInPool; i++)
+	{
+		Sprite* temp = new Sprite(object);
+		//temp->setDebugMode(true);
+		test.push_back(temp);
+	}
+	pool.push_back(object);
+	for (int i = 1; i< numberOfObjectsInPool; i++)
+	{
+		pool.push_back(test.at(1));
+	}
+}
+
+ObjectPoolActuator::ObjectPoolActuator(std::string name, Sprite * object, int numberOfObjectsInPool, SceneObject * so, float f, SceneObject *ft, std::string con) :
+	SO(so), forceToward(ft), condition(con)
+{
+	this->name = name;
+	this->index = -1;
+	this->force = f;
+
+	std::vector<Sprite*> test;
+	for (int i = 0; i< numberOfObjectsInPool; i++)
+	{
+		Sprite* temp = new Sprite(object);
+		test.push_back(temp);
+	}
+	pool.push_back(object);
+	for (int i = 1; i< numberOfObjectsInPool; i++)
+	{
+		pool.push_back(test.at(i));
+	}
+}
+
+void ObjectPoolActuator::run()
+{
+	if (condition == "spawn")
+	{
+		SceneObject *temp = this->getObject();
+		temp->setPosition(SO->getPosition());
+	}
+	else if (condition == "spriteSpawn")
+	{
+		Sprite *temp = dynamic_cast<Sprite*>(this->getObject());
+		std::cout << SO->getPosition().x << "\n";
+		temp->setPosition(SO->getPosition());
+		temp->setVisible(true);
+		temp->setActive(true);
+		std::cout << "wut " << temp->getPosX() << "\n";
+	}
+	else if (condition == "spriteSpawnForce")
+	{
+		Sprite *temp = dynamic_cast<Sprite*>(this->getObject());
+		temp->setVelocity(glm::vec2(0));
+		temp->setPosition(SO->getPosition());
+		temp->setVisible(true);
+		temp->setActive(true);
+		temp->addForce(temp->angleTo(forceToward), force);
+	}
+	else if (condition == "spriteSpawnRotateForce")
+	{
+		Sprite *temp = dynamic_cast<Sprite*>(this->getObject());
+		temp->setVelocity(glm::vec2(0));
+		temp->setPosition(SO->getPosition());
+		temp->setVisible(true);
+		temp->setActive(true);
+		double degrees = double(forceToward->getRotation()) * ((180 / 3.141592653589793238463));
+		temp->addForce(float(degrees) + 180, force);
+		temp->setRotation(forceToward->getRotation());
+	}
+}
+
+ObjectPoolActuator::~ObjectPoolActuator()
+{
+}

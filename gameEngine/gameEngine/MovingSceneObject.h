@@ -32,7 +32,7 @@ public:
 	bool checkBounds(int screenWidth, int screenHeight);
 
 	//moving methods
-	virtual void addForce(float angle, float mag);
+	virtual void addForce(float angle, float mag, bool radians = false);
 	virtual void calcSpeedAngle();
 	virtual void calcVector();
 	virtual float angleTo(SceneObject*);

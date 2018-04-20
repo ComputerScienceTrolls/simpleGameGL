@@ -2,7 +2,9 @@
 #include <iostream>
 
 #include "KeyHandler.h"
+#include <mutex>
 
+std::mutex threadMutex;
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
@@ -96,6 +98,16 @@ void Scene::Render()
 	}
 }
 
+//assuming these sprites don't have a scene, used for loading a lot of sprites via threading or just batching.
+void Scene::loadSprites(std::vector<AbstractSprite*> sprites)
+{
+	threadMutex.lock();
+	Sprites.insert(Sprites.end(), sprites.begin(), sprites.end());
+	MovingSceneObjects.insert(MovingSceneObjects.end(), sprites.begin(), sprites.end());
+	DrawSceneObjects.insert(DrawSceneObjects.end(), sprites.begin(), sprites.end());
+	SceneObjects.insert(SceneObjects.end(), sprites.begin(), sprites.end());
+	threadMutex.unlock();
+}
 
 //event called every time a key is pressed, check for exit, update KeyHandler singleton keys.
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -111,9 +123,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			KeyHandler::getInstance()->Keys[key] = GL_FALSE;
 	}
 }
-
-
-
 
 Scene::~Scene()
 {

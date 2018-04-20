@@ -30,7 +30,9 @@
 #include "SensorActuators/SoundActuator.h"
 #include "SensorActuators/AlwaysSensor.h"
 #include "SensorActuators/TimesActuator.h"
-#include "ObjectPoolSpawner.h"
+#include "SensorActuators/ObjectPoolActuator.h"
+
+#include <thread>
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
@@ -84,10 +86,92 @@ int main(int argc, char *argv[])
 	};
 
 	/*
-	for (unsigned int i = 0; i < 5000; i++)
+	std::thread th([]()
+	{
+		std::vector<AbstractSprite*> sprites;
+		for (unsigned int i = 0; i < 200; i++)
+		{
+			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.1 *i, .01 *i));
+			sprites.push_back(temp);
+		}
+		mainScene.loadSprites(sprites);
+	});
+
+	std::thread th2([]()
+	{
+		std::vector<AbstractSprite*> sprites;
+		for (unsigned int i = 0; i < 198; i++)
+		{
+			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .1 *i));
+			sprites.push_back(temp);
+		}
+		mainScene.loadSprites(sprites);
+	});
+
+	std::thread th3([]()
+	{
+		std::vector<AbstractSprite*> sprites;
+		for (unsigned int i = 0; i < 20; i++)
+		{
+			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			sprites.push_back(temp);
+		}
+		mainScene.loadSprites(sprites);
+	});
+
+	std::thread th4([]()
+	{
+		std::vector<AbstractSprite*> sprites;
+		for (unsigned int i = 0; i < 20; i++)
+		{
+			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			sprites.push_back(temp);
+		}
+		mainScene.loadSprites(sprites);
+	});
+
+	std::thread th5([]()
+	{
+		std::vector<AbstractSprite*> sprites;
+		for (unsigned int i = 0; i < 20; i++)
+		{
+			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			sprites.push_back(temp);
+		}
+		mainScene.loadSprites(sprites);
+	});
+
+	th5.detach();
+	std::thread th6([]()
+	{
+		std::vector<AbstractSprite*> sprites;
+		for (unsigned int i = 0; i < 20; i++)
+		{
+			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
+			sprites.push_back(temp);
+		}
+		mainScene.loadSprites(sprites);
+	});
+
+	th6.detach();
+	th.detach();
+	th2.detach();
+	th3.detach();
+	th4.detach(); 
+	*/
+	
+	std::vector<AbstractSprite*> sprites;
+	for (unsigned int i = 0; i < 150; i++)
+	{
+		Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(-.01 *i, -.01 *i));
+		sprites.push_back(temp);
+	}
+	mainScene.loadSprites(sprites);
+	/*
+	for (unsigned int i = 0; i < 0; i++)
 	{
 		Sprite *temp = new Sprite("test", mainScene, glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
-		
+	
 		temp->setBoundAction("BOUNCE");
 		
 		CollisionSensor *temp2 = new CollisionSensor("signals", temp, Rocks[0], true);
@@ -126,7 +210,6 @@ int main(int argc, char *argv[])
 	}
 	
 	SceneObject *spawnObject = new SceneObject();
-	ObjectPool<Sprite> *bulletPool = new ObjectPool<Sprite>(wave, 1000);
 	spawnObject->setParent(rs2);
 	spawnObject->setPosition(glm::vec2(rs2->getCenter().x, rs2->getCenter().y));
 	wave->setVisible(false);
@@ -210,17 +293,6 @@ int main(int argc, char *argv[])
 	RocksWaveCol[4]->addActuator(waveVisible);
 	RocksWaveCol[5]->addActuator(waveVisible);
 	RocksWaveCol[6]->addActuator(waveVisible);
-	RocksWaveCol[7]->addActuator(waveVisible);
-
-	/*RocksWaveCol[0]->addActuator(waveActive);
-	RocksWaveCol[1]->addActuator(waveActive);
-	RocksWaveCol[2]->addActuator(waveActive);
-	RocksWaveCol[3]->addActuator(waveActive);
-	RocksWaveCol[4]->addActuator(waveActive);
-	RocksWaveCol[5]->addActuator(waveActive);
-	RocksWaveCol[6]->addActuator(waveActive);
-	RocksWaveCol[7]->addActuator(waveActive);
-	*/
 
 	RocksWaveCol[0]->addActuator(waveAfterHit);
 	RocksWaveCol[1]->addActuator(waveAfterHit);
@@ -231,28 +303,17 @@ int main(int argc, char *argv[])
 	RocksWaveCol[6]->addActuator(waveAfterHit);
 	RocksWaveCol[7]->addActuator(waveAfterHit);
 
-
-
 	//set up actuators
 	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, float(-.1), "rotateBy");
 	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, float(.1), "rotateBy");
 	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
-	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
-	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rs2);
-	//PositionActuator *rocketFront = new PositionActuator("rocketFront", bulletPool, spawnObject);
-	ObjectPoolSpawner *rocketBullets = new ObjectPoolSpawner("test", wave, 2, spawnObject);
-	VisibilityActuator *waveVisibleTrue = new VisibilityActuator("visbleWave", wave, true);
-	ActiveActuator *waveActiveTrue = new ActiveActuator("activeWave", wave, true);
-	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
+	ObjectPoolActuator *rocketBullets = new ObjectPoolActuator("test", wave, 10, spawnObject, 10, rs2, "spriteSpawnRotateForce");
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
 	//set up sound 
 	SoundActuator *shootSound = new SoundActuator("sound/shoot.wav", "");
 	SoundActuator *moveSound = new SoundActuator("sound/movement.wav","");
 	SoundActuator *music = new SoundActuator("sound/music.wav", "looping");
-
-
-	
 
 	VisibilityActuator *v[6] = { new VisibilityActuator("visible1", health[5], false),
 		new VisibilityActuator("visible2", health[4], false),
@@ -281,26 +342,15 @@ int main(int argc, char *argv[])
 	t->addActuator(v2[2]);
 	t->addActuator(v2[3]);
 	t->addActuator(v2[4]);
-	
-	
-	
-	
+
 	//add actuators to the sensor
-	kSpace->addActuator(waveVisibleTrue);
-	kSpace->addActuator(waveActiveTrue);
-	kSpace->addActuator(clearWaveMotion);
 	kSpace->addActuator(rocketBullets);
-	kSpace->addActuator(rotWaveMotion);
-	kSpace->addActuator(waveMotion);
 	kSpace->addActuator(shootSound);
-	//ks->addActuator(s1);
 	kw->addActuator(mUp);
 	kw->addActuator(t);
 	kw->addActuator(moveSound);
 	kj->addActuator(rLeft);
 	kl->addActuator(rRight);
-	//kk->addActuator(s1);
-	//ki->addActuator(s1);
 	goal1->addActuator(sceneAct1);
 	A->addActuator(music);
 	
@@ -333,15 +383,10 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(RocksWaveCol[7]);
 
 	SceneDirector::getInstance()->addSensor(goal1);
-	//add sensors to scene 2
-	
-	
-	//add sensors to scene 3
 
 	//add scenes to the scene director
 	SceneDirector::getInstance()->addScene(&scene2);
 	SceneDirector::getInstance()->addScene(&scene3);
-
 
 	//set camera witdth and height
 	mainScene.setCameraHeight(600);

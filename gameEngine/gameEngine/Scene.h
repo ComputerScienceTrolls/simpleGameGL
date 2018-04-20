@@ -19,7 +19,7 @@ public:
 	virtual void Init();
 	virtual void Update(GLfloat dt);
 	virtual void Render();
-
+	void loadSprites(std::vector<AbstractSprite*>);
 
 
 protected:

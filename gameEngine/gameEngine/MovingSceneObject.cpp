@@ -337,11 +337,18 @@ bool MovingSceneObject::checkBounds(int screenWidth, int screenHeight)
 	return true;
 }
 
-void MovingSceneObject::addForce(float angle, float thrust)
+void MovingSceneObject::addForce(float angle, float thrust, bool radians)
 {
-	//std::cout << "\nangle: " << angle;
-	//input angle is in degrees - convert to radians    
-	angle = angle * (float(PI) / 180);
+	//doesn't seem to work... recommand just using degrees then convert
+	if (radians)
+	{
+		angle = radians;
+	}
+	else 
+	{
+		//input angle is in degrees - convert to radians    
+		angle = angle * (float(PI) / 180);
+	}
 
 	//calculate dx and dy
 

@@ -11,6 +11,14 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int
 	this->type = "box";
 	this->transparency = float(.15);
 	this->setBoundAction("STOP");
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 //consturctor with a positon offset
@@ -27,6 +35,14 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int 
 	this->type = "box";
 	this->transparency = float(.15);
 	this->setBoundAction("STOP");
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
@@ -42,6 +58,14 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
 	parent.addSceneObject(this);
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int posX, int posY)
@@ -61,6 +85,14 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int
 	parent.addMovingObject(this);
 	parent.addDrawObject(this);
 	parent.addSceneObject(this);
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 }
 
 bool BoxCollider::collide(std::vector<AbstractCollider*> otherColliders)

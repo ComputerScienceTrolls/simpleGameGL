@@ -61,8 +61,6 @@ std::vector<AbstractCollider*> AbstractScene::getColliders()
 
 void AbstractScene::addSprite(AbstractSprite *newSprite)
 {
-	std::cout << newSprite->getName();
-	std::cout << newSprite->getPosition().x;
 	Sprites.push_back(newSprite);
 	MovingSceneObjects.push_back(newSprite);
 	DrawSceneObjects.push_back(newSprite);
