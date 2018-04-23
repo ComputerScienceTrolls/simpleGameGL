@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 
 	};
 
-
+	/*
 	std::thread th([]()
 	{
 		std::vector<AbstractSprite*> sprites;
@@ -164,7 +164,6 @@ int main(int argc, char *argv[])
 	th2.detach();
 	th3.detach();
 	th4.detach(); 
-
 	
 	std::vector<AbstractSprite*> sprites;
 	for (unsigned int i = 0; i < 150; i++)
@@ -174,6 +173,8 @@ int main(int argc, char *argv[])
 		sprites.push_back(temp);
 	}
 	mainScene.loadSprites(sprites);
+	*/
+	
 	/*
 	for (unsigned int i = 0; i < 0; i++)
 	{
@@ -218,7 +219,9 @@ int main(int argc, char *argv[])
 	
 	SceneObject *spawnObject = new SceneObject();
 	spawnObject->setParent(rs2);
-	spawnObject->setPosition(glm::vec2(rs2->getCenter().x, rs2->getCenter().y));
+	spawnObject->setPosition(glm::vec2(rs2->getPosition().x + rs2->getSize().x/2, rs2->getPosition().y - rs2->getSize().y / 2));
+	std::cout << "\ntest: " << rs2->getPosX();
+	std::cout << "\ntest2: " << spawnObject->getPosX();
 	wave->setVisible(false);
 	//wave->setActive(false);
 	//rs2->setRotation(3.14/2);
@@ -313,7 +316,8 @@ int main(int argc, char *argv[])
 	//set up actuators
 	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, float(-.1), "rotateBy");
 	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, float(.1), "rotateBy");
-	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
+	MotionActuator *keepSpawnerInFrontOfRocket = new MotionActuator("keepSpawnerInFrontOfRocket", rs2, spawnObject, "setInFront");
+	MotionActuator *mUp = new MotionActuator("mup", rs2,.5, "forceForward");
 	ObjectPoolActuator *rocketBullets = new ObjectPoolActuator("test", wave, 10, spawnObject, 10, rs2, "spriteSpawnRotateForce");
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
@@ -359,9 +363,11 @@ int main(int argc, char *argv[])
 	kj->addActuator(rLeft);
 	kl->addActuator(rRight);
 	goal1->addActuator(sceneAct1);
-	A->addActuator(music);
+	//A->addActuator(music);
+	A->addActuator(keepSpawnerInFrontOfRocket);
 	
 	//add sensors to scene 1
+	mainScene.addSensor(A);
 	mainScene.addSensor(ka);
 	mainScene.addSensor(kd);
 	mainScene.addSensor(kw);
