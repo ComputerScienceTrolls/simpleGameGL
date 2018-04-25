@@ -15,6 +15,7 @@ public:
 
 	//set methods
 	virtual void setPosition(glm::vec2);
+	virtual void setPosition(double degrees, glm::vec2, int amount);
 	virtual void setPosX(float);
 	virtual void setPosY(float);
 	virtual void setCenter(glm::vec2);
@@ -47,6 +48,9 @@ public:
 	virtual void removeChild(SceneObject*);
 	virtual SceneObject* getParent();
 	virtual void addChildObject(SceneObject*);
+
+	//pie constant for math
+	const double PI = 3.141592653589793238463;
 
 	~SceneObject();
 

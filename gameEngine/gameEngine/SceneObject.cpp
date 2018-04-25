@@ -1,4 +1,5 @@
 #include "SceneObject.h"
+#include <iostream>
 
 SceneObject::SceneObject()
 {
@@ -27,6 +28,19 @@ void SceneObject::setPosition(glm::vec2 newPosition)
 	//set Center accordingly
 	this->Center.x = this->Position.x + this->Size.x / 2;
 	this->Center.y = this->Position.y + this->Size.y / 2;
+}
+
+void SceneObject::setPosition(double degrees, glm::vec2 start, int amount)
+{
+		//input angle is in degrees - convert to radians    
+		degrees = degrees * float((PI) / 180);
+
+		//calc x and y based on the degree and amount given
+		double newDX = amount * std::cos(degrees);
+		double newDY = amount * std::sin(degrees);
+
+		this->Position.x = float(start.x + newDX);
+		this->Position.y = float(start.y + newDY);
 }
 
 void SceneObject::setPosX(float newX)

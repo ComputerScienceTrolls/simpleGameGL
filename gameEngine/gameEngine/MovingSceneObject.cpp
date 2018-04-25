@@ -1,9 +1,6 @@
 #include "MovingSceneObject.h"
 #include <iostream>
 
-//pie constant for math
-const double PI = 3.141592653589793238463;
-
 MovingSceneObject::MovingSceneObject() :
 	lastDir(0), debug(false)
 {
@@ -51,13 +48,11 @@ glm::vec2 MovingSceneObject::getLastVelocity()
 
 float MovingSceneObject::getDX()
 {
-	//std::cout << "\nVelX: " << this->Velocity.x;
 	return this->Velocity.x;
 }
 
 float MovingSceneObject::getDY()
 {
-	//std::cout << "\nVelY: " << this->Velocity.y;
 	return this->Velocity.y;
 }
 
@@ -347,7 +342,7 @@ void MovingSceneObject::addForce(float angle, float thrust, bool radians)
 	else 
 	{
 		//input angle is in degrees - convert to radians    
-		angle = angle * (float(PI) / 180);
+		angle = angle * float((PI) / 180);
 	}
 
 	//calculate dx and dy
@@ -364,7 +359,6 @@ void MovingSceneObject::addForce(float angle, float thrust, bool radians)
 
 void MovingSceneObject::calcSpeedAngle()
 {
-	//std::cout << "\nvelX: " << this->Velocity.x;
 	this->speed = std::sqrt((this->Velocity.x * this->Velocity.y) + (this->Velocity.x * this->Velocity.y));
 	this->moveAngle = std::atan2(this->Velocity.y, this->Velocity.x);
 }
@@ -392,7 +386,6 @@ float MovingSceneObject::angleTo(SceneObject *otherObject)
 	//degrees are offset
 	//degrees += 90;
 
-	//std::cout << "AngleTo: " << degrees;
 	return radians;
 
 }
@@ -401,7 +394,6 @@ float MovingSceneObject::angleTo(SceneObject *otherObject)
 void MovingSceneObject::followObject(SceneObject * o, float distance, float speed)
 {
 	this->setImageAngle(angleTo(o));
-	std::cout << "lastDirx: " << lastDir.x << "\n";
 	//this->Velocity -= lastDir;
 	//this->Velocity += normalize(dir) * speed;
 
