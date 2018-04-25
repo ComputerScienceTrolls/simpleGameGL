@@ -8,7 +8,7 @@
 #include "QuadScene.h"
 #include "SceneDirector.h"
 #include "Sprite.h"
-#include "RocketSprite.h"
+#include "SpriteSheetSprite.h"
 
 #include "SensorActuators\CameraActuator.h"
 
@@ -36,8 +36,8 @@ const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
 
 Scene mainScene("main",800, 600);
-Scene scene2 ("level2", 800, 600);
-Scene scene3("levels3", 800, 600);
+//Scene scene2 ("level2", 800, 600);
+//Scene scene3("levels3", 800, 600);
 
 
 int main(int argc, char *argv[])
@@ -50,75 +50,35 @@ int main(int argc, char *argv[])
 
 	
 	//set up sprites
-	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
-	rs2->setRotation(3.14 / 2);
-	rs2->setCollideDebug(true);
-	Sprite *rocketGoal = new Sprite("rocketGoal", mainScene, glm::vec2(750, 25), glm::vec2(50, 35), "textures/Rocket001_off.png");
-	rocketGoal->setRotation(3.14/2);
-	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(20, 40), "textures/fullSignal.png");
-	//wave->removeCollider("default");
+	Sprite *rocket = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "");
+	rocket->setRotation(3.14 / 2);
+	rocket->setCollideDebug(true);
+	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(20, 40), "");
 	wave->hide();
-	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
-	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), "textures/fuel_block.png"),
-		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
-		new Sprite("health2", mainScene, glm::vec2(95, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//95
-		new Sprite("health3", mainScene, glm::vec2(145, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//145
-		new Sprite("health4", mainScene, glm::vec2(190, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//190
-		new Sprite("health5", mainScene, glm::vec2(235, 550), glm::vec2(52, 30), "textures/fuel_block.png")
+	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "");
+	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), ""),
+		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), ""),//50
+		new Sprite("health2", mainScene, glm::vec2(95, 550), glm::vec2(50, 30), ""),//95
+		new Sprite("health3", mainScene, glm::vec2(145, 550), glm::vec2(50, 30), ""),//145
+		new Sprite("health4", mainScene, glm::vec2(190, 550), glm::vec2(50, 30), ""),//190
+		new Sprite("health5", mainScene, glm::vec2(235, 550), glm::vec2(52, 30), "")
 	};
-	Sprite *Rocks[8] = { new Sprite("Rock1", mainScene, glm::vec2(50, 50), glm::vec2(100, 100), "textures/rock.png"),
-		new Sprite("Rock2", mainScene, glm::vec2(50, 160), glm::vec2(100, 100), "textures/rock2.png"),
-		new Sprite("Rock3", mainScene, glm::vec2(50, 270), glm::vec2(100, 100), "textures/rock3.png"),
-		new Sprite("Rock4", mainScene, glm::vec2(50, 380), glm::vec2(100, 100), "textures/rock.png"),
-		new Sprite("Rock5", mainScene, glm::vec2(50, 490), glm::vec2(100, 100), "textures/rock3.png"),
-		new Sprite("Rock6", mainScene, glm::vec2(270, 50), glm::vec2(335, 100), "textures/rock3.png"),
-		new Sprite("Rock7", mainScene, glm::vec2(350, 260), glm::vec2(110, 300), "textures/rock2.png"),
-		new Sprite("Rock8", mainScene, glm::vec2(350, 425), glm::vec2(40, 20), "textures/rock.png")
 
-	};
-	Rocks[2]->setRotation(3.14);
-	
-	for (int i = 0; i < 8; i++)
-	{
-		Rocks[i]->setCollideDebug(true);
-	}
-	
+	SpriteSheetSprite *spriteSheetTest = new SpriteSheetSprite("spreadsheettest", mainScene, glm::vec2(150, 300), glm::vec2(202, 350), 1, 4, "textures/metal_spider.png");
+
+	float test = spriteSheetTest->angleTo(health[0]);
+
 	SceneObject *spawnObject = new SceneObject();
-	spawnObject->setParent(rs2);
-	spawnObject->setPosition(glm::vec2(rs2->getCenter().x, rs2->getCenter().y));
+	spawnObject->setParent(rocket);
+	spawnObject->setPosition(glm::vec2(rocket->getCenter().x, rocket->getCenter().y));
 	wave->setVisible(false);
-	//wave->setActive(false);
-	//rs2->setRotation(3.14/2);
-	rs2->setBoundAction("STOP");
 
-	//set up colliders for sprites
-	//wave->addCircleCollider("test", 10, 0, 0);
+	rocket->setBoundAction("STOP");
+
 	wave->setCollideDebug(true);
 	
 	//set up bound actions for sprites
-	rs2->setBoundAction("STOP");
-
-	//collision sensors
-	CollisionSensor *goal1 = new CollisionSensor("goal1", wave, rocketGoal, true);
-	CollisionSensor *RocksCol[8] = { new CollisionSensor("c1", rs2, Rocks[0], true),
-		new CollisionSensor("c2", rs2, Rocks[1], true),
-		new CollisionSensor("c3", rs2, Rocks[2], true),
-		new CollisionSensor("c4", rs2, Rocks[3], true),
-		new CollisionSensor("c5", rs2, Rocks[4], true),
-		new CollisionSensor("c6", rs2, Rocks[5], true),
-		new CollisionSensor("c7", rs2, Rocks[6], true),
-		new CollisionSensor("c8", rs2, Rocks[7], true)
-	};
-
-	CollisionSensor *RocksWaveCol[8] = { new CollisionSensor("w1", wave, Rocks[0], true),
-		new CollisionSensor("c2", wave, Rocks[1], true),
-		new CollisionSensor("c3", wave, Rocks[2], true),
-		new CollisionSensor("c4", wave, Rocks[3], true),
-		new CollisionSensor("c5", wave, Rocks[4], true),
-		new CollisionSensor("c6", wave, Rocks[5], true),
-		new CollisionSensor("c7", wave, Rocks[6], true),
-		new CollisionSensor("c8", wave, Rocks[7], true)
-	};
+	rocket->setBoundAction("STOP");
 
 
 	//set up keyboard Sensors
@@ -132,83 +92,27 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kk = new KeyboardSensor("rdown", GLFW_KEY_K);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	AlwaysSensor *A = new AlwaysSensor();
-	//CollisionSensor *waveCol = new CollisionSensor("waveCol", wave, , true);
-	
-	//motion acts for rocks col
-	MotionActuator *RocksMot[8] = {
-		new MotionActuator("rock1", rs2,"flipx"),
-		new MotionActuator("rock1", rs2,"flipx"),
-		new MotionActuator("rock1", rs2,"flipx"),
-		new MotionActuator("rock1", rs2,"flipx"),
-		new MotionActuator("rock1", rs2,"flipx"),
-		new MotionActuator("rock1", rs2,"flipy"),
-		new MotionActuator("rock1", rs2,"flipx"),
-		new MotionActuator("rock1", rs2,"flipy")
-	};
 
 	ActiveActuator *waveActive = new ActiveActuator("wave", wave, false);
 	VisibilityActuator *waveVisible = new VisibilityActuator("wave", wave, false);
 	PositionActuator *waveAfterHit = new PositionActuator("waveMove", wave, 10000, 10000);
 
-
-	RocksCol[0]->addActuator(RocksMot[0]);
-	RocksCol[1]->addActuator(RocksMot[1]);
-	RocksCol[2]->addActuator(RocksMot[2]);
-	RocksCol[3]->addActuator(RocksMot[3]);
-	RocksCol[4]->addActuator(RocksMot[4]);
-	RocksCol[5]->addActuator(RocksMot[5]);
-	RocksCol[6]->addActuator(RocksMot[6]);
-	RocksCol[7]->addActuator(RocksMot[7]);
-
-	RocksWaveCol[0]->addActuator(waveVisible);
-	RocksWaveCol[1]->addActuator(waveVisible);
-	RocksWaveCol[2]->addActuator(waveVisible);
-	RocksWaveCol[3]->addActuator(waveVisible);
-	RocksWaveCol[4]->addActuator(waveVisible);
-	RocksWaveCol[5]->addActuator(waveVisible);
-	RocksWaveCol[6]->addActuator(waveVisible);
-	RocksWaveCol[7]->addActuator(waveVisible);
-
-	/*RocksWaveCol[0]->addActuator(waveActive);
-	RocksWaveCol[1]->addActuator(waveActive);
-	RocksWaveCol[2]->addActuator(waveActive);
-	RocksWaveCol[3]->addActuator(waveActive);
-	RocksWaveCol[4]->addActuator(waveActive);
-	RocksWaveCol[5]->addActuator(waveActive);
-	RocksWaveCol[6]->addActuator(waveActive);
-	RocksWaveCol[7]->addActuator(waveActive);
-	*/
-
-	RocksWaveCol[0]->addActuator(waveAfterHit);
-	RocksWaveCol[1]->addActuator(waveAfterHit);
-	RocksWaveCol[2]->addActuator(waveAfterHit);
-	RocksWaveCol[3]->addActuator(waveAfterHit);
-	RocksWaveCol[4]->addActuator(waveAfterHit);
-	RocksWaveCol[5]->addActuator(waveAfterHit);
-	RocksWaveCol[6]->addActuator(waveAfterHit);
-	RocksWaveCol[7]->addActuator(waveAfterHit);
-
-
-
 	//set up actuators
-	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, -.1, "rotateBy");
-	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, .1, "rotateBy");
-	MotionActuator *mUp = new MotionActuator("mup", rs2,0, .5, "forceForward");
+	MotionActuator *rLeft = new MotionActuator("rotateLeft", rocket, -.1, "rotateBy");
+	MotionActuator *rRight = new MotionActuator("rotateRight", rocket, .1, "rotateBy");
+	MotionActuator *mUp = new MotionActuator("mup", rocket,0, .5, "forceForward");
 	MotionActuator *clearWaveMotion = new MotionActuator("clearWaveMotion", wave, 0, "both");
-	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rs2);
+	MotionActuator *rotWaveMotion = new MotionActuator("rotWaveMotion", wave, rocket);
 	PositionActuator *rocketFront = new PositionActuator("rocketFront", wave, spawnObject);
 	VisibilityActuator *waveVisibleTrue = new VisibilityActuator("visbleWave", wave, true);
 	ActiveActuator *waveActiveTrue = new ActiveActuator("activeWave", wave, true);
-	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
+	MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rocket);
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
 	//set up sound 
-	SoundActuator *shootSound = new SoundActuator("sound/shoot.wav", "");
-	SoundActuator *moveSound = new SoundActuator("sound/movement.wav","");
-	SoundActuator *music = new SoundActuator("sound/music.wav", "looping");
-
-
-	
+	//SoundActuator *shootSound = new SoundActuator("sound/shoot.wav", "");
+	//SoundActuator *moveSound = new SoundActuator("sound/movement.wav","");
+	//SoundActuator *music = new SoundActuator("sound/music.wav", "looping");
 
 	VisibilityActuator *v[6] = { new VisibilityActuator("visible1", health[5], false),
 		new VisibilityActuator("visible2", health[4], false),
@@ -248,17 +152,13 @@ int main(int argc, char *argv[])
 	kSpace->addActuator(rocketFront);
 	kSpace->addActuator(rotWaveMotion);
 	kSpace->addActuator(waveMotion);
-	kSpace->addActuator(shootSound);
-	//ks->addActuator(s1);
+	//kSpace->addActuator(shootSound);
 	kw->addActuator(mUp);
 	kw->addActuator(t);
-	kw->addActuator(moveSound);
+	//kw->addActuator(moveSound);
 	kj->addActuator(rLeft);
 	kl->addActuator(rRight);
-	//kk->addActuator(s1);
-	//ki->addActuator(s1);
-	goal1->addActuator(sceneAct1);
-	A->addActuator(music);
+	//A->addActuator(music);
 	
 	//add sensors to scene 1
 	mainScene.addSensor(ka);
@@ -270,33 +170,11 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(ki);
 	mainScene.addSensor(kk);
 	mainScene.addSensor(kSpace);
-	mainScene.addSensor(RocksCol[0]);
-	mainScene.addSensor(RocksCol[1]);
-	mainScene.addSensor(RocksCol[2]);
-	mainScene.addSensor(RocksCol[3]);
-	mainScene.addSensor(RocksCol[4]);
-	mainScene.addSensor(RocksCol[5]);
-	mainScene.addSensor(RocksCol[6]);
-	mainScene.addSensor(RocksCol[7]);
 
-	mainScene.addSensor(RocksWaveCol[0]);
-	mainScene.addSensor(RocksWaveCol[1]);
-	mainScene.addSensor(RocksWaveCol[2]);
-	mainScene.addSensor(RocksWaveCol[3]);
-	mainScene.addSensor(RocksWaveCol[4]);
-	mainScene.addSensor(RocksWaveCol[5]);
-	mainScene.addSensor(RocksWaveCol[6]);
-	mainScene.addSensor(RocksWaveCol[7]);
-
-	SceneDirector::getInstance()->addSensor(goal1);
-	//add sensors to scene 2
-	
-	
-	//add sensors to scene 3
 
 	//add scenes to the scene director
-	SceneDirector::getInstance()->addScene(&scene2);
-	SceneDirector::getInstance()->addScene(&scene3);
+	//SceneDirector::getInstance()->addScene(&scene2);
+	//SceneDirector::getInstance()->addScene(&scene3);
 
 
 	//set camera witdth and height

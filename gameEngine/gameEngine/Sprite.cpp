@@ -5,6 +5,7 @@ const double PI = 3.141592653589793238463;
 
 Sprite::Sprite()
 {
+	std::cout << "test";
 }
 
 //empty sprite
@@ -114,12 +115,86 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	resetCounter = 0;
 }
 
+Sprite::Sprite(std::string n, AbstractScene & scene, glm::vec2 pos, glm::vec2 size, GLchar * texture, int vFrames, int hFrames, glm::vec2 velocity, glm::vec3 color)
+	: parentScene(&scene), textureFile(texture), Color(color), collideDebug(false), transparency(1)
+{
+	this->name = n;
+	this->Center = pos;
+	this->Size = size;
+	this->lastSize = this->Size;
+	this->Velocity = velocity;
+	this->Rotation = 0;
+	this->lastRotation = this->Rotation;
+	//center the postion based on the height and width of the sprite
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
+
+	this->lastPosition = this->Position;
+
+	BoxCollider *temp = new BoxCollider("default", *this, size.x, size.y);
+	temp->setPosition(this->Position);
+	glm::vec2 test2 = temp->getPosition();
+	colliders_.push_back(temp);
+
+	//load texture
+	ResourceManager::LoadTextureSS(texture, true,vFrames, hFrames, texture);
+	this->Texture = ResourceManager::GetTexture(texture);
+
+	//texture for collider debug
+	ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+	ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+
+	scene.addSprite(this);
+
+	/*
+	//add Sprite to Scene, get Sprites, add new sprite.
+	std::vector<AbstractSprite*> tempSprites = scene.getSprites();
+	tempSprites.push_back(this);
+
+	tempSprites.back()->setPosition(this->Position);
+	tempSprites.back()->setCenter(this->Center);
+	tempSprites.back()->setSize(this->Size);
+	tempSprites.back()->setVelocity(this->Velocity);
+	tempSprites.back()->setColor(this->Color);
+	tempSprites.back()->setRotation(this->Rotation);
+	tempSprites.back()->setTexture(this->Texture);
+	tempSprites.back()->collideDebug = this->collideDebug;
+
+	//set new vector back to the scene
+	scene.setSprites(tempSprites);
+	*/
+
+	this->active = true;
+	this->visible = true;
+
+	//init init vars, for restarting scenes
+	initCenter = Center;
+	initColor = Color;
+	initPosition = Position;
+	initRotation = Rotation;
+	initSize = Size;
+	initTexture = Texture;
+	initTextureFile = textureFile;
+	initVelocity = Velocity;
+
+	resetCounter = 0;
+}
+
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
 void Sprite::Draw(SpriteRenderer &renderer)
 {
 	if (visible)
 	{
 		//std::cout << "\n" << this->Position.x;
+		if (name == "spreadsheettest")
+		{
+			Texture2D temp = this->getTexture();
+			glm::vec2 temp2 = this->Position;
+			glm::vec2 temp3 = this->getSize();
+			float temp4 = this->getRotation();
+			glm::vec3 temp5 = this->getColor();
+
+		}
 		renderer.DrawSprite(this->getTexture(), this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
@@ -291,7 +366,7 @@ void Sprite::Update()
 }
 
 //hide the sprite, by moving it far far away
-void Sprite::hide()
+void Sprite::hideOffScreen()
 {
 	this->Position.x = 10000;
 	this->Position.y = 10000;
