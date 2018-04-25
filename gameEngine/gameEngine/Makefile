@@ -36,7 +36,7 @@ DISTNAME      = simpleGameGL1.0.0
 DISTDIR = /mnt/c/Users/link/Documents/GitHub/simpleGameGL/gameEngine/gameEngine/.tmp/simpleGameGL1.0.0
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -lglfw -lGLEW -lGLU -lglut -lGL -lopenal -lalut ./SOIL2/headers/libsoil2-debug.a 
+LIBS          = $(SUBLIBS) -lglfw -lGLEW -lGLU -lglut -lGL -lopenal -lalut ./SOIL2/headers/libsoil2-debug.a -pthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -83,7 +83,8 @@ SOURCES       = main.cpp \
 		Colliders/BoxCollider.cpp \
 		Colliders/CircleCollider.cpp \
 		Colliders/Edge.cpp \
-		Colliders/PolyCollider.cpp 
+		Colliders/PolyCollider.cpp \
+		SensorActuators/ObjectPoolActuator.cpp 
 OBJECTS       = main.o \
 		AbstractScene.o \
 		AbstractSprite.o \
@@ -119,7 +120,8 @@ OBJECTS       = main.o \
 		BoxCollider.o \
 		CircleCollider.o \
 		Edge.o \
-		PolyCollider.o
+		PolyCollider.o \
+		ObjectPoolActuator.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -205,7 +207,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		./Colliders/BoxCollider.h \
 		./Colliders/CircleCollider.h \
 		./Colliders/Edge.h \
-		./Colliders/PolyCollider.h main.cpp \
+		./Colliders/PolyCollider.h \
+		./SensorActuators/ObjectPoolActuator.h \
+		ObjectPool.h main.cpp \
 		AbstractScene.cpp \
 		AbstractSprite.cpp \
 		Camera.cpp \
@@ -240,7 +244,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Colliders/BoxCollider.cpp \
 		Colliders/CircleCollider.cpp \
 		Colliders/Edge.cpp \
-		Colliders/PolyCollider.cpp
+		Colliders/PolyCollider.cpp \
+		SensorActuators/ObjectPoolActuator.cpp
 QMAKE_TARGET  = simpleGameGL
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = simpleGameGL
@@ -540,12 +545,11 @@ main.o: main.cpp OPENGL/headers/GL/glew.h \
 		OPENAL/headers/alut.h \
 		OPENAL/headers/alc.h \
 		OPENAL/headers/al.h \
-		QuadScene.h \
 		Sprite.h \
 		Colliders/BoxCollider.h \
 		Colliders/CircleCollider.h \
 		Colliders/PolyCollider.h \
-		RocketSprite.h \
+		ObjectPool.h \
 		SensorActuators/CameraActuator.h \
 		Observers/ObserverHandler.h \
 		Observers/Observer.h \
@@ -553,6 +557,7 @@ main.o: main.cpp OPENGL/headers/GL/glew.h \
 		Observers/CheckBoundsObserver.h \
 		Observers/CollisionGroupObserver.h \
 		SensorActuators/MotionActuator.h \
+		SensorActuators/ObjectPoolActuator.h \
 		SensorActuators/PositionActuator.h \
 		SensorActuators/CollisionSensor.h \
 		SensorActuators/CheckBoundsSensor.h \
@@ -2419,7 +2424,19 @@ MotionActuator.o: SensorActuators/MotionActuator.cpp SensorActuators/MotionActua
 		AbstractSprite.h \
 		Colliders/AbstractCollider.h \
 		DrawSceneObject.h \
-		Colliders/Edge.h
+		Colliders/Edge.h \
+		SensorActuators/ObjectPoolActuator.h \
+		ObjectPool.h \
+		Sprite.h \
+		ResourceManager.h \
+		Colliders/BoxCollider.h \
+		AbstractScene.h \
+		Observers/AbstractObserver.h \
+		SensorActuators/AbstractSensor.h \
+		OPENGL/headers/GLFW/glfw3.h \
+		Camera.h \
+		Colliders/CircleCollider.h \
+		Colliders/PolyCollider.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MotionActuator.o SensorActuators/MotionActuator.cpp
 
 ParentActuator.o: SensorActuators/ParentActuator.cpp SensorActuators/ParentActuator.h \
@@ -2534,8 +2551,8 @@ ParentActuator.o: SensorActuators/ParentActuator.cpp SensorActuators/ParentActua
 
 PositionActuator.o: SensorActuators/PositionActuator.cpp SensorActuators/PositionActuator.h \
 		SensorActuators/AbstractActuator.h \
-		AbstractSprite.h \
-		Colliders/AbstractCollider.h \
+		Sprite.h \
+		OPENGL/headers/GL/glew.h \
 		OPENGL/headers/glm/glm.hpp \
 		OPENGL/headers/glm/detail/_fixes.hpp \
 		OPENGL/headers/glm/fwd.hpp \
@@ -2628,23 +2645,34 @@ PositionActuator.o: SensorActuators/PositionActuator.cpp SensorActuators/Positio
 		OPENGL/headers/glm/detail/func_integer.inl \
 		OPENGL/headers/glm/detail/func_integer_simd.inl \
 		OPENGL/headers/glm/simd/integer.h \
+		Texture.h \
 		sprite_renderer.h \
-		OPENGL/headers/GL/glew.h \
 		OPENGL/headers/glm/gtc/matrix_transform.hpp \
 		OPENGL/headers/glm/gtc/constants.hpp \
 		OPENGL/headers/glm/gtc/constants.inl \
 		OPENGL/headers/glm/gtc/matrix_transform.inl \
-		Texture.h \
 		Shader.h \
 		OPENGL/headers/glm/gtc/type_ptr.hpp \
 		OPENGL/headers/glm/gtc/quaternion.hpp \
 		OPENGL/headers/glm/gtc/quaternion.inl \
 		OPENGL/headers/glm/gtc/quaternion_simd.inl \
 		OPENGL/headers/glm/gtc/type_ptr.inl \
+		ResourceManager.h \
+		AbstractSprite.h \
+		Colliders/AbstractCollider.h \
 		MovingSceneObject.h \
 		SceneObject.h \
 		DrawSceneObject.h \
-		Colliders/Edge.h
+		Colliders/Edge.h \
+		Colliders/BoxCollider.h \
+		AbstractScene.h \
+		Observers/AbstractObserver.h \
+		SensorActuators/AbstractSensor.h \
+		OPENGL/headers/GLFW/glfw3.h \
+		Camera.h \
+		Colliders/CircleCollider.h \
+		Colliders/PolyCollider.h \
+		ObjectPool.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PositionActuator.o SensorActuators/PositionActuator.cpp
 
 SceneActuator.o: SensorActuators/SceneActuator.cpp SensorActuators/SceneActuator.h \
@@ -3700,6 +3728,132 @@ PolyCollider.o: Colliders/PolyCollider.cpp Colliders/PolyCollider.h \
 		Colliders/Edge.h \
 		AbstractSprite.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PolyCollider.o Colliders/PolyCollider.cpp
+
+ObjectPoolActuator.o: SensorActuators/ObjectPoolActuator.cpp SensorActuators/ObjectPoolActuator.h \
+		SensorActuators/AbstractActuator.h \
+		ObjectPool.h \
+		SceneObject.h \
+		OPENGL/headers/GL/glew.h \
+		OPENGL/headers/glm/glm.hpp \
+		OPENGL/headers/glm/detail/_fixes.hpp \
+		OPENGL/headers/glm/fwd.hpp \
+		OPENGL/headers/glm/detail/type_int.hpp \
+		OPENGL/headers/glm/detail/setup.hpp \
+		OPENGL/headers/glm/simd/platform.h \
+		OPENGL/headers/glm/detail/type_float.hpp \
+		OPENGL/headers/glm/detail/type_vec.hpp \
+		OPENGL/headers/glm/detail/precision.hpp \
+		OPENGL/headers/glm/detail/type_mat.hpp \
+		OPENGL/headers/glm/vec2.hpp \
+		OPENGL/headers/glm/detail/type_vec2.hpp \
+		OPENGL/headers/glm/detail/_swizzle.hpp \
+		OPENGL/headers/glm/detail/_swizzle_func.hpp \
+		OPENGL/headers/glm/detail/type_vec2.inl \
+		OPENGL/headers/glm/vec3.hpp \
+		OPENGL/headers/glm/detail/type_vec3.hpp \
+		OPENGL/headers/glm/detail/type_vec3.inl \
+		OPENGL/headers/glm/vec4.hpp \
+		OPENGL/headers/glm/detail/type_vec4.hpp \
+		OPENGL/headers/glm/detail/type_vec4.inl \
+		OPENGL/headers/glm/detail/type_vec4_simd.inl \
+		OPENGL/headers/glm/mat2x2.hpp \
+		OPENGL/headers/glm/detail/type_mat2x2.hpp \
+		OPENGL/headers/glm/detail/type_mat2x2.inl \
+		OPENGL/headers/glm/detail/func_matrix.hpp \
+		OPENGL/headers/glm/mat2x3.hpp \
+		OPENGL/headers/glm/detail/type_mat2x3.hpp \
+		OPENGL/headers/glm/detail/type_mat2x3.inl \
+		OPENGL/headers/glm/mat2x4.hpp \
+		OPENGL/headers/glm/detail/type_mat2x4.hpp \
+		OPENGL/headers/glm/detail/type_mat2x4.inl \
+		OPENGL/headers/glm/mat3x2.hpp \
+		OPENGL/headers/glm/detail/type_mat3x2.hpp \
+		OPENGL/headers/glm/detail/type_mat3x2.inl \
+		OPENGL/headers/glm/mat3x3.hpp \
+		OPENGL/headers/glm/detail/type_mat3x3.hpp \
+		OPENGL/headers/glm/detail/type_mat3x3.inl \
+		OPENGL/headers/glm/mat3x4.hpp \
+		OPENGL/headers/glm/detail/type_mat3x4.hpp \
+		OPENGL/headers/glm/detail/type_mat3x4.inl \
+		OPENGL/headers/glm/mat4x2.hpp \
+		OPENGL/headers/glm/detail/type_mat4x2.hpp \
+		OPENGL/headers/glm/detail/type_mat4x2.inl \
+		OPENGL/headers/glm/mat4x3.hpp \
+		OPENGL/headers/glm/detail/type_mat4x3.hpp \
+		OPENGL/headers/glm/detail/type_mat4x3.inl \
+		OPENGL/headers/glm/mat4x4.hpp \
+		OPENGL/headers/glm/detail/type_mat4x4.hpp \
+		OPENGL/headers/glm/detail/type_mat4x4.inl \
+		OPENGL/headers/glm/detail/type_mat4x4_simd.inl \
+		OPENGL/headers/glm/detail/func_matrix.inl \
+		OPENGL/headers/glm/geometric.hpp \
+		OPENGL/headers/glm/detail/func_geometric.hpp \
+		OPENGL/headers/glm/detail/func_geometric.inl \
+		OPENGL/headers/glm/detail/func_exponential.hpp \
+		OPENGL/headers/glm/detail/type_vec1.hpp \
+		OPENGL/headers/glm/detail/type_vec1.inl \
+		OPENGL/headers/glm/detail/func_exponential.inl \
+		OPENGL/headers/glm/detail/func_vector_relational.hpp \
+		OPENGL/headers/glm/detail/func_vector_relational.inl \
+		OPENGL/headers/glm/detail/func_vector_relational_simd.inl \
+		OPENGL/headers/glm/detail/_vectorize.hpp \
+		OPENGL/headers/glm/detail/func_exponential_simd.inl \
+		OPENGL/headers/glm/simd/exponential.h \
+		OPENGL/headers/glm/detail/func_common.hpp \
+		OPENGL/headers/glm/detail/func_common.inl \
+		OPENGL/headers/glm/detail/func_common_simd.inl \
+		OPENGL/headers/glm/simd/common.h \
+		OPENGL/headers/glm/detail/func_geometric_simd.inl \
+		OPENGL/headers/glm/simd/geometric.h \
+		OPENGL/headers/glm/detail/func_matrix_simd.inl \
+		OPENGL/headers/glm/simd/matrix.h \
+		OPENGL/headers/glm/trigonometric.hpp \
+		OPENGL/headers/glm/detail/func_trigonometric.hpp \
+		OPENGL/headers/glm/detail/func_trigonometric.inl \
+		OPENGL/headers/glm/detail/func_trigonometric_simd.inl \
+		OPENGL/headers/glm/exponential.hpp \
+		OPENGL/headers/glm/common.hpp \
+		OPENGL/headers/glm/packing.hpp \
+		OPENGL/headers/glm/detail/func_packing.hpp \
+		OPENGL/headers/glm/detail/func_packing.inl \
+		OPENGL/headers/glm/detail/type_half.hpp \
+		OPENGL/headers/glm/detail/type_half.inl \
+		OPENGL/headers/glm/detail/func_packing_simd.inl \
+		OPENGL/headers/glm/matrix.hpp \
+		OPENGL/headers/glm/vector_relational.hpp \
+		OPENGL/headers/glm/integer.hpp \
+		OPENGL/headers/glm/detail/func_integer.hpp \
+		OPENGL/headers/glm/detail/func_integer.inl \
+		OPENGL/headers/glm/detail/func_integer_simd.inl \
+		OPENGL/headers/glm/simd/integer.h \
+		sprite_renderer.h \
+		OPENGL/headers/glm/gtc/matrix_transform.hpp \
+		OPENGL/headers/glm/gtc/constants.hpp \
+		OPENGL/headers/glm/gtc/constants.inl \
+		OPENGL/headers/glm/gtc/matrix_transform.inl \
+		Texture.h \
+		Shader.h \
+		OPENGL/headers/glm/gtc/type_ptr.hpp \
+		OPENGL/headers/glm/gtc/quaternion.hpp \
+		OPENGL/headers/glm/gtc/quaternion.inl \
+		OPENGL/headers/glm/gtc/quaternion_simd.inl \
+		OPENGL/headers/glm/gtc/type_ptr.inl \
+		Sprite.h \
+		ResourceManager.h \
+		AbstractSprite.h \
+		Colliders/AbstractCollider.h \
+		MovingSceneObject.h \
+		DrawSceneObject.h \
+		Colliders/Edge.h \
+		Colliders/BoxCollider.h \
+		AbstractScene.h \
+		Observers/AbstractObserver.h \
+		SensorActuators/AbstractSensor.h \
+		OPENGL/headers/GLFW/glfw3.h \
+		Camera.h \
+		Colliders/CircleCollider.h \
+		Colliders/PolyCollider.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectPoolActuator.o SensorActuators/ObjectPoolActuator.cpp
 
 ####### Install
 

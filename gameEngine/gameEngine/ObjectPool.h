@@ -15,7 +15,7 @@ public:
 
 protected:
 	typedef T type;
-	std::vector<typedef T*> pool;
+	std::vector<T*> pool;
 	int index;
 };
 
