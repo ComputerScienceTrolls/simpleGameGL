@@ -8,6 +8,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include "ResourceManager.h"
+#include <alut.h>
+#include <al.h>
+#include <alc.h>
 
 #include "SensorActuators/AbstractSensor.h"
 #include "Observers/AbstractObserver.h"

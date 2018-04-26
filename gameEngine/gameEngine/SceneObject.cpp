@@ -3,6 +3,20 @@
 
 SceneObject::SceneObject()
 {
+	this->name = "";
+	this->Size = glm::vec2(0);
+	this->Position = glm::vec2(0);
+	this->Center = glm::vec2(0);
+}
+
+SceneObject::SceneObject(std::string name, glm::vec2 Pos, glm::vec2 Size)
+{
+	this->name = name;
+	this->Center = Pos;
+	this->Size = Size;
+
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
 }
 
 SceneObject::SceneObject(SceneObject * copy)
@@ -30,10 +44,11 @@ void SceneObject::setPosition(glm::vec2 newPosition)
 	this->Center.y = this->Position.y + this->Size.y / 2;
 }
 
+
 void SceneObject::setPosition(double degrees, glm::vec2 start, int amount)
 {
 		//input angle is in degrees - convert to radians    
-		degrees = degrees * float((PI) / 180);
+ 		degrees = degrees * float((PI) / 180);
 
 		//calc x and y based on the degree and amount given
 		double newDX = amount * std::cos(degrees);
@@ -41,6 +56,10 @@ void SceneObject::setPosition(double degrees, glm::vec2 start, int amount)
 
 		this->Position.x = float(start.x + newDX);
 		this->Position.y = float(start.y + newDY);
+
+		//set Center accordingly
+		this->Center.x = this->Position.x + this->Size.x / 2;
+		this->Center.y = this->Position.y + this->Size.y / 2;
 }
 
 void SceneObject::setPosX(float newX)
@@ -62,6 +81,23 @@ void SceneObject::setPosY(float newY)
 void SceneObject::setCenter(glm::vec2 newCenter)
 {
 	this->Center = newCenter;
+
+	//we need to change pos accordingly
+	this->Position.x = this->Center.x - this->Size.x / 2;
+	this->Position.y = this->Center.y - this->Size.y / 2;
+}
+
+void SceneObject::setCenter(double degrees, glm::vec2 start, int amount)
+{
+	//input angle is in degrees - convert to radians    
+	degrees = degrees * float((PI) / 180);
+
+	//calc x and y based on the degree and amount given
+	double newDX = amount * std::cos(degrees);
+	double newDY = amount * std::sin(degrees);
+
+	this->Center.x = float(start.x + newDX);
+	this->Center.y = float(start.y + newDY);
 
 	//we need to change pos accordingly
 	this->Position.x = this->Center.x - this->Size.x / 2;

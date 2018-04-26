@@ -66,16 +66,13 @@ void PositionActuator::run()
 	else if (condition == "objectPoolSet")
 	{
 		SceneObject *object = new SceneObject();
-		if (OPS)
-			object = OPS->getObject();
-		else if (OPSO)
+		if (OPS || OPSO)
 			object = OPS->getObject();
 		else
 			std::cout << "\n error in Position Actuator, no suitiable Object Pool detected";
 
 		object->setPosX(two->getPosX() + two->getWidth() / 2);
 		object->setPosY(two->getPosY() + two->getHeight() / 2);
-		
 	}
 }
 

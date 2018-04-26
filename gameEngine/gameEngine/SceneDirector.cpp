@@ -14,6 +14,10 @@ int nbFrames = 0;
 SceneDirector::SceneDirector()
  {	
 	glfwInit();
+
+	//initiate openAl component
+	alutInit(NULL, 0);
+
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -436,4 +440,7 @@ SceneDirector::~SceneDirector()
 {
 	glfwTerminate();
 	ResourceManager::Clear();
+
+	//delete items that are on heap that is used by openal
+	alutExit();
 }

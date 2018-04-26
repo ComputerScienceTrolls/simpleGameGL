@@ -209,7 +209,7 @@ void MotionActuator::run()
 	{
 		double degrees = double(object->getRotation()) * (180 / 3.141592653589793238463);
 		float h = object->getHeight();
-		anotherObject->setPosition(degrees + 180, object->getPosition(),int(h));
+		anotherObject->setPosition(degrees + 180, object->getCenter(),int(h));
 		break;
 	}
 	default:

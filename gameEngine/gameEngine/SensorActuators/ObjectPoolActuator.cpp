@@ -77,11 +77,37 @@ void ObjectPoolActuator::run()
 	else if (condition == "spriteSpawnRotateForce")
 	{
 		Sprite *temp = dynamic_cast<Sprite*>(this->getObject());
+		//clear motion
 		temp->setVelocity(glm::vec2(0));
-		temp->setPosition(SO->getPosition());
+		//set positon to given spawn object
+		temp->setCenter(SO->getCenter());
+		//enable object
 		temp->setVisible(true);
 		temp->setActive(true);
-		double degrees = double(forceToward->getRotation()) * ((180 / 3.141592653589793238463));
+		double degrees = double(forceToward->getRotation()) * (180 / 3.141592653589793238463);
+		float h = forceToward->getHeight();
+		temp->setCenter(degrees + 180, forceToward->getCenter(), int(h));
+		//add force to direction of the given parent, then set the same angle
+		//double degrees = double(forceToward->getRotation()) * ((180 / 3.141592653589793238463));
+		temp->addForce(float(degrees) + 180, force);
+		temp->setRotation(forceToward->getRotation());
+	}
+	else if (condition == "frontLauncher")
+	{
+		Sprite *temp = dynamic_cast<Sprite*>(this->getObject());
+		//clear motion
+		temp->setVelocity(glm::vec2(0));
+
+		//enable object
+		temp->setVisible(true);
+		temp->setActive(true);
+
+		//set temps position to the length of it's current rotation, so set it in front of the object
+		double degrees = double(forceToward->getRotation()) * (180 / 3.141592653589793238463);
+		float h = forceToward->getHeight();
+		temp->setPosition(degrees + 180, forceToward->getCenter(), int(h));
+
+		//add force to direction of the given parent, then set the same angle
 		temp->addForce(float(degrees) + 180, force);
 		temp->setRotation(forceToward->getRotation());
 	}

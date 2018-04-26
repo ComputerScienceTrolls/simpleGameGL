@@ -2,9 +2,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Scene.h"
-#include <alut.h>
-#include <al.h>
-#include <alc.h>
 
 #include "SceneDirector.h"
 #include "Sprite.h"
@@ -45,10 +42,7 @@ Scene scene3("levels3", 800, 600);
 
 
 int main(int argc, char *argv[])
-{
-	//initiate openAl component
-	alutInit(NULL, 0);
-	
+{	
 	//initiate main scene
 	mainScene.Init();
 
@@ -218,7 +212,6 @@ int main(int argc, char *argv[])
 	}
 	
 	SceneObject *spawnObject = new SceneObject();
-	spawnObject->setParent(rs2);
 	spawnObject->setPosition(glm::vec2(rs2->getPosition().x + rs2->getSize().x/2, rs2->getPosition().y - rs2->getSize().y / 2));
 	std::cout << "\ntest: " << rs2->getPosX();
 	std::cout << "\ntest2: " << spawnObject->getPosX();
@@ -267,7 +260,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *ki = new KeyboardSensor("rup", GLFW_KEY_I);
 	KeyboardSensor *kk = new KeyboardSensor("rdown", GLFW_KEY_K);
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
-	AlwaysSensor *A = new AlwaysSensor();
+	AlwaysSensor *Always = new AlwaysSensor();
 	//CollisionSensor *waveCol = new CollisionSensor("waveCol", wave, , true);
 	
 	//motion acts for rocks col
@@ -364,10 +357,10 @@ int main(int argc, char *argv[])
 	kl->addActuator(rRight);
 	goal1->addActuator(sceneAct1);
 	//A->addActuator(music);
-	A->addActuator(keepSpawnerInFrontOfRocket);
+	//Always->addActuator(keepSpawnerInFrontOfRocket);
 	
 	//add sensors to scene 1
-	mainScene.addSensor(A);
+	//mainScene.addSensor(A);
 	mainScene.addSensor(ka);
 	mainScene.addSensor(kd);
 	mainScene.addSensor(kw);
@@ -407,9 +400,6 @@ int main(int argc, char *argv[])
 
 	//start game 
 	SceneDirector::getInstance()->Start();
-	
-	//delete items that are on heap that is used by openal
-	alutExit();
 
 	return 0;
 }

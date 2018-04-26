@@ -11,6 +11,7 @@ class SceneObject
 {
 public:
 	SceneObject();
+	SceneObject(std::string name, glm::vec2 Pos = glm::vec2(0), glm::vec2 Size = glm::vec2(0));
 	SceneObject(SceneObject* copy);
 
 	//set methods
@@ -19,6 +20,7 @@ public:
 	virtual void setPosX(float);
 	virtual void setPosY(float);
 	virtual void setCenter(glm::vec2);
+	virtual void setCenter(double degrees, glm::vec2, int amount);
 	virtual void setSize(glm::vec2);
 	virtual void setWidth(float);
 	virtual void setHeight(float);
