@@ -5,6 +5,10 @@ CollisionSensor::CollisionSensor(std::string n, AbstractSprite *first, AbstractS
 {
 	this->name = n;
 	this->allInScene = false;
+	if (oneShot)
+		myState = new CollisionSensorSpriteSpriteOneShot(oneS, twoS, actuators);
+	else
+		myState = new CollisionSensorSpriteSpriteNoOneShot(oneS, twoS, actuators);
 }
 
 CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s, AbstractCollider *c, bool o) :
@@ -12,6 +16,11 @@ CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s, AbstractColli
 {
 	this->name = n;
 	this->allInScene = false;
+
+	if (oneShot)
+		myState = new CollisionSensorSpriteColliderOneShot(oneS, twoC, actuators);
+	else
+		myState = new CollisionSensorSpriteColliderNoOneShot(oneS, twoC, actuators);
 }
 
 CollisionSensor::CollisionSensor(std::string n, AbstractCollider *c1, AbstractCollider *c2, bool o) :
@@ -19,6 +28,12 @@ CollisionSensor::CollisionSensor(std::string n, AbstractCollider *c1, AbstractCo
 {
 	this->name = n;
 	this->allInScene = false;
+
+	if (oneShot)
+		myState = new CollisionSensorColliderColliderOneShot(oneC, twoC, actuators);
+	else
+		myState = new CollisionSensorColliderColliderNoOneShot(oneC, twoC, actuators);
+
 }
 
 CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s1, Scene *sc, bool o) :
@@ -30,6 +45,8 @@ CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s1, Scene *sc, b
 
 void CollisionSensor::sense()
 {
+	if (myState)
+		myState->exec();
 	/*
 	//if all in scene, check collider for all
 	if (allInScene)
@@ -51,7 +68,7 @@ void CollisionSensor::sense()
 			}
 		}
 	}
-	*/
+	
 	//if oneshot set to true, only run act once until sense not true
 	bool tapped = true;
 	if (oneShot)
@@ -62,15 +79,12 @@ void CollisionSensor::sense()
 			{
 				if (oneS->collide(twoS))
 				{
-					if (this->name == "w1")
-					{
-						//std::cout << "wut: " << oneS->getPosX();
-					}
 					tapped = false;
 					for (int i = 0; i < actuators.size(); i++)
 					{
 						actuators.at(i)->run();
 					}
+				
 				}
 			}
 			else if (oneS && twoC)
@@ -108,7 +122,8 @@ void CollisionSensor::sense()
 	{
 		if (oneS && twoS)
 		{
-			if (oneS->collide(twoS))
+			myState = new CollisionSensorSpriteSpriteNoOneShot(oneS, twoS, actuators);
+			/*if (oneS->collide(twoS))
 			{
 				for (int i = 0; i < actuators.size(); i++)
 				{
@@ -137,6 +152,7 @@ void CollisionSensor::sense()
 			}
 		}
 	}
+	*/
 }
 
 CollisionSensor::~CollisionSensor()
