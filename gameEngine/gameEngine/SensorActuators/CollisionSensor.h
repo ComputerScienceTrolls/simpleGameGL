@@ -37,19 +37,19 @@ private:
 class CollisionSensorSpriteSpriteNoOneShot : public CollisonSensorState
 {
 public:
-	CollisionSensorSpriteSpriteNoOneShot(AbstractSprite* oneS, AbstractSprite* twoS, std::vector<AbstractActuator*> actuators)
+	CollisionSensorSpriteSpriteNoOneShot(AbstractSprite* oneSp, AbstractSprite* twoSp, std::vector<AbstractActuator*> acts)
 	{
-		oneS = oneS;
-		twoS = twoS;
-		actuators = actuators;
+		oneS = oneSp;
+		twoS = twoSp;
+		actuators = &acts;
 	};
 	virtual void exec()
 	{
 		if (oneS->collide(twoS))
 		{
-			for (int i = 0; i < actuators.size(); i++)
+			for (int i = 0; i < actuators->size(); i++)
 			{
-				actuators.at(i)->run();
+				actuators->at(i)->run();
 			}
 		}
 	};
@@ -58,18 +58,18 @@ public:
 private:
 	AbstractSprite *oneS;
 	AbstractSprite *twoS;
-	std::vector<AbstractActuator*> actuators;
+	std::vector<AbstractActuator*> *actuators;
 
 };
 
 class CollisionSensorSpriteSpriteOneShot : public CollisonSensorState
 {
 public:
-	CollisionSensorSpriteSpriteOneShot(AbstractSprite* oneSp, AbstractSprite* twoS, std::vector<AbstractActuator*> actuators)
+	CollisionSensorSpriteSpriteOneShot(AbstractSprite* oneSp, AbstractSprite* twoSp, std::vector<AbstractActuator*> &acts)
 	{
 		oneS = oneSp;
-		twoS = twoS;
-		actuators = actuators;
+		twoS = twoSp;
+		actuators = &acts;
 		tapped = true;
 	};
 	virtual void exec()
@@ -79,9 +79,9 @@ public:
 			if (oneS->collide(twoS))
 			{
 				tapped = false;
-				for (int i = 0; i < actuators.size(); i++)
+				for (int i = 0; i < actuators->size(); i++)
 				{
-					actuators.at(i)->run();
+					actuators->at(i)->run();
 				}
 
 			}
@@ -97,7 +97,7 @@ public:
 private:
 	AbstractSprite *oneS;
 	AbstractSprite *twoS;
-	std::vector<AbstractActuator*> actuators;
+	std::vector<AbstractActuator*> *actuators;
 	bool tapped;
 
 };
@@ -105,19 +105,19 @@ private:
 class CollisionSensorSpriteColliderNoOneShot : public CollisonSensorState
 {
 public:
-	CollisionSensorSpriteColliderNoOneShot(AbstractSprite* oneS, AbstractCollider* twoC, std::vector<AbstractActuator*> actuators)
+	CollisionSensorSpriteColliderNoOneShot(AbstractSprite* oneS, AbstractCollider* twoC, std::vector<AbstractActuator*> &acts)
 	{
 		oneS = oneS;
 		twoC = twoC;
-		actuators = actuators;
+		actuators = &acts;
 	};
 	virtual void exec()
 	{
 		if (oneS->collide(twoC))
 		{
-			for (int i = 0; i < actuators.size(); i++)
+			for (int i = 0; i < actuators->size(); i++)
 			{
-				actuators.at(i)->run();
+				actuators->at(i)->run();
 			}
 		}
 	};
@@ -126,17 +126,17 @@ public:
 private:
 	AbstractSprite *oneS;
 	AbstractCollider *twoC;
-	std::vector<AbstractActuator*> actuators;
+	std::vector<AbstractActuator*> *actuators;
 };
 
 class CollisionSensorSpriteColliderOneShot : public CollisonSensorState
 {
 public:
-	CollisionSensorSpriteColliderOneShot(AbstractSprite* oneS, AbstractCollider* twoC, std::vector<AbstractActuator*> actuators)
+	CollisionSensorSpriteColliderOneShot(AbstractSprite* oneS, AbstractCollider* twoC, std::vector<AbstractActuator*> &acts)
 	{
 		oneS = oneS;
 		twoC = twoC;
-		actuators = actuators;
+		actuators = &acts;
 		tapped = true;
 	};
 	virtual void exec()
@@ -146,9 +146,9 @@ public:
 			if (oneS->collide(twoC))
 			{
 				tapped = false;
-				for (int i = 0; i < actuators.size(); i++)
+				for (int i = 0; i < actuators->size(); i++)
 				{
-					actuators.at(i)->run();
+					actuators->at(i)->run();
 				}
 			}
 		}
@@ -163,26 +163,26 @@ public:
 private:
 	AbstractSprite *oneS;
 	AbstractCollider *twoC;
-	std::vector<AbstractActuator*> actuators;
+	std::vector<AbstractActuator*> *actuators;
 	bool tapped;
 };
 
 class CollisionSensorColliderColliderNoOneShot : public CollisonSensorState
 {
 public:
-	CollisionSensorColliderColliderNoOneShot(AbstractCollider* oneC, AbstractCollider* twoC, std::vector<AbstractActuator*> actuators)
+	CollisionSensorColliderColliderNoOneShot(AbstractCollider* oneCo, AbstractCollider* twoCo, std::vector<AbstractActuator*> &acts)
 	{
-		oneC = oneC;
-		twoC = twoC;
-		actuators = actuators;
+		oneC = oneCo;
+		twoC = twoCo;
+		actuators = &acts;
 	};
 	virtual void exec()
 	{
 		if (oneC->collide(twoC))
 		{
-			for (int i = 0; i < actuators.size(); i++)
+			for (int i = 0; i < actuators->size(); i++)
 			{
-				actuators.at(i)->run();
+				actuators->at(i)->run();
 			}
 		}
 	};
@@ -191,17 +191,17 @@ public:
 private:
 	AbstractCollider *oneC;
 	AbstractCollider *twoC;
-	std::vector<AbstractActuator*> actuators;
+	std::vector<AbstractActuator*> *actuators;
 };
 
 class CollisionSensorColliderColliderOneShot : public CollisonSensorState
 {
 public:
-	CollisionSensorColliderColliderOneShot(AbstractCollider* oneC, AbstractCollider* twoC, std::vector<AbstractActuator*> actuators)
+	CollisionSensorColliderColliderOneShot(AbstractCollider* oneCo, AbstractCollider* twoCo, std::vector<AbstractActuator*> &acts)
 	{
-		oneC = oneC;
-		twoC = twoC;
-		actuators = actuators;
+		oneC = oneCo;
+		twoC = twoCo;
+		actuators = &acts;
 		tapped = true;
 	};
 	virtual void exec()
@@ -211,9 +211,9 @@ public:
 			if (oneC->collide(twoC))
 			{
 				tapped = false;
-				for (int i = 0; i < actuators.size(); i++)
+				for (int i = 0; i < actuators->size(); i++)
 				{
-					actuators.at(i)->run();
+					actuators->at(i)->run();
 				}
 			}
 		}
@@ -228,6 +228,78 @@ public:
 private:
 	AbstractCollider *oneC;
 	AbstractCollider *twoC;
-	std::vector<AbstractActuator*> actuators;
+	std::vector<AbstractActuator*> *actuators;
+	bool tapped;
+};
+
+
+class CollisionSensorSpriteSceneNoOneShot : public CollisonSensorState
+{
+public:
+	CollisionSensorSpriteSceneNoOneShot(AbstractSprite* oneSp, AbstractScene* twoSc, std::vector<AbstractActuator*> &acts)
+	{
+		oneS = oneSp;
+		scene = twoSc;
+		actuators = &acts;
+	};
+	virtual void exec()
+	{
+		for (int i = 0; i < scene->getColliders().size(); i++)
+		{
+			if (oneS->collide(scene->getColliders()[i]))
+			{
+				for (int j = 0; j < actuators->size(); j++)
+				{
+					actuators->at(j)->run();
+				}
+			}
+		}
+	};
+	~CollisionSensorSpriteSceneNoOneShot() {};
+
+private:
+	AbstractSprite *oneS;
+	AbstractScene *scene;
+	std::vector<AbstractActuator*> *actuators;
+};
+
+class CollisionSensorSpriteSceneOneShot : public CollisonSensorState
+{
+public:
+	CollisionSensorSpriteSceneOneShot(AbstractSprite* oneSp, AbstractScene* twoSc, std::vector<AbstractActuator*> &acts)
+	{
+		oneS = oneSp;
+		scene = twoSc;
+		actuators = &acts;
+		tapped = true;
+	};
+	virtual void exec()
+	{
+		for (int i = 0; i < scene->getColliders().size(); i++)
+		{
+			if (tapped)
+			{
+				if (oneS->collide(scene->getColliders()[i]))
+				{
+					tapped = false;
+					for (int j = 0; j < actuators->size(); j++)
+					{
+						actuators->at(j)->run();
+					}
+				}
+			}
+			//else we are not colliding, reset tapped
+			else
+			{
+				tapped = true;
+			}
+		}
+	};
+	~CollisionSensorSpriteSceneOneShot() {};
+
+private:
+	AbstractSprite *oneS;
+	AbstractScene *scene;
+	std::vector<AbstractActuator*> *actuators;
 	bool tapped;
 };
