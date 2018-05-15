@@ -1,46 +1,51 @@
 #include "CollisionSensor.h"
 
 CollisionSensor::CollisionSensor(std::string n, AbstractSprite *first, AbstractSprite *second, bool o) :
-	oneS(first), twoS(second), oneShot(o)
+	oneShot(o)
 {
 	this->name = n;
-	this->allInScene = false;
 	if (oneShot)
-		myState = new CollisionSensorSpriteSpriteOneShot(oneS, twoS, actuators);
+		myState = new CollisionSensorSpriteSpriteOneShot(first, second, actuators);
 	else
-		myState = new CollisionSensorSpriteSpriteNoOneShot(oneS, twoS, actuators);
+		myState = new CollisionSensorSpriteSpriteNoOneShot(first, second, actuators);
+}
+
+CollisionSensor::CollisionSensor(std::string n, AbstractSprite *oneS, std::vector<AbstractSprite*> groupS, bool oneShot)
+{
+	this->name = n;
+	if (oneShot)
+		myState = new CollisionSensorSpriteSpriteGroupOneShot(oneS, groupS, actuators);
+	else
+		myState = new CollisionSensorSpriteSpriteGroupOneShot(oneS, groupS, actuators);
 }
 
 CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s, AbstractCollider *c, bool o) :
-	oneS(s), twoC(c), oneShot(o)
+	oneShot(o)
 {
 	this->name = n;
-	this->allInScene = false;
 
 	if (oneShot)
-		myState = new CollisionSensorSpriteColliderOneShot(oneS, twoC, actuators);
+		myState = new CollisionSensorSpriteColliderOneShot(s, c, actuators);
 	else
-		myState = new CollisionSensorSpriteColliderNoOneShot(oneS, twoC, actuators);
+		myState = new CollisionSensorSpriteColliderNoOneShot(s, c, actuators);
 }
 
 CollisionSensor::CollisionSensor(std::string n, AbstractCollider *c1, AbstractCollider *c2, bool o) :
-	oneC(c1), twoC(c2), oneShot(o)
+	oneShot(o)
 {
 	this->name = n;
-	this->allInScene = false;
 
 	if (oneShot)
-		myState = new CollisionSensorColliderColliderOneShot(oneC, twoC, actuators);
+		myState = new CollisionSensorColliderColliderOneShot(c1, c2, actuators);
 	else
-		myState = new CollisionSensorColliderColliderNoOneShot(oneC, twoC, actuators);
+		myState = new CollisionSensorColliderColliderNoOneShot(c1, c2, actuators);
 
 }
 
 CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s1, Scene *sc, bool o) :
-	oneS(s1), scene(sc), oneShot(o)
+	oneShot(o)
 {
 	this->name = n;
-	this->allInScene = true;
 }
 
 void CollisionSensor::sense()

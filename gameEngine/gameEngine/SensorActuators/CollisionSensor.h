@@ -17,6 +17,7 @@ class CollisionSensor : public AbstractSensor
 {
 public:
 	CollisionSensor(std::string name, AbstractSprite*, AbstractSprite*, bool oneShot = false);
+	CollisionSensor(std::string name, AbstractSprite*, std::vector<AbstractSprite*>, bool oneShot = false);
 	CollisionSensor(std::string name, AbstractSprite*, AbstractCollider*, bool oneShot = false);
 	CollisionSensor(std::string name, AbstractCollider*, AbstractCollider*, bool oneShot = false);
 	CollisionSensor(std::string name, AbstractSprite*, Scene*, bool oneShot = false);
@@ -24,13 +25,7 @@ public:
 	~CollisionSensor();
 
 private:
-	AbstractSprite *oneS;
-	AbstractSprite *twoS;
-	AbstractCollider *oneC;
-	AbstractCollider *twoC;
-	AbstractScene *scene;
 	bool oneShot;
-	bool allInScene;
 	CollisonSensorState *myState;
 };
 
@@ -300,6 +295,91 @@ public:
 private:
 	AbstractSprite *oneS;
 	AbstractScene *scene;
+	std::vector<AbstractActuator*> *actuators;
+	bool tapped;
+};
+
+class CollisionSensorSpriteSpriteGroupNoOneShot : public CollisonSensorState
+{
+public:
+	CollisionSensorSpriteSpriteGroupNoOneShot(AbstractSprite* oneSp, std::vector<AbstractSprite*> sGroup, std::vector<AbstractActuator*> &acts)
+	{
+		oneS = oneSp;
+		spriteGroup = sGroup;
+		actuators = &acts;
+	};
+	virtual void exec()
+	{
+		//we are assuming that our sensors are being associated with a actuator with the same index.
+		for (int i = 0; i < spriteGroup.size(); i++)
+		{
+			if (i > actuators->size())
+			{
+				std::cerr << "sensor/actuator grouping failure, sensor index out of range of actuators";
+			}
+			else
+			{
+				if (oneS->collide(spriteGroup[i]))
+				{
+					actuators->at(i)->run();
+					//since it's a group we don't want to continue checking if one has collided.
+					break;
+				}
+			}
+		}
+	};
+	~CollisionSensorSpriteSpriteGroupNoOneShot() {};
+
+private:
+	AbstractSprite *oneS;
+	std::vector<AbstractSprite*> spriteGroup;
+	std::vector<AbstractActuator*> *actuators;
+};
+
+class CollisionSensorSpriteSpriteGroupOneShot : public CollisonSensorState
+{
+public:
+	CollisionSensorSpriteSpriteGroupOneShot(AbstractSprite* oneSp, std::vector<AbstractSprite*> sGroup, std::vector<AbstractActuator*> &acts)
+	{
+		oneS = oneSp;
+		spriteGroup = sGroup;
+		actuators = &acts;
+		tapped = true;
+	};
+	virtual void exec()
+	{
+		for (int i = 0; i < spriteGroup.size(); i++)
+		{
+			if (tapped)
+			{
+				if (i > actuators->size())
+				{
+					std::cerr << "sensor/actuator grouping failure, sensor index out of range of actuators";
+				}
+				else
+				{
+					if (oneS->collide(spriteGroup[i]))
+					{
+						tapped = false;
+						actuators->at(i)->run();
+						//since it's a group we don't want to continue checking if one has collided.
+						break;
+					}
+				}
+				//since it's a group we don't want to continue checking if one has collided.
+			}
+			//else we are not colliding, reset tapped
+			else
+			{
+				tapped = true;
+			}
+		}
+	};
+	~CollisionSensorSpriteSpriteGroupOneShot() {};
+
+private:
+	AbstractSprite *oneS;
+	std::vector<AbstractSprite*> spriteGroup;
 	std::vector<AbstractActuator*> *actuators;
 	bool tapped;
 };

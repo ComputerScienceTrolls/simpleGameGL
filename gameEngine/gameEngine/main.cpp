@@ -229,7 +229,7 @@ int main(int argc, char *argv[])
 
 	//collision sensors
 	CollisionSensor *goal1 = new CollisionSensor("goal1", wave, rocketGoal, true);
-	CollisionSensor *RocksCol[8] = { new CollisionSensor("c1", rs2, Rocks[0], true),
+	/*CollisionSensor *RocksCol[8] = { new CollisionSensor("c1", rs2, Rocks[0], true),
 		new CollisionSensor("c2", rs2, Rocks[1], true),
 		new CollisionSensor("c3", rs2, Rocks[2], true),
 		new CollisionSensor("c4", rs2, Rocks[3], true),
@@ -237,7 +237,21 @@ int main(int argc, char *argv[])
 		new CollisionSensor("c6", rs2, Rocks[5], true),
 		new CollisionSensor("c7", rs2, Rocks[6], true),
 		new CollisionSensor("c8", rs2, Rocks[7], true)
-	};
+	};*/
+
+	std::vector<AbstractSprite*> rockVector;
+	rockVector.push_back(Rocks[0]);
+	rockVector.push_back(Rocks[1]);
+	rockVector.push_back(Rocks[2]);
+	rockVector.push_back(Rocks[3]);
+	rockVector.push_back(Rocks[4]);
+	rockVector.push_back(Rocks[5]);
+	rockVector.push_back(Rocks[6]);
+	rockVector.push_back(Rocks[7]);
+
+	std::cout << rockVector.at(0)->getName() << "\n" << rockVector.at(1)->getName() << "\n" << rockVector.at(2)->getName();
+
+	CollisionSensor *rocketRocksCollsionSensor =  new CollisionSensor("rockgroup", rs2, rockVector);
 
 	CollisionSensor *RocksWaveCol[8] = { new CollisionSensor("w1", wave, Rocks[0], true),
 		new CollisionSensor("c2", wave, Rocks[1], true),
@@ -280,14 +294,14 @@ int main(int argc, char *argv[])
 	PositionActuator *waveAfterHit = new PositionActuator("waveMove", wave, 10000, 10000);
 
 
-	RocksCol[0]->addActuator(RocksMot[0]);
-	RocksCol[1]->addActuator(RocksMot[1]);
-	RocksCol[2]->addActuator(RocksMot[2]);
-	RocksCol[3]->addActuator(RocksMot[3]);
-	RocksCol[4]->addActuator(RocksMot[4]);
-	RocksCol[5]->addActuator(RocksMot[5]);
-	RocksCol[6]->addActuator(RocksMot[6]);
-	RocksCol[7]->addActuator(RocksMot[7]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[0]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[1]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[2]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[3]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[4]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[5]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[6]);
+	rocketRocksCollsionSensor->addActuator(RocksMot[7]);
 
 	RocksWaveCol[0]->addActuator(waveVisible);
 	RocksWaveCol[1]->addActuator(waveVisible);
@@ -370,14 +384,7 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(ki);
 	mainScene.addSensor(kk);
 	mainScene.addSensor(kSpace);
-	mainScene.addSensor(RocksCol[0]);
-	mainScene.addSensor(RocksCol[1]);
-	mainScene.addSensor(RocksCol[2]);
-	mainScene.addSensor(RocksCol[3]);
-	mainScene.addSensor(RocksCol[4]);
-	mainScene.addSensor(RocksCol[5]);
-	mainScene.addSensor(RocksCol[6]);
-	mainScene.addSensor(RocksCol[7]);
+	mainScene.addSensor(rocketRocksCollsionSensor);
 
 	mainScene.addSensor(RocksWaveCol[0]);
 	mainScene.addSensor(RocksWaveCol[1]);
