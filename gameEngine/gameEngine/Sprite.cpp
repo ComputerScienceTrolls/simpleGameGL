@@ -44,7 +44,7 @@ Sprite::Sprite(Sprite * copySprite)
 
 //empty sprite
 Sprite::Sprite(std::string n, AbstractScene &scene)
-	: parentScene(&scene), Color(1.0f), Texture(), collideDebug(false), transparency(1)
+	: parentScene(&scene), Texture(), collideDebug(false), transparency(1)
 {
 	this->name = n;
 	this->Center = glm::vec2(10);
@@ -59,6 +59,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	this->speed = 10;
 	this->moveAngle = 0;
 	this->imgAngle = 0;
+	this->Color = glm::vec4(1.0f);
 
 	//give default box collider
 	BoxCollider *temp = new BoxCollider("default",*this, 1, 1);
@@ -82,7 +83,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 
 //make given pos the center of the sprite, so calc the real pos, setup given texture, setup collider texture, add sprite to scene, set velocity, and init initvalues
 Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
-	: parentScene(&scene), textureFile(texture), Color(color), collideDebug(false), transparency(1)
+	: parentScene(&scene), textureFile(texture), collideDebug(false), transparency(1)
 {
 	this->name = n;
 	this->Center = pos;
@@ -94,6 +95,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x/2;
 	this->Position.y = this->Center.y - this->Size.y/2;
+	this->Color = color;
 	
 	this->lastPosition = this->Position;
 
@@ -133,7 +135,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 
 //constructor with no scene give, sprite will not be updated or drawn until given to a scene
 Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, glm::vec2 velocity, glm::vec3 color)
-	: textureFile(texture), Color(color), collideDebug(false), transparency(1)
+	: textureFile(texture), collideDebug(false), transparency(1)
 {
 	this->name = n;
 	this->Center = pos;
@@ -145,6 +147,7 @@ Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, g
 	//center the postion based on the height and width of the sprite
 	this->Position.x = this->Center.x - this->Size.x / 2;
 	this->Position.y = this->Center.y - this->Size.y / 2;
+	this->Color = color;
 
 	this->lastPosition = this->Position;
 
@@ -395,11 +398,6 @@ Texture2D Sprite::getTexture()
 	return this->Texture;
 }
 
-glm::vec3 Sprite::getColor()
-{
-	return this->Color;
-}
-
 bool Sprite::getVisible()
 {
 	return this->visible;
@@ -413,11 +411,6 @@ std::vector<AbstractCollider*> Sprite::getColliders()
 void Sprite::setTexture(Texture2D newTexture)
 {
 	this->Texture = newTexture;
-}
-
-void Sprite::setColor(glm::vec3 newColor)
-{
-	this->Color = newColor;
 }
 
 void Sprite::setColliders(std::vector<AbstractCollider*> newColliders)

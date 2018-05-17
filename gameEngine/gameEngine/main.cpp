@@ -29,6 +29,8 @@
 #include "SensorActuators/TimesActuator.h"
 #include "SensorActuators/ObjectPoolActuator.h"
 
+#include "Particle.h"
+
 #include <thread>
 
 // The Width of the screen
@@ -203,6 +205,12 @@ int main(int argc, char *argv[])
 		
 	}
 	*/
+
+	GLuint nr_particles = 500;
+	std::vector<Particle> particles;
+
+	for (GLuint i = 0; i < nr_particles; ++i)
+	particles.push_back(Particle());
 
 	Rocks[2]->setRotation(float(3.14));
 	
