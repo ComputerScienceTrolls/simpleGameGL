@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 
-class BoxCollider : public AbstractCollider, public virtual MovingSceneObject, public virtual DrawSceneObject
+class BoxCollider : public AbstractCollider
 {
 
 public:

@@ -13,6 +13,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <vector>
+
 #include "Texture.h"
 #include "Shader.h"
 
@@ -26,6 +28,7 @@ public:
 	~SpriteRenderer();
 	// Renders a defined quad textured with given sprite
 	void DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(10, 10), GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f), GLfloat transparent = 1);
+	void DrawLine(std::vector<glm::vec2> vecs, GLfloat size, Texture2D &texture);
 private:
 	// Render state
 	Shader shader;

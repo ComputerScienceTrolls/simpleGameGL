@@ -89,7 +89,7 @@ void Scene::Render()
 		ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 		
 		Texture2D tempTexture = ResourceManager::GetTexture("background");
-		Renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
+		//Renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
 		//give camera's pos so Sprite's can render accordingly
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{

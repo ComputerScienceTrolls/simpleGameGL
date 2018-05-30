@@ -4,9 +4,7 @@
 #include "../AbstractScene.h"
 #include "../ResourceManager.h"
 
-#include "math.h"
-
-class CircleCollider : public AbstractCollider, public virtual MovingSceneObject, public virtual DrawSceneObject
+class CircleCollider : public AbstractCollider
 {
 
 public:

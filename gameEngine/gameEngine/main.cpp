@@ -29,6 +29,8 @@
 #include "SensorActuators/TimesActuator.h"
 #include "SensorActuators/ObjectPoolActuator.h"
 
+#include "BoxColliderAsync.h"
+
 #include <thread>
 
 // The Width of the screen
@@ -49,8 +51,15 @@ int main(int argc, char *argv[])
 	
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
+	rs2->removeCollider("default");
+	std::vector<glm::vec2> rsPolyColVerts;
+	rsPolyColVerts.push_back(glm::vec2(0, 0));
+	rsPolyColVerts.push_back(glm::vec2(500, 600));
+	rsPolyColVerts.push_back(glm::vec2(200, 100));
+	rsPolyColVerts.push_back(glm::vec2(400, 500));
+	
+	//rs2->addPolyCollider("poly", rsPolyColVerts);
 	rs2->setRotation(float(3.14 / 2));
-
 	rs2->setCollideDebug(true);
 	Sprite *rCopy = new Sprite(rs2);
 	rCopy->setPosX(200);
@@ -60,6 +69,9 @@ int main(int argc, char *argv[])
 	//wave->removeCollider("default");
 	wave->hide();
 	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
+
+	PolyCollider *polyWantsACracker = new PolyCollider("poly", rsPolyColVerts);
+	mainScene.addCollider(polyWantsACracker);
 
 	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), "textures/fuel_block.png"),
 		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
@@ -78,6 +90,8 @@ int main(int argc, char *argv[])
 		new Sprite("Rock8", mainScene, glm::vec2(350, 425), glm::vec2(40, 20), "textures/rock.png")
 
 	};
+
+	//rs2->addCollider(new BoxColliderAsync("test", 40, 40, ));
 
 	/*
 	std::thread th([]()

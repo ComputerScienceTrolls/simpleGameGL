@@ -1,8 +1,17 @@
 #include "PolyCollider.h"
+#include "../ResourceManager.h"
 
 PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<glm::vec2> vecs) :
 	spriteParent(&parent), offsetVectrices(vecs)
 {
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
 	this->name = n;
 	this->type = "Poly";
 	//get the vertex that is the most left, right, up, and down so we can get the poly con's "size" and box
@@ -62,6 +71,78 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 	}
 }
 
+PolyCollider::PolyCollider(std::string n, std::vector<glm::vec2> vecs):
+	offsetVectrices(vecs)
+{
+	this->name = n;
+	this->type = "Poly";
+	//get the vertex that is the most left, right, up, and down so we can get the poly con's "size" and box
+	float minX = 10000;
+	float maxX = 0;
+	float minY = 10000;
+	float maxY = 0;
+	if (vecs.size() < 2)
+	{
+		std::cout << "cannot create a poly collider with only 1 vector";
+	}
+	else
+	{
+		for (unsigned int i = 0; i < vecs.size(); i++)
+		{
+			if (vecs.at(i).x < minX)
+			{
+				minX = vecs.at(i).x;
+				this->minXPoint = vecs.at(i);
+			}
+			if (vecs.at(i).x > maxX)
+			{
+				maxX = vecs.at(i).x;
+			}
+			if (vecs.at(i).y < minY)
+			{
+				minY = vecs.at(i).y;
+				this->minYPoint = vecs.at(i);
+			}
+			if (vecs.at(i).y > maxY)
+			{
+				maxY = vecs.at(i).y;
+			}
+
+			//if last one, connect it to the first vec
+			Edge *temp;
+			if (i == vecs.size() - 1)
+			{
+				temp = createEdge(vecs.at(i), vecs.at(0));
+			}
+			else
+			{
+				temp = createEdge(vecs.at(i), vecs.at(i + 1));
+			}
+			edges.push_back(temp);
+		}
+
+		//store vectrices with the offset of the parent's pos, so we know it's true positon for collision
+		if (spriteParent)
+		{
+			for (unsigned int i = 0; i < vecs.size(); i++)
+			{
+				vectrices.push_back(vecs.at(i) + spriteParent->getPosition());
+			}
+		}
+		else
+		{
+			for (unsigned int i = 0; i < vecs.size(); i++)
+			{
+				vectrices.push_back(vecs.at(i));
+			}
+		}
+
+		//set width and height from our mins and maxs
+		this->Size.x = maxX - minX;
+		this->Size.y = maxY - minY;
+	}
+}
+
 //update every vertex based on the sprite's pos
 void PolyCollider::updateVecs()
 {
@@ -79,9 +160,12 @@ void PolyCollider::updateVecs()
 		edges[i]->updateDir();
 	}
 
-	for (unsigned int i = 0; i < vectrices.size(); i++)
+	if (spriteParent)
 	{
-		vectrices[i] = offsetVectrices.at(i) + spriteParent->getPosition();
+		for (unsigned int i = 0; i < vectrices.size(); i++)
+		{
+			vectrices[i] = offsetVectrices.at(i) + spriteParent->getPosition();
+		}
 	}
 
 }
@@ -188,7 +272,16 @@ std::string PolyCollider::getType()
 void PolyCollider::Draw(SpriteRenderer & renderer)
 {
 	//line just to prevent warning of unused var
-	renderer = renderer;
+	//renderer = renderer;
+
+	std::vector<glm::vec2> points;
+	for (int i = 0; i < edges.size(); i++)
+	{
+		points.push_back(glm::vec2(edges.at(i)->getPoint1().x, edges.at(i)->getPoint1().y));
+		//points.push_back(glm::vec2(edges.at(i)->getPoint2().x, edges.at(i)->getPoint2().y));
+	}
+	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");
+	renderer.DrawLine(points, 2.5, tempTexture);
 }
 
 //create an edge from two given vertexs.

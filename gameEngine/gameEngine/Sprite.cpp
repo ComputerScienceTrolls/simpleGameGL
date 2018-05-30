@@ -256,6 +256,11 @@ void Sprite::addBoxCollider(std::string name, int w, int h)
 	this->colliders_.push_back(temp);
 }
 
+void Sprite::addCollider(AbstractCollider* newCollider)
+{
+	this->colliders_.push_back(newCollider);
+}
+
 //removes collider from sprite with given name, if multiple with name only gets last one
 void Sprite::removeCollider(std::string name)
 {

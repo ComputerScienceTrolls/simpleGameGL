@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Alphabetical" MembersFormat="NameAndType">
+  <Class Name="MovingSceneObject" Collapsed="true">
+    <Position X="6.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACSggQhCQEIQJAggAAKAAEAAAAgYAQIBJARCIAAEAAA=</HashCode>
+      <FileName>MovingSceneObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractActuator" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgIAAAAAAAAAAAEAAAAAAAAEAABAAAAEAAAAAAA=</HashCode>
+      <FileName>SensorActuators\AbstractActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraActuator" Collapsed="true">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAoCAAiAAQEAAAAAAAAAAAEAAAQgAAAAAAABAAAA=</HashCode>
+      <FileName>SensorActuators\CameraActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotionActuator" Collapsed="true">
+    <Position X="18.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAoAAACAIQAAAAABAAAAAAEAAAAgAACCAAAhAAAA=</HashCode>
+      <FileName>SensorActuators\MotionActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectPoolActuator" Collapsed="true">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAoAAgAIAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SensorActuators\ObjectPoolActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParentActuator" Collapsed="true">
+    <Position X="20.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAoAAAAAAAABAAACAAAAAAAAAAAAAABAIAAAAAAA=</HashCode>
+      <FileName>SensorActuators\ParentActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PositionActuator" Collapsed="true">
+    <Position X="22.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAgoAAAAAAAAAAAAAAAAAACBAACAAEAABgAAAAiAA=</HashCode>
+      <FileName>SensorActuators\PositionActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneActuator" Collapsed="true">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAoACAAAAAAAAAAAAAIAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>SensorActuators\SceneActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundActuator" Collapsed="true">
+    <Position X="4.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAIAAAAAA=</HashCode>
+      <FileName>SensorActuators\SoundActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimesActuator" Collapsed="true">
+    <Position X="13.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAoAAAAAAAACCAQAAAAAAABAAEAAAAAAAAAABAIA=</HashCode>
+      <FileName>SensorActuators\TimesActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VisibilityActuator" Collapsed="true">
+    <Position X="16" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAgAAAAAAAAAAAAAAAAAAABAAAAAMAAAAAAAAAAA=</HashCode>
+      <FileName>SensorActuators\VisibilityActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoxColliderAsync" Collapsed="true">
+    <Position X="10.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAQAAAgAAAQgAIABAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>BoxColliderAsync.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractCollider" Collapsed="true">
+    <Position X="7.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAAAIAAAAAAAAACAABAMQgFAAAASAAAAAAUAAA=</HashCode>
+      <FileName>Colliders\AbstractCollider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoxCollider" Collapsed="true">
+    <Position X="13" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAgAAAAAAAABAACAEAAAABAAAAAAQAAA=</HashCode>
+      <FileName>Colliders\BoxCollider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircleCollider" Collapsed="true">
+    <Position X="15.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACQAAAgAAAAACAAAgAAAEAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Colliders\CircleCollider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Edge" Collapsed="true">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCACAAGAADAAAAAAAAAAAAAAAAAABAEAAAAgAAAAACA=</HashCode>
+      <FileName>Colliders\Edge.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PolyCollider" Collapsed="true">
+    <Position X="4.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAAQAAAYAYAkQAAAAKIgBAMQgUgAAABACEEAAAAAA=</HashCode>
+      <FileName>Colliders\PolyCollider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObserverHandler" Collapsed="true">
+    <Position X="28.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgQAAAIAgAAABAAAQAAAAACAAgAAE=</HashCode>
+      <FileName>Observers\ObserverHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractObserver" Collapsed="true">
+    <Position X="4" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAEAAAAAAA=</HashCode>
+      <FileName>Observers\AbstractObserver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckBoundsObserver" Collapsed="true">
+    <Position X="0.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAgACAAAAAAAAAAAAAAAABAQAgAAAAAAAA=</HashCode>
+      <FileName>Observers\CheckBoundsObserver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColliderObserver" Collapsed="true">
+    <Position X="3" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAABAAAAAAAAAAAEAAQAQABgABAAAAAAAAAAAA=</HashCode>
+      <FileName>Observers\ColliderObserver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionGroupObserver" Collapsed="true">
+    <Position X="5.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAkAAAAAAAACAAAAAAAAAAAAAAAABAAAAAAAAAQAA=</HashCode>
+      <FileName>Observers\CollisionGroupObserver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Observer" Collapsed="true">
+    <Position X="7.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAABAAAAAAAAACAA=</HashCode>
+      <FileName>Observers\Observer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractSensor" Collapsed="true">
+    <Position X="14" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAQAAAAAACAAAAAAAAAAAEEABAAAAEAAAAAEQ=</HashCode>
+      <FileName>SensorActuators\AbstractSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlwaysSensor" Collapsed="true">
+    <Position X="10.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>SensorActuators\AlwaysSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckBoundsSensor" Collapsed="true">
+    <Position X="13" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAACBAABAEAAAAAAAAAAEA=</HashCode>
+      <FileName>SensorActuators\CheckBoundsSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisonSensorState" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAQAIAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensor" Collapsed="true">
+    <Position X="17.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAEAAAQAAAAACAAAAAAAAAAEA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteSpriteNoOneShot" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAEAAAIQAAAAAAQAAQAAAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteSpriteOneShot" Collapsed="true">
+    <Position X="17.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAIFAAAAQAAAAAAAAAQAAAAIAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteColliderNoOneShot" Collapsed="true">
+    <Position X="21.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAACAAAAAAAQAQAAAAAAAAAQAAAAAgA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteColliderOneShot" Collapsed="true">
+    <Position X="1.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAABABAAQAQAAAACAAAAQAAAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorColliderColliderNoOneShot" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAACAIAAAAAQAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorColliderColliderOneShot" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAAAAAAAAAAAAACAAAABAAQAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteSceneNoOneShot" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAACAAAAAIAAAQAAAAAAAIAQAAAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteSceneOneShot" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAABIAAAQAAAQAAAABQAAAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteSpriteGroupNoOneShot" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAQAAAAAAAAAREAAIAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionSensorSpriteSpriteGroupOneShot" Collapsed="true">
+    <Position X="19.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAABAAAARAIAAAAAAAQEAAAAAA=</HashCode>
+      <FileName>SensorActuators\CollisionSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractScene" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>yoQIBAgkAiQCguwgQjIAAEAAIAAU4gBcIJCGKAIICBg=</HashCode>
+      <FileName>AbstractScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractSprite" Collapsed="true">
+    <Position X="7.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQQACAgEAAAAAgAAABAABBAAAQIEgAAgAAIAhAAIAQA=</HashCode>
+      <FileName>AbstractSprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawSceneObject" Collapsed="true">
+    <Position X="9" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgEAAAAAAIAAAAAAAAAAAAAIAIAAAIA=</HashCode>
+      <FileName>DrawSceneObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectPool&lt;T&gt;" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAACAAAAAAAAAAAAAAAAhAAAADAAA=</HashCode>
+      <FileName>ObjectPool.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="18" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQCAAAQAAABAAQAUAAAAASAwAAAQAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyHandler" Collapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAgAAACAAAAAAAAABAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>KeyHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager" Collapsed="true">
+    <Position X="25.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEBAACAAAAAABAAACAEAAAAAAAAAAAAABAAAhAAAA=</HashCode>
+      <FileName>ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAABAAAAAAAAAgAAAAAAAwAAAAAAAABACAAAAIAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneDirector" Collapsed="true">
+    <Position X="27" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwQMAIAAACAAAQgAQIgAAJAAAABYEKQIABCBCIAAAAA=</HashCode>
+      <FileName>SceneDirector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneObject" Collapsed="true">
+    <Position X="7.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>xAAAJIAAAIAAgMxgAAACAAQCCAAmQCBEAAJkIwDOCAI=</HashCode>
+      <FileName>SceneObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ActiveActuator" Collapsed="true">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAABAAAAAABAAAAAFAAAAAAAAAAA=</HashCode>
+      <FileName>SensorActuators\ActiveActuator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyboardSensor" Collapsed="true">
+    <Position X="15.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAIAAAAAAAAEEAAAAAAAAAAAgAAAAAAAAEA=</HashCode>
+      <FileName>SensorActuators\KeyboardSensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shader" Collapsed="true">
+    <Position X="28.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAYBAAAAAAghAAAAAAAAAAAAAEAAAAIAAAAAAIAEA=</HashCode>
+      <FileName>Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sound" Collapsed="true">
+    <Position X="25.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAFAAgAAAAgAAEgBEEAAAICgAAAEBAAEIAAAYAA=</HashCode>
+      <FileName>Sound.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprite" Collapsed="true">
+    <Position X="7.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CQSCgSgFgAEkIgAAABAFFJAAAAIkgAh0AAIAnAAIAAI=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpriteRenderer" Collapsed="true">
+    <Position X="27" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAEAAAAAAAAAAAAABAAAIAAAAAAAAAEAAIAA=</HashCode>
+      <FileName>sprite_renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Texture2D" Collapsed="true">
+    <Position X="28.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAERBBAgAAAAAAAAEAAAAAAAAAAAIAAAEAAACA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="string_code" Collapsed="true">
+    <Position X="25.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CECAAAACACAAAAAAABIAAIAEABAAAAAAAEAYCAAAAAE=</HashCode>
+      <FileName>SensorActuators\MotionActuator.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
