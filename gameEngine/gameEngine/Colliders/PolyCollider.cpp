@@ -69,6 +69,13 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 		this->Size.x = maxX - minX;
 		this->Size.y = maxY - minY;
 	}
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+	}
 }
 
 PolyCollider::PolyCollider(std::string n, std::vector<glm::vec2> vecs):
@@ -161,6 +168,9 @@ void PolyCollider::updateVecs()
 	}
 
 	if (spriteParent)
+		this->Position = this->minXPoint + spriteParent->getPosition();
+
+	for (unsigned int i = 0; i < vectrices.size(); i++)
 	{
 		for (unsigned int i = 0; i < vectrices.size(); i++)
 		{
@@ -237,11 +247,6 @@ glm::vec2 PolyCollider::getSpriteSize()
 	return this->spriteParent->getSize();
 }
 
-std::string PolyCollider::getName()
-{
-	return this->name;
-}
-
 //returns dot product of the two vertexs
 double PolyCollider::getDot(glm::vec2 a, glm::vec2 b)
 {
@@ -282,6 +287,7 @@ void PolyCollider::Draw(SpriteRenderer & renderer)
 	}
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");
 	renderer.DrawLine(points, 2.5, tempTexture);
+	renderer.DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), .25);
 }
 
 //create an edge from two given vertexs.
