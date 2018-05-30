@@ -263,7 +263,8 @@ void Sprite::removeCollider(std::string name)
 	int index = -1;
 	for (int i = 0; i < this->colliders_.size(); i++)
 	{
-		if (this->colliders_[i]->getName() == name)
+		std::string collName = colliders_[i]->getName();
+		if (collName == name)
 		{
 			index = i;
 		}

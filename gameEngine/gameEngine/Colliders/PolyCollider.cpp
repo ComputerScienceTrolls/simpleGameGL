@@ -1,4 +1,5 @@
 #include "PolyCollider.h"
+#include "../ResourceManager.h"
 
 PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<glm::vec2> vecs) :
 	spriteParent(&parent), offsetVectrices(vecs)
@@ -60,6 +61,13 @@ PolyCollider::PolyCollider(std::string n, AbstractSprite &parent, std::vector<gl
 		this->Size.x = maxX - minX;
 		this->Size.y = maxY - minY;
 	}
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+	}
 }
 
 //update every vertex based on the sprite's pos
@@ -78,6 +86,8 @@ void PolyCollider::updateVecs()
 
 		edges[i]->updateDir();
 	}
+
+	this->Position = this->minXPoint + spriteParent->getPosition();
 
 	for (unsigned int i = 0; i < vectrices.size(); i++)
 	{
@@ -153,11 +163,6 @@ glm::vec2 PolyCollider::getSpriteSize()
 	return this->spriteParent->getSize();
 }
 
-std::string PolyCollider::getName()
-{
-	return this->name;
-}
-
 //returns dot product of the two vertexs
 double PolyCollider::getDot(glm::vec2 a, glm::vec2 b)
 {
@@ -188,7 +193,9 @@ std::string PolyCollider::getType()
 void PolyCollider::Draw(SpriteRenderer & renderer)
 {
 	//line just to prevent warning of unused var
-	renderer = renderer;
+	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");
+	//renderer = renderer;
+	renderer.DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), .25);
 }
 
 //create an edge from two given vertexs.

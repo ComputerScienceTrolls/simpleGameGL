@@ -44,7 +44,6 @@ public:
 
 protected:
 	std::string type;
-	std::string name;
 	bool staticState;
 
 private:

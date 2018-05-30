@@ -50,6 +50,14 @@ int main(int argc, char *argv[])
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rs2->setRotation(float(3.14 / 2));
+	rs2->removeCollider("default");
+
+	std::vector<glm::vec2> testv;
+	testv.push_back(glm::vec2(0,0));
+	testv.push_back(glm::vec2(10, 10));
+	testv.push_back(glm::vec2(0, 0));
+
+	rs2->addPolyCollider("test", testv);
 
 	rs2->setCollideDebug(true);
 	Sprite *rCopy = new Sprite(rs2);
@@ -78,6 +86,18 @@ int main(int argc, char *argv[])
 		new Sprite("Rock8", mainScene, glm::vec2(350, 425), glm::vec2(40, 20), "textures/rock.png")
 
 	};
+
+	//remove the default colliders from the rocks and add a poly collider
+	for (int i = 0; i < sizeof(Rocks) / sizeof(Rocks[0]); i++)
+	{
+		Rocks[i]->removeCollider("default");
+		std::vector<glm::vec2> temp;
+		temp.push_back(glm::vec2(0, 0));
+		temp.push_back(glm::vec2(100, 100));
+		temp.push_back(glm::vec2(100, 0));
+
+		Rocks[i]->addPolyCollider("test", temp);
+	}
 
 	/*
 	std::thread th([]()

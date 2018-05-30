@@ -366,7 +366,6 @@ public:
 						break;
 					}
 				}
-				//since it's a group we don't want to continue checking if one has collided.
 			}
 			//else we are not colliding, reset tapped
 			else
