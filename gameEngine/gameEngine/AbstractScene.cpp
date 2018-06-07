@@ -59,6 +59,11 @@ std::vector<AbstractCollider*> AbstractScene::getColliders()
 	return this->Colliders;
 }
 
+std::vector<DrawSceneObject*> AbstractScene::getDrawObjects()
+{
+	return this->DrawSceneObjects;
+}
+
 void AbstractScene::addSprite(AbstractSprite *newSprite)
 {
 	Sprites.push_back(newSprite);

@@ -54,9 +54,8 @@ int main(int argc, char *argv[])
 	rs2->removeCollider("default");
 	std::vector<glm::vec2> rsPolyColVerts;
 	rsPolyColVerts.push_back(glm::vec2(0, 0));
-	rsPolyColVerts.push_back(glm::vec2(500, 600));
-	rsPolyColVerts.push_back(glm::vec2(200, 100));
-	rsPolyColVerts.push_back(glm::vec2(400, 500));
+	rsPolyColVerts.push_back(glm::vec2(50, 500));
+	rsPolyColVerts.push_back(glm::vec2(100, 10));
 	
 	//rs2->addPolyCollider("poly", rsPolyColVerts);
 	rs2->setRotation(float(3.14 / 2));
@@ -65,6 +64,7 @@ int main(int argc, char *argv[])
 	std::vector<glm::vec2> testv;
 	testv.push_back(glm::vec2(0,0));
 	testv.push_back(glm::vec2(10, 10));
+	testv.push_back(glm::vec2(0, 10));
 	testv.push_back(glm::vec2(0, 0));
 
 	rs2->addPolyCollider("test", testv);
