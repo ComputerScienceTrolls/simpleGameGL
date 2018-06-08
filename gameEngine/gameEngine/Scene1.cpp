@@ -18,6 +18,10 @@ Scene1::Scene1(std::string n, GLuint w, GLuint h)
 	this->MovingSceneObjects.push_back(&this->camera);
 	this->MovingSceneObjects.push_back(&this->background);
 
+}
+
+void Scene1::loadContents()
+{
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", *this, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rs2->removeCollider("default");

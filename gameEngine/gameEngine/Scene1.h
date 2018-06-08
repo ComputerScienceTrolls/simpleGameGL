@@ -14,11 +14,14 @@
 #include "SensorActuators/TimesActuator.h"
 #include "SensorActuators/ObjectPoolActuator.h"
 
+#include "Sprite.h"
+
 class Scene1 : public Scene
 {
 public:
 	Scene1();
 	Scene1(std::string name, GLuint width, GLuint height);
+	virtual void loadContents();
 	~Scene1();
 };
 

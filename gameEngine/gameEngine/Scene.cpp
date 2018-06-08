@@ -22,7 +22,7 @@ Scene::Scene(std::string n, GLuint w, GLuint h) :
 	this->MovingSceneObjects.push_back(&this->background);
 }
 
-//if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
+//if SceneDirector doesn't have a scene yet, assign this one, init keycallback
 void Scene::Init()
 {
 	if (!initilized)
@@ -33,7 +33,7 @@ void Scene::Init()
 			temp->addScene(this);
 		}
 		glfwSetKeyCallback(window, key_callback);
-		ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
+		//ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
 		initilized = true;
 	}
 
