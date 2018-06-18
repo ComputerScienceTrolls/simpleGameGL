@@ -37,11 +37,9 @@ public:
 	virtual void setCollideDebug(bool state);
 
 	virtual Texture2D getTexture();
-	virtual glm::vec3 getColor();
 	virtual bool getVisible();
 	virtual std::vector<AbstractCollider*> getColliders();
 	virtual void setTexture(Texture2D);
-	virtual void setColor(glm::vec3);
 	virtual void setColliders(std::vector<AbstractCollider*>);
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);

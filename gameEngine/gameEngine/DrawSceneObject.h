@@ -11,12 +11,15 @@ public:
 	DrawSceneObject();
 	virtual void setTransparency(float);
 	virtual float getTransparency();
+	virtual void setColor(glm::vec3);
+	virtual glm::vec3 getColor();
 
 	virtual void Draw(SpriteRenderer &renderer) = 0;
 	~DrawSceneObject();
 
 protected:
 	GLfloat transparency;
+	glm::vec3 Color;
 };
 
 #endif

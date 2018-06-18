@@ -161,6 +161,8 @@
     <ClCompile Include="Observers\CollisionGroupObserver.cpp" />
     <ClCompile Include="Observers\Observer.cpp" />
     <ClCompile Include="Observers\ObserverHandler.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
@@ -209,6 +211,8 @@
     <ClInclude Include="Observers\CollisionGroupObserver.h" />
     <ClInclude Include="Observers\Observer.h" />
     <ClInclude Include="Observers\ObserverHandler.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleRenderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
@@ -242,9 +246,8 @@
     <None Include="..\shaders\sprite.vs" />
     <None Include="ClassDiagram1.cd" />
     <None Include="inline.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\textures\awesomeface.png" />
+    <None Include="particle.frag" />
+    <None Include="particle.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
