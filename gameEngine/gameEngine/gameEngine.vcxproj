@@ -163,6 +163,7 @@
     <ClCompile Include="Observers\ObserverHandler.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprite1.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
@@ -209,6 +211,7 @@
     <ClInclude Include="Observers\ObserverHandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scene1.h" />
     <ClInclude Include="SceneDirector.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SensorActuators\AbstractActuator.h" />
@@ -230,6 +233,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sprite1.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
