@@ -185,6 +185,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprite1.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
@@ -232,6 +233,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sprite1.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>

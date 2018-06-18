@@ -65,18 +65,18 @@ protected:
 	Texture2D	Texture;
 	bool collideDebug;
 	bool visible;
+	AbstractScene *parentScene;
+	char* textureFile;
+	glm::vec3 Color;
+	GLfloat transparency;
 
 private:
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;
-	char* textureFile;
-	glm::vec3   Color;
 	Texture2D	initTexture;
 	char* initTextureFile;
 	glm::vec3 initColor;
 	GLfloat initRotation;
 	std::map<std::string , bool> states;
-	GLfloat transparency;
-	AbstractScene *parentScene;
 	int resetCounter;
 
 };

@@ -14,7 +14,7 @@
 #include "SensorActuators/TimesActuator.h"
 #include "SensorActuators/ObjectPoolActuator.h"
 
-#include "Sprite.h"
+#include "Sprite1.h"
 
 class Scene1 : public Scene
 {
