@@ -17,6 +17,7 @@
 #include "Colliders/BoxCollider.h"
 #include "Colliders/CircleCollider.h"
 #include "Colliders/PolyCollider.h"
+#include "BoxColliderAsync.h"
 #include "AbstractScene.h"
 
 class Sprite : public AbstractSprite
@@ -43,6 +44,7 @@ public:
 	virtual void setName(std::string);
 	virtual void addBoxCollider(std::string name, int w, int h, int posX, int posY);
 	virtual void addBoxCollider(std::string name, int w, int h);
+	virtual void addCollider(AbstractCollider *oc);
 	virtual void addCircleCollider(std::string name, float r, int posX, int posY);
 	virtual void addPolyCollider(std::string name, std::vector<glm::vec2> verticies);
 	virtual void removeCollider(std::string name);
@@ -61,17 +63,18 @@ protected:
 	Texture2D	Texture;
 	bool collideDebug;
 	bool visible;
+	AbstractScene *parentScene;
+	char* textureFile;
+	glm::vec3 Color;
+	GLfloat transparency;
 
 private:
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;
-	char* textureFile;
 	Texture2D	initTexture;
 	char* initTextureFile;
 	glm::vec3 initColor;
 	GLfloat initRotation;
 	std::map<std::string , bool> states;
-	GLfloat transparency;
-	AbstractScene *parentScene;
 	int resetCounter;
 
 };

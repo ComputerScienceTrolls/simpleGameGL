@@ -47,6 +47,7 @@ public:
 	virtual std::vector<AbstractSprite*> getSprites();
 	std::vector<AbstractSprite*> getSprite(std::string name);
 	virtual std::vector<AbstractCollider*> getColliders();
+	virtual std::vector<DrawSceneObject*> getDrawObjects();
 
 	//set's Scene's background, get's image from filename you give to fill the scene
 	void setBackground(const char*);

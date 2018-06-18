@@ -8,12 +8,12 @@ class PolyCollider : public AbstractCollider
 {
 public:
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);
+	PolyCollider(std::string name, std::vector<glm::vec2>);
 	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual bool getStaticState();
 	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
-	virtual std::string getName();
 	double getDot(glm::vec2 a, glm::vec2 b);
 	glm::vec2 normalize(glm::vec2 v);
 	glm::vec2 getNormal(glm::vec2 v);
@@ -37,4 +37,5 @@ private:
 	std::vector<Edge*> edges;
 	glm::vec2 minXPoint;
 	glm::vec2 minYPoint;
+	std::vector<glm::vec2> boundRec;
 };

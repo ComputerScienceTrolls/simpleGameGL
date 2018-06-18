@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A6DB5E0D-10DC-43AF-8FB7-92954AD092D4}</ProjectGuid>
     <RootNamespace>gameEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
+    <ClCompile Include="BoxColliderAsync.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Colliders\AbstractCollider.cpp" />
     <ClCompile Include="Colliders\BoxCollider.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SensorActuators\AbstractActuator.cpp" />
@@ -185,12 +187,14 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprite1.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
+    <ClInclude Include="BoxColliderAsync.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colliders\AbstractCollider.h" />
     <ClInclude Include="Colliders\BoxCollider.h" />
@@ -211,6 +215,7 @@
     <ClInclude Include="ParticleRenderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scene1.h" />
     <ClInclude Include="SceneDirector.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SensorActuators\AbstractActuator.h" />
@@ -232,12 +237,14 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sprite1.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\sprite.frag" />
     <None Include="..\shaders\sprite.vs" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="inline.inl" />
     <None Include="particle.frag" />
     <None Include="particle.vs" />

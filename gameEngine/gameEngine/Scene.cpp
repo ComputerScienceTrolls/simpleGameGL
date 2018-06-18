@@ -22,7 +22,7 @@ Scene::Scene(std::string n, GLuint w, GLuint h) :
 	this->MovingSceneObjects.push_back(&this->background);
 }
 
-//if SceneDirector doesn't have a scene yet, assign this one, init keycallback, setup shader and Renderer.
+//if SceneDirector doesn't have a scene yet, assign this one, init keycallback
 void Scene::Init()
 {
 	if (!initilized)
@@ -33,7 +33,7 @@ void Scene::Init()
 			temp->addScene(this);
 		}
 		glfwSetKeyCallback(window, key_callback);
-		ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
+		//ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
 		initilized = true;
 	}
 
@@ -90,7 +90,6 @@ void Scene::Render()
 		
 		Texture2D tempTexture = ResourceManager::GetTexture("background");
 		Renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
-		//give camera's pos so Sprite's can render accordingly
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{
 			DrawSceneObjects.at(i)->Draw(*Renderer);
