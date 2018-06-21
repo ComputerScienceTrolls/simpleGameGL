@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include "ResourceManager.h"
+#include "Renderer.h"
 #include <alut.h>
 #include <al.h>
 #include <alc.h>
@@ -56,7 +57,7 @@ private:
 	AbstractScene *currentScene;
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
-	SpriteRenderer *Renderer;
+	Renderer *renderer;
 };
 #include "inline.inl"
 #endif

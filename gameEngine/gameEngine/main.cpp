@@ -31,6 +31,7 @@
 
 #include "BoxColliderAsync.h"
 #include "Particle.h"
+#include "ParticleGenerator.h"
 
 #include <thread>
 
@@ -67,6 +68,13 @@ int main(int argc, char *argv[])
 	testv.push_back(glm::vec2(10, 10));
 	testv.push_back(glm::vec2(0, 10));
 	testv.push_back(glm::vec2(0, 0));
+
+	for (int i = 0; i < 50; i++)
+	{
+		Particle *temp = new Particle(rs2, glm::vec2(rs2->getSize().x/2,rs2->getSize().y/2), glm::vec2(10), "textures/Rocket001_off.png");
+		mainScene.addDrawObject(temp);
+		mainScene.addMovingObject(temp);
+	}
 
 	rs2->addPolyCollider("test", testv);
 	rs2->setCollideDebug(true);
@@ -237,12 +245,6 @@ int main(int argc, char *argv[])
 	}
 	*/
 
-	GLuint nr_particles = 500;
-	std::vector<Particle> particles;
-
-	for (GLuint i = 0; i < nr_particles; ++i)
-	particles.push_back(Particle());
-
 	Rocks[2]->setRotation(float(3.14));
 	
 	for (int i = 0; i < 8; i++)
@@ -252,8 +254,6 @@ int main(int argc, char *argv[])
 	
 	SceneObject *spawnObject = new SceneObject();
 	spawnObject->setPosition(glm::vec2(rs2->getPosition().x + rs2->getSize().x/2, rs2->getPosition().y - rs2->getSize().y / 2));
-	std::cout << "\ntest: " << rs2->getPosX();
-	std::cout << "\ntest2: " << spawnObject->getPosX();
 	wave->setVisible(false);
 	//wave->setActive(false);
 	//rs2->setRotation(3.14/2);

@@ -33,7 +33,7 @@ void Scene::Init()
 			temp->addScene(this);
 		}
 		glfwSetKeyCallback(window, key_callback);
-		//ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
+		ResourceManager::LoadTexture("textures/BGSpace001.png", GL_FALSE, "background");
 		initilized = true;
 	}
 
@@ -88,11 +88,11 @@ void Scene::Render()
 		projection = glm::translate(projection, glm::vec3(-0.5f * this->camera.getWidth(), -0.5f * this->camera.getHeight(), 0.0f)); // Move origin back
 		ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 		
-		Texture2D tempTexture = ResourceManager::GetTexture("background");
-		Renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
+		//Texture2D tempTexture = ResourceManager::GetTexture("background");
+		//renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{
-			DrawSceneObjects.at(i)->Draw(*Renderer);
+			DrawSceneObjects.at(i)->Draw(*renderer);
 		}
 	}
 }

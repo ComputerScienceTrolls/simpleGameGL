@@ -18,7 +18,7 @@ public:
 	glm::vec2 normalize(glm::vec2 v);
 	glm::vec2 getNormal(glm::vec2 v);
 	std::string getType();
-	virtual void Draw(SpriteRenderer &renderer);
+	virtual void Draw(Renderer &renderer);
 
 	Edge* createEdge(glm::vec2 p0, glm::vec2 p1);
 	virtual std::vector<double> project(glm::vec2 axis);

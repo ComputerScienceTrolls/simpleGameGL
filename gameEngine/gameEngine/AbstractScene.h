@@ -5,6 +5,7 @@
 #include "Observers/AbstractObserver.h"
 #include "SensorActuators/AbstractSensor.h"
 #include "ResourceManager.h"
+#include "Renderer.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -59,7 +60,7 @@ public:
 	virtual void setActive(bool);
 	virtual void setVisible(bool state);
 	virtual void setWindow(GLFWwindow *newWindow);
-	virtual void setRenderer(SpriteRenderer *newRenderer);
+	virtual void setRenderer(Renderer *newRenderer);
 	virtual void setCameraWidth(int);
 	virtual void setCameraHeight(int);
 	virtual void setCameraPosX(float);
@@ -76,7 +77,7 @@ protected:
 	std::vector<MovingSceneObject*> MovingSceneObjects;
 	std::vector<DrawSceneObject*> DrawSceneObjects;
 	std::vector<AbstractSensor*> sensors;
-	std::vector<AbstractCollider*> Colliders;
+	std::vector<AbstractCollider*> colliders;
 	std::vector<AbstractObserver*> observers;
 	Camera camera;
 	bool active;
@@ -85,7 +86,7 @@ protected:
 	int width;
 	std::string name;
 	GLFWwindow *window;
-	SpriteRenderer  *Renderer;
+	Renderer *renderer;
 };
 
 #endif

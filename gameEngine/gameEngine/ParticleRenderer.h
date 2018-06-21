@@ -1,4 +1,5 @@
 #pragma once
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -10,12 +11,13 @@ class ParticleRenderer
 {
 public:
 	ParticleRenderer(Shader &shader);
-	void DrawParticle(Texture2D &texture, glm::vec2 pos, glm::vec2 size, GLfloat rotate, glm::vec3 color, GLfloat transparent);
+	void Init();
+	void DrawParticle(Texture2D &texture, glm::vec2 pos, glm::vec2 size, GLfloat rotate, glm::vec3 color, GLfloat transparent, float life);
 	~ParticleRenderer();
 
 private:
 	Shader shader;
-	GLuint quadVAO;
+	GLuint VAO;
 	void initRenderData();
 };
 

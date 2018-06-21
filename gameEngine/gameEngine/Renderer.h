@@ -19,20 +19,26 @@
 #include "Shader.h"
 
 
-class SpriteRenderer
+class Renderer
 {
 public:
 	// Constructor (inits shaders/shapes)
-	SpriteRenderer(Shader &shader);
+	Renderer(Shader &shader, std::string type="sprite");
 	// Destructor
-	~SpriteRenderer();
+	~Renderer();
 	// Renders a defined quad textured with given sprite
 	void DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(10, 10), GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f), GLfloat transparent = 1);
 	void DrawLine(std::vector<glm::vec2> vecs, GLfloat size, Texture2D &texture);
+	void DrawParticle(Texture2D &texture, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color, GLfloat transparent, float life);
+
+	void setParticleShader(Shader &shader);
+
 private:
 	// Render state
-	Shader shader;
+	Shader spriteShader;
+	Shader particleShader;
 	GLuint quadVAO;
+	GLuint VAO;
 	// Initializes and configures the quad's buffer and vertex attributes
 	void initRenderData();
 };

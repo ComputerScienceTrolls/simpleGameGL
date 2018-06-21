@@ -3,7 +3,7 @@
 
 #include "AbstractScene.h"
 #include "ResourceManager.h"
-#include "sprite_renderer.h"
+#include "Renderer.h"
 #include "AbstractSprite.h"
 #include "SceneDirector.h"
 

@@ -2,6 +2,7 @@
 #define DRAWSCENEOBJECT_H
 
 #include "SceneObject.h"
+#include "Renderer.h"
 
 class DrawSceneObject : public virtual SceneObject
 {
@@ -14,7 +15,7 @@ public:
 	virtual void setColor(glm::vec3);
 	virtual glm::vec3 getColor();
 
-	virtual void Draw(SpriteRenderer &renderer) = 0;
+	virtual void Draw(Renderer &renderer) = 0;
 	~DrawSceneObject();
 
 protected:

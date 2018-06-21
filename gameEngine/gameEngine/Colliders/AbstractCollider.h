@@ -5,7 +5,6 @@
 #include <vector>
 
 #include <glm/glm.hpp>
-#include "../sprite_renderer.h"
 #include "../MovingSceneObject.h"
 #include "../DrawSceneObject.h"
 

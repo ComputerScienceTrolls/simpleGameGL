@@ -16,7 +16,7 @@ class BoxColliderAsync : public AbstractCollider
 public:
 	BoxColliderAsync(std::string name, AbstractSprite &parent, AbstractCollider*, int w, int h);
 	void checkOverlap();
-	virtual void Draw(SpriteRenderer &renderer);
+	virtual void Draw(Renderer &renderer);
 	~BoxColliderAsync() {};
 
 	bool overlap;

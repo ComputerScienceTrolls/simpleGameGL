@@ -281,7 +281,7 @@ bool BoxCollider::getStaticState()
 	return this->staticState;
 }
 
-void BoxCollider::Draw(SpriteRenderer & renderer)
+void BoxCollider::Draw(Renderer & renderer)
 {
 	//if parentSprite exists use it for render calc
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");

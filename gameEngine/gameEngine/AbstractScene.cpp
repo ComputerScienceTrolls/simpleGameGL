@@ -56,7 +56,7 @@ std::vector<AbstractSprite*> AbstractScene::getSprite(std::string name)
 
 std::vector<AbstractCollider*> AbstractScene::getColliders()
 {
-	return this->Colliders;
+	return this->colliders;
 }
 
 std::vector<DrawSceneObject*> AbstractScene::getDrawObjects()
@@ -170,7 +170,7 @@ void AbstractScene::addDrawObject(DrawSceneObject *d)
 
 void AbstractScene::addCollider(AbstractCollider *c)
 {
-	this->Colliders.push_back(c);
+	this->colliders.push_back(c);
 	this->MovingSceneObjects.push_back(c);
 	this->DrawSceneObjects.push_back(c);
 	this->SceneObjects.push_back(c);
@@ -292,9 +292,9 @@ void AbstractScene::setWindow(GLFWwindow * newWindow)
 	glfwSetWindowSize(window, int(this->camera.getWidth()), int(this->camera.getHeight()));
 }
 
-void AbstractScene::setRenderer(SpriteRenderer * newRenderer)
+void AbstractScene::setRenderer(Renderer *newRenderer)
 {
-	this->Renderer = newRenderer;
+	this->renderer = newRenderer;
 }
 
 AbstractScene::~AbstractScene()

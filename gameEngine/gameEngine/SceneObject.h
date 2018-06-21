@@ -5,7 +5,6 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
-#include "sprite_renderer.h"
 
 class SceneObject
 {

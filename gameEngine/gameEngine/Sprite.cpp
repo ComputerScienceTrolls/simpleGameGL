@@ -44,7 +44,7 @@ Sprite::Sprite(Sprite * copySprite)
 
 //empty sprite
 Sprite::Sprite(std::string n, AbstractScene &scene)
-	: parentScene(&scene), Texture(), collideDebug(false), transparency(1)
+	: parentScene(&scene), Texture(), collideDebug(false)
 {
 	this->name = n;
 	this->Center = glm::vec2(10);
@@ -60,6 +60,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	this->moveAngle = 0;
 	this->imgAngle = 0;
 	this->Color = glm::vec4(1.0f);
+	this->transparency = 1;
 
 	//give default box collider
 	BoxCollider *temp = new BoxCollider("default",*this, 1, 1);
@@ -83,7 +84,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 
 //make given pos the center of the sprite, so calc the real pos, setup given texture, setup collider texture, add sprite to scene, set velocity, and init initvalues
 Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
-	: parentScene(&scene), textureFile(texture), collideDebug(false), transparency(1)
+	: parentScene(&scene), textureFile(texture), collideDebug(false)
 {
 	this->name = n;
 	this->Center = pos;
@@ -96,6 +97,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	this->Position.x = this->Center.x - this->Size.x/2;
 	this->Position.y = this->Center.y - this->Size.y/2;
 	this->Color = color;
+	this->transparency = 1;
 	
 	this->lastPosition = this->Position;
 
@@ -135,7 +137,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 
 //constructor with no scene give, sprite will not be updated or drawn until given to a scene
 Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, glm::vec2 velocity, glm::vec3 color)
-	: textureFile(texture), collideDebug(false), transparency(1)
+	: textureFile(texture), collideDebug(false)
 {
 	this->name = n;
 	this->Center = pos;
@@ -148,6 +150,7 @@ Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, g
 	this->Position.x = this->Center.x - this->Size.x / 2;
 	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->Color = color;
+	this->transparency = 1;
 
 	this->lastPosition = this->Position;
 
@@ -185,7 +188,7 @@ Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, g
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
-void Sprite::Draw(SpriteRenderer &renderer)
+void Sprite::Draw(Renderer &renderer)
 {
 	if (visible)
 	{

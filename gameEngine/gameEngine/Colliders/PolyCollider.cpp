@@ -274,7 +274,7 @@ std::string PolyCollider::getType()
 }
 
 //not sure how to draw lines yet, need to figure out before trying to draw but need to implement pure virtual function
-void PolyCollider::Draw(SpriteRenderer & renderer)
+void PolyCollider::Draw(Renderer & renderer)
 {
 	//line just to prevent warning of unused var
 	//renderer = renderer;

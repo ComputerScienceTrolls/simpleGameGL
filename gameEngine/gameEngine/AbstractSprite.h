@@ -13,7 +13,7 @@ public:
 	AbstractSprite();
 	bool collideDebug;
 	Texture2D	Texture;
-	virtual void Draw(SpriteRenderer &renderer) {};
+	virtual void Draw(Renderer &renderer) {};
 	//virtual bool checkBounds(double screenWidth, double screenHeight) = 0;
 	virtual void hide() {};
 	virtual void Update() {};

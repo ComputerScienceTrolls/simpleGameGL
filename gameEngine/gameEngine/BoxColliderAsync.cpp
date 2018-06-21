@@ -58,6 +58,6 @@ void BoxColliderAsync::checkOverlap()
 	overlap = false;
 }
 
-void BoxColliderAsync::Draw(SpriteRenderer & renderer)
+void BoxColliderAsync::Draw(Renderer & renderer)
 {
 }
