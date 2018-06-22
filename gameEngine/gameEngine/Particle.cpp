@@ -1,5 +1,13 @@
 #include "Particle.h"
 
+Particle::Particle()
+{
+	this->delta = 1;
+	this->transparency = 1;
+	this->Velocity = glm::vec2(0, 0);
+	this->life = 10;
+}
+
 Particle::Particle(MovingSceneObject *object, glm::vec2 os, glm::vec2 size, GLchar* t, glm::vec2 velocity, glm::vec3 color, float l) :
 	life(l), offset(os)
 {

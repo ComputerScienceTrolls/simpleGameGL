@@ -35,12 +35,16 @@ SceneDirector::SceneDirector()
 	
 	Shader temp1 = ResourceManager::GetShader("sprite");
 	renderer = new Renderer(temp1);
-	renderer->setParticleShader(ResourceManager::GetShader("particle"));
+	ResourceManager::LoadTexture("textures/BG.png", GL_TRUE, "face");
+	particle = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("face"), 50);
+	//renderer->setParticleShader(ResourceManager::GetShader("particle"));
 	//Renderer = temp;
 
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+	ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
 }
 
 /*
@@ -132,6 +136,7 @@ void SceneDirector::addScene(AbstractScene *s)
 		currentScene = s;
 		currentScene->setWindow(window);
 		currentScene->setRenderer(renderer);
+		currentScene->setParticle(particle);
 	}
 }
 
@@ -193,6 +198,7 @@ void SceneDirector::setScene(AbstractScene *s)
 	currentScene = s;
 	currentScene->setWindow(window);
 	currentScene->setRenderer(renderer);
+	currentScene->setParticle(particle);
 	currentScene->Init();
 	currentScene->reset();
 	currentScene->Start();
@@ -221,6 +227,7 @@ void SceneDirector::setScenePause(AbstractScene * s)
 		currentScene = s;
 		currentScene->setWindow(window);
 		currentScene->setRenderer(renderer);
+		currentScene->setParticle(particle);
 		currentScene->Start();
 
 		bool found = false;
@@ -261,6 +268,7 @@ void SceneDirector::nextScene()
 		//init new currentScene
 		currentScene->setWindow(window);
 		currentScene->setRenderer(renderer);
+		currentScene->setParticle(particle);
 		//currentScene->Init();
 		currentScene->reset();
 		currentScene->Start();
@@ -296,6 +304,7 @@ void SceneDirector::previousScene()
 		//init new currentScene
 		currentScene->setWindow(window);
 		currentScene->setRenderer(renderer);
+		currentScene->setParticle(particle);
 		currentScene->Init();
 		currentScene->reset();
 		currentScene->Start();

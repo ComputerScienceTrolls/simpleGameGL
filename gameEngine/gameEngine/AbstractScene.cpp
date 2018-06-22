@@ -297,6 +297,11 @@ void AbstractScene::setRenderer(Renderer *newRenderer)
 	this->renderer = newRenderer;
 }
 
+void AbstractScene::setParticle(ParticleGenerator * newParticle)
+{
+	this->particle = newParticle;
+}
+
 AbstractScene::~AbstractScene()
 {
 }

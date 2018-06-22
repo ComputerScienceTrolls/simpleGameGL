@@ -17,6 +17,8 @@
 #include "Observers/AbstractObserver.h"
 #include <string>
 
+#include "ParticleGenerator.h"
+
 using std::string;
 
 class SceneDirector
@@ -58,6 +60,7 @@ private:
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
 	Renderer *renderer;
+	ParticleGenerator *particle;
 };
 #include "inline.inl"
 #endif

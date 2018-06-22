@@ -72,6 +72,8 @@ void Scene::Update(GLfloat dt)
 		{
 			observers.at(i)->Notify();
 		}
+
+		this->particle->Update(dt,*MovingSceneObjects.at(2), 2, glm::vec2(1,0));
 	}
 }
 
@@ -87,13 +89,16 @@ void Scene::Render()
 		projection = glm::rotate(projection, this->camera.getRotation(), glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
 		projection = glm::translate(projection, glm::vec3(-0.5f * this->camera.getWidth(), -0.5f * this->camera.getHeight(), 0.0f)); // Move origin back
 		ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+		ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
 		
-		//Texture2D tempTexture = ResourceManager::GetTexture("background");
-		//renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
+		Texture2D tempTexture = ResourceManager::GetTexture("background");
+		renderer->DrawSprite(tempTexture, background.getPosition(), glm::vec2(this->width, this->height), 0.0f);
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{
 			DrawSceneObjects.at(i)->Draw(*renderer);
 		}
+
+		this->particle->Draw();
 	}
 }
 

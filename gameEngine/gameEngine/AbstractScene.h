@@ -13,6 +13,7 @@
 
 #include <vector>
 #include "Camera.h"
+#include "ParticleGenerator.h"
 
 class AbstractScene
 {
@@ -61,6 +62,7 @@ public:
 	virtual void setVisible(bool state);
 	virtual void setWindow(GLFWwindow *newWindow);
 	virtual void setRenderer(Renderer *newRenderer);
+	virtual void setParticle(ParticleGenerator *newParticle);
 	virtual void setCameraWidth(int);
 	virtual void setCameraHeight(int);
 	virtual void setCameraPosX(float);
@@ -87,6 +89,7 @@ protected:
 	std::string name;
 	GLFWwindow *window;
 	Renderer *renderer;
+	ParticleGenerator *particle;
 };
 
 #endif

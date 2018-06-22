@@ -8,6 +8,7 @@
 class Particle : virtual public MovingSceneObject, virtual public DrawSceneObject
 {
 public:
+	Particle();
 	Particle(MovingSceneObject *object, glm::vec2 offset, glm::vec2 size, GLchar* texture, glm::vec2 velocity = glm::vec2(0.0f, 0.0f), glm::vec3 color = glm::vec3(1.0f), float life = 10);
 	//Particle(int life);
 	virtual void Update();

@@ -29,8 +29,8 @@ void ParticleGenerator::Update(GLfloat dt, MovingSceneObject &object, GLuint new
 		p.setLife(p.getLife()- dt); // reduce life
 		if (p.getLife() > 0.0f)
 		{	// particle is alive, thus update
-			p.setPosition(p.getPosition() - p.getVelocity() * dt);
-			p.setTransparency(p.getTransparency() - dt * 2.5);
+			//p.setPosition(p.getPosition() - p.getVelocity() * (dt * 200));
+			p.setTransparency(p.getTransparency() - dt);
 		}
 	}
 }
@@ -82,8 +82,8 @@ void ParticleGenerator::init()
 	glBindVertexArray(0);
 
 	// Create this->amount default particle instances
-	//for (GLuint i = 0; i < this->amount; ++i)
-		//this->particles.push_back(Particle());
+	for (GLuint i = 0; i < this->amount; ++i)
+		this->particles.push_back(Particle());
 }
 
 // Stores the index of the last particle used (for quick access to next dead particle)
@@ -113,8 +113,9 @@ void ParticleGenerator::respawnParticle(Particle &particle, MovingSceneObject &o
 {
 	GLfloat random = ((rand() % 100) - 50) / 10.0f;
 	GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-	particle.setPosition(object.getPosition() + random + offset);
+	particle.setPosition(object.getPosition());
 	particle.setColor(glm::vec3(rColor, rColor, rColor));
 	particle.setLife(1.0f);
-	particle.setVelocity(object.getVelocity() * 0.1f);
+	//particle.setVelocity(object.getVelocity() * 0.1f);
+	particle.setTransparency(1);
 }
