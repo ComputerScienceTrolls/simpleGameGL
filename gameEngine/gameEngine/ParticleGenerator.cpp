@@ -29,8 +29,8 @@ void ParticleGenerator::Update(GLfloat dt, MovingSceneObject &object, GLuint new
 		p.setLife(p.getLife()- dt); // reduce life
 		if (p.getLife() > 0.0f)
 		{	// particle is alive, thus update
-			//p.setPosition(p.getPosition() - p.getVelocity() * (dt * 200));
-			p.setTransparency(p.getTransparency() - dt);
+			p.setPosition(p.getPosition() - p.getVelocity() * (dt));
+			p.setTransparency(p.getTransparency() - dt * 2.5);
 		}
 	}
 }
@@ -49,7 +49,7 @@ void ParticleGenerator::Draw()
 			this->shader.SetVector4f("color", glm::vec4(particle.getColor(), particle.getTransparency()));
 			this->texture.Bind();
 			glBindVertexArray(this->VAO);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
+			glDrawArraysInstanced(GL_TRIANGLES, 0, 6, this->particles.size());
 			glBindVertexArray(0);
 		}
 	}
@@ -59,7 +59,7 @@ void ParticleGenerator::Draw()
 
 void ParticleGenerator::init()
 {
-	// Set up mesh and attribute properties
+	/*/// Set up mesh and attribute properties
 	GLuint VBO;
 	GLfloat particle_quad[] = {
 		0.0f, 1.0f, 0.0f, 1.0f,
@@ -80,6 +80,32 @@ void ParticleGenerator::init()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
 	glBindVertexArray(0);
+	*/
+	glm::vec2 translations[100];
+	int index = 0;
+	float offset = 0.1f;
+	for (int y = -10; y < 10; y += 2)
+	{
+		for (int x = -10; x < 10; x += 2)
+		{
+			glm::vec2 translation;
+			translation.x = (float)x / 10.0f + offset;
+			translation.y = (float)y / 10.0f + offset;
+			translations[index++] = translation;
+		}
+	}
+
+	unsigned int instanceVBO;
+	glGenBuffers(1, &instanceVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * 100, &translations[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glEnableVertexAttribArray(2);
+	glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glVertexAttribDivisor(2, 1);
 
 	// Create this->amount default particle instances
 	for (GLuint i = 0; i < this->amount; ++i)
@@ -113,9 +139,9 @@ void ParticleGenerator::respawnParticle(Particle &particle, MovingSceneObject &o
 {
 	GLfloat random = ((rand() % 100) - 50) / 10.0f;
 	GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-	particle.setPosition(object.getPosition());
+	particle.setPosition(object.getPosition() + random + offset);
 	particle.setColor(glm::vec3(rColor, rColor, rColor));
 	particle.setLife(1.0f);
-	//particle.setVelocity(object.getVelocity() * 0.1f);
+	particle.setVelocity(object.getVelocity() * 0.1f);
 	particle.setTransparency(1);
 }

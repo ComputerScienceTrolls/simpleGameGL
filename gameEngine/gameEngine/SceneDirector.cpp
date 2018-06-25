@@ -35,8 +35,8 @@ SceneDirector::SceneDirector()
 	
 	Shader temp1 = ResourceManager::GetShader("sprite");
 	renderer = new Renderer(temp1);
-	ResourceManager::LoadTexture("textures/BG.png", GL_TRUE, "face");
-	particle = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("face"), 50);
+	ResourceManager::LoadTexture("textures/particle.png", GL_TRUE, "particle");
+	particle = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("particle"), 100);
 	//renderer->setParticleShader(ResourceManager::GetShader("particle"));
 	//Renderer = temp;
 

@@ -73,7 +73,7 @@ void Scene::Update(GLfloat dt)
 			observers.at(i)->Notify();
 		}
 
-		this->particle->Update(dt,*MovingSceneObjects.at(2), 2, glm::vec2(1,0));
+		this->particle->Update(dt,*MovingSceneObjects.at(2), 2,glm::vec2(MovingSceneObjects.at(2)->getSize().x/2, MovingSceneObjects.at(2)->getSize().y));
 	}
 }
 
