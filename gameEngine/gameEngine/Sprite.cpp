@@ -174,6 +174,8 @@ Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, g
 	this->active = true;
 	this->visible = true;
 
+	this->renderer = new Renderer();
+
 	//init init vars, for restarting scenes
 	initCenter = Center;
 	initColor = Color;

@@ -15,16 +15,15 @@
 
 #include "shader.h"
 #include "texture.h"
-#include "SceneObject.h"
 #include "MovingSceneObject.h"
+#include "DrawSceneObject.h"
 #include "Particle.h"
-
 
 
 // ParticleGenerator acts as a container for rendering a large number of 
 // particles by repeatedly spawning and updating particles and killing 
 // them after a given amount of time.
-class ParticleGenerator
+class ParticleGenerator : public DrawSceneObject
 {
 public:
 	// Constructor
@@ -32,7 +31,7 @@ public:
 	// Update all particles
 	void Update(GLfloat dt, MovingSceneObject &object, GLuint newParticles, glm::vec2 offset = glm::vec2(0.0f, 0.0f));
 	// Render all particles
-	void Draw();
+	virtual void Draw(Renderer &renderer);
 private:
 	// State
 	std::vector<Particle> particles;

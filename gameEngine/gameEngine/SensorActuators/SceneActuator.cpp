@@ -20,9 +20,9 @@ SceneActuator::SceneActuator(std::string n, std::string con) :
 	condition(con)
 {
 	this->name = n;
-	if (con == "next" || con == "previous" || con == "pause" || con == "togglePause")
+	if (con != "next" || con != "previous")
 	{
-		std::cout << con << " not a command that can be used without a given scene\ncommands that work without a given scene are next, previous, pause, and togglePause";
+		std::cout << con << " not a command that can be used without a given scene\ncommands that work without a given scene are next, previous";
 	}
 }
 
@@ -36,7 +36,6 @@ void SceneActuator::run()
 	else if (condition == "next")
 	{
 		SceneDirector::getInstance()->nextScene();
-		SceneDirector::getInstance()->setSceneBackground("textures/BG.png");
 	}
 	else if (condition == "previous")
 	{

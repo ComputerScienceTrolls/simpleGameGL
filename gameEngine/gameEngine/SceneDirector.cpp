@@ -31,20 +31,16 @@ SceneDirector::SceneDirector()
 	glewInit();
 	glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
-	ResourceManager::LoadShader("particle.vs", "particle.frag", nullptr, "particle");
 	
 	Shader temp1 = ResourceManager::GetShader("sprite");
 	renderer = new Renderer(temp1);
 	ResourceManager::LoadTexture("textures/particle.png", GL_TRUE, "particle");
 	particle = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("particle"), 100);
-	//renderer->setParticleShader(ResourceManager::GetShader("particle"));
-	//Renderer = temp;
 
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
+	projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-	ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
-	ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
+
 }
 
 /*
@@ -117,6 +113,16 @@ void SceneDirector::unpauseScene(AbstractScene * s)
 	}
 }
 
+void SceneDirector::addShader(std::string shaderFileName, std::string fragmentFileName)
+{
+	std::string name = shaderFileName.substr(0, shaderFileName.size() - 3);
+	std::cout << "\n" << name;
+	ResourceManager::LoadShader(shaderFileName.c_str(), fragmentFileName.c_str(), nullptr, shaderFileName);
+
+	ResourceManager::GetShader(shaderFileName).Use().SetInteger(shaderFileName.c_str(), 0);
+	ResourceManager::GetShader(shaderFileName).SetMatrix4(shaderFileName.c_str(), projection);
+}
+
 SceneDirector* SceneDirector::getInstance()
 {
 	if (instance.get() == nullptr)
@@ -148,11 +154,6 @@ AbstractScene* SceneDirector::getScene(std::string)
 AbstractScene* SceneDirector::getScene(int i)
 {
 	return scenes.at(i);
-}
-
-void SceneDirector::setSceneBackground(std::string n)
-{
-	currentScene->setBackground(n.c_str());
 }
 
 void SceneDirector::removeScene(std::string n)

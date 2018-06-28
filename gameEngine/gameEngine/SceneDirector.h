@@ -48,7 +48,7 @@ public:
 	void checkSensors();
 	void pauseScene(AbstractScene *s);
 	void unpauseScene(AbstractScene *s);
-	void setSceneBackground(string);
+	void addShader(std::string shaderFileName, std::string fragmentFileName);
 	~SceneDirector();
 
 private:
@@ -61,6 +61,7 @@ private:
 	std::vector<AbstractObserver*> observers;
 	Renderer *renderer;
 	ParticleGenerator *particle;
+	glm::mat4 projection;
 };
 #include "inline.inl"
 #endif

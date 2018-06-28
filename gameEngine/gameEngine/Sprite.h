@@ -65,6 +65,7 @@ protected:
 	bool visible;
 	AbstractScene *parentScene;
 	char* textureFile;
+	Renderer *renderer;
 
 private:
 	glm::vec2   initPosition, initSize, initVelocity, initCenter;

@@ -50,6 +50,8 @@ int main(int argc, char *argv[])
 	//initiate main scene
 	mainScene.Init();
 
+	SceneDirector::getInstance()->addShader("particle.vs", "particle.frag");
+
 	
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
