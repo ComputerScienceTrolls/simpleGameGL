@@ -65,7 +65,6 @@ protected:
 	bool visible;
 	AbstractScene *parentScene;
 	char* textureFile;
-	glm::vec3 Color;
 	GLfloat transparency;
 
 private:

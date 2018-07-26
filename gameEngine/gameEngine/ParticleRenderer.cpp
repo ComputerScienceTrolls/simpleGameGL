@@ -11,7 +11,7 @@ void ParticleRenderer::DrawParticle(Texture2D & texture, glm::vec2 position, glm
 	this->shader.SetVector2f("offset", position);
 	this->shader.SetVector4f("color", glm::vec4(color, transparent));
 	texture.Bind();
-	glBindVertexArray(particleVAO);
+	//glBindVertexArray(particleVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
 }
