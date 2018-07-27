@@ -225,6 +225,17 @@
     <ClInclude Include="SensorActuators\CameraActuator.h" />
     <ClInclude Include="SensorActuators\CheckBoundsSensor.h" />
     <ClInclude Include="SensorActuators\CollisionSensor.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorColliderColliderNoOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorColliderColliderOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteColliderNoOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteColliderOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteSceneNoOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteSceneOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteSpriteGroupNoOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteSpriteGroupOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteSpriteNoOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteSpriteOneShot.h" />
+    <ClInclude Include="SensorActuators\CollisionSensorStates\CollisionSensorState.h" />
     <ClInclude Include="SensorActuators\KeyboardSensor.h" />
     <ClInclude Include="SensorActuators\MotionActuator.h" />
     <ClInclude Include="SensorActuators\ObjectPoolActuator.h" />

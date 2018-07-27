@@ -1,7 +1,5 @@
 #include "AbstractActuator.h"
 
-
-
 AbstractActuator::AbstractActuator()
 {
 }
