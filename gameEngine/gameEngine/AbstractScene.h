@@ -71,12 +71,12 @@ public:
 	~AbstractScene();
 
 protected:
-	std::vector<AbstractSprite*> Sprites;
 	std::vector<SceneObject*> SceneObjects;
 	std::vector<MovingSceneObject*> MovingSceneObjects;
 	std::vector<DrawSceneObject*> DrawSceneObjects;
+	std::vector<AbstractSprite*> sprites;
 	std::vector<AbstractSensor*> sensors;
-	std::vector<AbstractCollider*> Colliders;
+	std::vector<AbstractCollider*> colliders;
 	std::vector<AbstractObserver*> observers;
 	Camera camera;
 	bool active;

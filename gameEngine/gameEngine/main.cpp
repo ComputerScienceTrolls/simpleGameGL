@@ -52,35 +52,18 @@ int main(int argc, char *argv[])
 	
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
-	rs2->removeCollider("default");
-	std::vector<glm::vec2> rsPolyColVerts;
-	rsPolyColVerts.push_back(glm::vec2(0, 0));
-	rsPolyColVerts.push_back(glm::vec2(50, 500));
-	rsPolyColVerts.push_back(glm::vec2(100, 10));
 	
-	//rs2->addPolyCollider("poly", rsPolyColVerts);
 	rs2->setRotation(float(3.14 / 2));
-	rs2->removeCollider("default");
 
-	std::vector<glm::vec2> testv;
-	testv.push_back(glm::vec2(0,0));
-	testv.push_back(glm::vec2(10, 10));
-	testv.push_back(glm::vec2(0, 10));
-	testv.push_back(glm::vec2(0, 0));
-
-	rs2->addPolyCollider("test", testv);
 	rs2->setCollideDebug(true);
 	Sprite *rCopy = new Sprite(rs2);
+	rCopy->setName("rCopy");
 	rCopy->setPosX(200);
 	Sprite *rocketGoal = new Sprite("rocketGoal", mainScene, glm::vec2(750, 25), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rocketGoal->setRotation(float(3.14/2));
 	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(20, 40), "textures/fullSignal.png");
-	//wave->removeCollider("default");
 	wave->hide();
 	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
-
-	PolyCollider *polyWantsACracker = new PolyCollider("poly", rsPolyColVerts);
-	mainScene.addCollider(polyWantsACracker);
 
 	Sprite *health[6] = { new Sprite("empty", mainScene, glm::vec2(-1000, -1000), glm::vec2(30, 30), "textures/fuel_block.png"),
 		new Sprite("health", mainScene, glm::vec2(50, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//50
@@ -100,148 +83,11 @@ int main(int argc, char *argv[])
 
 	};
 
-	//remove the default colliders from the rocks and add a poly collider
-	for (int i = 0; i < sizeof(Rocks) / sizeof(Rocks[0]); i++)
-	{
-		Rocks[i]->removeCollider("default");
-		std::vector<glm::vec2> temp;
-		temp.push_back(glm::vec2(0, 0));
-		temp.push_back(glm::vec2(100, 100));
-		temp.push_back(glm::vec2(100, 0));
+	//GLuint nr_particles = 500;
+	//std::vector<Particle> particles;
 
-		Rocks[i]->addPolyCollider("test", temp);
-	}
-
-	/*
-	std::thread th([]()
-	{
-		std::vector<AbstractSprite*> sprites;
-		for (unsigned int i = 0; i < 200; i++)
-		{
-			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.1 *i, .01 *i));
-			temp->setBoundAction("DIE");
-			sprites.push_back(temp);
-		}
-		mainScene.loadSprites(sprites);
-	});
-
-	std::thread th2([]()
-	{
-		std::vector<AbstractSprite*> sprites;
-		for (unsigned int i = 0; i < 198; i++)
-		{
-			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .1 *i));
-			temp->setBoundAction("DIE");
-			sprites.push_back(temp);
-		}
-		mainScene.loadSprites(sprites);
-	});
-
-	std::thread th3([]()
-	{
-		std::vector<AbstractSprite*> sprites;
-		for (unsigned int i = 0; i < 20; i++)
-		{
-			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
-			temp->setBoundAction("DIE");
-			sprites.push_back(temp);
-		}
-		mainScene.loadSprites(sprites);
-	});
-
-	std::thread th4([]()
-	{
-		std::vector<AbstractSprite*> sprites;
-		for (unsigned int i = 0; i < 20; i++)
-		{
-			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
-			temp->setBoundAction("DIE");
-			sprites.push_back(temp);
-		}
-		mainScene.loadSprites(sprites);
-	});
-
-	std::thread th5([]()
-	{
-		std::vector<AbstractSprite*> sprites;
-		for (unsigned int i = 0; i < 20; i++)
-		{
-			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
-			temp->setBoundAction("DIE");
-			sprites.push_back(temp);
-		}
-		mainScene.loadSprites(sprites);
-	});
-
-	th5.detach();
-	std::thread th6([]()
-	{
-		std::vector<AbstractSprite*> sprites;
-		for (unsigned int i = 0; i < 20; i++)
-		{
-			Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
-			temp->setBoundAction("DIE");
-			sprites.push_back(temp);
-		}
-		mainScene.loadSprites(sprites);
-	});
-
-	th6.detach();
-	th.detach();
-	th2.detach();
-	th3.detach();
-	th4.detach(); 
-	
-	std::vector<AbstractSprite*> sprites;
-	for (unsigned int i = 0; i < 150; i++)
-	{
-		Sprite *temp = new Sprite("test", glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(-.01 *i, -.01 *i));
-		temp->setBoundAction("DIE");
-		sprites.push_back(temp);
-	}
-	mainScene.loadSprites(sprites);
-	*/
-	
-	/*
-	for (unsigned int i = 0; i < 0; i++)
-	{
-		Sprite *temp = new Sprite("test", mainScene, glm::vec2(200), glm::vec2(10), "textures/fullSignal.png", glm::vec2(.01 *i, .01 *i));
-	
-		temp->setBoundAction("BOUNCE");
-		
-		CollisionSensor *temp2 = new CollisionSensor("signals", temp, Rocks[0], true);
-		CollisionSensor *temp3 = new CollisionSensor("signals", temp, Rocks[1], true);
-		CollisionSensor *temp4 = new CollisionSensor("signals", temp, Rocks[2], true);
-		CollisionSensor *temp5 = new CollisionSensor("signals", temp, Rocks[3], true);
-		CollisionSensor *temp6 = new CollisionSensor("signals", temp, Rocks[4], true);
-		CollisionSensor *temp7 = new CollisionSensor("signals", temp, Rocks[5], true);
-		CollisionSensor *temp8 = new CollisionSensor("signals", temp, Rocks[6], true);
-		MotionActuator *temp9 = new MotionActuator("signalsMot", temp, "flipy");
-		
-		temp2->addActuator(temp9);
-		temp3->addActuator(temp9);
-		temp4->addActuator(temp9);
-		temp5->addActuator(temp9);
-		temp6->addActuator(temp9);
-		temp7->addActuator(temp9);
-		temp8->addActuator(temp9);
-
-		mainScene.addSensor(temp2);
-		mainScene.addSensor(temp3);
-		mainScene.addSensor(temp4);
-		mainScene.addSensor(temp5);
-		mainScene.addSensor(temp6);
-		mainScene.addSensor(temp7);
-		mainScene.addSensor(temp8);
-		
-	}
-	*/
-
-	GLuint nr_particles = 500;
-	std::vector<Particle> particles;
-
-	for (GLuint i = 0; i < nr_particles; ++i)
-	particles.push_back(Particle());
+	//for (GLuint i = 0; i < nr_particles; ++i)
+	//particles.push_back(Particle());
 
 	Rocks[2]->setRotation(float(3.14));
 	

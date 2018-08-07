@@ -98,13 +98,13 @@ void Scene::Render()
 }
 
 //assuming these sprites don't have a scene, used for loading a lot of sprites via threading or just batching.
-void Scene::loadSprites(std::vector<AbstractSprite*> sprites)
+void Scene::loadSprites(std::vector<AbstractSprite*> sps)
 {
 	threadMutex.lock();
-	Sprites.insert(Sprites.end(), sprites.begin(), sprites.end());
-	MovingSceneObjects.insert(MovingSceneObjects.end(), sprites.begin(), sprites.end());
-	DrawSceneObjects.insert(DrawSceneObjects.end(), sprites.begin(), sprites.end());
-	SceneObjects.insert(SceneObjects.end(), sprites.begin(), sprites.end());
+	sprites.insert(sprites.end(), sps.begin(), sps.end());
+	MovingSceneObjects.insert(MovingSceneObjects.end(), sps.begin(), sps.end());
+	DrawSceneObjects.insert(DrawSceneObjects.end(), sps.begin(), sps.end());
+	SceneObjects.insert(SceneObjects.end(), sps.begin(), sps.end());
 	threadMutex.unlock();
 }
 
@@ -125,4 +125,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 Scene::~Scene()
 {
+	for (std::vector< SceneObject* >::iterator it = SceneObjects.begin(); it != SceneObjects.end(); ++it)
+	{
+		delete (*it);
+	}
+	SceneObjects.clear();
+
+	for (std::vector< AbstractSensor* >::iterator it = sensors.begin(); it != sensors.end(); ++it)
+	{
+		delete (*it);
+	}
+	sensors.clear();
+
+	for (std::vector< AbstractObserver* >::iterator it = observers.begin(); it != observers.end(); ++it)
+	{
+		delete (*it);
+	}
+	observers.clear();
 }

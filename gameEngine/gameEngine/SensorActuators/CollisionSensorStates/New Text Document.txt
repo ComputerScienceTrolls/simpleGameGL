@@ -1,7 +1,0 @@
-class CollisonSensorState
-{
-public:
-	CollisonSensorState() {};
-	virtual void exec() = 0;
-	~CollisonSensorState() {};
-};

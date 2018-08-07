@@ -260,6 +260,9 @@
     <None Include="particle.frag" />
     <None Include="particle.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="SensorActuators\CollisionSensorStates\CollisionSensorSpriteColliderOneShot.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -31,9 +31,9 @@ void AbstractScene::setBackground(const char* newBackground)
 //tell every Sprite to reset their inital texture, currently not working
 void AbstractScene::reset()
 {
-	for (int i = 0; i < Sprites.size(); i++)
+	for (int i = 0; i < sprites.size(); i++)
 	{
-		Sprites[i]->reset();
+		sprites[i]->reset();
 	}
 }
 
@@ -46,17 +46,17 @@ Camera* AbstractScene::getCamera()
 std::vector<AbstractSprite*> AbstractScene::getSprite(std::string name)
 {
 	std::vector<AbstractSprite*> tempVec;
-	for (int i = 0; i < Sprites.size(); i++)
+	for (int i = 0; i < sprites.size(); i++)
 	{
-		if (Sprites.at(i)->getName() == name)
-			tempVec.push_back(Sprites[i]);
+		if (sprites.at(i)->getName() == name)
+			tempVec.push_back(sprites[i]);
 	}
 	return tempVec;
 }
 
 std::vector<AbstractCollider*> AbstractScene::getColliders()
 {
-	return this->Colliders;
+	return this->colliders;
 }
 
 std::vector<DrawSceneObject*> AbstractScene::getDrawObjects()
@@ -66,7 +66,7 @@ std::vector<DrawSceneObject*> AbstractScene::getDrawObjects()
 
 void AbstractScene::addSprite(AbstractSprite *newSprite)
 {
-	Sprites.push_back(newSprite);
+	sprites.push_back(newSprite);
 	MovingSceneObjects.push_back(newSprite);
 	DrawSceneObjects.push_back(newSprite);
 	SceneObjects.push_back(newSprite);
@@ -170,7 +170,7 @@ void AbstractScene::addDrawObject(DrawSceneObject *d)
 
 void AbstractScene::addCollider(AbstractCollider *c)
 {
-	this->Colliders.push_back(c);
+	this->colliders.push_back(c);
 	this->MovingSceneObjects.push_back(c);
 	this->DrawSceneObjects.push_back(c);
 	this->SceneObjects.push_back(c);
@@ -208,7 +208,7 @@ GLFWwindow * AbstractScene::getWindow()
 
 std::vector<AbstractSprite*> AbstractScene::getSprites()
 {
-	return this->Sprites;
+	return this->sprites;
 }
 
 void AbstractScene::setSize(int w, int h)
@@ -280,7 +280,7 @@ void AbstractScene::setCameraDY(float newDY)
 
 void AbstractScene::setSprites(std::vector<AbstractSprite*> newVector)
 {
-	this->Sprites = newVector;
+	this->sprites = newVector;
 }
 
 //sets GLFWwindow, then calls setSize in case GLFWwindow is not the right size
