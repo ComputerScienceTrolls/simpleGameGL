@@ -21,10 +21,10 @@ public:
 	virtual void Render();
 	void loadSprites(std::vector<AbstractSprite*>);
 
-
 protected:
 	std::map<std::string, AbstractSprite*> spriteMap;
-	MovingSceneObject background;
+	MovingSceneObject *background;
 	bool initilized;
+
 };
 #endif

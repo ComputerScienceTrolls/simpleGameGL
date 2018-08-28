@@ -80,4 +80,5 @@ void Camera::changePositionBy(glm::vec2 dt)
 
 Camera::~Camera()
 {
+	printf("camera destroyed");
 }

@@ -17,6 +17,7 @@ class AbstractScene
 {
 public:
 	AbstractScene();
+	static int sceneCount;
 	virtual void Start();
 	virtual void Stop();
 
@@ -27,17 +28,18 @@ public:
 	virtual Camera* getCamera();
 
 	virtual void addSprite(AbstractSprite*);
-	void addSensor(AbstractSensor*);
-	void removeSensor(std::string name);
-	void removeSensor(int index);
-	void addObserver(AbstractObserver*);
-	void removeObserver(std::string name);
-	void removeObserver(int index);
+	virtual void addSensor(AbstractSensor*);
 	virtual void addSceneObject(SceneObject*);
 	virtual void addMovingObject(MovingSceneObject*);
 	virtual void addDrawObject(DrawSceneObject*);
 	virtual void addCollider(AbstractCollider*);
+	virtual void addObserver(AbstractObserver*);
+	virtual void removeSensor(std::string name);
+	virtual void removeSensor(int index);
+	virtual void removeObserver(std::string name);
+	virtual void removeObserver(int index);
 
+	virtual int getCount();
 	virtual int getWidth();
 	virtual int getHeight();
 	virtual std::string getName();
@@ -55,6 +57,7 @@ public:
 	virtual void setSize(int, int);
 	virtual void setWidth(int);
 	virtual void setHeight(int);
+	virtual void setBackground(std::string);
 	virtual void setName(std::string);
 	virtual void setActive(bool);
 	virtual void setVisible(bool state);
@@ -78,7 +81,7 @@ protected:
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractCollider*> colliders;
 	std::vector<AbstractObserver*> observers;
-	Camera camera;
+	Camera *camera;
 	bool active;
 	bool visible;
 	int height;
@@ -86,6 +89,7 @@ protected:
 	std::string name;
 	GLFWwindow *window;
 	SpriteRenderer  *Renderer;
+	int sceneNumber;
 };
 
 #endif

@@ -8,7 +8,7 @@
 class SoundActuator : public AbstractActuator
 {
 public:
-	SoundActuator(std::string, std::string);
+	SoundActuator(std::string, std::string con = "");
 	~SoundActuator();
 	void run();
 

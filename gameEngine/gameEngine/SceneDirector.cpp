@@ -11,6 +11,9 @@ int nbFrames = 0;
 
 //void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
+//init Scene's counter
+int AbstractScene::sceneCount = 0;
+
 SceneDirector::SceneDirector()
  {	
 	glfwInit();

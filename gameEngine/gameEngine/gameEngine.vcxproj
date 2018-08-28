@@ -78,8 +78,8 @@
     <LibraryPath>$(ProjectDir)\SOIL2\lib;$(ProjectDir)\OPENGL\libs;$(ProjectDir)\OPENAL\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\SOIL2\headers;$(ProjectDir)\OPENGL\headers;$(ProjectDir)\OPENAL\headers;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\SOIL2\lib;$(ProjectDir)\OPENGL\libs;$(ProjectDir)\OPENAL\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\tc\Documents\GitHub\godot_headers;$(ProjectDir)\SOIL2\headers;$(ProjectDir)\OPENGL\headers;$(ProjectDir)\OPENAL\headers;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\tc\Documents\GitHub\godot-cpp\bin;$(ProjectDir)\SOIL2\lib;$(ProjectDir)\OPENGL\libs;$(ProjectDir)\OPENAL\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)\SOIL2\headers;$(ProjectDir)\OPENGL\headers;$(ProjectDir)\OPENAL\headers;$(IncludePath)</IncludePath>
@@ -102,11 +102,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\SOIL2\headers;$(ProjectDir)\OPENGL\headers;$(ProjectDir)\OPENAL\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tc\Documents\GitHub\godot_headers;$(ProjectDir)\SOIL2\headers;$(ProjectDir)\OPENGL\headers;$(ProjectDir)\OPENAL\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)\SOIL2\lib;$(ProjectDir)\OPENGL\libs;$(ProjectDir)\OPENAL\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glew32mx.lib;glew32mxs.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;openGL32.lib;soil2-debug.lib;alut.lib;OpenAL32.lib;EFX-Util.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\SOIL2\lib;C:\Users\tc\Documents\GitHub\godot-cpp\bin;$(ProjectDir)\OPENGL\libs;$(ProjectDir)\OPENAL\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glew32mx.lib;glew32mxs.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;openGL32.lib;soil2-debug.lib;alut.lib;OpenAL32.lib;EFX-Util.lib;godot.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

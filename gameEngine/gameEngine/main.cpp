@@ -40,8 +40,8 @@ const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
 
 Scene mainScene("main",800, 600);
-Scene scene2 ("level2", 800, 600);
-Scene scene3("levels3", 800, 600);
+Scene *scene2 = new Scene("level2", 800, 600);
+Scene *scene3 = new Scene("levels3", 800, 600);
 
 
 int main(int argc, char *argv[])
@@ -49,10 +49,11 @@ int main(int argc, char *argv[])
 	//initiate main scene
 	mainScene.Init();
 
+	mainScene.setBackground("textures/BGSpace001.png");
 	
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
-	
+
 	rs2->setRotation(float(3.14 / 2));
 
 	rs2->setCollideDebug(true);
@@ -72,6 +73,7 @@ int main(int argc, char *argv[])
 		new Sprite("health4", mainScene, glm::vec2(190, 550), glm::vec2(50, 30), "textures/fuel_block.png"),//190
 		new Sprite("health5", mainScene, glm::vec2(235, 550), glm::vec2(52, 30), "textures/fuel_block.png")
 	};
+
 	Sprite *Rocks[8] = { new Sprite("Rock1", mainScene, glm::vec2(50, 50), glm::vec2(100, 100), "textures/rock.png"),
 		new Sprite("Rock2", mainScene, glm::vec2(50, 160), glm::vec2(100, 100), "textures/rock2.png"),
 		new Sprite("Rock3", mainScene, glm::vec2(50, 270), glm::vec2(100, 100), "textures/rock3.png"),
@@ -95,8 +97,12 @@ int main(int argc, char *argv[])
 	{
 		Rocks[i]->setCollideDebug(true);
 	}
+
+	MovingSceneObject *testMSO = new MovingSceneObject();
+	mainScene.addMovingObject(testMSO);
 	
 	SceneObject *spawnObject = new SceneObject();
+	mainScene.addSceneObject(spawnObject);
 	spawnObject->setPosition(glm::vec2(rs2->getPosition().x + rs2->getSize().x/2, rs2->getPosition().y - rs2->getSize().y / 2));
 	std::cout << "\ntest: " << rs2->getPosX();
 	std::cout << "\ntest2: " << spawnObject->getPosX();
@@ -214,8 +220,8 @@ int main(int argc, char *argv[])
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
 	//set up sound 
-	SoundActuator *shootSound = new SoundActuator("sound/shoot.wav", "");
-	SoundActuator *moveSound = new SoundActuator("sound/movement.wav","");
+	SoundActuator *shootSound = new SoundActuator("sound/shoot.wav");
+	SoundActuator *moveSound = new SoundActuator("sound/movement.wav");
 	SoundActuator *music = new SoundActuator("sound/music.wav", "looping");
 
 	VisibilityActuator *v[6] = { new VisibilityActuator("visible1", health[5], false),
@@ -283,8 +289,8 @@ int main(int argc, char *argv[])
 	SceneDirector::getInstance()->addSensor(goal1);
 
 	//add scenes to the scene director
-	SceneDirector::getInstance()->addScene(&scene2);
-	SceneDirector::getInstance()->addScene(&scene3);
+	SceneDirector::getInstance()->addScene(scene2);
+	SceneDirector::getInstance()->addScene(scene3);
 
 	//set camera witdth and height
 	mainScene.setCameraHeight(600);

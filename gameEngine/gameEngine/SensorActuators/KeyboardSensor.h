@@ -11,7 +11,7 @@ public:
 	KeyboardSensor(std::string n, int key, std::string con = "na");
 	virtual void sense();
 	~KeyboardSensor();
-
+	
 private:
 	int key;
 	std::string condition;

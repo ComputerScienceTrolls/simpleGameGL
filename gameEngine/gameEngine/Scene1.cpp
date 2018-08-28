@@ -11,12 +11,11 @@ Scene1::Scene1(std::string n, GLuint w, GLuint h)
 	this->name = n;
 	this->width = w;
 	this->height = h;
-	this->camera.setHeight(h);
-	this->camera.setWidth(w);
-	this->camera.setZoom(glm::vec2(1));
+	this->camera = new Camera(w, h);
+	this->camera->setZoom(glm::vec2(1));
 
-	this->MovingSceneObjects.push_back(&this->camera);
-	this->MovingSceneObjects.push_back(&this->background);
+	this->MovingSceneObjects.push_back(this->camera);
+	this->MovingSceneObjects.push_back(this->background);
 
 }
 

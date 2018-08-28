@@ -1,8 +1,9 @@
 #include "AbstractScene.h"
 
-AbstractScene::AbstractScene() :
-	camera(0,0)
+AbstractScene::AbstractScene()
 {
+	sceneCount++;
+	sceneCount = sceneCount;
 }
 
 //set Scene's state to active alsnd visible
@@ -25,7 +26,8 @@ void AbstractScene::Stop()
 //set new background with given file
 void AbstractScene::setBackground(const char* newBackground)
 {
-	ResourceManager::LoadTexture(newBackground, GL_FALSE, "background");
+	std::string backgroundString = "background" + std::to_string(sceneCount);
+	ResourceManager::LoadTexture(newBackground, GL_FALSE, backgroundString);
 }
 
 //tell every Sprite to reset their inital texture, currently not working
@@ -39,7 +41,7 @@ void AbstractScene::reset()
 
 Camera* AbstractScene::getCamera()
 {
-	return &this->camera;
+	return this->camera;
 }
 
 //gets a vector of sprites that all share the given name
@@ -176,6 +178,11 @@ void AbstractScene::addCollider(AbstractCollider *c)
 	this->SceneObjects.push_back(c);
 }
 
+int AbstractScene::getCount()
+{
+	return sceneCount;
+}
+
 int AbstractScene::getWidth()
 {
 	return this->width;
@@ -229,6 +236,11 @@ void AbstractScene::setHeight(int h)
 	glfwSetWindowSize(window, this->width, this->height);
 }
 
+void AbstractScene::setBackground(std::string newBackground)
+{
+
+}
+
 void AbstractScene::setName(std::string newName)
 {
 	this->name = newName;
@@ -246,36 +258,36 @@ void AbstractScene::setVisible(bool state)
 
 void AbstractScene::setCameraWidth(int newWidth)
 {
-	this->camera.setWidth(float(newWidth));
+	this->camera->setWidth(float(newWidth));
 
-	glfwSetWindowSize(window, newWidth, int(camera.getHeight()));
+	glfwSetWindowSize(window, newWidth, int(camera->getHeight()));
 }
 
 void AbstractScene::setCameraHeight(int newHeight)
 {
-	this->camera.setHeight(float(newHeight));
+	this->camera->setHeight(float(newHeight));
 
-	glfwSetWindowSize(window, int(camera.getWidth()), newHeight);
+	glfwSetWindowSize(window, int(camera->getWidth()), newHeight);
 }
 
 void AbstractScene::setCameraPosX(float newX)
 {
-	this->camera.setPosX(newX);
+	this->camera->setPosX(newX);
 }
 
 void AbstractScene::setCameraPosY(float newY)
 {
-	this->camera.setPosY(newY);
+	this->camera->setPosY(newY);
 }
 
 void AbstractScene::setCameraDX(float newDX)
 {
-	this->camera.setDX(newDX);
+	this->camera->setDX(newDX);
 }
 
 void AbstractScene::setCameraDY(float newDY)
 {
-	this->camera.setDY(newDY);
+	this->camera->setDY(newDY);
 }
 
 void AbstractScene::setSprites(std::vector<AbstractSprite*> newVector)
@@ -289,7 +301,7 @@ void AbstractScene::setWindow(GLFWwindow * newWindow)
 	window = newWindow;
 	//set window to scene's defined width and height
 	setSize(this->width, this->height);
-	glfwSetWindowSize(window, int(this->camera.getWidth()), int(this->camera.getHeight()));
+	glfwSetWindowSize(window, int(this->camera->getWidth()), int(this->camera->getHeight()));
 }
 
 void AbstractScene::setRenderer(SpriteRenderer * newRenderer)
