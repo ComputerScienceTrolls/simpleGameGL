@@ -102,11 +102,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\tc\Documents\GitHub\godot_headers;$(ProjectDir)\SOIL2\headers;$(ProjectDir)\OPENGL\headers;$(ProjectDir)\OPENAL\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\freetype\headers;$(ProjectDir)\SOIL2\headers;$(ProjectDir)\OPENGL\headers;$(ProjectDir)\OPENAL\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)\SOIL2\lib;C:\Users\tc\Documents\GitHub\godot-cpp\bin;$(ProjectDir)\OPENGL\libs;$(ProjectDir)\OPENAL\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glew32mx.lib;glew32mxs.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;openGL32.lib;soil2-debug.lib;alut.lib;OpenAL32.lib;EFX-Util.lib;godot.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\freetype\lib;$(ProjectDir)\SOIL2\lib;C:\Users\tc\Documents\GitHub\godot-cpp\bin;$(ProjectDir)\OPENGL\libs;$(ProjectDir)\OPENAL\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glew32mx.lib;glew32mxs.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;openGL32.lib;soil2-debug.lib;alut.lib;OpenAL32.lib;EFX-Util.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -189,6 +189,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprite1.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
+    <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +251,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprite1.h" />
     <ClInclude Include="sprite_renderer.h" />
+    <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>

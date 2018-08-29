@@ -35,7 +35,7 @@ public:
 	virtual void reset() {};
 	virtual void reInit() {};
 
-	~AbstractSprite();
+	virtual ~AbstractSprite();
 
 protected:
 	float imgAngle;

@@ -15,7 +15,7 @@ public:
 	virtual glm::vec3 getColor();
 
 	virtual void Draw(SpriteRenderer &renderer) = 0;
-	~DrawSceneObject();
+	virtual ~DrawSceneObject();
 
 protected:
 	GLfloat transparency;

@@ -128,124 +128,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 Scene::~Scene()
 {
-	//GarbageCollector::getInstance()->addGarbage(SceneObjects);
-	std::cout << sceneNumber;
-
-	std::list<std::unique_ptr<SceneObject*>> garbage;
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{
-		garbage.push_back(std::make_unique<SceneObject*>(SceneObjects[i]));
+		delete SceneObjects[i];
 	}
-	//for (int i = 0; i < MovingSceneObjects.size(); i++)
-	//{
-	//	std::list<SceneObject*>::iterator findIter = std::find(garbage.begin(), garbage.end(), MovingSceneObjects[i]);
-	//	if (findIter == garbage.end())
-	//	{
-	//		garbage.push_back(MovingSceneObjects[i]);
-	//	}
-	//}
-	//for (int i = 0; i < DrawSceneObjects.size(); i++)
-	//{
-	//	std::list<SceneObject*>::iterator findIter = std::find(garbage.begin(), garbage.end(), DrawSceneObjects[i]);
-	//	if (findIter == garbage.end())
-	//	{
-	//		garbage.push_back(DrawSceneObjects[i]);
-	//	}
-	////}
 
-	//while (garbage.size() > 1)
-	//{
-	//	SceneObject *temp = garbage.front();
-	//	garbage.remove(garbage.front());
-	//	delete temp;
-	//}
-	/*
-	for (std::vector< AbstractSprite* >::iterator it = sprites.begin(); it != sprites.end(); ++it)
+	for (int i = 0; i < sensors.size(); i++)
 	{
-		//find the sprite in the Scene,Moving, and Draw Object vectors and remove them
-		for (int i = 0; i < SceneObjects.size(); i++)
-		{
-				if (SceneObjects[i] == (*it))
-					SceneObjects[i] = nullptr;
-		}
-		for (int i = 0; i < DrawSceneObjects.size(); i++)
-		{
-			if (DrawSceneObjects[i] == (*it))
-				DrawSceneObjects[i] = nullptr;
-		}
-		for (int i = 0; i < MovingSceneObjects.size(); i++)
-		{
-			if (MovingSceneObjects[i] == (*it))
-				MovingSceneObjects[i] = nullptr;
-		}
-		delete (*it);
-		
+		delete sensors[i];
 	}
-	sprites.clear();
 
-	for (std::vector< SceneObject* >::iterator it = SceneObjects.begin(); it != SceneObjects.end(); ++it)
+	for (int i = 0; i < observers.size(); i++)
 	{
-		if ((*it) != nullptr)
-			delete (*it);
+		delete observers[i];
 	}
-	SceneObjects.clear();
-	
-	int i = 0;
-	for (std::vector< MovingSceneObject* >::iterator it = MovingSceneObjects.begin(); it != MovingSceneObjects.end(); ++it)
-	{
-		i++;
-		if ((*it) != nullptr && i > 1)
-			delete (*it);
-
-	}
-	*/
-	//AbstractSprite **as = sprites.data();
-	//delete[] as;
-
-	//MovingSceneObject **mso = MovingSceneObjects.data();
-	//delete[] mso;
-	////MovingSceneObjects.clear();
-
-	//DrawSceneObject **dso = DrawSceneObjects.data();
-	//delete[] dso;
-
-	//AbstractCollider **c = colliders.data();
-	//delete[] c;
-
-	//AbstractSensor **s = sensors.data();
-	//delete[] s;
-
-	//AbstractObserver **o = observers.data();
-	//delete[] o;
-
-	/*
-	
-	for (std::vector< DrawSceneObject* >::iterator it = DrawSceneObjects.begin(); it != DrawSceneObjects.end(); ++it)
-	{
-		if ((*it) != nullptr)
-			delete (*it);
-	}
-	DrawSceneObjects.clear();
-
-	for (std::vector< AbstractCollider* >::iterator it = colliders.begin(); it != colliders.end(); ++it)
-	{
-		if ((*it) != nullptr)
-			delete (*it);
-	}
-	colliders.clear();
-
-	for (std::vector< AbstractSensor* >::iterator it = sensors.begin(); it != sensors.end(); ++it)
-	{
-		if ((*it) != nullptr)
-			delete (*it);
-	}
-	sensors.clear();
-
-	for (std::vector< AbstractObserver* >::iterator it = observers.begin(); it != observers.end(); ++it)
-	{
-		if ((*it) != nullptr)
-			delete (*it);
-	}
-	observers.clear();
-	*/
 }

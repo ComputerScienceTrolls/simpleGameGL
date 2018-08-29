@@ -42,7 +42,7 @@ public:
 	virtual void setImageAngle(float angle);
 	virtual glm::vec2 normalize(glm::vec2);
 
-	~MovingSceneObject();
+	virtual ~MovingSceneObject();
 
 protected:
 	glm::vec2 Velocity, lastPosition, lastVelocity, lastSize;

@@ -71,7 +71,7 @@ public:
 	virtual void setCameraDY(float);
 	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
-	~AbstractScene();
+	virtual ~AbstractScene();
 
 protected:
 	std::vector<SceneObject*> SceneObjects;

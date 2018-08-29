@@ -158,7 +158,6 @@ Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, g
 	//see if texture is already loaded
 	if (ResourceManager::Textures[texture].Image_Format != 6407)
 	{
-		//std::cout << "using already loaded Texture";
 		this->Texture = ResourceManager::GetTexture(texture);
 	}
 	else
