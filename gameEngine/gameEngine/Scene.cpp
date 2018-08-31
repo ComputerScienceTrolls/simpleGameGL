@@ -52,9 +52,6 @@ void Scene::Update(GLfloat dt)
 		{
 			if (MovingSceneObjects.at(i)->getActive())
 			{
-				MovingSceneObjects.at(i)->checkBounds(this->width, this->height);
-				MovingSceneObjects.at(i)->Update();
-
 				if (MovingSceneObjects.at(i)->getDebug())
 				{
 					std::cout << "Name:" << MovingSceneObjects.at(i)->getName() << std::endl;
@@ -63,6 +60,11 @@ void Scene::Update(GLfloat dt)
 					std::cout << "Size:" << MovingSceneObjects.at(i)->getSize().x << ", " << MovingSceneObjects.at(i)->getSize().y << std::endl;
 					std::cout << "Rotation:" << MovingSceneObjects.at(i)->getRotation() << std::endl;
 				}
+				
+				MovingSceneObjects.at(i)->checkBounds(this->width, this->height);
+
+				MovingSceneObjects.at(i)->Update();
+
 			}
 		}
 
@@ -93,9 +95,21 @@ void Scene::Render()
 		
 		Texture2D tempTexture = ResourceManager::GetTexture("background" + std::to_string(sceneCount));
 		Renderer->DrawSprite(tempTexture, background->getPosition(), glm::vec2(this->width, this->height), 0.0f);
+
 		for (int i = 0; i < DrawSceneObjects.size(); i++)
 		{
-			DrawSceneObjects.at(i)->Draw(*Renderer);
+			DrawSceneObjects.at(i)->Draw(Renderer);
+		}
+
+		ResourceManager::GetShader("text").SetMatrix4("projection", glm::ortho(0.0f, static_cast<GLfloat>(width), static_cast<GLfloat>(height), 0.0f), GL_TRUE);
+		for (int i = 0; i < texts.size(); i++)
+		{
+			texts.at(i)->Draw(textRenderer);
+		}
+
+		for (int i = 0; i < particleGens.size(); i++)
+		{
+			particleGens.at(i)->Draw(particleRenderer);
 		}
 	}
 }

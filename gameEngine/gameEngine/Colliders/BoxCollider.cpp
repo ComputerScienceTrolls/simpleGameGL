@@ -281,11 +281,12 @@ bool BoxCollider::getStaticState()
 	return this->staticState;
 }
 
-void BoxCollider::Draw(SpriteRenderer & renderer)
+void BoxCollider::Draw(AbstractRenderer *renderer)
 {
+	SpriteRenderer *sp = static_cast<SpriteRenderer*>(renderer);
 	//if parentSprite exists use it for render calc
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");
-	renderer.DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), this->transparency);
+	sp->DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), this->transparency);
 }
 
 BoxCollider::~BoxCollider()

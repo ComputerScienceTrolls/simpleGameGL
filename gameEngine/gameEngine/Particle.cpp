@@ -26,8 +26,29 @@ void Particle::Update()
 	this->delta += .1;
 }
 
-void Particle::Draw(SpriteRenderer & renderer)
+void Particle::Draw(AbstractRenderer *renderer)
 {
+	ParticleRenderer *pr = static_cast<ParticleRenderer*>(renderer);
+}
+
+float Particle::getLife()
+{
+	return this->life;
+}
+
+float Particle::getDelta()
+{
+	return this->delta;
+}
+
+void Particle::setLife(float l)
+{
+	this->life = l;
+}
+
+void Particle::setDelta(float d)
+{
+	this->delta = d;
 }
 
 

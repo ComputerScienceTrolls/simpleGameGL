@@ -16,7 +16,7 @@ public:
 	virtual bool collide(AbstractCollider* otherCollider);
 	virtual bool collide(AbstractSprite* otherSprite);
 	virtual float getRadius();
-	virtual void Draw(SpriteRenderer &renderer);
+	virtual void Draw(AbstractRenderer *renderer);
 	~CircleCollider();
 
 private:

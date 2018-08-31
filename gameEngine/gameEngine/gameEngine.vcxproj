@@ -142,8 +142,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractRenderer.cpp" />
     <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="AbstractSprite.cpp" />
+    <ClCompile Include="AbstractTextSceneObject.cpp" />
     <ClCompile Include="BoxColliderAsync.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Colliders\AbstractCollider.cpp" />
@@ -162,6 +164,7 @@
     <ClCompile Include="Observers\Observer.cpp" />
     <ClCompile Include="Observers\ObserverHandler.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleGenerator.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -190,11 +193,14 @@
     <ClCompile Include="Sprite1.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
+    <ClCompile Include="TextSceneObject.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractRenderer.h" />
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="AbstractSprite.h" />
+    <ClInclude Include="AbstractTextSceneObject.h" />
     <ClInclude Include="BoxColliderAsync.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colliders\AbstractCollider.h" />
@@ -213,6 +219,7 @@
     <ClInclude Include="Observers\Observer.h" />
     <ClInclude Include="Observers\ObserverHandler.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleGenerator.h" />
     <ClInclude Include="ParticleRenderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
@@ -252,6 +259,7 @@
     <ClInclude Include="Sprite1.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="TextRenderer.h" />
+    <ClInclude Include="TextSceneObject.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,10 @@
 #include "AbstractSprite.h"
 #include "Observers/AbstractObserver.h"
 #include "SensorActuators/AbstractSensor.h"
+#include "AbstractTextSceneObject.h"
 #include "ResourceManager.h"
+#include "TextRenderer.h"
+#include "ParticleGenerator.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -34,6 +37,8 @@ public:
 	virtual void addDrawObject(DrawSceneObject*);
 	virtual void addCollider(AbstractCollider*);
 	virtual void addObserver(AbstractObserver*);
+	virtual void addTextObject(AbstractTextSceneObject*);
+	virtual void addParticleGenerator(ParticleGenerator*);
 	virtual void removeSensor(std::string name);
 	virtual void removeSensor(int index);
 	virtual void removeObserver(std::string name);
@@ -57,7 +62,6 @@ public:
 	virtual void setSize(int, int);
 	virtual void setWidth(int);
 	virtual void setHeight(int);
-	virtual void setBackground(std::string);
 	virtual void setName(std::string);
 	virtual void setActive(bool);
 	virtual void setVisible(bool state);
@@ -71,6 +75,9 @@ public:
 	virtual void setCameraDY(float);
 	virtual void setSprites(std::vector<AbstractSprite*> newVector);
 
+	virtual void addTextRenderer();
+	virtual void addParticleRenderer();
+
 	virtual ~AbstractScene();
 
 protected:
@@ -78,8 +85,10 @@ protected:
 	std::vector<MovingSceneObject*> MovingSceneObjects;
 	std::vector<DrawSceneObject*> DrawSceneObjects;
 	std::vector<AbstractSprite*> sprites;
-	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractCollider*> colliders;
+	std::vector<AbstractTextSceneObject*> texts;
+	std::vector<ParticleGenerator*> particleGens;
+	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
 	Camera *camera;
 	bool active;
@@ -89,6 +98,8 @@ protected:
 	std::string name;
 	GLFWwindow *window;
 	SpriteRenderer  *Renderer;
+	TextRenderer *textRenderer;
+	ParticleRenderer *particleRenderer;
 	int sceneNumber;
 };
 

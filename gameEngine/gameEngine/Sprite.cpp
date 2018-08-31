@@ -184,12 +184,13 @@ Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, g
 }
 
 //if visible true, draw sprite, draw collider(s) if collideDebug true.
-void Sprite::Draw(SpriteRenderer &renderer)
+void Sprite::Draw(AbstractRenderer *renderer)
 {
+	SpriteRenderer *sp = static_cast<SpriteRenderer*>(renderer);
 	if (visible)
 	{
 		Texture2D tempTexture = this->getTexture();
-		renderer.DrawSprite(tempTexture, this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
+		sp->DrawSprite(tempTexture, this->Position, this->getSize(), this->getRotation(), this->getColor(), this->transparency);
 	}
 	//check if collideDebug is true, if so draw all colliders
 

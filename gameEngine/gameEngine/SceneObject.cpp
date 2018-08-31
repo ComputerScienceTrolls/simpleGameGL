@@ -7,6 +7,7 @@ SceneObject::SceneObject()
 	this->Size = glm::vec2(0);
 	this->Position = glm::vec2(0);
 	this->Center = glm::vec2(0);
+	this->active = true;
 }
 
 SceneObject::SceneObject(std::string name, glm::vec2 Pos, glm::vec2 Size)

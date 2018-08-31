@@ -1,8 +1,9 @@
 #include "ParticleRenderer.h"
+#include "ResourceManager.h"
 
-ParticleRenderer::ParticleRenderer(Shader & shader)
+ParticleRenderer::ParticleRenderer(std::string shaderName)
 {
-	this->shader = shader;
+	this->shader = ResourceManager::GetShader(shaderName);
 	this->initRenderData();
 }
 

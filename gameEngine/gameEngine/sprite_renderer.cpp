@@ -8,6 +8,7 @@
 ******************************************************************/
 #include "sprite_renderer.h"
 #include <iostream>
+#include "ResourceManager.h"
 
 SpriteRenderer::SpriteRenderer(Shader &shader)
 {

@@ -17,9 +17,20 @@
 
 #include "Texture.h"
 #include "Shader.h"
+#include "AbstractRenderer.h"
+#include <map>
 
+/*
+/// Holds all state information relevant to a character as loaded using FreeType
+struct Character {
+	GLuint TextureID;   // ID handle of the glyph texture
+	glm::ivec2 Size;    // Size of glyph
+	glm::ivec2 Bearing; // Offset from baseline to left/top of glyph
+	GLuint Advance;     // Horizontal offset to advance to next glyph
+};
+*/
 
-class SpriteRenderer
+class SpriteRenderer : public AbstractRenderer
 {
 public:
 	// Constructor (inits shaders/shapes)

@@ -232,11 +232,12 @@ float CircleCollider::getRadius()
 	return radius;
 }
 
-void CircleCollider::Draw(SpriteRenderer & renderer)
+void CircleCollider::Draw(AbstractRenderer *renderer)
 {
+	SpriteRenderer *sp = static_cast<SpriteRenderer*>(renderer);
 	//if spriteParent exists use it for rendering
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreenCircle");
-	renderer.DrawSprite(tempTexture, this->Position, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
+	sp->DrawSprite(tempTexture, this->Position, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 CircleCollider::~CircleCollider()

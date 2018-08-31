@@ -274,11 +274,11 @@ std::string PolyCollider::getType()
 }
 
 //not sure how to draw lines yet, need to figure out before trying to draw but need to implement pure virtual function
-void PolyCollider::Draw(SpriteRenderer & renderer)
+void PolyCollider::Draw(AbstractRenderer *renderer)
 {
 	//line just to prevent warning of unused var
 	//renderer = renderer;
-
+	SpriteRenderer *sr = static_cast<SpriteRenderer*>(renderer);
 	std::vector<glm::vec2> points;
 	for (int i = 0; i < edges.size(); i++)
 	{
@@ -286,8 +286,8 @@ void PolyCollider::Draw(SpriteRenderer & renderer)
 		//points.push_back(glm::vec2(edges.at(i)->getPoint2().x, edges.at(i)->getPoint2().y));
 	}
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");
-	renderer.DrawLine(points, 2.5, tempTexture);
-	renderer.DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), .25);
+	sr->DrawLine(points, 2.5, tempTexture);
+	sr->DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), .25);
 }
 
 //create an edge from two given vertexs.

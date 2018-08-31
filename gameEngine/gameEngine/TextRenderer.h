@@ -16,6 +16,7 @@
 
 #include "texture.h"
 #include "shader.h"
+#include "AbstractRenderer.h"
 
 
 /// Holds all state information relevant to a character as loaded using FreeType
@@ -30,7 +31,7 @@ struct Character {
 // A renderer class for rendering text displayed by a font loaded using the 
 // FreeType library. A single font is loaded, processed into a list of Character
 // items for later rendering.
-class TextRenderer
+class TextRenderer : public AbstractRenderer
 {
 public:
 	// Holds a list of pre-compiled Characters
@@ -39,6 +40,9 @@ public:
 	Shader TextShader;
 	// Constructor
 	TextRenderer(GLuint width, GLuint height);
+	TextRenderer() {};
+	std::string currentFont;
+	int currentFontSize;
 	// Pre-compiles a list of characters from the given font
 	void Load(std::string font, GLuint fontSize);
 	// Renders a string of text using the precompiled list of characters

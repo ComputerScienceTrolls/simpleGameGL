@@ -41,6 +41,8 @@ SceneDirector::SceneDirector()
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+
+	//ResourceManager::LoadShader("shaders/text.vs", "shaders/text.frag", nullptr, "text");
 }
 
 /*

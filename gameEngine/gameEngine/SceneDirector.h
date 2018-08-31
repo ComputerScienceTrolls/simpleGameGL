@@ -57,6 +57,7 @@ private:
 	std::vector<AbstractSensor*> sensors;
 	std::vector<AbstractObserver*> observers;
 	SpriteRenderer *Renderer;
+	TextRenderer *textRenderer;
 };
 #include "inline.inl"
 #endif

@@ -5,11 +5,12 @@
 
 #include "Texture.h"
 #include "Shader.h"
+#include "AbstractRenderer.h"
 
-class ParticleRenderer
+class ParticleRenderer : public AbstractRenderer
 {
 public:
-	ParticleRenderer(Shader &shader);
+	ParticleRenderer(std::string shaderName="default");
 	void DrawParticle(Texture2D &texture, glm::vec2 pos, glm::vec2 size, GLfloat rotate, glm::vec3 color, GLfloat transparent);
 	~ParticleRenderer();
 

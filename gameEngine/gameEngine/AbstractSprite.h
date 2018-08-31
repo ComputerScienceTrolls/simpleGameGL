@@ -7,6 +7,7 @@
 #include "MovingSceneObject.h"
 #include "DrawSceneObject.h"
 
+
 class AbstractSprite : virtual public MovingSceneObject, virtual public DrawSceneObject
 {
 public:

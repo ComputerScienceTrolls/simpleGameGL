@@ -4,6 +4,9 @@
 MovingSceneObject::MovingSceneObject() :
 	lastDir(0), debug(false)
 {
+	this->Velocity = glm::vec2(0);
+	this->Position = glm::vec2(0);
+	this->boundAction = "BOUNCE";
 }
 
 void MovingSceneObject::setVelocity(glm::vec2 newVelocity)

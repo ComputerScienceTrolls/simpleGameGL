@@ -118,7 +118,14 @@ void AbstractScene::addObserver(AbstractObserver *o)
 {
 	this->observers.push_back(o);
 }
-
+void AbstractScene::addTextObject(AbstractTextSceneObject *tso)
+{
+	this->texts.push_back(tso);
+}
+void AbstractScene::addParticleGenerator(ParticleGenerator *pg)
+{
+	this->particleGens.push_back(pg);
+}
 void AbstractScene::removeObserver(std::string name)
 {
 	//get index of collider
@@ -236,11 +243,6 @@ void AbstractScene::setHeight(int h)
 	glfwSetWindowSize(window, this->width, this->height);
 }
 
-void AbstractScene::setBackground(std::string newBackground)
-{
-
-}
-
 void AbstractScene::setName(std::string newName)
 {
 	this->name = newName;
@@ -295,6 +297,16 @@ void AbstractScene::setSprites(std::vector<AbstractSprite*> newVector)
 	this->sprites = newVector;
 }
 
+void AbstractScene::addTextRenderer()
+{
+	textRenderer = new TextRenderer(this->width, this->height);
+}
+
+void AbstractScene::addParticleRenderer()
+{
+	particleRenderer = new ParticleRenderer();
+}
+
 //sets GLFWwindow, then calls setSize in case GLFWwindow is not the right size
 void AbstractScene::setWindow(GLFWwindow * newWindow)
 {
@@ -307,6 +319,7 @@ void AbstractScene::setWindow(GLFWwindow * newWindow)
 void AbstractScene::setRenderer(SpriteRenderer * newRenderer)
 {
 	this->Renderer = newRenderer;
+
 }
 
 AbstractScene::~AbstractScene()

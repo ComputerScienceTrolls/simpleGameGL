@@ -19,7 +19,10 @@
 TextRenderer::TextRenderer(GLuint width, GLuint height)
 {
 	// Load and configure shader
-	this->TextShader = ResourceManager::LoadShader("shaders/text.vs", "shaders/text.frag", nullptr, "text");
+	GLuint id = ResourceManager::GetShader("text").ID;
+	//if shader doesn't exist the id will be 3452816845, so if id is that init shader
+	if (id == 3452816845)
+		this->TextShader = ResourceManager::LoadShader("shaders/text.vs", "shaders/text.frag", nullptr, "text");
 	this->TextShader.SetMatrix4("projection", glm::ortho(0.0f, static_cast<GLfloat>(width), static_cast<GLfloat>(height), 0.0f), GL_TRUE);
 	this->TextShader.SetInteger("text", 0);
 	// Configure VAO/VBO for texture quads
@@ -93,11 +96,16 @@ void TextRenderer::Load(std::string font, GLuint fontSize)
 	// Destroy FreeType once we're finished
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
+
+	currentFont = font;
+	currentFontSize = fontSize;
 }
 
 void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 {
-	// Activate corresponding render state	
+	// Activate corresponding render state
+	this->TextShader = ResourceManager::GetShader("text");
+	GLuint id = TextShader.ID;
 	this->TextShader.Use();
 	this->TextShader.SetVector3f("textColor", color);
 	glActiveTexture(GL_TEXTURE0);

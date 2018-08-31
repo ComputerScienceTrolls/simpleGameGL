@@ -31,6 +31,7 @@
 
 #include "BoxColliderAsync.h"
 #include "Particle.h"
+#include "TextSceneObject.h"
 
 #include <thread>
 
@@ -48,6 +49,8 @@ int main(int argc, char *argv[])
 {	
 	//initiate main scene
 	mainScene.Init();
+
+	mainScene.addTextRenderer();
 
 	mainScene.setBackground("textures/BGSpace001.png");
 	
@@ -295,6 +298,8 @@ int main(int argc, char *argv[])
 	//set camera witdth and height
 	mainScene.setCameraHeight(600);
 	mainScene.setCameraWidth(800);
+
+	TextSceneObject *tso = new TextSceneObject(mainScene, "oops", 10, 10, 50);
 
 	//start game 
 	SceneDirector::getInstance()->Start();
