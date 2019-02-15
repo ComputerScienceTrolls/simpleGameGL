@@ -145,7 +145,8 @@ int main(int argc, char *argv[])
 
 	std::cout << rockVector.at(0)->getName() << "\n" << rockVector.at(1)->getName() << "\n" << rockVector.at(2)->getName();
 
-	CollisionSensor *rocketRocksCollsionSensor =  new CollisionSensor("rockgroup", rs2, rockVector);
+	//CollisionSensor *rocketRocksCollsionSensor =  new CollisionSensor("rockgroup", rs2, rockVector);
+
 
 	CollisionSensor *RocksWaveCol[8] = { new CollisionSensor("w1", wave, Rocks[0], true),
 		new CollisionSensor("c2", wave, Rocks[1], true),
@@ -157,6 +158,8 @@ int main(int argc, char *argv[])
 		new CollisionSensor("c8", wave, Rocks[7], true)
 	};
 
+	//CollisionGroupObserver *cgo = new CollisionGroupObserver("cgo", Rocks, rs2, "");
+	CollisionSensor *rocketRocksCollsionSensor = new CollisionSensor("collisonGroupRocks", rs2, rockVector, true);
 
 	//set up keyboard Sensors
 	KeyboardSensor *ka = new KeyboardSensor("left",GLFW_KEY_A);

@@ -9,6 +9,7 @@ public:
 		spriteGroup = sGroup;
 		actuators = &acts;
 		tapped = true;
+		oneIsHit = false;
 	};
 	virtual void exec()
 	{
@@ -22,21 +23,33 @@ public:
 				}
 				else
 				{
-					if (oneS->collide(spriteGroup[i]))
+					if (oneS->collide(spriteGroup[i]) && !oneIsHit)
 					{
 						tapped = false;
 						actuators->at(i)->run();
 						//since it's a group we don't want to continue checking if one has collided.
-						break;
+						oneIsHit = true;
+						tappedCheck = spriteGroup[i];
 					}
 				}
 			}
-			//else we are not colliding, reset tapped
+			//else we are not colliding, check to see if we need to reset tapped
 			else
 			{
-				tapped = true;
+				if (tappedCheck != nullptr)
+				{
+					if (spriteGroup[i] == tappedCheck)
+					{
+						//if previous collision is no longer happening set tapped to true so other collisions can activate actuators
+						if (!oneS->collide(spriteGroup[i]))
+						{
+							tapped = true;
+						}
+					}
+				}
 			}
 		}
+		oneIsHit = false;
 	};
 	~CollisionSensorSpriteSpriteGroupOneShot() {};
 
@@ -45,4 +58,6 @@ private:
 	std::vector<AbstractSprite*> spriteGroup;
 	std::vector<AbstractActuator*> *actuators;
 	bool tapped;
+	bool oneIsHit;
+	AbstractSprite *tappedCheck;
 };
