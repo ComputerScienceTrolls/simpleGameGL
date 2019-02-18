@@ -36,7 +36,7 @@ void TextSceneObject::Draw(AbstractRenderer *renderer)
 		{
 			tr->Load(font, fontSize);
 		}
-		tr->RenderText(text, Position.x, Position.y, Size.x/100, Color);
+		tr->RenderText(text, Position.x, Position.y, Size.x/10, Color);
 	}
 }
 
