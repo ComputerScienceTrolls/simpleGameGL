@@ -258,7 +258,7 @@ void SceneDirector::nextScene()
 		currentScene->Stop();
 
 		//assign new currentScene
-		currentScene = scenes.at(currentIndex + 1);
+		currentScene = scenes.at(float(currentIndex) + 1);
 
 		//init new currentScene
 		currentScene->setWindow(window);

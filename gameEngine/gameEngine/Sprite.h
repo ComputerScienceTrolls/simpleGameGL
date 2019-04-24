@@ -37,7 +37,7 @@ public:
 	virtual void setCollideDebug(bool state);
 
 	virtual Texture2D getTexture();
-	virtual bool getVisible();
+	//virtual bool getVisible();
 	virtual std::vector<AbstractCollider*> getColliders();
 	virtual void setTexture(Texture2D);
 	virtual void setColliders(std::vector<AbstractCollider*>);
@@ -48,7 +48,7 @@ public:
 	virtual void addCircleCollider(std::string name, float r, int posX, int posY);
 	virtual void addPolyCollider(std::string name, std::vector<glm::vec2> verticies);
 	virtual void removeCollider(std::string name);
-	virtual void setVisible(bool);
+	//virtual void setVisible(bool);
 
 	virtual void reset();
 	virtual void reInit();

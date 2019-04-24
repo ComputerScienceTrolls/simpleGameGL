@@ -14,6 +14,16 @@ float DrawSceneObject::getTransparency()
 	return this->transparency;
 }
 
+void DrawSceneObject::setVisible(bool nV)
+{
+	this->visible = nV;
+}
+
+bool DrawSceneObject::getVisible()
+{
+	return this->visible;
+}
+
 void DrawSceneObject::setColor(glm::vec3 C)
 {
 	this->Color = C;

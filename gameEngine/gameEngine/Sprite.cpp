@@ -290,10 +290,12 @@ void Sprite::removeCollider(std::string name)
 	}
 }
 
+/*
 void Sprite::setVisible(bool newVisible)
 {
 	this->visible = newVisible;
 }
+*/
 
 //add circle collider to sprite, auto recenter circle before placing
 void Sprite::addCircleCollider(std::string name, float r, int posX, int posY)
@@ -404,10 +406,12 @@ Texture2D Sprite::getTexture()
 	return this->Texture;
 }
 
+/*
 bool Sprite::getVisible()
 {
 	return this->visible;
 }
+*/
 
 std::vector<AbstractCollider*> Sprite::getColliders()
 {

@@ -7,7 +7,7 @@ TextSceneObject::TextSceneObject()
 }
 
 
-TextSceneObject::TextSceneObject(AbstractScene &scene, std::string t, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color, std::string f, int fSize)
+TextSceneObject::TextSceneObject(AbstractScene *scene, std::string t, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color, std::string f, int fSize)
 {
 	this->Position.x = x;
 	this->Position.y = y;
@@ -19,11 +19,10 @@ TextSceneObject::TextSceneObject(AbstractScene &scene, std::string t, GLfloat x,
 	this->font = f;
 	this->fontSize = fSize;
 
-	scene.addTextObject(this);
-	scene.addMovingObject(this);
+	scene->addTextObject(this);
+	scene->addMovingObject(this);
 
-	this->Velocity = glm::vec2(1, 1);
-	this->setDebugMode(true);
+	this->Velocity = glm::vec2(0, 0);
 }
 
 void TextSceneObject::Draw(AbstractRenderer *renderer)
@@ -37,6 +36,11 @@ void TextSceneObject::Draw(AbstractRenderer *renderer)
 			tr->Load(font, fontSize);
 		}
 		tr->RenderText(text, Position.x, Position.y, Size.x/10, Color);
+		if (text == "Pause")
+		{
+			std::cout << "x: " << Position.x << "\n";
+			std::cout << "y: " << Position.y << "\n";
+		}
 	}
 }
 

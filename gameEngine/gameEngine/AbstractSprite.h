@@ -24,12 +24,12 @@ public:
 	//get methods
 	virtual Texture2D getTexture() { return Texture2D(); };
 	virtual std::vector<AbstractCollider*> getColliders() = 0;
-	virtual bool getVisible() = 0;
+	//virtual bool getVisible() = 0;
 	virtual float getImgAngle();
 
 	//set methods
 	virtual void setTexture(Texture2D test) {};
-	virtual void setVisible(bool) = 0;
+	//virtual void setVisible(bool) = 0;
 	virtual void setColliders(std::vector<AbstractCollider*>) = 0;
 	virtual void setImgAngle(float newAngle);
 

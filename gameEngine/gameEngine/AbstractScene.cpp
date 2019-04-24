@@ -253,10 +253,12 @@ void AbstractScene::setActive(bool newState)
 	this->active = newState;
 }
 
+/*
 void AbstractScene::setVisible(bool state)
 {
 	this->visible = state;
 }
+*/
 
 void AbstractScene::setCameraWidth(int newWidth)
 {

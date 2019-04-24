@@ -64,7 +64,7 @@ public:
 	virtual void setHeight(int);
 	virtual void setName(std::string);
 	virtual void setActive(bool);
-	virtual void setVisible(bool state);
+	//virtual void setVisible(bool state);
 	virtual void setWindow(GLFWwindow *newWindow);
 	virtual void setRenderer(SpriteRenderer *newRenderer);
 	virtual void setCameraWidth(int);

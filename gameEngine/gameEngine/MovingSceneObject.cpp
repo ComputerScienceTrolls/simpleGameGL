@@ -325,7 +325,8 @@ bool MovingSceneObject::checkBounds(int screenWidth, int screenHeight)
 		if (offLeft || offRight || offTop || offBottom) {
 			this->setSpeed(0);
 			this->active = false;
-			this->setVisible(false);
+			this->Position = glm::vec2(9999, 9999);
+			//this->setVisible(false);
 		}
 
 	}

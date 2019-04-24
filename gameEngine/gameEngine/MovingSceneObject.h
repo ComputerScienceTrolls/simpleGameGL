@@ -38,7 +38,7 @@ public:
 	virtual float angleTo(SceneObject*);
 	virtual void followObject(SceneObject* o, float distance, float speed);
 
-	virtual void setVisible(bool) {};
+	//virtual void setVisible(bool) {};
 	virtual void setImageAngle(float angle);
 	virtual glm::vec2 normalize(glm::vec2);
 

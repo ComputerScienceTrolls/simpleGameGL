@@ -107,8 +107,8 @@ int main(int argc, char *argv[])
 	SceneObject *spawnObject = new SceneObject();
 	mainScene.addSceneObject(spawnObject);
 	spawnObject->setPosition(glm::vec2(rs2->getPosition().x + rs2->getSize().x/2, rs2->getPosition().y - rs2->getSize().y / 2));
-	std::cout << "\ntest: " << rs2->getPosX();
-	std::cout << "\ntest2: " << spawnObject->getPosX();
+	//std::cout << "\ntest: " << rs2->getPosX();
+	//std::cout << "\ntest2: " << spawnObject->getPosX();
 	wave->setVisible(false);
 	//wave->setActive(false);
 	//rs2->setRotation(3.14/2);
@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
 	rockVector.push_back(Rocks[6]);
 	rockVector.push_back(Rocks[7]);
 
-	std::cout << rockVector.at(0)->getName() << "\n" << rockVector.at(1)->getName() << "\n" << rockVector.at(2)->getName();
+	//std::cout << rockVector.at(0)->getName() << "\n" << rockVector.at(1)->getName() << "\n" << rockVector.at(2)->getName();
 
 	//CollisionSensor *rocketRocksCollsionSensor =  new CollisionSensor("rockgroup", rs2, rockVector);
 
@@ -170,6 +170,7 @@ int main(int argc, char *argv[])
 	KeyboardSensor *kl = new KeyboardSensor("rright", GLFW_KEY_L);
 	KeyboardSensor *ki = new KeyboardSensor("rup", GLFW_KEY_I);
 	KeyboardSensor *kk = new KeyboardSensor("rdown", GLFW_KEY_K);
+	KeyboardSensor* kp = new KeyboardSensor("pdown", GLFW_KEY_P, "clicked");
 	KeyboardSensor *kSpace = new KeyboardSensor("space", GLFW_KEY_SPACE, "clicked");
 	AlwaysSensor *Always = new AlwaysSensor();
 	//CollisionSensor *waveCol = new CollisionSensor("waveCol", wave, , true);
@@ -218,8 +219,8 @@ int main(int argc, char *argv[])
 	RocksWaveCol[7]->addActuator(waveAfterHit);
 
 	//set up actuators
-	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, float(-.1), "rotateBy");
-	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, float(.1), "rotateBy");
+	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, float(-.05), "rotateBy");
+	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, float(.05), "rotateBy");
 	MotionActuator *keepSpawnerInFrontOfRocket = new MotionActuator("keepSpawnerInFrontOfRocket", rs2, spawnObject, "setInFront");
 	MotionActuator *mUp = new MotionActuator("mup", rs2,.5, "forceForward");
 	ObjectPoolActuator *rocketBullets = new ObjectPoolActuator("test", wave, 10, spawnObject, 10, rs2, "spriteSpawnRotateForce");
@@ -246,6 +247,12 @@ int main(int argc, char *argv[])
 	};
 	//MotionActuator *waveMotion = new MotionActuator("waveMotion", wave, 10, rs2);
 	TimesActuator *t = new TimesActuator("health", &mainScene, 6,"reset");
+
+	SceneActuator *pauseScene = new SceneActuator("pauseScene", &mainScene,"togglePause");
+	TextSceneObject *pauseText = new TextSceneObject(&mainScene, "Pause", 5, 500, 10);
+	pauseText->setVisible(false);
+	VisibilityActuator* pauseTextVisibleAct = new VisibilityActuator("pauseTextVisibleAct", pauseText, "toggle");
+
 	t->addActuator(v[0]);
 	t->addActuator(v[1]);
 	t->addActuator(v[2]);
@@ -266,6 +273,8 @@ int main(int argc, char *argv[])
 	kw->addActuator(moveSound);
 	kj->addActuator(rLeft);
 	kl->addActuator(rRight);
+	kp->addActuator(pauseScene);
+	kp->addActuator(pauseTextVisibleAct);
 	goal1->addActuator(sceneAct1);
 	//A->addActuator(music);
 	//Always->addActuator(keepSpawnerInFrontOfRocket);
@@ -292,8 +301,8 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(RocksWaveCol[6]);
 	mainScene.addSensor(RocksWaveCol[7]);
 
+	SceneDirector::getInstance()->addSensor(kp);
 	SceneDirector::getInstance()->addSensor(goal1);
-
 	//add scenes to the scene director
 	SceneDirector::getInstance()->addScene(scene2);
 	SceneDirector::getInstance()->addScene(scene3);
@@ -302,7 +311,7 @@ int main(int argc, char *argv[])
 	mainScene.setCameraHeight(600);
 	mainScene.setCameraWidth(800);
 
-	TextSceneObject *tso = new TextSceneObject(mainScene, "oops", 10, 10, 50);
+	TextSceneObject *tso = new TextSceneObject(&mainScene, "level 1", 10, 10, 25);
 
 	//start game 
 	SceneDirector::getInstance()->Start();

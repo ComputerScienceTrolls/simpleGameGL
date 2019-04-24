@@ -13,6 +13,8 @@ public:
 	DrawSceneObject();
 	virtual void setTransparency(float);
 	virtual float getTransparency();
+	virtual void setVisible(bool);
+	virtual bool getVisible();
 	virtual void setColor(glm::vec3);
 	virtual glm::vec3 getColor();
 
