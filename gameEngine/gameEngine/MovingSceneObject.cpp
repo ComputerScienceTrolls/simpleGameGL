@@ -104,8 +104,17 @@ void MovingSceneObject::Update()
 	{
 		diffSize = Size - lastSize;
 		//we need to recalc center
-		this->Position.x = this->Center.x - this->Size.x / 2;
-		this->Position.y = this->Center.y - this->Size.y / 2;
+		//if center is 0,0 probably means center was never calculated, ignore first run but calculate center
+		if (this->Center.x != 0 && this->Center.y != 0)
+		{
+			this->Position.x = this->Center.x - this->Size.x / 2;
+			this->Position.y = this->Center.y - this->Size.y / 2;
+		}
+		else
+		{
+			this->Center.x = this->Position.x + this->Size.x / 2;
+			this->Center.y = this->Position.y + this->Size.x / 2;
+		}
 		change = true;
 	}
 

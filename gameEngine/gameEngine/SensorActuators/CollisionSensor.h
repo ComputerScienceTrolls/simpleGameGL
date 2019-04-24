@@ -4,6 +4,7 @@
 #include "../AbstractScene.h"
 #include "../Scene.h"
 #include "AbstractActuator.h"
+#include "ObjectPoolActuator.h"
 #include "CollisionSensorStates/CollisionSensorState.h"
 #include "CollisionSensorStates/CollisionSensorColliderColliderNoOneShot.h"
 #include "CollisionSensorStates/CollisionSensorColliderColliderOneShot.h"
@@ -24,6 +25,7 @@ public:
 	CollisionSensor(std::string name, AbstractSprite*, AbstractCollider*, bool oneShot = false);
 	CollisionSensor(std::string name, AbstractCollider*, AbstractCollider*, bool oneShot = false);
 	CollisionSensor(std::string name, AbstractSprite*, Scene*, bool oneShot = false);
+	CollisionSensor(std::string name, AbstractSprite*, ObjectPoolActuator*, bool oneShot = false);
 	void sense();
 	~CollisionSensor();
 

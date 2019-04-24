@@ -1,11 +1,8 @@
 #include "TextSceneObject.h"
 
-
-
 TextSceneObject::TextSceneObject()
 {
 }
-
 
 TextSceneObject::TextSceneObject(AbstractScene *scene, std::string t, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color, std::string f, int fSize)
 {
@@ -36,11 +33,6 @@ void TextSceneObject::Draw(AbstractRenderer *renderer)
 			tr->Load(font, fontSize);
 		}
 		tr->RenderText(text, Position.x, Position.y, Size.x/10, Color);
-		if (text == "Pause")
-		{
-			std::cout << "x: " << Position.x << "\n";
-			std::cout << "y: " << Position.y << "\n";
-		}
 	}
 }
 

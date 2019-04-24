@@ -219,11 +219,11 @@ int main(int argc, char *argv[])
 	RocksWaveCol[7]->addActuator(waveAfterHit);
 
 	//set up actuators
-	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, float(-.05), "rotateBy");
-	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, float(.05), "rotateBy");
+	MotionActuator *rLeft = new MotionActuator("rotateLeft", rs2, float(-.01), "rotateBy");
+	MotionActuator *rRight = new MotionActuator("rotateRight", rs2, float(.01), "rotateBy");
 	MotionActuator *keepSpawnerInFrontOfRocket = new MotionActuator("keepSpawnerInFrontOfRocket", rs2, spawnObject, "setInFront");
-	MotionActuator *mUp = new MotionActuator("mup", rs2,.5, "forceForward");
-	ObjectPoolActuator *rocketBullets = new ObjectPoolActuator("test", wave, 10, spawnObject, 10, rs2, "spriteSpawnRotateForce");
+	MotionActuator *mUp = new MotionActuator("mup", rs2,.1, "forceForward");
+	ObjectPoolActuator *rocketBullets = new ObjectPoolActuator("test", wave, 10, spawnObject, 1, rs2, "spriteSpawnRotateForce");
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
 	//set up sound 
@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
 	TimesActuator *t = new TimesActuator("health", &mainScene, 6,"reset");
 
 	SceneActuator *pauseScene = new SceneActuator("pauseScene", &mainScene,"togglePause");
-	TextSceneObject *pauseText = new TextSceneObject(&mainScene, "Pause", 5, 500, 10);
+	TextSceneObject *pauseText = new TextSceneObject(&mainScene, "Pause", 393, 307, 15);
 	pauseText->setVisible(false);
 	VisibilityActuator* pauseTextVisibleAct = new VisibilityActuator("pauseTextVisibleAct", pauseText, "toggle");
 

@@ -48,6 +48,13 @@ CollisionSensor::CollisionSensor(std::string n, AbstractSprite *s1, Scene *sc, b
 	this->name = n;
 }
 
+CollisionSensor::CollisionSensor(std::string n, AbstractSprite* s1, ObjectPoolActuator* opa, bool o) :
+	oneShot(o)
+{
+	this->name = n;
+	//myState = new 
+}
+
 void CollisionSensor::sense()
 {
 	myState->exec();
