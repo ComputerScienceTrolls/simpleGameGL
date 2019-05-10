@@ -11,6 +11,7 @@ public:
 	ObjectPool(T* objectToStore, int numberOfObjectsInPool);
 	T* getObject();
 	T* getCurrentObject();
+	std::vector<T*> getPool();
 	~ObjectPool() {};
 
 protected:
@@ -46,4 +47,9 @@ T* ObjectPool<T>::getCurrentObject()
 	return pool.at(index);
 }
 
+template <typename T>
+std::vector<T*> ObjectPool<T>::getPool()
+{
+	return this->pool;
+}
 #endif
