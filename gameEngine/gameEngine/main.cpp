@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
 	rCopy->setPosX(200);
 	Sprite *rocketGoal = new Sprite("rocketGoal", mainScene, glm::vec2(750, 25), glm::vec2(50, 35), "textures/Rocket001_off.png");
 	rocketGoal->setRotation(float(3.14/2));
+	rocketGoal->setCollideDebug(true);
 	Sprite *wave = new Sprite("wave", mainScene, glm::vec2(0, 0), glm::vec2(20, 40), "textures/fullSignal.png");
 	wave->hide();
 	Sprite *Gui = new Sprite("fuel", mainScene, glm::vec2(150, 550), glm::vec2(300, 60), "textures/fuel_bar.png");
@@ -224,6 +225,7 @@ int main(int argc, char *argv[])
 	MotionActuator *keepSpawnerInFrontOfRocket = new MotionActuator("keepSpawnerInFrontOfRocket", rs2, spawnObject, "setInFront");
 	MotionActuator *mUp = new MotionActuator("mup", rs2,.1, "forceForward");
 	ObjectPoolActuator *rocketBullets = new ObjectPoolActuator("test", wave, 10, spawnObject, 1, rs2, "spriteSpawnRotateForce");
+	CollisionSensor *bulletCollisionSensor = new CollisionSensor("bulletCollisionSensor",rocketGoal, rocketBullets, true);
 	SceneActuator *sceneAct1 = new SceneActuator("scene1", "next");
 	
 	//set up sound 
@@ -275,6 +277,7 @@ int main(int argc, char *argv[])
 	kl->addActuator(rRight);
 	kp->addActuator(pauseScene);
 	kp->addActuator(pauseTextVisibleAct);
+	bulletCollisionSensor->addActuator(sceneAct1);
 	goal1->addActuator(sceneAct1);
 	//A->addActuator(music);
 	//Always->addActuator(keepSpawnerInFrontOfRocket);
@@ -290,6 +293,7 @@ int main(int argc, char *argv[])
 	mainScene.addSensor(ki);
 	mainScene.addSensor(kk);
 	mainScene.addSensor(kSpace);
+	mainScene.addSensor(bulletCollisionSensor);
 	mainScene.addSensor(rocketRocksCollsionSensor);
 
 	mainScene.addSensor(RocksWaveCol[0]);

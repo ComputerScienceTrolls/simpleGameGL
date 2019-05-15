@@ -11,6 +11,7 @@ public:
 	ObjectPoolActuator(std::string name, Sprite *object, int numberOfObjectsInPool, SceneObject *SO, std::string con = "spriteSpawn");
 	ObjectPoolActuator(std::string name, Sprite *object, int numberOfObjectsInPool, SceneObject *SO, float force, SceneObject *forceToward, std::string con = "spriteSpawnForce");
 	virtual void run();
+
 	~ObjectPoolActuator();
 
 private:

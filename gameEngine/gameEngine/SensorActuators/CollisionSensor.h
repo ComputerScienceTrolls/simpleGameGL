@@ -16,6 +16,7 @@
 #include "CollisionSensorStates/CollisionSensorSpriteSpriteGroupOneShot.h"
 #include "CollisionSensorStates/CollisionSensorSpriteSpriteNoOneShot.h"
 #include "CollisionSensorStates/CollisionSensorSpriteSpriteOneShot.h"
+#include "CollisionSensorStates/CollisionSensorSpriteObjectPoolOneShot.h"
 
 class CollisionSensor : public AbstractSensor
 {

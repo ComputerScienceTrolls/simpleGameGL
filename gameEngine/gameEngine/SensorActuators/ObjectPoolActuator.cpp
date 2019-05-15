@@ -36,7 +36,7 @@ ObjectPoolActuator::ObjectPoolActuator(std::string name, Sprite * object, int nu
 {
 	this->name = name;
 	this->index = -1;
-	this->force = f;
+	this->force = f-1;
 
 	std::vector<Sprite*> sprites;
 	object->setBoundAction("DIE");
@@ -44,6 +44,7 @@ ObjectPoolActuator::ObjectPoolActuator(std::string name, Sprite * object, int nu
 	for (int i = 1; i< numberOfObjectsInPool; i++)
 	{
 		Sprite* temp = new Sprite(object);
+		temp->setCollideDebug(true);
 		//for better performance, assume object wants to be deactived once off screen.
 		temp->setBoundAction("DIE");
 		pool.push_back(temp);
