@@ -6,12 +6,14 @@
 #include <string>
 #include <vector>
 
+class AbstractScene;
+
 class SceneObject
 {
 public:
-	SceneObject();
-	SceneObject(std::string name, glm::vec2 Pos = glm::vec2(0), glm::vec2 Size = glm::vec2(0));
-	SceneObject(SceneObject* copy);
+	SceneObject(AbstractScene* scene = nullptr);
+	SceneObject(std::string name, glm::vec2 Pos = glm::vec2(0), glm::vec2 Size = glm::vec2(0),AbstractScene * scene = nullptr);
+	SceneObject(SceneObject* copy, AbstractScene* scene = nullptr);
 
 	//set methods
 	virtual void setPosition(glm::vec2);
@@ -28,6 +30,7 @@ public:
 	virtual void setName(std::string);
 	virtual void setRotation(GLfloat);
 	virtual void setActive(bool);
+	virtual void setScene(AbstractScene*);
 
 	//get methods
 	virtual glm::vec2 getPosition();
@@ -40,6 +43,7 @@ public:
 	virtual std::string getName();
 	virtual GLfloat getRotation();
 	virtual bool getActive();
+	virtual AbstractScene* getScene();
 
 	virtual void changePositionBy(glm::vec2);
 	virtual void changeXBy(float);
@@ -62,6 +66,8 @@ protected:
 	std::string name;
 	bool active;
 	SceneObject *parent;
+	//create protected var that holds which scene this scene object belongs to(added for coping issues with copy constructors for scene objects
+	AbstractScene* scene;
 };
 
 #endif

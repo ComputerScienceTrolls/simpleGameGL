@@ -9,6 +9,12 @@ std::mutex threadMutex;
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
+Scene::Scene() :
+	initilized(false), background(nullptr)
+{
+
+}
+
 Scene::Scene(std::string n, GLuint w, GLuint h) :
 	initilized(false)
 {

@@ -2,8 +2,7 @@
 #include <thread>
 
 //constructor with no position offset
-BoxColliderAsync::BoxColliderAsync(std::string newName, AbstractSprite &parent, AbstractCollider *otherC, int w, int h) :
-	spriteParent(&parent)
+BoxColliderAsync::BoxColliderAsync(std::string newName, AbstractSprite &parent, AbstractCollider *otherC, int w, int h)
 {
 	this->name = newName;
 	this->Size.x = float(w);

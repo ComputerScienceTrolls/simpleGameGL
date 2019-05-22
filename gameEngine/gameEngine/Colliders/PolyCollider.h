@@ -10,7 +10,8 @@ public:
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);
 	PolyCollider(std::string name, std::vector<glm::vec2>);
 	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
-	virtual bool getStaticState();
+	virtual bool collide(AbstractCollider*);
+	virtual bool collide(AbstractSprite*);
 	virtual glm::vec2 getSpriteCenterPos();
 	virtual glm::vec2 getSpritePos();
 	virtual glm::vec2 getSpriteSize();
@@ -30,7 +31,6 @@ public:
 	virtual void updateVecs();
 
 private:
-	bool staticState;
 	AbstractSprite *spriteParent;
 	std::vector<glm::vec2> offsetVectrices;
 	std::vector<glm::vec2> vectrices;

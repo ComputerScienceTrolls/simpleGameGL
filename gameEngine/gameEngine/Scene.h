@@ -13,7 +13,7 @@
 class Scene : public AbstractScene
 {
 public:
-	Scene() { };
+	Scene();
 	Scene(std::string name, GLuint width, GLuint height);
 	~Scene();
 	virtual void Init();

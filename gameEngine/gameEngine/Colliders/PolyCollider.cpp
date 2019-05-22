@@ -227,8 +227,96 @@ bool PolyCollider::collide(std::vector<AbstractCollider*> otherColliders)
 	return false;
 }
 
-bool PolyCollider::getStaticState()
+bool PolyCollider::collide(AbstractCollider* otherCollider)
 {
+	if (otherCollider->getType() == "Poly")
+	{
+		updateVecs();
+		//we need to update otherCollidiers vecs based on it's sprite's position
+		otherCollider->updateVecs();
+		for (unsigned int j = 0; j < this->vectrices.size(); j++)
+		{
+			//get dir of the current edge
+			glm::vec2 tempDir = this->edges[j]->getDir();
+
+			//get normal of that dir
+			tempDir = getNormal(tempDir);
+
+			//find the projection of this polygon on the axis
+			std::vector<double> thisProj = project(tempDir);
+			std::vector<double> otherProj = otherCollider->project(tempDir);
+			if (!overlap(thisProj, otherProj))
+			{
+				return false;
+			}
+		}
+
+		//now do it the other way
+		for (unsigned int j = 0; j < otherCollider->getVerticies().size(); j++)
+		{
+			glm::vec2 tempDir = otherCollider->getEdges().at(j)->getDir();
+			tempDir = getNormal(tempDir);
+			std::vector<double> thisProj = otherCollider->project(tempDir);
+			std::vector<double> otherProj = otherCollider->project(tempDir);
+			if (!overlap(thisProj, otherProj))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+	else
+		std::cerr << "Poly collider cannot collide with anything other than another Poly collider as of now\n PolyCollider: " << this->name << " Other Collider: " << otherCollider->getName();
+}
+
+bool PolyCollider::collide(AbstractSprite *abstractSprite)
+{
+	//we need to update the vecs based on each sprite's position
+	updateVecs();
+	std::vector<AbstractCollider*> otherColliders = abstractSprite->getColliders();
+	for (unsigned int i = 0; i < otherColliders.size(); i++)
+	{
+		if (otherColliders.at(i)->getType() == "Poly")
+		{
+			//we need to update otherCollidiers vecs based on it's sprite's position
+			otherColliders.at(i)->updateVecs();
+			for (unsigned int j = 0; j < this->vectrices.size(); j++)
+			{
+				//get dir of the current edge
+				glm::vec2 tempDir = this->edges[j]->getDir();
+
+				//get normal of that dir
+				tempDir = getNormal(tempDir);
+
+				//find the projection of this polygon on the axis
+				std::vector<double> thisProj = project(tempDir);
+				std::vector<double> otherProj = otherColliders.at(i)->project(tempDir);
+				if (!overlap(thisProj, otherProj))
+				{
+					return false;
+				}
+			}
+
+			//now do it the other way
+			for (unsigned int j = 0; j < otherColliders.at(i)->getVerticies().size(); j++)
+			{
+				glm::vec2 tempDir = otherColliders.at(i)->getEdges().at(j)->getDir();
+				tempDir = getNormal(tempDir);
+				std::vector<double> thisProj = otherColliders.at(i)->project(tempDir);
+				std::vector<double> otherProj = otherColliders.at(i)->project(tempDir);
+				if (!overlap(thisProj, otherProj))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+		else
+			std::cerr << "Poly collider cannot collide with anything other than another Poly collider as of now\n PolyCollider: " << this->name << " Other Collider: " << otherColliders.at(i)->getName();
+	}
+
 	return false;
 }
 

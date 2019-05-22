@@ -22,8 +22,6 @@ public:
 	bool overlap;
 
 private:
-	bool staticState;
-	AbstractSprite *spriteParent;
 	AbstractCollider *oc;
 };
 #endif

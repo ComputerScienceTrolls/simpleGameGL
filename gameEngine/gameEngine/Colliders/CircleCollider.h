@@ -21,6 +21,6 @@ public:
 
 private:
 	float radius;
-	AbstractSprite *spriteParent;
+
 };
 

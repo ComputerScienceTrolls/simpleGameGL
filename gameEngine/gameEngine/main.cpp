@@ -56,7 +56,8 @@ int main(int argc, char *argv[])
 	
 	//set up sprites
 	Sprite *rs2 = new Sprite("rocket", mainScene, glm::vec2(150, 300), glm::vec2(50, 35), "textures/Rocket001_off.png");
-
+	rs2->addCircleCollider("cir", 15, 0, 0);
+	rs2->removeCollider("default");
 	rs2->setRotation(float(3.14 / 2));
 
 	rs2->setCollideDebug(true);
@@ -88,6 +89,7 @@ int main(int argc, char *argv[])
 		new Sprite("Rock8", mainScene, glm::vec2(350, 425), glm::vec2(40, 20), "textures/rock.png")
 
 	};
+	//Rocks[7]->addCircleCollider("rockCircleCollider", 50, 0, 0);
 
 	//GLuint nr_particles = 500;
 	//std::vector<Particle> particles;

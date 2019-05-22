@@ -1,16 +1,17 @@
 #include "SceneObject.h"
 #include <iostream>
 
-SceneObject::SceneObject()
+SceneObject::SceneObject(AbstractScene *s)
 {
 	this->name = "";
 	this->Size = glm::vec2(0);
 	this->Position = glm::vec2(0);
 	this->Center = glm::vec2(0);
 	this->active = true;
+	this->scene = s;
 }
 
-SceneObject::SceneObject(std::string name, glm::vec2 Pos, glm::vec2 Size)
+SceneObject::SceneObject(std::string name, glm::vec2 Pos, glm::vec2 Size, AbstractScene *s)
 {
 	this->name = name;
 	this->Center = Pos;
@@ -18,9 +19,11 @@ SceneObject::SceneObject(std::string name, glm::vec2 Pos, glm::vec2 Size)
 
 	this->Position.x = this->Center.x - this->Size.x / 2;
 	this->Position.y = this->Center.y - this->Size.y / 2;
+
+	this->scene = s;
 }
 
-SceneObject::SceneObject(SceneObject * copy)
+SceneObject::SceneObject(SceneObject * copy, AbstractScene *s)
 {
 	this->name = copy->name;
 	this->active = copy->active;
@@ -34,6 +37,7 @@ SceneObject::SceneObject(SceneObject * copy)
 	this->Position = copy->Position;
 	this->Rotation = copy->Rotation;
 	this->Size = copy->Size;
+	this->scene = s;
 }
 
 void SceneObject::setPosition(glm::vec2 newPosition)
@@ -145,6 +149,11 @@ void SceneObject::setActive(bool newState)
 	this->active = newState;
 }
 
+void SceneObject::setScene(AbstractScene* ns)
+{
+	this->scene = ns;
+}
+
 glm::vec2 SceneObject::getPosition()
 {
 	return this->Position;
@@ -193,6 +202,11 @@ GLfloat SceneObject::getRotation()
 bool SceneObject::getActive()
 {
 	return this->active;
+}
+
+AbstractScene* SceneObject::getScene()
+{
+	return this->scene;
 }
 
 void SceneObject::changePositionBy(glm::vec2 dt)

@@ -2,7 +2,7 @@
 
 //consturctor with no positon offset from sprite.
 CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r):
-	spriteParent(&parent), radius(r)
+	radius(r)
 {
 	this->Center.x = 0;
 	this->Center.y = 0;
@@ -24,9 +24,10 @@ CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r
 }
 
 //consturctor with a position offset from it's sprite
-CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r, float posX, float posY) :
-	spriteParent(&parent), radius(r)
+CircleCollider::CircleCollider(std::string n, AbstractSprite &parent, float r, float posX, float posY) :
+	radius(r)
 {
+	this->name = n;
 	this->Center.x = posX;
 	this->Center.y = posY;
 	this->Position.x = this->Center.x - this->Size.x / 2;
@@ -172,6 +173,9 @@ bool CircleCollider::collide(AbstractCollider * otherCollider)
 		float diffX = (this->getSpriteCenterPos().x + this->getPosX()) - (otherCollider->getSpriteCenterPos().x + otherCollider->getPosX());
 		float diffY = (this->getSpriteCenterPos().y + this->getPosY()) - (otherCollider->getSpriteCenterPos().y + otherCollider->getPosY());
 
+		//float diffX = (this->Center.x + this->getPosX()) - (otherCollider->getCenter().x + otherCollider->getPosX());
+		//float diffY = (this->Center.y + this->getPosY()) - (otherCollider->getCenter().y + otherCollider->getPosY());
+
 		double dist = std::sqrt((diffX * diffX) + (diffY * diffY));
 		if (dist <= (this->getRadius() + otherCollider->getRadius()))
 			return true;
@@ -235,11 +239,11 @@ float CircleCollider::getRadius()
 void CircleCollider::Draw(AbstractRenderer *renderer)
 {
 	SpriteRenderer *sp = static_cast<SpriteRenderer*>(renderer);
-	//if spriteParent exists use it for rendering
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreenCircle");
 	sp->DrawSprite(tempTexture, this->Position, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
 }
 
 CircleCollider::~CircleCollider()
 {
+
 }

@@ -39,6 +39,9 @@ Sprite::Sprite(Sprite * copySprite)
 	this->initTextureFile = copySprite->initTextureFile;
 	this->Velocity = copySprite->Velocity;
 
+	if (copySprite->collider_ != nullptr)
+		//this->collider_ = new AbstractCollider(copySprite->collider_);
+
 	this->parentScene->addSprite(this);
 }
 
@@ -283,6 +286,7 @@ void Sprite::removeCollider(std::string name)
 	{
 		std::cout << "deleting " << colliders_.at(index)->getName();
 		this->colliders_.erase(colliders_.begin() + index);
+		std::cout << "wut";
 	}
 	else
 	{
@@ -405,13 +409,6 @@ Texture2D Sprite::getTexture()
 {
 	return this->Texture;
 }
-
-/*
-bool Sprite::getVisible()
-{
-	return this->visible;
-}
-*/
 
 std::vector<AbstractCollider*> Sprite::getColliders()
 {

@@ -1,8 +1,32 @@
 #include "BoxCollider.h"
 
+BoxCollider::BoxCollider(BoxCollider* copy)
+{
+	this->active = copy->active;
+	this->name = copy->name;
+	this->Position = copy->Position;
+	this->type = copy->type;
+	this->transparency = copy->transparency;
+	this->setBoundAction(copy->getBoundAction());
+	this->Size = copy->Size;
+	this->Center = copy->Center;
+	this->visible = copy->visible;
+
+	copy->getScene()->addMovingObject(this);
+	copy->getScene()->addDrawObject(this);
+	copy->getScene()->addSceneObject(this);
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
+}
+
 //constructor with no position offset
-BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int h) :
-	spriteParent(&parent)
+BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int h)
 {
 	this->name = newName;
 	this->Size.x = float(w);
@@ -22,8 +46,7 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int
 }
 
 //consturctor with a positon offset
-BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY) :
-	spriteParent(&parent)
+BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY)
 {
 	this->name = newName;
 	this->Size.x = float(w);
@@ -274,11 +297,6 @@ bool BoxCollider::collide(AbstractSprite * otherSprite)
 	}
 	return false;
 
-}
-
-bool BoxCollider::getStaticState()
-{
-	return this->staticState;
 }
 
 void BoxCollider::Draw(AbstractRenderer *renderer)

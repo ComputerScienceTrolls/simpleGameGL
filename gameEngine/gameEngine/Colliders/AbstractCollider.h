@@ -18,9 +18,9 @@ class AbstractCollider : virtual public MovingSceneObject, virtual public DrawSc
 	class SpriteRender;
 public:
 	AbstractCollider();
-	virtual bool collide(std::vector<AbstractCollider*>) { return false; };
-	virtual bool collide(AbstractCollider*) { return false; };
-	virtual bool collide(AbstractSprite*) { return false; };
+	virtual bool collide(std::vector<AbstractCollider*>) = 0;// { return false; };
+	virtual bool collide(AbstractCollider*) = 0;// { return false; };
+	virtual bool collide(AbstractSprite*) = 0;// { return false; };
 	virtual glm::vec2 getSpriteCenterPos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpritePos() { return glm::vec2(0, 0); };
 	virtual glm::vec2 getSpriteSize() { return glm::vec2(0, 0); };
@@ -40,11 +40,10 @@ public:
 	//only in Abstract Collider
 	virtual std::string getType();
 
-	~AbstractCollider();
+	virtual ~AbstractCollider();
 
 protected:
 	std::string type;
-	bool staticState;
 
 private:
 	SpriteRender *render;
