@@ -44,7 +44,7 @@ public:
 					tapped = false;
 					for (int j = 0; j < actuators->size(); j++)
 					{
-						actuators->at(j)->run();
+  						actuators->at(j)->run();
 					}
 				}
 			}

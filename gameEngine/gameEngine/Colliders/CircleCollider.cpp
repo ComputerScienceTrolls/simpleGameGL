@@ -1,5 +1,33 @@
 #include "CircleCollider.h"
 
+CircleCollider::CircleCollider(CircleCollider* copy)
+{
+	this->active = copy->active;
+	this->name = copy->name;
+	this->Position = copy->Position;
+	this->type = copy->type;
+	this->transparency = copy->transparency;
+	this->setBoundAction(copy->getBoundAction());
+	this->Size = copy->Size;
+	this->Center = copy->Center;
+	this->visible = copy->visible;
+
+	if (copy->getScene())
+	{
+		copy->getScene()->addMovingObject(this);
+		copy->getScene()->addDrawObject(this);
+		copy->getScene()->addSceneObject(this);
+	}
+
+	//make sure collider textures are not already loaded
+	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
+	{
+		//texture for collider debug
+		ResourceManager::LoadTexture("textures/green.png", true, "debugGreen");
+		ResourceManager::LoadTexture("textures/greenCircle.png", true, "debugGreenCircle");
+	}
+}
+
 //consturctor with no positon offset from sprite.
 CircleCollider::CircleCollider(std::string name, AbstractSprite &parent, float r):
 	radius(r)
@@ -241,6 +269,11 @@ void CircleCollider::Draw(AbstractRenderer *renderer)
 	SpriteRenderer *sp = static_cast<SpriteRenderer*>(renderer);
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreenCircle");
 	sp->DrawSprite(tempTexture, this->Position, this->Size, 0, glm::vec3(0, 255, 0), this->transparency);
+}
+
+AbstractCollider* CircleCollider::clone()
+{
+	return new CircleCollider(this);
 }
 
 CircleCollider::~CircleCollider()

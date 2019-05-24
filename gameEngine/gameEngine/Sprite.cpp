@@ -1,15 +1,46 @@
 #include "Sprite.h"
 
-//pie constant for math
-const double PI = 3.141592653589793238463;
-
 Sprite::Sprite()
 {
+	this->parentScene = nullptr;
+	this->Color = glm::vec3(0);
+	this->Texture = Texture2D();
+	this->collideDebug = false;
+	this->transparency = 0;
+	this->name = "null";
+	this->Center = glm::vec2(0);
+	this->Size = glm::vec2(0);
+	this->lastSize = glm::vec2(0);
+	this->lastPosition = glm::vec2(0);
+	this->Velocity = glm::vec2(0);
+	this->Rotation = 0;
+	this->lastRotation = 0;
+	this->speed = 0;
+	this->moveAngle = 0;
+	this->imgAngle = 0;
+
+	this->active = false;
+	this->visible = true;
+
+	this->initCenter = glm::vec2(0);
+	this->initColor = glm::vec3(0);
+	this->initPosition = glm::vec2(0);
+	this->initRotation = 0;
+	this->initSize = glm::vec2(0);
+	this->initTexture = Texture2D();
+	this->initTextureFile = "null";
+	this->Velocity = glm::vec2(0);
+
+	this->colliders_ = std::vector<AbstractCollider*>();
+
+	this->parentScene = nullptr;
 }
 
-Sprite::Sprite(Sprite * copySprite)
+Sprite::Sprite(Sprite *copySprite)
 {
-	this->parentScene = copySprite->parentScene;
+	//this->parentScene = copySprite->parentScene;
+	this->setScene(copySprite->getScene());
+	this->Position = copySprite->Position;
 	this->Color = copySprite->Color;
 	this->Texture = copySprite->Texture;
 	this->collideDebug = copySprite->collideDebug;
@@ -39,17 +70,25 @@ Sprite::Sprite(Sprite * copySprite)
 	this->initTextureFile = copySprite->initTextureFile;
 	this->Velocity = copySprite->Velocity;
 
-	if (copySprite->collider_ != nullptr)
-		//this->collider_ = new AbstractCollider(copySprite->collider_);
+	std::vector<AbstractCollider*> tempColliders;
+	std::vector<AbstractCollider*> otherColliders = copySprite->colliders_;
+	for (int i = 0; i < copySprite->colliders_.size(); i++)
+	{
+		tempColliders.push_back(copySprite->colliders_.at(i)->clone());
+	}
+	this->colliders_ = tempColliders;
+	if (tempColliders.size() > 0)
+		this->children.push_back(tempColliders.at(0));
 
-	this->parentScene->addSprite(this);
+	this->getScene()->addSprite(this);
 }
 
 //empty sprite
-Sprite::Sprite(std::string n, AbstractScene &scene)
-	: parentScene(&scene), Texture(), collideDebug(false), transparency(1)
+Sprite::Sprite(std::string n, AbstractScene *scene)
+	: Texture(), collideDebug(false), transparency(1)
 {
 	this->name = n;
+	this->setScene(scene);
 	this->Center = glm::vec2(10);
 	this->Size = glm::vec2(0);
 	this->lastSize = this->Size;
@@ -65,10 +104,10 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 	this->Color = glm::vec4(1.0f);
 
 	//give default box collider
-	BoxCollider *temp = new BoxCollider("default",*this, 1, 1);
+	BoxCollider *temp = new BoxCollider("default",this, 1, 1);
 	colliders_.push_back(temp);
 
-	scene.addSprite(this);
+	scene->addSprite(this);
 
 	this->active = true;
 	this->visible = true;
@@ -85,10 +124,11 @@ Sprite::Sprite(std::string n, AbstractScene &scene)
 }
 
 //make given pos the center of the sprite, so calc the real pos, setup given texture, setup collider texture, add sprite to scene, set velocity, and init initvalues
-Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
-	: parentScene(&scene), textureFile(texture), collideDebug(false), transparency(1)
+Sprite::Sprite(std::string n, AbstractScene *scene, glm::vec2 pos, glm::vec2 size, GLchar* texture, glm::vec2 velocity, glm::vec3 color)
+	:  textureFile(texture), collideDebug(false), transparency(1)
 {
 	this->name = n;
+	this->setScene(scene);
 	this->Center = pos;
 	this->Size = size;
 	this->lastSize = this->Size;
@@ -102,7 +142,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 	
 	this->lastPosition = this->Position;
 
-	BoxCollider *temp = new BoxCollider("default",*this, (int)size.x, (int)size.y);
+	BoxCollider *temp = new BoxCollider("default", this, (int)size.x, (int)size.y);
 	temp->setPosition(this->Position);
 	colliders_.push_back(temp);
 
@@ -118,7 +158,7 @@ Sprite::Sprite(std::string n, AbstractScene &scene, glm::vec2 pos, glm::vec2 siz
 		this->Texture = ResourceManager::GetTexture(texture);
 	}
 
-	scene.addSprite(this);
+	scene->addSprite(this);
 
 	this->active = true;
 	this->visible = true;
@@ -154,7 +194,7 @@ Sprite::Sprite(std::string n, glm::vec2 pos, glm::vec2 size, GLchar * texture, g
 
 	this->lastPosition = this->Position;
 
-	BoxCollider *temp = new BoxCollider("default", *this, (int)size.x, (int)size.y);
+	BoxCollider *temp = new BoxCollider("default", this, (int)size.x, (int)size.y);
 	temp->setPosition(this->Position);
 	colliders_.push_back(temp);
 
@@ -250,14 +290,14 @@ bool Sprite::collide(AbstractCollider * otherCollider)
 //add box collider to the sprite. with pos offset from sprite
 void Sprite::addBoxCollider(std::string name, int w, int h, int posX, int posY)
 {
-	BoxCollider *temp = new BoxCollider(name, *this, w, h, posX, posY);
+	BoxCollider *temp = new BoxCollider(name, this, w, h, posX, posY);
 	this->colliders_.push_back(temp);
 }
 
 //add box collider to the sprite. pos is assumed on sprite
 void Sprite::addBoxCollider(std::string name, int w, int h)
 {
-	BoxCollider *temp = new BoxCollider(name, *this, w, h);
+	BoxCollider *temp = new BoxCollider(name, this, w, h);
 	temp->setPosition(this->Position);
 	this->colliders_.push_back(temp);
 }

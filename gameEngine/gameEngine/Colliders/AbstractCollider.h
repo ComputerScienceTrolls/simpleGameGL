@@ -40,6 +40,8 @@ public:
 	//only in Abstract Collider
 	virtual std::string getType();
 
+	virtual AbstractCollider* clone() = 0;
+
 	virtual ~AbstractCollider();
 
 protected:

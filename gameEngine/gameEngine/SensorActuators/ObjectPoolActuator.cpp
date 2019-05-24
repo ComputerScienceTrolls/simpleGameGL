@@ -36,7 +36,7 @@ ObjectPoolActuator::ObjectPoolActuator(std::string name, Sprite * object, int nu
 {
 	this->name = name;
 	this->index = -1;
-	this->force = f-1;
+	this->force = f;
 
 	std::vector<Sprite*> sprites;
 	object->setBoundAction("DIE");

@@ -7,6 +7,7 @@
 class PolyCollider : public AbstractCollider
 {
 public:
+	PolyCollider(PolyCollider* copy) {}
 	PolyCollider(std::string name, AbstractSprite &parent, std::vector<glm::vec2>);
 	PolyCollider(std::string name, std::vector<glm::vec2>);
 	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
@@ -29,6 +30,8 @@ public:
 	virtual std::vector<glm::vec2> getOffsetVectrices();
 	virtual std::vector<Edge*> getEdges();
 	virtual void updateVecs();
+
+	virtual AbstractCollider* clone() { return new PolyCollider(this); }
 
 private:
 	AbstractSprite *spriteParent;

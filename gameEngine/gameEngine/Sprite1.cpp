@@ -1,11 +1,8 @@
 #include "Sprite1.h"
 
-
-
 Sprite1::Sprite1()
 {
 }
-
 
 Sprite1::Sprite1(std::string n, AbstractScene & scene, glm::vec2 pos, glm::vec2 size, GLchar * texture, glm::vec2 velocity, glm::vec3 color)
 {
@@ -26,7 +23,7 @@ Sprite1::Sprite1(std::string n, AbstractScene & scene, glm::vec2 pos, glm::vec2 
 	this->collideDebug = false;
 	this->transparency = 1;
 
-	BoxCollider *temp = new BoxCollider("default", *this, (int)size.x, (int)size.y);
+	BoxCollider *temp = new BoxCollider("default", this, (int)size.x, (int)size.y);
 	temp->setPosition(this->Position);
 	colliders_.push_back(temp);
 

@@ -15,14 +15,17 @@ class BoxCollider : public AbstractCollider
 
 public:
 	BoxCollider(BoxCollider *copy);
-	BoxCollider(std::string name, AbstractSprite &parent, int w, int h);
-	BoxCollider(std::string name, AbstractSprite &parent, int w, int h, int posX, int posY);
-	BoxCollider(std::string name, AbstractScene &parent, int w, int h);
-	BoxCollider(std::string name, AbstractScene &parent, int w, int h, int posX, int posY);
+	BoxCollider(std::string name, AbstractSprite *parent, int w, int h);
+	BoxCollider(std::string name, AbstractSprite *parent, int w, int h, int posX, int posY);
+	BoxCollider(std::string name, AbstractScene *parent, int w, int h);
+	BoxCollider(std::string name, AbstractScene *parent, int w, int h, int posX, int posY);
 	virtual bool collide(std::vector<AbstractCollider*> otherColliders);
 	virtual bool collide(AbstractCollider* otherCollider);
 	virtual bool collide(AbstractSprite* otherSprite);
 	virtual void Draw(AbstractRenderer *renderer);
+
+	virtual AbstractCollider* clone();
+
 	~BoxCollider();
 
 private:

@@ -12,9 +12,14 @@ BoxCollider::BoxCollider(BoxCollider* copy)
 	this->Center = copy->Center;
 	this->visible = copy->visible;
 
-	copy->getScene()->addMovingObject(this);
-	copy->getScene()->addDrawObject(this);
-	copy->getScene()->addSceneObject(this);
+	//if (copy->getScene())
+	//{
+		copy->getScene()->addMovingObject(this);
+		copy->getScene()->addDrawObject(this);
+		copy->getScene()->addSceneObject(this);
+		
+		this->setScene(copy->getScene());
+	//}
 
 	//make sure collider textures are not already loaded
 	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
@@ -26,7 +31,7 @@ BoxCollider::BoxCollider(BoxCollider* copy)
 }
 
 //constructor with no position offset
-BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int h)
+BoxCollider::BoxCollider(std::string newName, AbstractSprite *parent, int w, int h)
 {
 	this->name = newName;
 	this->Size.x = float(w);
@@ -34,7 +39,10 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int
 	this->Position = glm::vec2(0,0);
 	this->type = "box";
 	this->transparency = float(.15);
-	this->setBoundAction("STOP");
+	//this->setBoundAction("STOP");
+
+	//if (parent->getScene())
+		this->setScene(parent->getScene());
 
 	//make sure collider textures are not already loaded
 	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
@@ -46,7 +54,7 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent, int w, int
 }
 
 //consturctor with a positon offset
-BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int h, int posX, int posY)
+BoxCollider::BoxCollider(std::string newName, AbstractSprite *parent,int w, int h, int posX, int posY)
 {
 	this->name = newName;
 	this->Size.x = float(w);
@@ -59,6 +67,9 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int 
 	this->transparency = float(.15);
 	this->setBoundAction("STOP");
 
+	if (parent->getScene())
+		this->setScene(parent->getScene());
+
 	//make sure collider textures are not already loaded
 	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
 	{
@@ -68,7 +79,8 @@ BoxCollider::BoxCollider(std::string newName, AbstractSprite &parent,int w, int 
 	}
 }
 
-BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
+//constructor with just a parent scene no parent sprite.
+BoxCollider::BoxCollider(std::string n, AbstractScene *parent, int w, int h)
 {
 	this->name = n;
 	this->active = true;
@@ -76,11 +88,12 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
 	this->Size.y = float(h);
 	this->type = "box";
 	this->transparency = float(.15);
-	this->setBoundAction("STOP");
+	//this->setBoundAction("STOP");
 
-	parent.addMovingObject(this);
-	parent.addDrawObject(this);
-	parent.addSceneObject(this);
+	this->setScene(parent);
+	parent->addMovingObject(this);
+	parent->addDrawObject(this);
+	parent->addSceneObject(this);
 
 	//make sure collider textures are not already loaded
 	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
@@ -91,7 +104,7 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h)
 	}
 }
 
-BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int posX, int posY)
+BoxCollider::BoxCollider(std::string n, AbstractScene *parent, int w, int h, int posX, int posY)
 {
 	this->name = n;
 	this->active = true;
@@ -103,11 +116,11 @@ BoxCollider::BoxCollider(std::string n, AbstractScene &parent, int w, int h, int
 	this->Position.y = this->Center.y - this->Size.y / 2;
 	this->type = "box";
 	this->transparency = GLfloat(.15);
-	this->setBoundAction("STOP");
+//	this->setBoundAction("STOP");
 
-	parent.addMovingObject(this);
-	parent.addDrawObject(this);
-	parent.addSceneObject(this);
+	parent->addMovingObject(this);
+	parent->addDrawObject(this);
+	parent->addSceneObject(this);
 
 	//make sure collider textures are not already loaded
 	if (ResourceManager::Textures["textures/green.png"].Image_Format == 6407)
@@ -305,6 +318,24 @@ void BoxCollider::Draw(AbstractRenderer *renderer)
 	//if parentSprite exists use it for render calc
 	Texture2D tempTexture = ResourceManager::GetTexture("debugGreen");
 	sp->DrawSprite(tempTexture, this->Position, this->Size, this->Rotation, glm::vec3(0, 255, 0), this->transparency);
+}
+
+AbstractCollider* BoxCollider::clone()
+{
+	BoxCollider* clone = new BoxCollider("clone", this->getScene(),this->Size.x, this->Size.y);
+	clone->active = this->active;
+	clone->name = this->name;
+	clone->Position = this->Position;
+	clone->type = this->type;
+	clone->transparency = this->transparency;
+	clone->setBoundAction(this->getBoundAction());
+	//clone->Size = this->Size;
+	clone->Center = this->Center;
+	clone->visible = this->visible;
+
+	return clone;
+
+	//return new BoxCollider(this);
 }
 
 BoxCollider::~BoxCollider()
