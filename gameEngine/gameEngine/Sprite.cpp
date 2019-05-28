@@ -74,7 +74,12 @@ Sprite::Sprite(Sprite *copySprite)
 	std::vector<AbstractCollider*> otherColliders = copySprite->colliders_;
 	for (int i = 0; i < copySprite->colliders_.size(); i++)
 	{
-		tempColliders.push_back(copySprite->colliders_.at(i)->clone());
+		AbstractCollider* temp = copySprite->colliders_.at(i)->clone();
+		AbstractScene *tempScene = this->getScene();
+		tempScene->addDrawObject(temp);
+		tempScene->addMovingObject(temp);
+		tempScene->addSceneObject(temp);
+		tempColliders.push_back(temp);
 	}
 	this->colliders_ = tempColliders;
 	if (tempColliders.size() > 0)
@@ -105,6 +110,9 @@ Sprite::Sprite(std::string n, AbstractScene *scene)
 
 	//give default box collider
 	BoxCollider *temp = new BoxCollider("default",this, 1, 1);
+	scene->addDrawObject(temp);
+	scene->addMovingObject(temp);
+	scene->addSceneObject(temp);
 	colliders_.push_back(temp);
 
 	scene->addSprite(this);
@@ -144,6 +152,9 @@ Sprite::Sprite(std::string n, AbstractScene *scene, glm::vec2 pos, glm::vec2 siz
 
 	BoxCollider *temp = new BoxCollider("default", this, (int)size.x, (int)size.y);
 	temp->setPosition(this->Position);
+	scene->addDrawObject(temp);
+	scene->addMovingObject(temp);
+	scene->addSceneObject(temp);
 	colliders_.push_back(temp);
 
 	//see if texture is already loaded
@@ -480,6 +491,7 @@ Sprite::~Sprite()
 	//delete colliders
 	for (int i = 0; i < colliders_.size(); i++)
 	{
-		delete colliders_.at(i);
+		//if (colliders_.at(i) != nullptr)
+			//delete colliders_.at(i);
 	}
 }

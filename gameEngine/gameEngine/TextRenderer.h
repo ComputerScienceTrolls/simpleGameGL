@@ -40,7 +40,7 @@ public:
 	Shader TextShader;
 	// Constructor
 	TextRenderer(GLuint width, GLuint height);
-	TextRenderer() {};
+	TextRenderer() { VAO = -1; VBO = -1; currentFontSize = -1; };
 	std::string currentFont;
 	int currentFontSize;
 	// Pre-compiles a list of characters from the given font

@@ -1,5 +1,9 @@
 #include "BoxCollider.h"
 
+BoxCollider::BoxCollider()
+{
+}
+
 BoxCollider::BoxCollider(BoxCollider* copy)
 {
 	this->active = copy->active;
@@ -322,16 +326,26 @@ void BoxCollider::Draw(AbstractRenderer *renderer)
 
 AbstractCollider* BoxCollider::clone()
 {
-	BoxCollider* clone = new BoxCollider("clone", this->getScene(),this->Size.x, this->Size.y);
-	clone->active = this->active;
-	clone->name = this->name;
-	clone->Position = this->Position;
-	clone->type = this->type;
-	clone->transparency = this->transparency;
+	//BoxCollider* clone = new BoxCollider("clone", this->getScene(),0, 0);
+	BoxCollider* clone = new BoxCollider();
+	//clone->name = "clone";
+	clone->setPosition(this->Position);
+	clone->setCenter(this->Center);
+	clone->setSize(this->Size);
+	clone->setName(this->name + "_clone");
+	clone->setTransparency(this->transparency);
 	clone->setBoundAction(this->getBoundAction());
 	//clone->Size = this->Size;
-	clone->Center = this->Center;
-	clone->visible = this->visible;
+	//clone->active = this->active;
+	//clone->name = this->name;
+	//clone->Center = this->Center;
+	//clone->Position = this->Position;
+	clone->type = this->type;
+	//clone->transparency = this->transparency;
+	//clone->setBoundAction(this->getBoundAction());
+	//clone->Size = this->Size;
+	//clone->Center = this->Center;
+	clone->setVisible(this->visible);
 
 	return clone;
 
@@ -340,4 +354,5 @@ AbstractCollider* BoxCollider::clone()
 
 BoxCollider::~BoxCollider()
 {
+	std::cout << "box collidier destroyed " << this->name << "\n";
 }

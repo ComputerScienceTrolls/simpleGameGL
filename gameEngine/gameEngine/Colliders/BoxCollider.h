@@ -14,6 +14,7 @@ class BoxCollider : public AbstractCollider
 {
 
 public:
+	BoxCollider();
 	BoxCollider(BoxCollider *copy);
 	BoxCollider(std::string name, AbstractSprite *parent, int w, int h);
 	BoxCollider(std::string name, AbstractSprite *parent, int w, int h, int posX, int posY);
